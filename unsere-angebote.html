@@ -595,7 +595,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     <div class="deliv-title">🚚 Liefergebiet Kärnten</div>
     <div class="dr"><span style="font-size:20px;">✅</span><div><strong>Lieferung kostenlos</strong> im Umkreis von 40 km (einfache Strecke)</div></div>
     <div class="dr"><span style="font-size:20px;">🔧</span><div><strong>Auf- & Abbau</strong> optional für nur <strong>50 €</strong> zusätzlich buchbar</div></div>
-    <div class="dr"><span style="font-size:20px;">📍</span><div>Jeder weitere Kilometer nur <strong>0,50 € / km</strong></div></div>
+    <div class="dr"><span style="font-size:20px;">📍</span><div>Jeder weitere Kilometer nur <strong>0,55 € / km</strong></div></div>
     <div class="dr"><span style="font-size:20px;">🏔️</span><div>Glödnitz · Gurk · St. Veit · Friesach · Feldkirchen & mehr</div></div>
     <div class="dr"><span style="font-size:20px;">📞</span><div>Größere Distanz? Einfach <strong>anfragen!</strong></div></div>
   </div>
@@ -890,6 +890,92 @@ window.addEventListener('DOMContentLoaded', function(){
     dragging = false; timer = setInterval(function(){ goTo(cur+1); }, 3000);
   });
 })();
+</script>
+ 
+<!-- LIGHTBOX -->
+<div id="lightbox" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);align-items:center;justify-content:center;padding:16px;">
+  <button onclick="closeLightbox()" style="position:absolute;top:16px;right:18px;background:none;border:none;color:white;font-size:36px;cursor:pointer;line-height:1;z-index:10000;">✕</button>
+  <button id="lb-prev" onclick="lbNav(-1)" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:white;font-size:28px;width:44px;height:44px;border-radius:50%;cursor:pointer;backdrop-filter:blur(8px);">‹</button>
+  <img id="lb-img" src="" style="max-width:100%;max-height:90vh;border-radius:12px;object-fit:contain;box-shadow:0 8px 48px rgba(0,0,0,.5);">
+  <button id="lb-next" onclick="lbNav(1)" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:white;font-size:28px;width:44px;height:44px;border-radius:50%;cursor:pointer;backdrop-filter:blur(8px);">›</button>
+  <div id="lb-counter" style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-family:'Baloo 2',cursive;font-size:13px;"></div>
+</div>
+ 
+<script>
+var _lbImgs = [];
+var _lbIdx = 0;
+ 
+function openLightbox(imgs, idx) {
+  _lbImgs = imgs;
+  _lbIdx = idx;
+  lbShow();
+  document.getElementById('lightbox').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+ 
+function lbShow() {
+  document.getElementById('lb-img').src = _lbImgs[_lbIdx];
+  var counter = document.getElementById('lb-counter');
+  counter.textContent = _lbImgs.length > 1 ? (_lbIdx + 1) + ' / ' + _lbImgs.length : '';
+  document.getElementById('lb-prev').style.display = _lbImgs.length > 1 ? '' : 'none';
+  document.getElementById('lb-next').style.display = _lbImgs.length > 1 ? '' : 'none';
+}
+ 
+function lbNav(dir) {
+  _lbIdx = (_lbIdx + dir + _lbImgs.length) % _lbImgs.length;
+  lbShow();
+}
+ 
+function closeLightbox() {
+  document.getElementById('lightbox').style.display = 'none';
+  document.body.style.overflow = '';
+}
+ 
+// Klick auf Hintergrund schließt Lightbox
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if(e.target === this) closeLightbox();
+});
+ 
+// Tastatur: Pfeiltasten + ESC
+document.addEventListener('keydown', function(e) {
+  if(document.getElementById('lightbox').style.display === 'none') return;
+  if(e.key === 'ArrowRight') lbNav(1);
+  if(e.key === 'ArrowLeft') lbNav(-1);
+  if(e.key === 'Escape') closeLightbox();
+});
+ 
+// Alle Slideshow-Bilder klickbar machen
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.slideshow').forEach(function(ss) {
+    var imgs = ss.querySelectorAll('img');
+    if(!imgs.length) return;
+    var srcs = Array.from(imgs).map(function(i){ return i.src; });
+    imgs.forEach(function(img, idx) {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        openLightbox(srcs, idx);
+      });
+    });
+    // Lupe-Icon über Slideshow
+    var lupe = document.createElement('div');
+    lupe.innerHTML = '🔍';
+    lupe.style.cssText = 'position:absolute;bottom:36px;right:10px;z-index:5;background:rgba(0,0,0,.45);color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;pointer-events:none;backdrop-filter:blur(4px);';
+    ss.style.position = 'relative';
+    ss.appendChild(lupe);
+  });
+ 
+  // Extras-Bilder klickbar machen
+  document.querySelectorAll('.extras-img').forEach(function(img) {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      openLightbox([img.src], 0);
+    });
+  });
+});
 </script>
 </body>
 </html>
