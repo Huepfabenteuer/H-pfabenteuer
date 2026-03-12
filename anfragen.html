@@ -6,7 +6,7 @@
 <meta name="description" content="Hüpfburg anfragen – Hüpfabenteuer Kärnten. Einfach Formular ausfüllen, wir melden uns innerhalb 24h!"/>
 <title>Anfragen – Hüpfabenteuer Kärnten</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-
+ 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17627141841"></script>
 <script>
@@ -15,7 +15,7 @@
   gtag('js', new Date());
   gtag('config', 'AW-17627141841');
 </script>
-
+ 
 <style>
 :root{--pink:#ff4fa3;--purple:#a855f7;--sky:#00c2ff;--sun:#FFD600;--green:#00d97e;--dark:#0f0b2e;--shadow:0 8px 32px rgba(0,0,0,.10);--ok:#1b8d4b;--err:#b3261e;}
 html{color-scheme:light only;}
@@ -23,14 +23,14 @@ html{color-scheme:light only;}
 html{scroll-behavior:smooth;}
 body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e !important;overflow-x:hidden;padding-bottom:86px;-webkit-text-size-adjust:100%;}
 @media(prefers-color-scheme:dark){html,body{background:#f0f2f8 !important;color:#0f0b2e !important;}.card{background:white !important;}}
-
+ 
 /* BOTTOM NAV */
 .bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,9,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
 .bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.5);transition:color .25s;position:relative;min-height:44px;}
 .bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,var(--pink),var(--purple));transition:width .3s cubic-bezier(.34,1.56,.64,1);}
 .bi.on{color:white;}.bi.on::after{width:36px;}.bi:active{transform:scale(.9);}
 .bi-ic{font-size:21px;}.bi.on .bi-ic{transform:scale(1.22) translateY(-2px);}.bi-lb{font-family:'Baloo 2',cursive;font-size:10px;font-weight:700;}
-
+ 
 /* HERO */
 .ph{background:linear-gradient(155deg,#0d0929 0%,#1a0d55 40%,#2a1668 70%,#1e0d4a 100%);padding:20px 18px 60px;position:relative;overflow:hidden;}
 .ph-bg div{position:absolute;border-radius:50%;pointer-events:none;}
@@ -46,14 +46,14 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .ph-title em{color:var(--sun);font-style:normal;}
 .ph-sub{color:rgba(255,255,255,.82);font-size:13px;font-weight:600;position:relative;z-index:2;margin-bottom:16px;}
 .wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
-
+ 
 /* SELECTED BURG BANNER */
 .burg-banner{margin:20px 16px 0;background:white;border-radius:20px;padding:16px 18px;box-shadow:var(--shadow);border-left:4px solid var(--pink);display:flex;align-items:center;gap:14px;}
 .burg-banner-icon{font-size:40px;flex-shrink:0;}
 .burg-banner-name{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:var(--dark);}
 .burg-banner-sub{font-size:12px;color:#888;font-weight:600;}
 .burg-banner-price{font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:var(--pink);margin-left:auto;flex-shrink:0;}
-
+ 
 /* FORM */
 .form-section{padding:20px 16px;}
 .card{background:white;border-radius:22px;padding:22px 20px;box-shadow:var(--shadow);margin-bottom:16px;border:1.5px solid rgba(0,0,0,.04);}
@@ -66,7 +66,7 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .field textarea{resize:vertical;min-height:90px;line-height:1.6;}
 .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-
+ 
 /* BURG PICKER */
 .burg-picker{display:flex;flex-direction:column;gap:10px;}
 .burg-opt{display:flex;align-items:center;gap:12px;padding:13px 15px;border:2px solid #eee;border-radius:16px;cursor:pointer;transition:all .2s;background:white;}
@@ -77,19 +77,19 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .burg-opt input[type=radio]{display:none;}
 .burg-opt-check{width:22px;height:22px;border-radius:50%;border:2px solid #ddd;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
 .burg-opt.selected .burg-opt-check{background:var(--purple);border-color:var(--purple);color:white;font-size:12px;}
-
+ 
 /* DAYS STEPPER */
 .stepper{display:flex;align-items:center;gap:0;border:2px solid #eee;border-radius:14px;overflow:hidden;}
 .step-btn{width:50px;height:50px;background:white;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;font-family:'Baloo 2',cursive;font-weight:900;color:var(--purple);}
 .step-btn:active{background:#f5f0ff;}
 .step-val{flex:1;text-align:center;font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:var(--dark);}
-
+ 
 /* PRICE ESTIMATE */
 .price-est{background:linear-gradient(135deg,rgba(255,79,163,.06),rgba(168,85,247,.08));border:1.5px solid rgba(168,85,247,.15);border-radius:16px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
 .pe-label{font-size:13px;font-weight:700;color:#666;}
 .pe-val{font-family:'Baloo 2',cursive;font-size:26px;font-weight:900;color:var(--pink);}
 .pe-note{font-size:10px;color:#bbb;margin-top:2px;}
-
+ 
 /* EXTRA TOGGLE BUTTON */
 .extra-toggle{width:100%;padding:16px;border:2px dashed rgba(168,85,247,.4);border-radius:14px;background:white;cursor:pointer;text-align:left;display:flex;gap:12px;align-items:flex-start;transition:.2s;margin-bottom:4px;}
 .extra-toggle .icon{font-size:22px;line-height:1;flex-shrink:0;}
@@ -100,7 +100,7 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .extra-toggle:hover{background:#f8f4ff;border-color:var(--purple);}
 .extra-toggle.selected{background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(255,79,163,.06));border-color:var(--purple);border-style:solid;}
 .extra-toggle.selected .extra-title{color:var(--purple);}
-
+ 
 /* SUB-EXTRAS PANEL */
 .sub-extra-panel{display:none;margin-top:8px;margin-bottom:8px;background:linear-gradient(135deg,rgba(255,214,0,.06),rgba(255,79,163,.06));border:1.5px solid rgba(255,214,0,.3);border-radius:14px;padding:14px 16px;animation:fadeSlide .25s ease;}
 .sub-extra-panel.open{display:block;}
@@ -113,7 +113,7 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .sub-extra-toggle.selected .set-name{color:var(--purple);}
 .sub-extra-toggle .set-price{font-size:12px;font-weight:700;color:var(--purple);}
 .sub-extra-desc{font-size:11px;color:#888;margin-top:6px;line-height:1.5;padding:0 2px;}
-
+ 
 /* BESTELLÜBERSICHT */
 .order-summary{background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(255,79,163,.06));border:2px solid rgba(168,85,247,.18);border-radius:18px;padding:18px 18px;margin-bottom:16px;display:none;}
 .order-summary.visible{display:block;}
@@ -126,29 +126,29 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .order-total-label{font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;color:var(--dark);}
 .order-total-val{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;color:var(--pink);}
 .order-note{font-size:10px;color:#bbb;margin-top:8px;text-align:center;}
-
+ 
 /* SUBMIT */
 .btn-submit{width:100%;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;padding:17px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;border:none;cursor:pointer;box-shadow:0 8px 28px rgba(255,79,163,.4);transition:transform .15s,box-shadow .15s,opacity .15s;display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;}
 .btn-submit:active{transform:scale(.97);}
 .btn-submit:disabled{opacity:.6;cursor:not-allowed;}
-
+ 
 /* FORM STATUS MESSAGE */
 .form-msg{margin-top:14px;font-weight:700;text-align:center;font-size:15px;padding:12px 16px;border-radius:12px;display:none;}
 .form-msg.ok{display:block;color:var(--ok);background:rgba(27,141,75,.08);border:1.5px solid rgba(27,141,75,.2);}
 .form-msg.err{display:block;color:var(--err);background:rgba(179,38,30,.06);border:1.5px solid rgba(179,38,30,.18);}
-
+ 
 /* FOOTER */
 footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
 .fl{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:white;margin-bottom:4px;}
 .flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:10px 0;}
 .flink{color:rgba(255,255,255,.62);text-decoration:none;font-size:11px;padding:4px 10px;background:rgba(255,255,255,.09);border-radius:20px;}
 .fcopy{font-size:11px;color:rgba(255,255,255,.42);margin-top:10px;}
-
+ 
 /* REVEAL */
 .reveal{opacity:1;transform:translateY(0);transition:opacity .5s ease,transform .5s ease;}
 .reveal.hide-init{opacity:0;transform:translateY(18px);}
 .reveal.visible{opacity:1;transform:translateY(0);}
-
+ 
 @media(min-width:768px){
   body{padding-bottom:0;}.bnav{display:none;}
   .ph{padding:32px 60px 80px;}
@@ -158,7 +158,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
 </style>
 </head>
 <body>
-
+ 
 <!-- HERO -->
 <div class="ph">
   <div class="stars" id="stars"></div>
@@ -173,7 +173,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
     <path d="M0 30C60 10 120 50 195 28C270 6 330 46 390 26V60H0Z" fill="#f0f2f8"/>
   </svg>
 </div>
-
+ 
 <!-- SELECTED BURG BANNER -->
 <div class="burg-banner reveal" id="burgBanner" style="display:none;">
   <div class="burg-banner-icon" id="bannerIcon">🏰</div>
@@ -183,15 +183,15 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
   </div>
   <div class="burg-banner-price" id="bannerPrice"></div>
 </div>
-
+ 
 <!-- ========== FORMCARRY FORM ========== -->
 <form id="anfrage-form" accept-charset="UTF-8" novalidate>
   <!-- Formcarry -->
   <input type="hidden" name="subject" id="form-subject" value="Neue Anfrage – Hüpfabenteuer">
   <input type="text" name="company" tabindex="-1" autocomplete="off" style="display:none">
-
+ 
   <div class="form-section">
-
+ 
     <!-- BURG WÄHLEN -->
     <div class="card reveal">
       <div class="card-title">🏰 Hüpfburg wählen</div>
@@ -241,7 +241,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
         </label>
       </div>
     </div>
-
+ 
     <!-- DATUM & DAUER -->
     <div class="card reveal">
       <div class="card-title">📅 Datum & Dauer</div>
@@ -274,7 +274,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
         <div class="pe-val" id="priceVal">–</div>
       </div>
     </div>
-
+ 
     <!-- KONTAKTDATEN -->
     <div class="card reveal">
       <div class="card-title">👤 Deine Daten</div>
@@ -298,7 +298,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
         <input type="email" name="E-Mail" placeholder="deine@email.at">
       </div>
     </div>
-
+ 
     <!-- LIEFERADRESSE -->
     <div class="card reveal">
       <div class="card-title">📍 Lieferadresse</div>
@@ -318,12 +318,12 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
         </div>
       </div>
     </div>
-
+ 
     <!-- EXTRAS -->
     <div class="card reveal">
       <div class="card-title">🍭 Extras & Wünsche</div>
       <div class="card-sub">Möchtest du noch etwas dazubuchen?</div>
-
+ 
       <!-- Auf- & Abbau Toggle -->
       <button type="button" class="extra-toggle" id="aufbau-btn">
         <span class="icon">🔧</span>
@@ -334,7 +334,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
         </span>
       </button>
       <input type="hidden" name="Auf- und Abbau" id="aufbau-val" value="Nein">
-
+ 
       <div class="field" style="margin-top:10px;">
         <label>Süße Extras (optional)</label>
         <select name="Extras" id="extras-select">
@@ -344,7 +344,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
           <option value="Zuckerwatte + Popcorn (+100€)">🍭🍿 Zuckerwatte + Popcorn (+100€)</option>
         </select>
       </div>
-
+ 
       <!-- SUB-EXTRA: Zuckerwatte-Set -->
       <div class="sub-extra-panel" id="zuckerwatte-panel">
         <div class="sub-extra-title">🍭 Zuckerwatte-Set dazunehmen?</div>
@@ -357,7 +357,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
         <div class="sub-extra-desc">Enthält: Geschmackssorten Erdbeere, Vanille, Kirsche, Bubblegum &amp; Apfel</div>
         <input type="hidden" name="Zuckerwatte-Set" id="zuckerwatte-set-val" value="Nein">
       </div>
-
+ 
       <!-- SUB-EXTRA: Popcorn-Set -->
       <div class="sub-extra-panel" id="popcorn-panel">
         <div class="sub-extra-title">🍿 Popcorn-Set dazunehmen?</div>
@@ -370,34 +370,34 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
         <div class="sub-extra-desc">Enthält: 1 kg Popcornmais &amp; Popcornöl</div>
         <input type="hidden" name="Popcorn-Set" id="popcorn-set-val" value="Nein">
       </div>
-
+ 
       <div class="field">
         <label>Nachricht / Besondere Wünsche</label>
         <textarea name="Nachricht" placeholder="z.B. Anzahl Kinder, besondere Örtlichkeit, Fragen…"></textarea>
       </div>
     </div>
-
+ 
     <!-- BESTELLÜBERSICHT -->
     <div class="order-summary reveal" id="orderSummary">
       <div class="order-summary-title">🛒 Deine Auswahl</div>
       <div id="orderRows"></div>
       <div class="order-note">* Geschätzter Preis · Lieferung gratis bis 40 km · Endpreis nach Bestätigung</div>
     </div>
-
+ 
     <button type="button" class="btn-submit reveal" id="submitBtn" onclick="submitAnfrage()">
       🚀 Anfrage absenden
     </button>
-
+ 
     <p id="form-msg" class="form-msg" aria-live="polite"></p>
-
+ 
     <p style="text-align:center;font-size:11px;color:#bbb;margin-top:14px;line-height:1.7;">
       Oder ruf uns direkt an: <a href="tel:+436641852634" style="color:var(--purple);font-weight:700;">+43 664 185 26 34</a><br>
       Wir melden uns innerhalb von 24 Stunden.
     </p>
-
+ 
   </div>
 </form>
-
+ 
 <footer>
   <div class="fl">🏰 Hüpfabenteuer</div>
   <div style="font-size:12px;color:rgba(255,255,255,.55);margin:4px 0;">Schulstraße 3 · 9346 Glödnitz · Kärnten</div>
@@ -408,7 +408,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
   </div>
   <div class="fcopy">© 2025–2026 Hüpfabenteuer</div>
 </footer>
-
+ 
 <nav class="bnav">
   <a href="home.html" class="bi"><span class="bi-ic">🏠</span><span class="bi-lb">Home</span></a>
   <a href="unsere-angebote.html?filter=burg" class="bi"><span class="bi-ic">🏰</span><span class="bi-lb">Hüpfburgen</span></a>
@@ -416,12 +416,12 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
   <a href="unsere-angebote.html?filter=extra" class="bi"><span class="bi-ic">🍭</span><span class="bi-lb">Extras</span></a>
   <a href="kontakt.html" class="bi on"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
 </nav>
-
+ 
 <script>
 var days = 1;
 var selectedPrice = 0;
 var selectedName = '';
-
+ 
 // ── Stars ──
 (function(){
   var sc=document.getElementById('stars');
@@ -432,14 +432,14 @@ var selectedName = '';
     sc.appendChild(s);
   }
 })();
-
+ 
 // ── Scroll reveal ──
 document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('hide-init');});
 var obs=new IntersectionObserver(function(entries){
   entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');e.target.classList.remove('hide-init');obs.unobserve(e.target);}});
 },{threshold:.05,rootMargin:'0px 0px -20px 0px'});
 document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
-
+ 
 // ── Burg picker ──
 document.querySelectorAll('.burg-opt').forEach(function(opt){
   opt.addEventListener('click', function(){
@@ -463,7 +463,7 @@ document.querySelectorAll('.burg-opt').forEach(function(opt){
     updateOrderSummary();
   });
 });
-
+ 
 // ── Days stepper ──
 function changeDays(d){
   days=Math.max(1,Math.min(14,days+d));
@@ -472,7 +472,7 @@ function changeDays(d){
   updatePrice();
   updateOrderSummary();
 }
-
+ 
 function updatePrice(){
   if(selectedPrice>0){
     var total = days===1 ? selectedPrice : selectedPrice+(days-1)*(selectedPrice*0.5);
@@ -482,12 +482,12 @@ function updatePrice(){
     document.getElementById('priceEst').style.display='none';
   }
 }
-
+ 
 // ── Datum: Enddatum >= Startdatum ──
 document.getElementById('datumStart').addEventListener('change', function(){
   if(this.value) document.getElementById('datumEnde').min=this.value;
 });
-
+ 
 // ── Auf- & Abbau Toggle ──
 var aufbauOn = false;
 document.getElementById('aufbau-btn').addEventListener('click', function(){
@@ -497,19 +497,19 @@ document.getElementById('aufbau-btn').addEventListener('click', function(){
   this.querySelector('.extra-hint').textContent = aufbauOn ? '✅ Aktiviert – wird dazugerechnet' : '👉 Klicken zum Aktivieren';
   updateOrderSummary();
 });
-
+ 
 // ── Süße Extras → Sub-Panels anzeigen ──
 var zuckerwatteSetOn = false;
 var popcornSetOn = false;
-
+ 
 document.getElementById('extras-select').addEventListener('change', function(){
   var val = this.value;
   var showZucker = val.indexOf('Zuckerwatte') !== -1;
   var showPopcorn = val.indexOf('Popcorn') !== -1;
-
+ 
   document.getElementById('zuckerwatte-panel').classList.toggle('open', showZucker);
   document.getElementById('popcorn-panel').classList.toggle('open', showPopcorn);
-
+ 
   // Reset sub-extras wenn abgewählt
   if(!showZucker && zuckerwatteSetOn){
     zuckerwatteSetOn = false;
@@ -525,7 +525,7 @@ document.getElementById('extras-select').addEventListener('change', function(){
   }
   updateOrderSummary();
 });
-
+ 
 // ── Zuckerwatte-Set Toggle ──
 document.getElementById('zuckerwatte-set-btn').addEventListener('click', function(){
   zuckerwatteSetOn = !zuckerwatteSetOn;
@@ -534,7 +534,7 @@ document.getElementById('zuckerwatte-set-btn').addEventListener('click', functio
   document.getElementById('zuckerwatte-set-val').value = zuckerwatteSetOn ? 'Ja – Zuckerwatte-Set (+20 €)' : 'Nein';
   updateOrderSummary();
 });
-
+ 
 // ── Popcorn-Set Toggle ──
 document.getElementById('popcorn-set-btn').addEventListener('click', function(){
   popcornSetOn = !popcornSetOn;
@@ -543,22 +543,22 @@ document.getElementById('popcorn-set-btn').addEventListener('click', function(){
   document.getElementById('popcorn-set-val').value = popcornSetOn ? 'Ja – Popcorn-Set (+20 €)' : 'Nein';
   updateOrderSummary();
 });
-
+ 
 // ── Bestellübersicht aktualisieren ──
 function updateOrderSummary(){
   var rows = [];
   var total = 0;
-
+ 
   // Hüpfburg
   if(selectedName){
     var burgPreis = selectedPrice > 0 ? (days === 1 ? selectedPrice : selectedPrice + (days-1)*(selectedPrice*0.5)) : 0;
     rows.push({label: (selectedName === 'Hochzeitsburg' ? '💒' : '🏰') + ' ' + selectedName, val: burgPreis > 0 ? Math.round(burgPreis) + ' €' : 'Auf Anfrage'});
     if(burgPreis > 0) total += Math.round(burgPreis);
   }
-
+ 
   // Auf- & Abbau
   if(aufbauOn){ rows.push({label:'🔧 Auf- & Abbau', val:'+50 €'}); total += 50; }
-
+ 
   // Süße Extras
   var extrasVal = document.getElementById('extras-select').value;
   if(extrasVal && extrasVal !== 'Keine Extras'){
@@ -566,19 +566,19 @@ function updateOrderSummary(){
     rows.push({label: extrasVal.indexOf('Zuckerwatte + Popcorn') !== -1 ? '🍭🍿 Zuckerwatte + Popcorn' : extrasVal.indexOf('Zuckerwatte') !== -1 ? '🍭 Zuckerwatte' : '🍿 Popcorn', val:'+' + extrasPreis + ' €'});
     total += extrasPreis;
   }
-
+ 
   // Sets
   if(zuckerwatteSetOn){ rows.push({label:'🍭 Zuckerwatte-Set', val:'+20 €'}); total += 20; }
   if(popcornSetOn){ rows.push({label:'🍿 Popcorn-Set', val:'+20 €'}); total += 20; }
-
+ 
   var summary = document.getElementById('orderSummary');
   var orderRows = document.getElementById('orderRows');
-
+ 
   if(rows.length === 0){
     summary.classList.remove('visible');
     return;
   }
-
+ 
   var html = '';
   rows.forEach(function(r){
     html += '<div class="order-row"><span class="order-label">'+r.label+'</span><span class="order-val">'+r.val+'</span></div>';
@@ -586,8 +586,11 @@ function updateOrderSummary(){
   html += '<div class="order-row total"><span class="order-total-label">Gesamt (geschätzt)</span><span class="order-total-val">'+total.toFixed(2)+' €*</span></div>';
   orderRows.innerHTML = html;
   summary.classList.add('visible');
+  // Gesamtpreis global speichern für Formcarry
+  window._gesamtpreis = total > 0 ? total.toFixed(2) + ' €' : null;
+  window._preisdetails = rows.map(function(r){ return r.label + ': ' + r.val; }).join(' | ');
 }
-
+ 
 // ── Pre-select burg from URL ──
 window.addEventListener('DOMContentLoaded', function(){
   var params = new URLSearchParams(window.location.search);
@@ -610,18 +613,18 @@ window.addEventListener('DOMContentLoaded', function(){
   var today=new Date().toISOString().split('T')[0];
   document.getElementById('datumStart').min=today;
 });
-
+ 
 // ── Show status message ──
 function showMsg(text, ok){
   var el = document.getElementById('form-msg');
   el.textContent = text;
   el.className = 'form-msg ' + (ok ? 'ok' : 'err');
 }
-
+ 
 // ── FORMCARRY Konfiguration ──
 var FORMCARRY_ENDPOINT = 'https://formcarry.com/s/a0drkd2yAwf';
 var THANK_YOU_URL      = '/danke.html';
-
+ 
 // ── MAIN SUBMIT via Formcarry ──
 function submitAnfrage(){
   var vorname  = document.getElementById('vorname').value.trim();
@@ -636,7 +639,7 @@ function submitAnfrage(){
   var nachricht= document.querySelector('[name="Nachricht"]') ? document.querySelector('[name="Nachricht"]').value.trim() : '';
   var aufbau   = aufbauOn ? 'Ja (+50 \u20ac)' : 'Nein';
   var extras   = document.querySelector('[name="Extras"]') ? document.querySelector('[name="Extras"]').value : '';
-
+ 
   if(!vorname || !telefon){
     showMsg('\u26a0\ufe0f Bitte zumindest Vorname und Telefonnummer angeben.', false);
     return;
@@ -645,16 +648,16 @@ function submitAnfrage(){
     showMsg('\u26a0\ufe0f Bitte ein Startdatum w\u00e4hlen.', false);
     return;
   }
-
+ 
   var burgLine  = selectedName || 'Nicht ausgew\u00e4hlt';
   var datumLine = startDat + (endDat ? ' bis ' + endDat : '');
   var adresse   = [strasse, (plz + ' ' + ort).trim()].filter(Boolean).join(', ');
-
+ 
   var btn = document.getElementById('submitBtn');
   btn.disabled = true;
   btn.textContent = '\u23f3 Wird gesendet\u2026';
   showMsg('Anfrage wird gesendet\u2026', true);
-
+ 
   // FormData für Formcarry zusammenbauen
   var fd = new FormData();
   fd.append('subject',        'Neue Anfrage \u2013 ' + burgLine + ' \u2013 ' + startDat);
@@ -669,7 +672,10 @@ function submitAnfrage(){
   if(zuckerwatteSetOn) fd.append('Zuckerwatte-Set', 'Ja – Zuckerwatte-Set (+20 €)');
   if(popcornSetOn)     fd.append('Popcorn-Set',     'Ja – Popcorn-Set (+20 €)');
   if(nachricht) fd.append('Nachricht', nachricht);
-
+  // Gesamtpreis und Aufschlüsselung mitsenden
+  if(window._gesamtpreis) fd.append('Gesamtpreis (geschätzt)', window._gesamtpreis);
+  if(window._preisdetails) fd.append('Preisaufschlüsselung', window._preisdetails);
+ 
   fetch(FORMCARRY_ENDPOINT, {
     method:  'POST',
     headers: { 'Accept': 'application/json' },
@@ -694,7 +700,7 @@ function submitAnfrage(){
     btn.disabled = false; btn.textContent = '\uD83D\uDE80 Anfrage absenden';
   });
 }
-
+ 
 </script>
 </body>
 </html>
