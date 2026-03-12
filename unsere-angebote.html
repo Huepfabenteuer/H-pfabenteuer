@@ -94,7 +94,7 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
  
 /* day pricing */
 .day-price{background:linear-gradient(135deg,rgba(255,79,163,.06),rgba(168,85,247,.06));border:1.5px solid rgba(168,85,247,.12);border-radius:14px;padding:10px 13px;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
-.dp-main{flex:1;}
+.dp-main{flex:1;text-align:center;}
 .dp-row{display:flex;align-items:center;justify-content:space-between;font-size:12px;}
 .dp-label{color:#888;font-weight:600;}
 .dp-val{font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;color:#0f0b2e;}
@@ -230,7 +230,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     <span class="ph-chip">🏰 6 Hüpfburgen</span>
     <span class="ph-chip">📷 Fotoboxen</span>
     <span class="ph-chip">🍭 Extras</span>
-    <span class="ph-chip" style="background:rgba(255,69,0,.25);border-color:rgba(255,69,0,.4);">🚒 Neu dabei</span>
     <span class="ph-chip">🚚 Lieferung gratis bis 40 km</span>
   </div>
   <svg class="wave" viewBox="0 0 390 60" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -245,7 +244,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     <button class="ftab" data-filter="burg" onclick="filter('burg',this)">🏰 Hüpfburgen</button>
     <button class="ftab" data-filter="extra" onclick="filter('extra',this)">🍭 Extras</button>
     <button class="ftab" data-filter="foto" onclick="filter('foto',this)">📷 Fotobox</button>
-    <button class="ftab ftab-new" data-filter="neu" onclick="filter('neu',this)">🚒 Neu</button>
   </div>
 </div>
  
@@ -258,6 +256,46 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   </div>
  
   <div class="burg-list">
+ 
+ 
+    <!-- FEUERWEHRBURG – NEU -->
+    <a href="feuerwehrburg.html" class="burg-card reveal" data-cat="burg" style="text-decoration:none;color:inherit;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:14px;right:14px;z-index:3;background:linear-gradient(135deg,#ff4500,#cc1a1a);color:white;font-family:'Baloo 2',cursive;font-size:11px;font-weight:800;padding:5px 12px;border-radius:30px;box-shadow:0 4px 12px rgba(255,69,0,.4);animation:pulse-badge 2s ease-in-out infinite;">🔥 NEU</div>
+      <div class="burg-img-ph" style="background:linear-gradient(135deg,#cc1a1a,#7a0a0a);display:flex;position:relative;">
+        🚒
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.3));pointer-events:none;"></div>
+      </div>
+      <div class="burg-card-foot" style="border-top:3px solid #ff4500;">
+        <span class="burg-badge" style="background:linear-gradient(135deg,#ff4500,#cc1a1a);color:white;">🔜 Bald verfügbar</span>
+        <div class="burg-top">
+          <div class="burg-name">Feuerwehrauto</div>
+          <div class="burg-price-wrap">
+            <div class="burg-price" style="color:#ff4500;">140€</div>
+            <div class="burg-price-sub">pro Tag</div>
+          </div>
+        </div>
+        <p class="burg-desc">Die Feuerwehr-Hüpfburg mit Rutsche – actionreicher Spaß für kleine Retter! Tolles Feuerwehr-Design, perfekt für Geburtstage & Feste.</p>
+        <div class="specs">
+          <span class="spec">📏 5 × 4,2 × 3,4 m</span>
+          <span class="spec blue">👦 bis 10 Kinder</span>
+          <span class="spec green">🛝 Mit Rutsche</span>
+        </div>
+        <div class="day-price">
+          <div class="dp-main">
+            <div class="dp-row"><span class="dp-label">1 Tag</span><span class="dp-val" style="color:#ff4500;">140 €</span></div>
+            <div class="dp-divider"></div>
+            <div class="dp-row"><span class="dp-label">2 Tage</span><span class="dp-val">210 € <span style="font-size:10px;color:#aaa;font-weight:600;">(+70€/Tag)</span></span></div>
+          </div>
+        </div>
+        <div class="aufbau-row">
+          <div class="aufbau-label">🔧 Auf- & Abbau</div>
+          <div><div class="aufbau-price">+50 €</div><div class="aufbau-sub">optional buchbar</div></div>
+        </div>
+        <div class="burg-btns">
+          <span class="btn-anfragen" style="background:linear-gradient(135deg,#ff4500,#cc1a1a);box-shadow:0 6px 20px rgba(255,69,0,.35);">🔔 Jetzt vormerken →</span>
+        </div>
+      </div>
+    </a>
  
     <!-- ALIENBURG -->
     <div class="burg-card reveal" data-cat="burg">
@@ -378,6 +416,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
         </div>
       </div>
       <div class="burg-card-foot">
+        <span class="burg-badge" style="background:linear-gradient(135deg,#7c3aed,#a855f7);color:white;">⚔️ Für kleine Helden</span>
         <div class="burg-top">
           <div class="burg-name">Ritterburg</div>
           <div class="burg-price-wrap">
@@ -499,118 +538,16 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
       </div>
     </div>
  
-    <!-- FEUERWEHR TEASER – NEU Kategorie -->
-    <!-- (moved to section-neu below) -->
- 
   </div>
 </div>
  
-<!-- NEU SECTION -->
-<div class="sec" id="section-neu">
-  <div class="reveal">
-    <div class="tag" style="background:linear-gradient(135deg,rgba(255,69,0,.1),rgba(204,26,26,.12));color:#cc1a1a;">🚒 Neu dabei</div>
-    <div class="stitle">Brandneue <em style="color:#ff4500;">Neuheit</em></div>
-    <div class="stitle-sub">Frisch im Programm – jetzt anfragen!</div>
-  </div>
-  <div class="burg-list">
- 
-    <!-- FEUERWEHR TEASER – NEU Kategorie -->
-    <a href="feuerwehrburg.html" class="burg-card reveal" data-cat="neu" style="text-decoration:none;color:inherit;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:14px;right:14px;z-index:3;background:linear-gradient(135deg,#ff4500,#cc1a1a);color:white;font-family:'Baloo 2',cursive;font-size:11px;font-weight:800;padding:5px 12px;border-radius:30px;box-shadow:0 4px 12px rgba(255,69,0,.4);animation:pulse-badge 2s ease-in-out infinite;">🔥 NEU</div>
-      <div class="burg-img-ph" style="background:linear-gradient(135deg,#cc1a1a,#7a0a0a);display:flex;position:relative;">
-        🚒
-        <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.3));pointer-events:none;"></div>
-      </div>
-      <div class="burg-card-foot" style="border-top:3px solid #ff4500;">
-        <span class="burg-badge" style="background:linear-gradient(135deg,#ff4500,#cc1a1a);color:white;">🔜 Bald verfügbar</span>
-        <div class="burg-top">
-          <div class="burg-name">Feuerwehrauto</div>
-          <div class="burg-price-wrap">
-            <div class="burg-price" style="color:#ff4500;">140€</div>
-            <div class="burg-price-sub">pro Tag</div>
-          </div>
-        </div>
-        <p class="burg-desc">Die Feuerwehr-Hüpfburg mit Rutsche – actionreicher Spaß für kleine Retter! Tolles Feuerwehr-Design, perfekt für Geburtstage & Feste.</p>
-        <div class="specs">
-          <span class="spec">📏 5 × 4,2 × 3,4 m</span>
-          <span class="spec blue">👦 bis 10 Kinder</span>
-          <span class="spec green">🛝 Mit Rutsche</span>
-        </div>
-        <div class="burg-btns">
-          <span class="btn-anfragen" style="background:linear-gradient(135deg,#ff4500,#cc1a1a);box-shadow:0 6px 20px rgba(255,69,0,.35);">🔔 Jetzt vormerken →</span>
-        </div>
-      </div>
-    </a>
- 
-  </div>
-</div>
-<div class="sec" id="section-extra">
-  <div class="reveal">
-    <div class="tag">🍭 Extras & Fotobox</div>
-    <div class="stitle">Noch mehr <em>Spaß</em></div>
-    <div class="stitle-sub">Perfekte Ergänzung für dein Event</div>
-  </div>
-  <div class="extras-grid reveal">
-    <a href="fotobox.html" class="extras-card" data-cat="foto">
-      <img class="extras-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_8637-high-94tedm.jpg?enable-io=true&enable=upscale&crop=0.7505%3A1&width=800" alt="Fotobox" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="extras-img-ph" style="display:none;background:linear-gradient(135deg,#8898b8,#5a6880);">📷</div>
-      <div class="extras-card-foot">
-        <div class="ext-name">Fotobox</div>
-        <div class="ext-desc">3 Pakete · Sofortdruck</div>
-        <div class="ext-pr">Anfragen<span class="ext-arr">→</span></div>
-      </div>
-    </a>
-    <a href="zuckerwatte.html" class="extras-card" data-cat="extra">
-      <img class="extras-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_6594-high-8biq12.jpg?enable-io=true&enable=upscale&crop=1.2527%3A1&width=800" alt="Zuckerwatte" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="extras-img-ph" style="display:none;background:linear-gradient(135deg,#ffb3de,#ff69b4);">🍭</div>
-      <div class="extras-card-foot">
-        <div class="ext-name">Zuckerwatte</div>
-        <div class="ext-desc">Der süße Hit!</div>
-        <div class="ext-pr">45€<span class="ext-arr">→</span></div>
-      </div>
-    </a>
-    <a href="popcorn.html" class="extras-card" data-cat="extra">
-      <img class="extras-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_7003-standard.jpg" alt="Popcorn" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="extras-img-ph" style="display:none;background:linear-gradient(135deg,#ffd54f,#ff8f00);">🍿</div>
-      <div class="extras-card-foot">
-        <div class="ext-name">Popcorn</div>
-        <div class="ext-desc">Frisch & knusprig</div>
-        <div class="ext-pr">60€<span class="ext-arr">→</span></div>
-      </div>
-    </a>
-    <a href="kontakt.html" class="extras-card" data-cat="extra" style="background:linear-gradient(135deg,#1a0d55,#2a1668);border:none;">
-      <div class="extras-img-ph" style="background:transparent;">❄️</div>
-      <div class="extras-card-foot" style="background:transparent;">
-        <div class="ext-name" style="color:white;">Indoor</div>
-        <div class="ext-desc" style="color:rgba(255,255,255,.75);">Gasthof Hochsteiner</div>
-        <div class="ext-pr" style="color:var(--sky);">Anfragen<span class="ext-arr" style="background:rgba(255,255,255,.15);">→</span></div>
-      </div>
-    </a>
-  </div>
-</div>
- 
-<!-- LIEFERUNG -->
-<div class="sec">
-  <div class="reveal">
-    <div class="tag">🚚 Lieferung</div>
-    <div class="stitle">Faire <em>Lieferkosten</em></div>
-  </div>
-  <div class="deliv reveal">
-    <div class="deliv-title">🚚 Liefergebiet Kärnten</div>
-    <div class="dr"><span style="font-size:20px;">✅</span><div><strong>Lieferung kostenlos</strong> im Umkreis von 40 km (einfache Strecke)</div></div>
-    <div class="dr"><span style="font-size:20px;">🔧</span><div><strong>Auf- & Abbau</strong> optional für nur <strong>50 €</strong> zusätzlich buchbar</div></div>
-    <div class="dr"><span style="font-size:20px;">📍</span><div>Jeder weitere Kilometer nur <strong>0,55 € / km</strong></div></div>
-    <div class="dr"><span style="font-size:20px;">🏔️</span><div>Glödnitz · Gurk · St. Veit · Friesach · Feldkirchen & mehr</div></div>
-    <div class="dr"><span style="font-size:20px;">📞</span><div>Größere Distanz? Einfach <strong>anfragen!</strong></div></div>
-  </div>
-</div>
  
 <!-- CTA -->
 <div class="cta reveal">
   <span class="cta-em">🎉</span>
   <div class="cta-ttl">Nichts dabei?</div>
   <p class="cta-sub">Ruf uns einfach an – wir beraten dich kostenlos und finden das Richtige für dein Event!</p>
-  <a href="tel:+436641852634" class="cb-main">📞 +43 664 185 26 34</a>
+  <div style="display:flex;justify-content:center;"><a href="tel:+436641852634" class="cb-main" style="max-width:320px;">📞 +43 664 185 26 34</a></div>
 </div>
  
 <footer>
@@ -692,19 +629,12 @@ function filter(cat, btn){
   if(cat==='foto'||cat==='extra'){
     document.getElementById('section-burg').style.display='none';
     document.getElementById('section-extra').style.display='';
-    document.getElementById('section-neu').style.display='none';
   } else if(cat==='burg'){
     document.getElementById('section-burg').style.display='';
     document.getElementById('section-extra').style.display='none';
-    document.getElementById('section-neu').style.display='none';
-  } else if(cat==='neu'){
-    document.getElementById('section-burg').style.display='none';
-    document.getElementById('section-extra').style.display='none';
-    document.getElementById('section-neu').style.display='';
   } else {
     document.getElementById('section-burg').style.display='';
     document.getElementById('section-extra').style.display='';
-    document.getElementById('section-neu').style.display='';
   }
 }
  
@@ -716,10 +646,7 @@ window.addEventListener('DOMContentLoaded', function(){
     const btn = document.querySelector('.ftab[data-filter="'+catParam+'"]');
     if(btn) filter(catParam, btn);
   }
-  // Always ensure section-neu starts visible on "all"
-  if(!catParam){
-    document.getElementById('section-neu').style.display='';
-  }
+ 
 });
 </script>
 <script>
