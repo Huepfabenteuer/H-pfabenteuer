@@ -110,7 +110,20 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
 <div class="sec">
   <div class="card reveal">
     <div class="card-title">📸 Bilder folgen bald</div>
-    <div class="img-placeholder">💒</div>
+    <div class="slideshow" id="hoch-slide" style="position:relative;width:100%;height:220px;overflow:hidden;border-radius:16px;margin-bottom:14px;">
+      <div class="slides" style="display:flex;height:100%;transition:transform 0.4s ease;will-change:transform;">
+        <img style="min-width:100%;height:220px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://i.imgur.com/nrIyuLj.jpeg" alt="Hochzeitsburg 1">
+        <img style="min-width:100%;height:220px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://i.imgur.com/JYSliWm.jpeg" alt="Hochzeitsburg 2">
+        <img style="min-width:100%;height:220px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://i.imgur.com/YWPcq3n.jpeg" alt="Hochzeitsburg 3">
+        <img style="min-width:100%;height:220px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://i.imgur.com/AnlSwrr.jpeg" alt="Hochzeitsburg 4">
+      </div>
+      <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:2;">
+        <span class="sdot" data-i="0" style="width:8px;height:8px;border-radius:50%;background:white;opacity:1;cursor:pointer;display:block;"></span>
+        <span class="sdot" data-i="1" style="width:8px;height:8px;border-radius:50%;background:white;opacity:0.45;cursor:pointer;display:block;"></span>
+        <span class="sdot" data-i="2" style="width:8px;height:8px;border-radius:50%;background:white;opacity:0.45;cursor:pointer;display:block;"></span>
+        <span class="sdot" data-i="3" style="width:8px;height:8px;border-radius:50%;background:white;opacity:0.45;cursor:pointer;display:block;"></span>
+      </div>
+    </div>
     <p style="font-size:12px;color:#aaa;text-align:center;">Fotos werden demnächst ergänzt.</p>
   </div>
   <div class="card reveal">
@@ -169,6 +182,39 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
 document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('hide-init');});
 var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');x.target.classList.remove('hide-init');obs.unobserve(x.target);}})},{threshold:.05,rootMargin:'0px 0px -20px 0px'});
 document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+</script>
+<script>
+(function(){
+  var ss = document.getElementById('hoch-slide');
+  var slides = ss.querySelector('.slides');
+  var imgs = slides.querySelectorAll('img');
+  var dots = ss.querySelectorAll('.sdot');
+  var cur = 0, startX = 0, dragging = false;
+  function goTo(n){
+    cur = (n + imgs.length) % imgs.length;
+    slides.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    dots.forEach(function(d,i){ d.style.opacity = i===cur ? '1' : '0.45'; });
+  }
+  var timer = setInterval(function(){ goTo(cur+1); }, 3000);
+  dots.forEach(function(d){ d.addEventListener('click', function(){
+    clearInterval(timer); goTo(parseInt(d.getAttribute('data-i')));
+    timer = setInterval(function(){ goTo(cur+1); }, 3000);
+  }); });
+  ss.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; dragging=true; clearInterval(timer); },{passive:true});
+  ss.addEventListener('touchend', function(e){
+    if(!dragging) return;
+    var dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 40) goTo(dx < 0 ? cur+1 : cur-1);
+    dragging = false; timer = setInterval(function(){ goTo(cur+1); }, 3000);
+  });
+  ss.addEventListener('mousedown', function(e){ startX = e.clientX; dragging=true; clearInterval(timer); });
+  ss.addEventListener('mouseup', function(e){
+    if(!dragging) return;
+    var dx = e.clientX - startX;
+    if(Math.abs(dx) > 40) goTo(dx < 0 ? cur+1 : cur-1);
+    dragging = false; timer = setInterval(function(){ goTo(cur+1); }, 3000);
+  });
+})();
 </script>
 </body>
 </html>
