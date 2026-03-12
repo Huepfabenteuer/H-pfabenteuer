@@ -41,16 +41,9 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .stars{position:absolute;inset:0;pointer-events:none;}
 .star{position:absolute;border-radius:50%;background:white;animation:twinkle ease-in-out infinite;}
 @keyframes twinkle{0%,100%{opacity:.1;transform:scale(1);}50%{opacity:.55;transform:scale(1.4);}}
-.meteor{position:absolute;height:2px;border-radius:999px;pointer-events:none;opacity:0;transform-origin:left center;}
-
 .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;position:relative;z-index:2;}
 .logo{display:flex;align-items:center;gap:8px;}
 .logo-txt{font-family:'Baloo 2',cursive;font-size:19px;font-weight:800;color:white;}
-.logo-mark{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#FFD600,#ff9800);display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:white;box-shadow:0 4px 14px rgba(255,185,0,.45);flex-shrink:0;}
-.logo-text-wrap{display:flex;flex-direction:column;gap:0;line-height:1;}
-.logo-main{font-family:'Baloo 2',cursive;font-size:17px;font-weight:900;color:white;letter-spacing:-0.3px;}
-.logo-accent{color:var(--sun);text-shadow:0 0 16px rgba(255,214,0,.35);}
-.logo-sub{font-family:'Nunito',sans-serif;font-size:9px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:1.5px;text-transform:uppercase;}
 .call-btn{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:white;padding:8px 16px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;backdrop-filter:blur(8px);transition:background .2s,transform .15s;}
 .call-btn:active{transform:scale(.96);}
 .hero-img{width:100%;max-width:360px;height:210px;margin:0 auto 20px;border-radius:22px;overflow:hidden;border:2px solid rgba(255,255,255,.18);box-shadow:0 18px 50px rgba(0,0,0,.4);position:relative;animation:heroFloat 4s ease-in-out infinite;}
@@ -78,27 +71,23 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .stat-l{font-size:10px;color:rgba(255,255,255,.85);text-transform:uppercase;letter-spacing:.7px;}
 .stat-div{width:1px;background:rgba(255,255,255,.2);margin:5px 0;align-self:stretch;}
 .hero-btns{display:flex;gap:10px;position:relative;z-index:2;}
-.hbtn-main{flex:1;background:linear-gradient(135deg,#FFD600,#ff9800);color:#1a0d00;padding:16px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;text-decoration:none;text-align:center;box-shadow:0 8px 28px rgba(255,185,0,.45);transition:transform .15s;}
+.hbtn-main{flex:1;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;padding:16px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;text-decoration:none;text-align:center;box-shadow:0 8px 28px rgba(255,79,163,.45);transition:transform .15s;}
 .hbtn-main:active{transform:scale(.97);}
 .hbtn-sec{background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.3);color:white;padding:16px 20px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:16px;font-weight:700;text-decoration:none;transition:background .2s,transform .15s;}
 .hbtn-sec:active{transform:scale(.97);}
 .wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
 
 /* ── TRUST BAR ── */
-.trust{background:white;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08);position:relative;}
-.trust::before,.trust::after{content:'';position:absolute;top:0;bottom:0;width:48px;z-index:2;pointer-events:none;}
-.trust::before{left:0;background:linear-gradient(to right,white,transparent);}
-.trust::after{right:0;background:linear-gradient(to left,white,transparent);}
-.trust-track{display:flex;width:max-content;animation:tickerScroll 16s linear infinite;}
-.trust-track:hover{animation-play-state:paused;}
-@keyframes tickerScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
-.ti{display:flex;align-items:center;gap:8px;padding:13px 20px;flex-shrink:0;border-right:1px solid #f0f0f0;white-space:nowrap;}
+.trust{background:white;display:flex;overflow-x:auto;scrollbar-width:none;box-shadow:0 4px 20px rgba(0,0,0,.08);}
+.trust::-webkit-scrollbar{display:none;}
+.ti{display:flex;align-items:center;gap:8px;padding:13px 15px;flex-shrink:0;border-right:1px solid #f0f0f0;}
+.ti:last-child{border:none;}
 .ti-ic{font-size:19px;}
 .ti-main{font-size:11px;font-weight:800;color:var(--dark);}
 .ti-sub{font-size:10px;color:#888;font-weight:600;}
 
 /* ── TRUST SEALS ── */
-.seal-row{display:flex;gap:10px;padding:20px 18px 4px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;justify-content:center;}
+.seal-row{display:flex;gap:10px;padding:20px 18px 4px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
 .seal-row::-webkit-scrollbar{display:none;}
 .seal{flex-shrink:0;background:white;border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:9px;box-shadow:var(--shadow);border:1.5px solid #f0eeff;min-width:148px;}
 .seal-ic{font-size:26px;flex-shrink:0;}
@@ -288,16 +277,16 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     </div>
     <div class="pop-body">
       <div class="pop-title">Unsere neue<br><em>Feuerwehr-Hüpfburg!</em></div>
-      <div class="pop-sub">Die Kinder werden begeistert sein – jetzt verfügbar für Geburtstage & Events in Kärnten!</div>
+      <div class="pop-sub">Die Kinder werden begeistert sein – bald verfügbar für Geburtstage & Events in Kärnten!</div>
       <div class="pop-price-row">
-        <div class="pop-price">130€ <small>/ Tag</small></div>
+        <div class="pop-price">140€ <small>/  Tag</small></div>
         <div class="pop-chips">
           <span class="pop-chip">🚒 Feuerwehr-Design</span>
           <span class="pop-chip">🚚 Lieferung bis 40 km gratis</span>
         </div>
       </div>
       <div class="pop-btns">
-        <a href="anfragen.html?burg=feuerwehr" class="pop-btn-main">🚒 Jetzt anfragen!</a>
+        <a href="anfragen.html?burg=feuerwehr" class="pop-btn-main">🚒 Jetzt vormerken!</a>
         <button class="pop-btn-skip" onclick="document.getElementById('popup-overlay').classList.add('hide')">Nein danke, weiter zur Seite →</button>
       </div>
     </div>
@@ -310,13 +299,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <div class="stars" id="stars"></div>
   <div class="hbg"><div class="b1"></div><div class="b2"></div><div class="b3"></div></div>
   <div class="topbar">
-    <div class="logo">
-      <div class="logo-mark">H</div>
-      <div class="logo-text-wrap">
-        <span class="logo-main">Hüpf<span class="logo-accent">abenteuer</span></span>
-        <span class="logo-sub">Kärnten</span>
-      </div>
-    </div>
+    <div class="logo"><img src=""></div>
     <a href="tel:+436641852634" class="call-btn">📞 Anrufen</a>
   </div>
   <div class="hero-img" style="position:relative;">
@@ -362,23 +345,17 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 
 <!-- TRUST BAR -->
 <div class="trust">
-  <div class="trust-track">
-    <div class="ti"><span class="ti-ic">🏰</span><div><div class="ti-main">Hüpfburgen</div><div class="ti-sub">6 Modelle</div></div></div>
-    <div class="ti"><span class="ti-ic">📷</span><div><div class="ti-main">Fotoboxen</div><div class="ti-sub">3 Pakete</div></div></div>
-    <div class="ti"><span class="ti-ic">🍭</span><div><div class="ti-main">Zuckerwatte</div><div class="ti-sub">& Popcorn</div></div></div>
-    <div class="ti"><span class="ti-ic">🚚</span><div><div class="ti-main">Gratis Lieferung</div><div class="ti-sub">bis 40 km</div></div></div>
-    <div class="ti"><span class="ti-ic">❄️</span><div><div class="ti-main">Indoor möglich</div><div class="ti-sub">Gasthof Hochsteiner</div></div></div>
-    <div class="ti"><span class="ti-ic">🏰</span><div><div class="ti-main">Hüpfburgen</div><div class="ti-sub">6 Modelle</div></div></div>
-    <div class="ti"><span class="ti-ic">📷</span><div><div class="ti-main">Fotoboxen</div><div class="ti-sub">3 Pakete</div></div></div>
-    <div class="ti"><span class="ti-ic">🍭</span><div><div class="ti-main">Zuckerwatte</div><div class="ti-sub">& Popcorn</div></div></div>
-    <div class="ti"><span class="ti-ic">🚚</span><div><div class="ti-main">Gratis Lieferung</div><div class="ti-sub">bis 40 km</div></div></div>
-    <div class="ti"><span class="ti-ic">❄️</span><div><div class="ti-main">Indoor möglich</div><div class="ti-sub">Gasthof Hochsteiner</div></div></div>
-  </div>
+  <div class="ti"><span class="ti-ic">🏰</span><div><div class="ti-main">Hüpfburgen</div><div class="ti-sub">4 Modelle</div></div></div>
+  <div class="ti"><span class="ti-ic">📷</span><div><div class="ti-main">Fotoboxen</div><div class="ti-sub">3 Pakete</div></div></div>
+  <div class="ti"><span class="ti-ic">🍭</span><div><div class="ti-main">Zuckerwatte</div><div class="ti-sub">& Popcorn</div></div></div>
+  <div class="ti"><span class="ti-ic">🚚</span><div><div class="ti-main">Gratis Lieferung</div><div class="ti-sub">bis 40 km</div></div></div>
+  <div class="ti"><span class="ti-ic">❄️</span><div><div class="ti-main">Indoor möglich</div><div class="ti-sub">Gasthof Hochsteiner</div></div></div>
 </div>
 
 <!-- TRUST SEALS -->
 <div class="seal-row reveal">
   <div class="seal"><span class="seal-ic">⭐</span><div><div class="seal-main">5,0 Google</div><div class="seal-sub">13 Bewertungen</div></div></div>
+  <div class="seal"><span class="seal-ic">🛡️</span><div><div class="seal-main">Versichert &amp; geprüft</div><div class="seal-sub">Zertifiziert</div></div></div>
   <div class="seal"><span class="seal-ic">🚚</span><div><div class="seal-main">Gratis Lieferung</div><div class="seal-sub">bis 40 km</div></div></div>
   <div class="seal"><span class="seal-ic">⚡</span><div><div class="seal-main">Schnelle Antwort</div><div class="seal-sub">innerhalb 24h</div></div></div>
 </div>
@@ -467,11 +444,11 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <div class="sec">
   <div class="reveal"><div class="tag">❓ FAQ</div><div class="stitle">Häufige <em>Fragen</em></div></div>
   <div class="reveal">
-    <div class="faq"><div class="faq-q"><span class="faq-qt">Wie weit liefert ihr?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Im Umkreis von 40 km kostenlos. Jeder weitere km kostet 0,50 €. Auf Anfrage auch weiter!</div></div></div>
-    <div class="faq"><div class="faq-q"><span class="faq-qt">Was ist alles inklusive?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Gebläse, Sicherheitsnetz, Einweisung & Support. Lieferung gratis bis 40 km. Auf- & Abbau optional für 50 €.</div></div></div>
-    <div class="faq"><div class="faq-q"><span class="faq-qt">Gibt es Indoor-Optionen?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Ja! Beim Gasthof Hochsteiner – wetterunabhängig, auch im Winter. Mit Kinoecke, Beamer & warmer Küche.</div></div></div>
-    <div class="faq"><div class="faq-q"><span class="faq-qt">Wie früh muss ich buchen?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">2–3 Wochen im Voraus empfohlen, besonders Mai–September. Kurzfristig manchmal möglich – einfach anrufen!</div></div></div>
-    <div class="faq"><div class="faq-q"><span class="faq-qt">Was bei schlechtem Wetter?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Bei schlechter Wettervorhersage muss 2–3 Tage vorher abgesagt werden – sonst kann die Anzahlung nicht erstattet werden.</div></div></div>
+    <div class="faq"><div class="faq-q" onclick="tfaq(this)"><span class="faq-qt">Wie weit liefert ihr?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Im Umkreis von 40 km kostenlos. Jeder weitere km kostet 0,50 €. Auf Anfrage auch weiter!</div></div></div>
+    <div class="faq"><div class="faq-q" onclick="tfaq(this)"><span class="faq-qt">Was ist alles inklusive?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Gebläse, Sicherheitsnetz, Einweisung & Support. Lieferung gratis bis 40 km. Auf- & Abbau optional für 50 €.</div></div></div>
+    <div class="faq"><div class="faq-q" onclick="tfaq(this)"><span class="faq-qt">Gibt es Indoor-Optionen?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Ja! Beim Gasthof Hochsteiner – wetterunabhängig, auch im Winter. Mit Kinoecke, Beamer & warmer Küche.</div></div></div>
+    <div class="faq"><div class="faq-q" onclick="tfaq(this)"><span class="faq-qt">Wie früh muss ich buchen?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">2–3 Wochen im Voraus empfohlen, besonders Mai–September. Kurzfristig manchmal möglich – einfach anrufen!</div></div></div>
+    <div class="faq"><div class="faq-q" onclick="tfaq(this)"><span class="faq-qt">Was bei schlechtem Wetter?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Bei Gewitter kurze Pause, bei starkem Regen verschieben wir kostenfrei. Oder Indoor beim Gasthof Hochsteiner!</div></div></div>
   </div>
 </div>
 
@@ -482,7 +459,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <p class="cta-sub">Ruf uns an oder schreib uns – wir antworten schnell & beraten kostenlos!</p>
   <div class="cta-btns">
     <a href="tel:+436641852634" class="cb-main">📞 +43 664 185 26 34</a>
-    <a href="/cdn-cgi/l/email-protection#d5bcbbb3ba95bda0b0a5b3b4b7b0bba1b0a0b0a7fbb4a1" class="cb-sec">✉️ <span class="__cf_email__" data-cfemail="d3babdb5bc93bba6b6a3b5b2b1b6bda7b6a6b6a1fdb2a7">[email&#160;protected]</span></a>
+    <a href="/cdn-cgi/l/email-protection#dab3b4bcb59ab2afbfaabcbbb8bfb4aebfafbfa8f4bbae" class="cb-sec">✉️ <span class="__cf_email__" data-cfemail="d4bdbab2bb94bca1b1a4b2b5b6b1baa0b1a1b1a6fab5a0">[email&#160;protected]</span></a>
   </div>
 </div>
 
@@ -537,7 +514,12 @@ var obs=new IntersectionObserver(function(entries){
 document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
 
 // FAQ
-
+function tfaq(el){
+  var item=el.parentElement;
+  var isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq.open').forEach(function(x){x.classList.remove('open');});
+  if(!isOpen)item.classList.add('open');
+}
 
 // Popup
 function closePopup(){document.getElementById('popup-overlay').classList.add('hide');}
@@ -563,76 +545,3 @@ document.getElementById('popup-overlay').addEventListener('click',function(e){if
     var s=Math.floor((diff%60000)/1000);
     var elH=document.getElementById('cdH');
     var elM=document.ge
-// Countdown tick interval
-    if(elH) elH.textContent=pad(totalH);
-    if(elM) elM.textContent=pad(m);
-    var elS=document.getElementById('cdS');
-    if(elS) elS.textContent=pad(s);
-  }
-  tick(); setInterval(tick,1000);
-})();
-</script>
-
-<!-- Meteors -->
-<script>
-(function(){
-  var hero = document.querySelector('.hero-wrap');
-  if(!hero) return;
-  function spawnMeteor(){
-    var m = document.createElement('div');
-    m.className = 'meteor';
-    // Random position anywhere in hero
-    var startX = Math.random() * 90;
-    var startY = Math.random() * 70;
-    // Random angle: mostly diagonal directions (0-360deg)
-    var angle = Math.random() * 360;
-    var rad = angle * Math.PI / 180;
-    var len = 60 + Math.random() * 80; // 60–140px tail
-    var dx = Math.cos(rad) * len * 3;
-    var dy = Math.sin(rad) * len * 3;
-    var dur = 700 + Math.random() * 600; // 0.7–1.3s
-    m.style.cssText = 'left:'+startX+'%;top:'+startY+'%;width:'+len+'px;transform:rotate('+angle+'deg);'
-      +'background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.95) 60%,rgba(255,255,255,0));';
-    hero.appendChild(m);
-    // Animate with keyframes via Web Animations API
-    m.animate([
-      {opacity:0, transform:'rotate('+angle+'deg) translateX(0)'},
-      {opacity:1, transform:'rotate('+angle+'deg) translateX('+(len*0.3)+'px)', offset:0.08},
-      {opacity:0.8, transform:'rotate('+angle+'deg) translateX('+(len*1.5)+'px)', offset:0.7},
-      {opacity:0, transform:'rotate('+angle+'deg) translateX('+(len*2.5)+'px)'}
-    ], {duration: dur, easing:'ease-in'}).onfinish = function(){ m.remove(); };
-  }
-  // Spawn 3 meteors with random intervals, repeat forever
-  function scheduleMeteor(){
-    spawnMeteor();
-    setTimeout(scheduleMeteor, 800 + Math.random() * 2400);
-  }
-  // Start 3 independent streams with offset delays
-  setTimeout(scheduleMeteor, 300);
-  setTimeout(scheduleMeteor, 1400);
-  setTimeout(scheduleMeteor, 2800);
-})();
-</script>
-
-<!-- FAQ: standalone Cloudflare-safe script -->
-<script>
-(function(){
-  function initFaq(){
-    document.querySelectorAll('.faq-q').forEach(function(q){
-      q.addEventListener('click', function(){
-        var item = this.parentElement;
-        var isOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq.open').forEach(function(x){ x.classList.remove('open'); });
-        if(!isOpen){ item.classList.add('open'); }
-      });
-    });
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', initFaq);
-  } else {
-    initFaq();
-  }
-})();
-</script>
-</body>
-</html>
