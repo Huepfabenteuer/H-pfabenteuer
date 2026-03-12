@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="color-scheme" content="light only"/>
+<meta name="description" content="Hüpfburgen mieten in Kärnten – Alienburg, Piratenburg, Ritterburg, Candyburg & mehr. Lieferung gratis bis 40 km. Auf- & Abbau optional 50 €. Jetzt anfragen!"/>
+<title>Unsere Angebote – Hüpfburgen & mehr | Hüpfabenteuer Kärnten</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --pink:#ff4fa3;--purple:#a855f7;--sky:#00c2ff;
+  --sun:#FFD600;--green:#00d97e;--dark:#0f0b2e;
+  --r:20px;--shadow:0 8px 32px rgba(0,0,0,.10);
+}
+html{color-scheme:light only;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e !important;overflow-x:hidden;padding-bottom:86px;-webkit-text-size-adjust:100%;}
+
+@media(prefers-color-scheme:dark){
+  html,body{background:#f0f2f8 !important;color:#0f0b2e !important;}
+  .burg-card,.extras-card,.deliv{background:white !important;color:#0f0b2e !important;}
+  .burg-card-foot,.extras-card-foot{background:white !important;}
+  .stitle,.burg-name,.ext-name{color:#0f0b2e !important;}
+  .burg-desc,.ext-desc{color:#666 !important;}
+}
+
+/* ── BOTTOM NAV ── */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,9,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
+.bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.5);transition:color .25s;position:relative;min-height:44px;}
+.bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,var(--pink),var(--purple));transition:width .3s cubic-bezier(.34,1.56,.64,1);}
+.bi.on{color:white;}
+.bi.on::after{width:36px;}
+.bi:active{transform:scale(.9);}
+.bi-ic{font-size:21px;transition:transform .25s cubic-bezier(.34,1.56,.64,1);}
+.bi.on .bi-ic{transform:scale(1.22) translateY(-2px);}
+.bi-lb{font-family:'Baloo 2',cursive;font-size:10px;font-weight:700;}
+
+/* ── HERO HEADER ── */
+.ph{background:linear-gradient(155deg,#0d0929 0%,#1a0d55 40%,#2a1668 70%,#1e0d4a 100%);padding:20px 18px 60px;position:relative;overflow:hidden;}
+.ph-bg div{position:absolute;border-radius:50%;pointer-events:none;}
+.ph-bg .b1{width:300px;height:300px;top:-100px;right:-60px;background:radial-gradient(circle,rgba(255,79,163,.16),transparent 65%);}
+.ph-bg .b2{width:220px;height:220px;bottom:-50px;left:-50px;background:radial-gradient(circle,rgba(0,194,255,.12),transparent 65%);}
+.stars{position:absolute;inset:0;pointer-events:none;}
+.star{position:absolute;border-radius:50%;background:white;animation:twinkle ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:.1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
+.ph-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;position:relative;z-index:2;}
+.ph-back{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);color:white;padding:8px 15px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;backdrop-filter:blur(8px);}
+.ph-call{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);color:white;padding:8px 15px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;backdrop-filter:blur(8px);}
+.ph-title{font-family:'Baloo 2',cursive;font-size:28px;font-weight:900;color:white;line-height:1.05;margin-bottom:6px;position:relative;z-index:2;}
+.ph-title em{color:var(--sun);font-style:normal;text-shadow:0 0 24px rgba(255,214,0,.35);}
+.ph-sub{color:rgba(255,255,255,.82);font-size:13px;font-weight:600;position:relative;z-index:2;margin-bottom:16px;}
+.ph-chips{display:flex;flex-wrap:wrap;gap:7px;position:relative;z-index:2;}
+.ph-chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:white;font-size:12px;font-weight:700;padding:5px 12px;border-radius:30px;}
+.wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
+
+/* ── FILTER TABS ── */
+.filter-wrap{background:white;padding:12px 18px;box-shadow:0 2px 12px rgba(0,0,0,.06);position:sticky;top:0;z-index:100;}
+.filter-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.filter-tabs::-webkit-scrollbar{display:none;}
+.ftab{flex-shrink:0;padding:7px 16px;border-radius:30px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;border:2px solid #eee;background:white;color:#888;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.ftab.on{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;border-color:transparent;box-shadow:0 4px 14px rgba(255,79,163,.3);}
+.ftab.ftab-new{border-color:rgba(255,69,0,.3);color:#cc1a1a;}
+.ftab.ftab-new.on{background:linear-gradient(135deg,#ff4500,#cc1a1a);color:white;border-color:transparent;box-shadow:0 4px 14px rgba(255,69,0,.35);}
+.ftab:active{transform:scale(.96);}
+
+/* ── SECTIONS ── */
+.sec{padding:24px 16px 8px;}
+.tag{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,rgba(255,79,163,.1),rgba(168,85,247,.12));color:var(--pink);font-family:'Baloo 2',cursive;font-size:11px;font-weight:800;padding:3px 11px;border-radius:30px;margin-bottom:7px;text-transform:uppercase;letter-spacing:.7px;}
+.stitle{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;line-height:1.1;margin-bottom:4px;color:#0f0b2e;}
+.stitle em{color:var(--pink);font-style:normal;}
+.stitle-sub{font-size:12px;color:#888;font-weight:600;margin-bottom:14px;}
+
+/* ── BURG CARDS ── */
+.burg-list{display:flex;flex-direction:column;gap:14px;}
+.burg-card{background:white;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);border:1.5px solid rgba(0,0,0,.04);transition:transform .2s,box-shadow .2s;text-decoration:none;color:inherit;display:block;}
+.burg-card:active{transform:scale(.99);box-shadow:0 4px 18px rgba(0,0,0,.09);}
+.burg-img{width:100%;height:200px;object-fit:cover;object-position:center;display:block;}
+.burg-img-ph{width:100%;height:200px;background:linear-gradient(135deg,#9ba5b0,#6e7880);display:flex;align-items:center;justify-content:center;font-size:60px;}
+.burg-card-foot{padding:16px 18px 14px;background:white;}
+.burg-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px;}
+.burg-name{font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:#0f0b2e;line-height:1.1;}
+.burg-price-wrap{text-align:right;flex-shrink:0;}
+.burg-price{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;color:var(--pink);line-height:1;}
+.burg-price-sub{font-size:10px;color:#bbb;font-weight:600;}
+.burg-price-anfrage{font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;color:var(--purple);}
+.burg-desc{font-size:13px;color:#555;line-height:1.6;margin-bottom:12px;}
+
+/* specs row */
+.specs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.spec{background:#f5f0ff;color:#6b21a8;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;display:flex;align-items:center;gap:4px;}
+.spec.green{background:#f0fff8;color:#0d7a45;}
+.spec.blue{background:#f0f8ff;color:#1a5fa8;}
+
+/* day pricing */
+.day-price{background:linear-gradient(135deg,rgba(255,79,163,.06),rgba(168,85,247,.06));border:1.5px solid rgba(168,85,247,.12);border-radius:14px;padding:10px 13px;margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.dp-main{flex:1;}
+.dp-row{display:flex;align-items:center;justify-content:space-between;font-size:12px;}
+.dp-label{color:#888;font-weight:600;}
+.dp-val{font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;color:#0f0b2e;}
+.dp-val.pink{color:var(--pink);}
+.dp-divider{height:1px;background:rgba(168,85,247,.1);margin:5px 0;}
+
+/* action buttons */
+.burg-btns{display:flex;gap:8px;align-items:center;}
+.btn-anfragen{flex:1;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;padding:13px;border-radius:14px;font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;text-decoration:none;text-align:center;box-shadow:0 6px 20px rgba(255,79,163,.35);display:block;min-height:48px;display:flex;align-items:center;justify-content:center;gap:6px;transition:transform .15s;}
+.btn-anfragen:active{transform:scale(.97);}
+.btn-anleitung{background:#f5f0ff;color:#7c3aed;padding:13px 14px;border-radius:14px;font-size:12px;font-weight:700;text-decoration:none;text-align:center;display:flex;align-items:center;gap:5px;white-space:nowrap;min-height:48px;transition:background .2s;}
+.btn-anleitung:active{background:#ede9ff;}
+.aufbau-row{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,rgba(0,201,126,.07),rgba(0,194,255,.07));border:1.5px solid rgba(0,201,126,.18);border-radius:14px;padding:10px 14px;margin-bottom:12px;}
+.aufbau-label{font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;color:#0a6b3e;display:flex;align-items:center;gap:6px;}
+.aufbau-price{font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:#0a6b3e;}
+.aufbau-sub{font-size:10px;color:#888;font-weight:600;text-align:right;line-height:1.3;}
+
+/* ── BADGE on card ── */
+.burg-badge{display:inline-flex;align-items:center;gap:4px;font-family:'Baloo 2',cursive;font-size:10px;font-weight:800;padding:3px 9px;border-radius:20px;margin-bottom:8px;}
+.badge-hit{background:var(--pink);color:white;}
+.badge-new{background:var(--sky);color:#003;}
+.badge-wedding{background:linear-gradient(135deg,#f8c8e8,#e8d4f8);color:#8b2d7a;}
+.badge-summer{background:linear-gradient(135deg,#FFD600,#ff9800);color:#3a1800;}
+
+/* ── EXTRAS GRID ── */
+.extras-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.extras-card{background:white;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);border:1.5px solid rgba(0,0,0,.04);text-decoration:none;color:inherit;display:block;transition:transform .2s;}
+.extras-card:active{transform:scale(.97);}
+.extras-img{width:100%;height:130px;object-fit:cover;display:block;}
+.extras-img-ph{width:100%;height:130px;display:flex;align-items:center;justify-content:center;font-size:44px;}
+.extras-card-foot{padding:12px 14px;}
+.ext-name{font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;color:#0f0b2e;margin-bottom:3px;}
+.ext-desc{font-size:11px;color:#999;margin-bottom:8px;}
+.ext-pr{font-family:'Baloo 2',cursive;font-size:17px;font-weight:900;color:var(--pink);display:flex;align-items:center;justify-content:space-between;}
+.ext-arr{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));display:flex;align-items:center;justify-content:center;color:white;font-size:12px;}
+
+/* ── DELIVERY ── */
+.deliv{background:white;border-radius:20px;padding:18px;box-shadow:var(--shadow);border:1.5px solid #eafff4;border-left:4px solid var(--green);}
+.deliv-title{font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;margin-bottom:10px;color:#0f0b2e;}
+.dr{display:flex;align-items:flex-start;gap:11px;padding:10px 0;border-bottom:1px solid #f5f5f5;font-size:13px;color:#444;}
+.dr:last-child{border:none;}
+
+/* ── CTA ── */
+.cta{background:linear-gradient(135deg,#c0187a,var(--pink) 40%,var(--purple));margin:20px 16px 8px;border-radius:22px;padding:26px 20px;text-align:center;position:relative;overflow:hidden;box-shadow:0 16px 48px rgba(255,79,163,.3);}
+.cta::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px,transparent 1px,transparent 14px);}
+.cta-em{font-size:38px;display:block;margin-bottom:6px;animation:bounce 2s ease-in-out infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes pulse-badge{0%,100%{box-shadow:0 4px 12px rgba(255,69,0,.4);}50%{box-shadow:0 4px 20px rgba(255,69,0,.7);}}
+.cta-ttl{font-family:'Baloo 2',cursive;font-size:21px;font-weight:900;color:white;margin-bottom:6px;position:relative;}
+.cta-sub{color:rgba(255,255,255,.9);font-size:12px;margin-bottom:16px;position:relative;line-height:1.6;}
+.cb-main{display:flex;align-items:center;justify-content:center;gap:7px;background:white;color:var(--pink);padding:14px;border-radius:15px;font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.12);position:relative;}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);padding:26px 20px 18px;text-align:center;position:relative;}
+footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);}
+.fl{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:white;margin-bottom:4px;}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:10px 0;}
+.flink{color:rgba(255,255,255,.62);text-decoration:none;font-size:11px;padding:4px 10px;background:rgba(255,255,255,.09);border-radius:20px;}
+.fcopy{font-size:11px;color:rgba(255,255,255,.42);margin-top:10px;}
+
+/* ── REVEAL ── */
+.reveal{opacity:1;transform:translateY(0);transition:opacity .5s ease,transform .5s ease;}
+.reveal.hide-init{opacity:0;transform:translateY(18px);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+
+/* ── DESKTOP HERO FIX ── */
+@media(min-width:768px){
+  .ph{padding:32px 48px 80px;}
+  .ph-title{font-size:42px;text-shadow:0 2px 20px rgba(0,0,0,.5);}
+  .ph-sub{font-size:15px;text-shadow:0 1px 10px rgba(0,0,0,.4);}
+  .ph-bg .b1{width:500px;height:500px;}
+  .ph-bg .b2{width:380px;height:380px;}
+  /* stronger dark overlay so text always readable */
+  .ph::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,6,35,.45) 0%,rgba(10,6,35,.2) 60%,transparent 100%);pointer-events:none;z-index:1;}
+  .ph-topbar,.ph-title,.ph-sub,.ph-chips{position:relative;z-index:2;}
+  /* wider layout on desktop */
+  .burg-list{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .extras-grid{grid-template-columns:1fr 1fr 1fr 1fr;}
+  .sec{padding:32px 48px 12px;}
+  .filter-wrap{padding:14px 48px;}
+  footer{padding:32px 48px 24px;}
+}
+@media(min-width:1200px){
+  .burg-list{grid-template-columns:1fr 1fr 1fr;}
+}
+
+
+@media(min-width:768px){
+  body{padding-bottom:0;}
+  .bnav{display:none;}
+  .ph{padding:36px 60px 90px;}
+  .ph::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(8,4,28,.7) 0%,rgba(15,8,40,.5) 50%,rgba(20,10,60,.3) 100%);pointer-events:none;z-index:1;}
+  .ph-topbar,.ph-title,.ph-sub,.ph-chips,.stars,.ph-bg{position:relative;z-index:2;}
+  .ph-title{font-size:46px;text-shadow:0 3px 24px rgba(0,0,0,.6);}
+  .ph-sub{font-size:16px;text-shadow:0 2px 12px rgba(0,0,0,.5);}
+  .filter-wrap{padding:16px 60px;}
+  .sec{padding:32px 60px 12px;max-width:1200px;margin:0 auto;}
+  .cta{margin:24px 60px 12px;max-width:1200px;}
+  footer{padding:32px 60px 24px;}
+  .burg-list{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .extras-grid{grid-template-columns:repeat(4,1fr);}
+}
+@media(min-width:1100px){
+  .burg-list{grid-template-columns:1fr 1fr 1fr;}
+}
+
+/* ── MOBILE ── */
+@media(max-width:420px){
+  .ph-title{font-size:24px;}
+  .burg-name{font-size:18px;}
+  .burg-price{font-size:20px;}
+  .burg-img,.burg-img-ph{height:180px;}
+}
+</style>
+</head>
+<body>
+
+<!-- PARTICLES -->
+<div style="position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;" id="particles"></div>
+
+<!-- HERO HEADER -->
+<div class="ph">
+  <div class="stars" id="stars"></div>
+  <div class="ph-bg"><div class="b1"></div><div class="b2"></div></div>
+  <div class="ph-topbar">
+    <a href="home.html" class="ph-back">← Home</a>
+    <a href="tel:+436641852634" class="ph-call">📞 Anrufen</a>
+  </div>
+  <h1 class="ph-title">Unsere <em>Angebote</em></h1>
+  <p class="ph-sub">Hüpfburgen, Fotoboxen & süße Extras – alles für dein Event</p>
+  <div class="ph-chips">
+    <span class="ph-chip">🏰 6 Hüpfburgen</span>
+    <span class="ph-chip">📷 Fotoboxen</span>
+    <span class="ph-chip">🍭 Extras</span>
+    <span class="ph-chip" style="background:rgba(255,69,0,.25);border-color:rgba(255,69,0,.4);">🚒 Neu dabei</span>
+    <span class="ph-chip">🚚 Lieferung gratis bis 40 km</span>
+  </div>
+  <svg class="wave" viewBox="0 0 390 60" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 30C60 10 120 50 195 28C270 6 330 46 390 26V60H0Z" fill="#f0f2f8"/>
+  </svg>
+</div>
+
+<!-- FILTER TABS -->
+<div class="filter-wrap">
+  <div class="filter-tabs">
+    <button class="ftab on" data-filter="all" onclick="filter('all',this)">🎪 Alle</button>
+    <button class="ftab" data-filter="burg" onclick="filter('burg',this)">🏰 Hüpfburgen</button>
+    <button class="ftab" data-filter="extra" onclick="filter('extra',this)">🍭 Extras</button>
+    <button class="ftab" data-filter="foto" onclick="filter('foto',this)">📷 Fotobox</button>
+    <button class="ftab ftab-new" data-filter="neu" onclick="filter('neu',this)">🚒 Neu</button>
+  </div>
+</div>
+
+<!-- HÜPFBURGEN -->
+<div class="sec" id="section-burg">
+  <div class="reveal">
+    <div class="tag">🏰 Hüpfburgen</div>
+    <div class="stitle">Unsere <em>Burgen</em></div>
+    <div class="stitle-sub">Lieferung gratis bis 40 km · Auf- & Abbau +50 €</div>
+  </div>
+
+  <div class="burg-list">
+
+    <!-- ALIENBURG -->
+    <div class="burg-card reveal" data-cat="burg">
+      <img class="burg-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_6816-high.jpg?enable-io=true&enable=upscale&crop=1.3497%3A1&width=800" alt="Alienburg Hüpfburg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="burg-img-ph" style="display:none;background:linear-gradient(135deg,#6a4faa,#3d2070);">🏰</div>
+      <div class="burg-card-foot">
+        <span class="burg-badge badge-hit">🔥 Bestseller</span>
+        <div class="burg-top">
+          <div class="burg-name">Alienburg</div>
+          <div class="burg-price-wrap">
+            <div class="burg-price">180€</div>
+            <div class="burg-price-sub">pro Tag</div>
+          </div>
+        </div>
+        <p class="burg-desc">Die Alienburg – außerirdischer Hüpfspaß garantiert! Das Highlight für actionreiche Geburtstage, Feste & Events in Kärnten.</p>
+        <div class="specs">
+          <span class="spec">📏 9,30 × 3 × 5 m</span>
+          <span class="spec blue">📍 Kärnten</span>
+          <span class="spec green">🛝 Mit Rutsche</span>
+        </div>
+        <div class="day-price">
+          <div class="dp-main">
+            <div class="dp-row"><span class="dp-label">1 Tag</span><span class="dp-val pink">180 €</span></div>
+            <div class="dp-divider"></div>
+            <div class="dp-row"><span class="dp-label">2 Tage</span><span class="dp-val">270 € <span style="font-size:10px;color:#aaa;font-weight:600;">(+90€/Tag)</span></span></div>
+          </div>
+        </div>
+        <div class="aufbau-row">
+          <div class="aufbau-label">🔧 Auf- & Abbau</div>
+          <div><div class="aufbau-price">+50 €</div><div class="aufbau-sub">optional buchbar</div></div>
+        </div>
+        <div class="burg-btns">
+          <a href="alienanleitung.html" class="btn-anleitung">📋 Anleitung</a>
+          <a href="anfragen.html?burg=alienburg" class="btn-anfragen">🏰 Anfragen</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIRATENBURG -->
+    <div class="burg-card reveal" data-cat="burg">
+      <img class="burg-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/a935ec86-ecba-44f8-ae5e-4d58174c492c-standard.jpg" alt="Piratenburg Hüpfburg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="burg-img-ph" style="display:none;background:linear-gradient(135deg,#1a3d5c,#0d1f30);">🏴‍☠️</div>
+      <div class="burg-card-foot">
+        <span class="burg-badge badge-hit">⚓ Abenteuer</span>
+        <div class="burg-top">
+          <div class="burg-name">Piratenburg</div>
+          <div class="burg-price-wrap">
+            <div class="burg-price">140€</div>
+            <div class="burg-price-sub">pro Tag</div>
+          </div>
+        </div>
+        <p class="burg-desc">Die Piratenburg – Abenteuer-Highlight für Kindergeburtstage & Events! Cooles Piratendesign mit Rutschmöglichkeit für stundenlangen Spaß.</p>
+        <div class="specs">
+          <span class="spec">📏 5 × 4 × 4,1 m</span>
+          <span class="spec blue">📍 Kärnten</span>
+          <span class="spec green">🛝 Mit Rutsche</span>
+        </div>
+        <div class="day-price">
+          <div class="dp-main">
+            <div class="dp-row"><span class="dp-label">1 Tag</span><span class="dp-val pink">140 €</span></div>
+            <div class="dp-divider"></div>
+            <div class="dp-row"><span class="dp-label">2 Tage</span><span class="dp-val">210 € <span style="font-size:10px;color:#aaa;font-weight:600;">(+70€/Tag)</span></span></div>
+          </div>
+        </div>
+        <div class="aufbau-row">
+          <div class="aufbau-label">🔧 Auf- & Abbau</div>
+          <div><div class="aufbau-price">+50 €</div><div class="aufbau-sub">optional buchbar</div></div>
+        </div>
+        <div class="burg-btns">
+          <a href="piratenanleitung.html" class="btn-anleitung">📋 Anleitung</a>
+          <a href="anfragen.html?burg=piratenburg" class="btn-anfragen">🏴‍☠️ Anfragen</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- RITTERBURG -->
+    <div class="burg-card reveal" data-cat="burg">
+      <img class="burg-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_6710-standard.jpg" alt="Ritterburg Hüpfburg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="burg-img-ph" style="display:none;background:linear-gradient(135deg,#8b4513,#5c2d0a);">⚔️</div>
+      <div class="burg-card-foot">
+        <div class="burg-top">
+          <div class="burg-name">Ritterburg</div>
+          <div class="burg-price-wrap">
+            <div class="burg-price">140€</div>
+            <div class="burg-price-sub">pro Tag</div>
+          </div>
+        </div>
+        <p class="burg-desc">Die Ritterburg mit Rutsche – Abenteuer für kleine Helden! Farbenfrohes Burgdesign mit integrierter Rutsche für strahlende Kinderaugen.</p>
+        <div class="specs">
+          <span class="spec">📏 5 × 4,2 × 3,4 m</span>
+          <span class="spec blue">📍 Kärnten</span>
+          <span class="spec green">🛝 Mit Rutsche</span>
+        </div>
+        <div class="day-price">
+          <div class="dp-main">
+            <div class="dp-row"><span class="dp-label">1 Tag</span><span class="dp-val pink">140 €</span></div>
+            <div class="dp-divider"></div>
+            <div class="dp-row"><span class="dp-label">2 Tage</span><span class="dp-val">210 € <span style="font-size:10px;color:#aaa;font-weight:600;">(+70€/Tag)</span></span></div>
+          </div>
+        </div>
+        <div class="aufbau-row">
+          <div class="aufbau-label">🔧 Auf- & Abbau</div>
+          <div><div class="aufbau-price">+50 €</div><div class="aufbau-sub">optional buchbar</div></div>
+        </div>
+        <div class="burg-btns">
+          <a href="ritterburganleitung.html" class="btn-anleitung">📋 Anleitung</a>
+          <a href="anfragen.html?burg=ritterburg" class="btn-anfragen">⚔️ Anfragen</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CANDYBURG -->
+    <div class="burg-card reveal" data-cat="burg">
+      <img class="burg-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_6456-high-8ti6im.jpg?enable-io=true&enable=upscale&crop=1.3333%3A1&width=800" alt="Candyburg Hüpfburg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="burg-img-ph" style="display:none;background:linear-gradient(135deg,#ff69b4,#c2185b);">🍭</div>
+      <div class="burg-card-foot">
+        <span class="burg-badge badge-summer">🍭 Bunt & fröhlich</span>
+        <div class="burg-top">
+          <div class="burg-name">Candyburg</div>
+          <div class="burg-price-wrap">
+            <div class="burg-price">120€</div>
+            <div class="burg-price-sub">pro Tag</div>
+          </div>
+        </div>
+        <p class="burg-desc">Die Candyburg – bunter Hüpfspaß für Kindergeburtstage! Mit leuchtenden Farben und integrierter Rutsche für stundenlange Unterhaltung.</p>
+        <div class="specs">
+          <span class="spec">📏 6,5 × 3 × 3 m</span>
+          <span class="spec blue">📍 Kärnten</span>
+          <span class="spec green">🛝 Mit Rutsche</span>
+        </div>
+        <div class="day-price">
+          <div class="dp-main">
+            <div class="dp-row"><span class="dp-label">1 Tag</span><span class="dp-val pink">120 €</span></div>
+            <div class="dp-divider"></div>
+            <div class="dp-row"><span class="dp-label">2 Tage</span><span class="dp-val">180 € <span style="font-size:10px;color:#aaa;font-weight:600;">(+60€/Tag)</span></span></div>
+          </div>
+        </div>
+        <div class="aufbau-row">
+          <div class="aufbau-label">🔧 Auf- & Abbau</div>
+          <div><div class="aufbau-price">+50 €</div><div class="aufbau-sub">optional buchbar</div></div>
+        </div>
+        <div class="burg-btns">
+          <a href="candyburganleitung.html" class="btn-anleitung">📋 Anleitung</a>
+          <a href="anfragen.html?burg=candyburg" class="btn-anfragen">🍭 Anfragen</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOCHZEITSBURG -->
+    <div class="burg-card reveal" data-cat="burg">
+      <img class="burg-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_6683-high-fgtvt2.jpg?enable-io=true&enable=upscale&crop=1.3333%3A1&width=800" alt="Hochzeitsburg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="burg-img-ph" style="display:none;background:linear-gradient(135deg,#f8c8e8,#d4a0c8);">💒</div>
+      <div class="burg-card-foot">
+        <span class="burg-badge badge-wedding">💍 Hochzeit & Events</span>
+        <div class="burg-top">
+          <div class="burg-name">Hochzeitsburg</div>
+          <div class="burg-price-wrap">
+            <div class="burg-price-anfrage">Auf Anfrage</div>
+          </div>
+        </div>
+        <p class="burg-desc">Die Hochzeitsburg bringt Romantik und Spaß zusammen! Ideal für Hochzeiten, Verlobungen oder Fotoshootings – stilvoll & elegant.</p>
+        <div class="specs">
+          <span class="spec">📏 5,1 × 4 × 4,8 m</span>
+          <span class="spec blue">📍 Kärnten</span>
+          <span class="spec" style="background:#fff0f8;color:#c0187a;">💍 Pakete möglich</span>
+        </div>
+        <div class="aufbau-row">
+          <div class="aufbau-label">🔧 Auf- & Abbau</div>
+          <div><div class="aufbau-price">+50 €</div><div class="aufbau-sub">optional buchbar</div></div>
+        </div>
+        <div class="burg-btns">
+          <a href="hochzeitsburg.html" class="btn-anleitung">🔍 Details</a>
+          <a href="anfragen.html?burg=hochzeitsburg" class="btn-anfragen">💍 Anfragen</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEUERWEHR TEASER – NEU Kategorie -->
+    <!-- (moved to section-neu below) -->
+
+  </div>
+</div>
+
+<!-- NEU SECTION -->
+<div class="sec" id="section-neu">
+  <div class="reveal">
+    <div class="tag" style="background:linear-gradient(135deg,rgba(255,69,0,.1),rgba(204,26,26,.12));color:#cc1a1a;">🚒 Neu dabei</div>
+    <div class="stitle">Brandneue <em style="color:#ff4500;">Neuheit</em></div>
+    <div class="stitle-sub">Frisch im Programm – jetzt anfragen!</div>
+  </div>
+  <div class="burg-list">
+
+    <!-- FEUERWEHR TEASER – NEU Kategorie -->
+    <a href="feuerwehrburg.html" class="burg-card reveal" data-cat="neu" style="text-decoration:none;color:inherit;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:14px;right:14px;z-index:3;background:linear-gradient(135deg,#ff4500,#cc1a1a);color:white;font-family:'Baloo 2',cursive;font-size:11px;font-weight:800;padding:5px 12px;border-radius:30px;box-shadow:0 4px 12px rgba(255,69,0,.4);animation:pulse-badge 2s ease-in-out infinite;">🔥 NEU</div>
+      <div class="burg-img-ph" style="background:linear-gradient(135deg,#cc1a1a,#7a0a0a);display:flex;position:relative;">
+        🚒
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.3));pointer-events:none;"></div>
+      </div>
+      <div class="burg-card-foot" style="border-top:3px solid #ff4500;">
+        <span class="burg-badge" style="background:linear-gradient(135deg,#ff4500,#cc1a1a);color:white;">🚒 Jetzt neu verfügbar</span>
+        <div class="burg-top">
+          <div class="burg-name">Feuerwehrauto</div>
+          <div class="burg-price-wrap">
+            <div class="burg-price" style="color:#ff4500;">Anfragen</div>
+            <div class="burg-price-sub">pro Tag</div>
+          </div>
+        </div>
+        <p class="burg-desc">Die Feuerwehr-Hüpfburg mit Rutsche – actionreicher Spaß für kleine Retter! Tolles Feuerwehr-Design, perfekt für Geburtstage & Feste.</p>
+        <div class="specs">
+          <span class="spec">📏 5 × 4,2 × 3,4 m</span>
+          <span class="spec blue">👦 bis 10 Kinder</span>
+          <span class="spec green">🛝 Mit Rutsche</span>
+        </div>
+        <div class="burg-btns">
+          <span class="btn-anfragen" style="background:linear-gradient(135deg,#ff4500,#cc1a1a);box-shadow:0 6px 20px rgba(255,69,0,.35);">🚒 Mehr erfahren →</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</div>
+<div class="sec" id="section-extra">
+  <div class="reveal">
+    <div class="tag">🍭 Extras & Fotobox</div>
+    <div class="stitle">Noch mehr <em>Spaß</em></div>
+    <div class="stitle-sub">Perfekte Ergänzung für dein Event</div>
+  </div>
+  <div class="extras-grid reveal">
+    <a href="fotobox.html" class="extras-card" data-cat="foto">
+      <img class="extras-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_8637-high-94tedm.jpg?enable-io=true&enable=upscale&crop=0.7505%3A1&width=800" alt="Fotobox" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="extras-img-ph" style="display:none;background:linear-gradient(135deg,#8898b8,#5a6880);">📷</div>
+      <div class="extras-card-foot">
+        <div class="ext-name">Fotobox</div>
+        <div class="ext-desc">3 Pakete · Sofortdruck</div>
+        <div class="ext-pr">Anfragen<span class="ext-arr">→</span></div>
+      </div>
+    </a>
+    <a href="zuckerwatte.html" class="extras-card" data-cat="extra">
+      <img class="extras-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_6594-high-8biq12.jpg?enable-io=true&enable=upscale&crop=1.2527%3A1&width=800" alt="Zuckerwatte" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="extras-img-ph" style="display:none;background:linear-gradient(135deg,#ffb3de,#ff69b4);">🍭</div>
+      <div class="extras-card-foot">
+        <div class="ext-name">Zuckerwatte</div>
+        <div class="ext-desc">Der süße Hit!</div>
+        <div class="ext-pr">45€<span class="ext-arr">→</span></div>
+      </div>
+    </a>
+    <a href="popcorn.html" class="extras-card" data-cat="extra">
+      <img class="extras-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_7003-standard.jpg" alt="Popcorn" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="extras-img-ph" style="display:none;background:linear-gradient(135deg,#ffd54f,#ff8f00);">🍿</div>
+      <div class="extras-card-foot">
+        <div class="ext-name">Popcorn</div>
+        <div class="ext-desc">Frisch & knusprig</div>
+        <div class="ext-pr">60€<span class="ext-arr">→</span></div>
+      </div>
+    </a>
+    <a href="kontakt.html" class="extras-card" data-cat="extra" style="background:linear-gradient(135deg,#1a0d55,#2a1668);border:none;">
+      <div class="extras-img-ph" style="background:transparent;">❄️</div>
+      <div class="extras-card-foot" style="background:transparent;">
+        <div class="ext-name" style="color:white;">Indoor</div>
+        <div class="ext-desc" style="color:rgba(255,255,255,.75);">Gasthof Hochsteiner</div>
+        <div class="ext-pr" style="color:var(--sky);">Anfragen<span class="ext-arr" style="background:rgba(255,255,255,.15);">→</span></div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- LIEFERUNG -->
+<div class="sec">
+  <div class="reveal">
+    <div class="tag">🚚 Lieferung</div>
+    <div class="stitle">Faire <em>Lieferkosten</em></div>
+  </div>
+  <div class="deliv reveal">
+    <div class="deliv-title">🚚 Liefergebiet Kärnten</div>
+    <div class="dr"><span style="font-size:20px;">✅</span><div><strong>Lieferung kostenlos</strong> im Umkreis von 40 km (einfache Strecke)</div></div>
+    <div class="dr"><span style="font-size:20px;">🔧</span><div><strong>Auf- & Abbau</strong> optional für nur <strong>50 €</strong> zusätzlich buchbar</div></div>
+    <div class="dr"><span style="font-size:20px;">📍</span><div>Jeder weitere Kilometer nur <strong>0,55 € / km</strong></div></div>
+    <div class="dr"><span style="font-size:20px;">🏔️</span><div>Glödnitz · Gurk · St. Veit · Friesach · Feldkirchen & mehr</div></div>
+    <div class="dr"><span style="font-size:20px;">📞</span><div>Größere Distanz? Einfach <strong>anfragen!</strong></div></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta reveal">
+  <span class="cta-em">🎉</span>
+  <div class="cta-ttl">Nichts dabei?</div>
+  <p class="cta-sub">Ruf uns einfach an – wir beraten dich kostenlos und finden das Richtige für dein Event!</p>
+  <a href="tel:+436641852634" class="cb-main">📞 +43 664 185 26 34</a>
+</div>
+
+<footer>
+  <div class="fl">🏰 Hüpfabenteuer</div>
+  <div style="font-size:12px;color:rgba(255,255,255,.55);margin:4px 0;">Schulstraße 3 · 9346 Glödnitz · Kärnten</div>
+  <div class="flinks">
+    <a href="impressum.html" class="flink">Impressum</a>
+    <a href="datenschutz.html" class="flink">Datenschutz</a>
+    <a href="agbs.html" class="flink">AGBs</a>
+  </div>
+  <div class="fcopy">© 2025–2026 Hüpfabenteuer</div>
+</footer>
+
+<nav class="bnav">
+  <a href="home.html"          class="bi"><span class="bi-ic">🏠</span><span class="bi-lb">Home</span></a>
+  <a href="unsere-angebote.html?filter=burg" class="bi"><span class="bi-ic">🏰</span><span class="bi-lb">Hüpfburgen</span></a>
+  <a href="unsere-angebote.html?filter=foto"        class="bi"><span class="bi-ic">📷</span><span class="bi-lb">Fotobox</span></a>
+  <a href="unsere-angebote.html?filter=extra"         class="bi"><span class="bi-ic">🍭</span><span class="bi-lb">Extras</span></a>
+  <a href="kontakt.html"        class="bi"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
+</nav>
+
+<script>
+// Particles
+(function(){
+  var pc=document.getElementById('particles');
+  var cl=['#ff4fa3','#a855f7','#00c2ff','#FFD600','#00d97e'];
+  for(var i=0;i<10;i++){
+    var p=document.createElement('div');
+    p.style.cssText='position:absolute;border-radius:50%;animation:fp linear infinite;';
+    var s=Math.random()*12+5;
+    p.style.width=s+'px';p.style.height=s+'px';
+    p.style.left=Math.random()*100+'%';
+    p.style.background=cl[Math.floor(Math.random()*cl.length)];
+    p.style.animationDuration=(Math.random()*15+10)+'s';
+    p.style.animationDelay=(Math.random()*10)+'s';
+    p.style.opacity='.07';
+    pc.appendChild(p);
+  }
+})();
+
+// Stars
+(function(){
+  var sc=document.getElementById('stars');
+  for(var i=0;i<20;i++){
+    var s=document.createElement('div');
+    s.className='star';
+    var sz=Math.random()*2+1;
+    s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;animation-duration:'+(Math.random()*3+2)+'s;animation-delay:'+(Math.random()*4)+'s;';
+    sc.appendChild(s);
+  }
+})();
+
+// Particle animation keyframe
+var style=document.createElement('style');
+style.textContent='@keyframes fp{0%{transform:translateY(110vh);opacity:0;}10%{opacity:.08;}90%{opacity:.08;}100%{transform:translateY(-10vh);opacity:0;}}';
+document.head.appendChild(style);
+
+// Scroll reveal
+document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('hide-init');});
+var obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('visible');e.target.classList.remove('hide-init');obs.unobserve(e.target);}
+  });
+},{threshold:.05,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+
+// Filter tabs
+function filter(cat, btn){
+  document.querySelectorAll('.ftab').forEach(function(t){t.classList.remove('on');});
+  btn.classList.add('on');
+  document.querySelectorAll('[data-cat]').forEach(function(card){
+    if(cat==='all'||card.dataset.cat===cat){
+      card.style.display='';
+    } else {
+      card.style.display='none';
+    }
+  });
+  // show/hide section headers
+  if(cat==='foto'||cat==='extra'){
+    document.getElementById('section-burg').style.display='none';
+    document.getElementById('section-extra').style.display='';
+    document.getElementById('section-neu').style.display='none';
+  } else if(cat==='burg'){
+    document.getElementById('section-burg').style.display='';
+    document.getElementById('section-extra').style.display='none';
+    document.getElementById('section-neu').style.display='none';
+  } else if(cat==='neu'){
+    document.getElementById('section-burg').style.display='none';
+    document.getElementById('section-extra').style.display='none';
+    document.getElementById('section-neu').style.display='';
+  } else {
+    document.getElementById('section-burg').style.display='';
+    document.getElementById('section-extra').style.display='';
+    document.getElementById('section-neu').style.display='';
+  }
+}
+
+// Auto-filter from URL parameter
+window.addEventListener('DOMContentLoaded', function(){
+  const urlParams = new URLSearchParams(window.location.search);
+  const catParam = urlParams.get('filter');
+  if(catParam){
+    const btn = document.querySelector('.ftab[data-filter="'+catParam+'"]');
+    if(btn) filter(catParam, btn);
+  }
+  // Always ensure section-neu starts visible on "all"
+  if(!catParam){
+    document.getElementById('section-neu').style.display='';
+  }
+});
+</script>
+</body>
+</html>

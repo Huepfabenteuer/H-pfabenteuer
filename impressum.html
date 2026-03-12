@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="color-scheme" content="light only"/>
+<title>Impressum – Hüpfabenteuer Kärnten</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--pink:#ff4fa3;--purple:#a855f7;--sky:#00c2ff;--sun:#FFD600;--green:#00d97e;--dark:#0f0b2e;--shadow:0 8px 32px rgba(0,0,0,.10);}
+html{color-scheme:light only;}*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:#f0f2f8;color:#0f0b2e;overflow-x:hidden;padding-bottom:86px;}
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,9,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);}
+.bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.5);position:relative;}
+.bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,var(--pink),var(--purple));transition:width .3s;}
+.bi.on{color:white;}.bi.on::after{width:36px;}
+.bi-ic{font-size:21px;}.bi-lb{font-family:'Baloo 2',cursive;font-size:10px;font-weight:700;}
+.ph{background:linear-gradient(155deg,#0d0929 0%,#1a0d55 40%,#2a1668 70%,#1e0d4a 100%);padding:20px 18px 60px;position:relative;overflow:hidden;}
+.ph-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+.ph-back{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);color:white;padding:8px 15px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;}
+.ph-title{font-family:'Baloo 2',cursive;font-size:26px;font-weight:900;color:white;margin-bottom:6px;}
+.ph-title em{color:var(--sun);font-style:normal;}
+.wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
+.content{padding:24px 16px 8px;max-width:700px;margin:0 auto;}
+.card{background:white;border-radius:22px;padding:22px 20px;box-shadow:var(--shadow);margin-bottom:16px;}
+.card-title{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:#0f0b2e;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #f0f0f0;}
+.row{margin-bottom:12px;}
+.row-label{font-family:'Baloo 2',cursive;font-size:12px;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.row-val{font-size:14px;color:#333;line-height:1.6;font-weight:600;}
+.row-val a{color:var(--purple);text-decoration:none;}
+footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
+.fl{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:white;margin-bottom:4px;}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:10px 0;}
+.flink{color:rgba(255,255,255,.62);text-decoration:none;font-size:11px;padding:4px 10px;background:rgba(255,255,255,.09);border-radius:20px;}
+.fcopy{font-size:11px;color:rgba(255,255,255,.42);margin-top:10px;}
+@media(min-width:768px){body{padding-bottom:0;}.bnav{display:none;}.content{padding:32px 60px 12px;}}
+</style>
+</head>
+<body>
+<div class="ph">
+  <div class="ph-topbar">
+    <a href="home.html" class="ph-back">← Home</a>
+  </div>
+  <h1 class="ph-title">Im<em>pressum</em></h1>
+  <svg class="wave" viewBox="0 0 390 60" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 30C60 10 120 50 195 28C270 6 330 46 390 26V60H0Z" fill="#f0f2f8"/>
+  </svg>
+</div>
+
+<div class="content">
+  <div class="card">
+    <div class="card-title">📋 Angaben gemäß § 5 ECG</div>
+    <div class="row">
+      <div class="row-label">Unternehmen</div>
+      <div class="row-val">Hüpfabenteuer Alexander Fodermayer</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Adresse</div>
+      <div class="row-val">Schulstraße 3<br>9346 Glödnitz<br>Österreich</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Kontakt</div>
+      <div class="row-val">
+        Telefon: <a href="tel:+436641852634">+43 664 185 26 34</a><br>
+        E-Mail: <a href="mailto:info@huepfabenteuer.at">info@huepfabenteuer.at</a><br>
+        Website: <a href="https://huepfabenteuer.at" target="_blank">https://huepfabenteuer.at</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-label">Unternehmensform</div>
+      <div class="row-val">Einzelunternehmen</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🏛️ Aufsicht & Mitgliedschaft</div>
+    <div class="row">
+      <div class="row-label">Aufsichtsbehörde</div>
+      <div class="row-val">Bezirkshauptmannschaft St. Veit an der Glan<br>Hauptplatz 28<br>9300 St. Veit an der Glan</div>
+    </div>
+    <div class="row">
+      <div class="row-label">Mitglied bei</div>
+      <div class="row-val">Wirtschaftskammer Kärnten<br>Bezirksstelle St. Veit/Glan</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚖️ Berufsrecht</div>
+    <div class="row">
+      <div class="row-label">Gewerbeordnung</div>
+      <div class="row-val"><a href="https://www.ris.bka.gv.at" target="_blank">www.ris.bka.gv.at</a></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="fl">🏰 Hüpfabenteuer</div>
+  <div style="font-size:12px;color:rgba(255,255,255,.55);margin:4px 0;">Schulstraße 3 · 9346 Glödnitz · Kärnten</div>
+  <div class="flinks">
+    <a href="impressum.html" class="flink">Impressum</a>
+    <a href="datenschutz.html" class="flink">Datenschutz</a>
+    <a href="agbs.html" class="flink">AGBs</a>
+  </div>
+  <div class="fcopy">© 2025–2026 Hüpfabenteuer</div>
+</footer>
+<nav class="bnav">
+  <a href="home.html" class="bi"><span class="bi-ic">🏠</span><span class="bi-lb">Home</span></a>
+  <a href="unsere-angebote.html?filter=burg" class="bi"><span class="bi-ic">🏰</span><span class="bi-lb">Hüpfburgen</span></a>
+  <a href="unsere-angebote.html?filter=foto" class="bi"><span class="bi-ic">📷</span><span class="bi-lb">Fotobox</span></a>
+  <a href="unsere-angebote.html?filter=extra" class="bi"><span class="bi-ic">🍭</span><span class="bi-lb">Extras</span></a>
+  <a href="kontakt.html" class="bi"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
+</nav>
+</body>
+</html>

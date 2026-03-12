@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="color-scheme" content="light only"/>
+<meta name="description" content="Zuckerwatte mieten Kärnten – süßes Highlight für Geburtstage & Events. 45€, Lieferung inklusive."/>
+<title>Zuckerwatte – Hüpfabenteuer Kärnten</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--pink:#ff4fa3;--purple:#a855f7;--sky:#00c2ff;--sun:#FFD600;--green:#00d97e;--dark:#0f0b2e;--candy:#ff69b4;--shadow:0 8px 32px rgba(0,0,0,.10);}
+html{color-scheme:light only;}*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e !important;overflow-x:hidden;padding-bottom:86px;-webkit-text-size-adjust:100%;}
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,9,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
+.bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.5);transition:color .25s;position:relative;min-height:44px;}
+.bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,var(--pink),var(--purple));transition:width .3s cubic-bezier(.34,1.56,.64,1);}
+.bi.on{color:white;}.bi.on::after{width:36px;}.bi:active{transform:scale(.9);}
+.bi-ic{font-size:21px;}.bi.on .bi-ic{transform:scale(1.22) translateY(-2px);}.bi-lb{font-family:'Baloo 2',cursive;font-size:10px;font-weight:700;}
+.ph{background:linear-gradient(155deg,#5c0030 0%,#8b0057 40%,#c2185b 70%,#880e4f 100%);padding:20px 18px 70px;position:relative;overflow:hidden;}
+.ph-bg div{position:absolute;border-radius:50%;pointer-events:none;}
+.ph-bg .b1{width:300px;height:300px;top:-100px;right:-60px;background:radial-gradient(circle,rgba(255,105,180,.25),transparent 65%);}
+.ph-bg .b2{width:220px;height:220px;bottom:-50px;left:-50px;background:radial-gradient(circle,rgba(255,214,0,.15),transparent 65%);}
+.stars{position:absolute;inset:0;pointer-events:none;}
+.star{position:absolute;border-radius:50%;background:white;animation:twinkle ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:.1;}50%{opacity:.5;}}
+.ph-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;position:relative;z-index:2;}
+.ph-back{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);color:white;padding:8px 15px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;backdrop-filter:blur(8px);}
+.ph-call{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);color:white;padding:8px 15px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;backdrop-filter:blur(8px);}
+.ph-icon{font-size:80px;display:block;text-align:center;margin:10px 0;animation:float 3s ease-in-out infinite;filter:drop-shadow(0 8px 24px rgba(0,0,0,.4));position:relative;z-index:2;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.ph-title{font-family:'Baloo 2',cursive;font-size:30px;font-weight:900;color:white;line-height:1.05;margin-bottom:6px;position:relative;z-index:2;}
+.ph-title em{color:var(--sun);font-style:normal;}
+.ph-sub{color:rgba(255,255,255,.85);font-size:13px;font-weight:600;position:relative;z-index:2;margin-bottom:16px;}
+.ph-chips{display:flex;flex-wrap:wrap;gap:7px;position:relative;z-index:2;}
+.ph-chip{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);color:white;font-size:12px;font-weight:700;padding:5px 12px;border-radius:30px;}
+.wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
+.price-strip{margin:20px 16px 0;background:white;border-radius:22px;padding:18px 20px;box-shadow:var(--shadow);display:flex;align-items:center;gap:16px;border-left:4px solid var(--candy);}
+.ps-price{font-family:'Baloo 2',cursive;font-size:40px;font-weight:900;color:var(--candy);line-height:1;}
+.ps-sub{font-size:11px;color:#bbb;font-weight:600;}
+.ps-divider{width:1px;background:#eee;align-self:stretch;}
+.ps-info{flex:1;}
+.ps-line{font-size:12px;font-weight:700;color:#555;display:flex;align-items:center;gap:6px;margin-bottom:4px;}
+.sec{padding:20px 16px 6px;}
+.card{background:white;border-radius:22px;padding:20px;box-shadow:var(--shadow);margin-bottom:14px;border:1.5px solid rgba(0,0,0,.04);}
+.card-title{font-family:'Baloo 2',cursive;font-size:17px;font-weight:900;color:var(--dark);margin-bottom:14px;}
+.feat{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #f5f5f5;font-size:13px;color:#444;line-height:1.6;}
+.feat:last-child{border:none;}
+.feat-ic{font-size:20px;flex-shrink:0;}
+.btns-wrap{padding:0 16px 20px;}
+.btn-main{display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,var(--candy),#c2185b);color:white;padding:16px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;text-decoration:none;box-shadow:0 8px 28px rgba(255,105,180,.4);margin-bottom:10px;min-height:56px;}
+.btn-sec{display:flex;align-items:center;justify-content:center;gap:7px;background:white;border:2px solid rgba(255,105,180,.2);color:var(--candy);padding:14px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;text-decoration:none;min-height:50px;}
+footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
+.fl{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:white;margin-bottom:4px;}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:10px 0;}
+.flink{color:rgba(255,255,255,.62);text-decoration:none;font-size:11px;padding:4px 10px;background:rgba(255,255,255,.09);border-radius:20px;}
+.fcopy{font-size:11px;color:rgba(255,255,255,.42);margin-top:10px;}
+.reveal{opacity:1;transform:translateY(0);transition:opacity .5s ease,transform .5s ease;}
+.reveal.hide-init{opacity:0;transform:translateY(18px);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@media(min-width:768px){body{padding-bottom:0;}.bnav{display:none;}.sec{padding:28px 60px 10px;max-width:860px;margin:0 auto;}.btns-wrap{padding:0 60px 24px;max-width:860px;margin:0 auto;}footer{padding:32px 60px 24px;}}
+</style>
+</head>
+<body>
+<div class="ph">
+  <div class="stars" id="stars"></div>
+  <div class="ph-bg"><div class="b1"></div><div class="b2"></div></div>
+  <div class="ph-topbar">
+    <a href="unsere-angebote.html?filter=extra" class="ph-back">← Extras</a>
+    <a href="tel:+436641852634" class="ph-call">📞 Anrufen</a>
+  </div>
+  <span class="ph-icon">🍭</span>
+  <h1 class="ph-title"><em>Zuckerwatte</em><br>der süße Hit!</h1>
+  <p class="ph-sub">Frische Zuckerwatte direkt bei deinem Event – Kinder & Erwachsene lieben es!</p>
+  <div class="ph-chips">
+    <span class="ph-chip">🍭 Frisch gemacht</span>
+    <span class="ph-chip">🎨 Verschiedene Farben</span>
+    <span class="ph-chip">🚚 Lieferung inkl.</span>
+  </div>
+  <svg class="wave" viewBox="0 0 390 60" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 30C60 10 120 50 195 28C270 6 330 46 390 26V60H0Z" fill="#f0f2f8"/>
+  </svg>
+</div>
+
+<div class="price-strip reveal">
+  <div>
+    <div class="ps-price">45€</div>
+    <div class="ps-sub">pro Event</div>
+  </div>
+  <div class="ps-divider"></div>
+  <div class="ps-info">
+    <div class="ps-line">✅ Maschine & Zutaten inklusive</div>
+    <div class="ps-line">✅ Lieferung & Aufbau inklusive</div>
+    <div class="ps-line">✅ Perfekt als Add-on zur Hüpfburg</div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="card reveal">
+    <div class="card-title">🍭 Was ist dabei?</div>
+    <div class="feat"><div class="feat-ic">🍭</div><div><strong>Professionelle Zuckerwatte-Maschine</strong> – wir bringen alles mit. Du musst nur genießen!</div></div>
+    <div class="feat"><div class="feat-ic">🎨</div><div><strong>Verschiedene Farben</strong> – klassisch Rosa, aber auch andere Farben auf Wunsch möglich.</div></div>
+    <div class="feat"><div class="feat-ic">👨‍🍳</div><div><strong>Frisch vor Ort</strong> – wird direkt bei deinem Event frisch gemacht. Kein Vergleich zu abgepackter Ware!</div></div>
+    <div class="feat"><div class="feat-ic">🎂</div><div><strong>Ideal kombinierbar</strong> – besonders beliebt in Kombination mit Hüpfburg und Popcorn-Maschine.</div></div>
+    <div class="feat"><div class="feat-ic">🚚</div><div><strong>Lieferung & Aufbau inklusive</strong> – kostenlos im 20 km Umkreis von Glödnitz.</div></div>
+  </div>
+  <div class="card reveal" style="background:linear-gradient(135deg,rgba(255,105,180,.06),rgba(194,24,91,.04));border:1.5px solid rgba(255,105,180,.15);">
+    <div class="card-title">💡 Tipp: Kombination</div>
+    <p style="font-size:13px;color:#555;line-height:1.7;margin-bottom:14px;">Spare mit unseren Kombipaketen! Zuckerwatte + Popcorn zusammen nur <strong style="color:var(--candy);">100 €</strong> statt 105 €.</p>
+    <a href="anfragen.html" style="display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,var(--candy),#c2185b);color:white;padding:13px;border-radius:13px;font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;text-decoration:none;">🍭🍿 Kombipaket anfragen</a>
+  </div>
+</div>
+
+<div class="btns-wrap reveal">
+  <a href="anfragen.html" class="btn-main">🍭 Jetzt anfragen – 45€</a>
+  <a href="tel:+436641852634" class="btn-sec">📞 Direkt anrufen</a>
+</div>
+
+<footer>
+  <div class="fl">🏰 Hüpfabenteuer</div>
+  <div style="font-size:12px;color:rgba(255,255,255,.55);margin:4px 0;">Schulstraße 3 · 9346 Glödnitz · Kärnten</div>
+  <div class="flinks"><a href="impressum.html" class="flink">Impressum</a><a href="datenschutz.html" class="flink">Datenschutz</a><a href="agbs.html" class="flink">AGBs</a></div>
+  <div class="fcopy">© 2025–2026 Hüpfabenteuer</div>
+</footer>
+<nav class="bnav">
+  <a href="home.html" class="bi"><span class="bi-ic">🏠</span><span class="bi-lb">Home</span></a>
+  <a href="unsere-angebote.html?filter=burg" class="bi"><span class="bi-ic">🏰</span><span class="bi-lb">Hüpfburgen</span></a>
+  <a href="unsere-angebote.html?filter=foto" class="bi"><span class="bi-ic">📷</span><span class="bi-lb">Fotobox</span></a>
+  <a href="unsere-angebote.html?filter=extra" class="bi on"><span class="bi-ic">🍭</span><span class="bi-lb">Extras</span></a>
+  <a href="kontakt.html" class="bi"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
+</nav>
+<script>
+(function(){var sc=document.getElementById('stars');for(var i=0;i<20;i++){var s=document.createElement('div');s.className='star';var sz=Math.random()*2+1;s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;animation-duration:'+(Math.random()*3+2)+'s;animation-delay:'+(Math.random()*4)+'s;';sc.appendChild(s);}})();
+document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('hide-init');});
+var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');x.target.classList.remove('hide-init');obs.unobserve(x.target);}});},{threshold:.05,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+</script>
+</body>
+</html>
