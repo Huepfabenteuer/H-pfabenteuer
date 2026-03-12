@@ -11,13 +11,13 @@
 html{color-scheme:light only;}*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
 body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e !important;overflow-x:hidden;padding-bottom:86px;-webkit-text-size-adjust:100%;}
 @media(prefers-color-scheme:dark){html,body{background:#f0f2f8 !important;color:#0f0b2e !important;}.card{background:white !important;}}
-
+ 
 .bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,9,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
 .bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.5);transition:color .25s;position:relative;min-height:44px;}
 .bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,var(--pink),var(--purple));transition:width .3s cubic-bezier(.34,1.56,.64,1);}
 .bi.on{color:white;}.bi.on::after{width:36px;}.bi:active{transform:scale(.9);}
 .bi-ic{font-size:21px;}.bi.on .bi-ic{transform:scale(1.22) translateY(-2px);}.bi-lb{font-family:'Baloo 2',cursive;font-size:10px;font-weight:700;}
-
+ 
 .ph{background:linear-gradient(155deg,#5c2d0a 0%,#8b4513 60%,#5c2d0a 100%);padding:20px 18px 70px;position:relative;overflow:hidden;}
 .ph-bg div{position:absolute;border-radius:50%;pointer-events:none;}
 .ph-bg .b1{width:320px;height:320px;top:-100px;right:-60px;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 65%);}
@@ -38,7 +38,7 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .ph-chips{display:flex;flex-wrap:wrap;gap:7px;position:relative;z-index:2;}
 .ph-chip{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);color:white;font-size:12px;font-weight:700;padding:5px 12px;border-radius:30px;}
 .wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
-
+ 
 .price-strip{margin:20px 16px 0;background:white;border-radius:22px;padding:18px 20px;box-shadow:var(--shadow);display:flex;align-items:center;gap:16px;border-left:4px solid var(--acc);}
 .ps-price{font-family:'Baloo 2',cursive;font-size:36px;font-weight:900;color:var(--acc);line-height:1;}
 .ps-sub{font-size:11px;color:#bbb;font-weight:600;}
@@ -46,24 +46,24 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .ps-info{flex:1;}
 .ps-line{font-size:12px;font-weight:700;color:#555;display:flex;align-items:center;gap:6px;margin-bottom:4px;}
 .ps-line:last-child{margin:0;}
-
+ 
 .sec{padding:20px 16px 6px;}
 .card{background:white;border-radius:22px;padding:20px;box-shadow:var(--shadow);margin-bottom:14px;border:1.5px solid rgba(0,0,0,.04);}
 .card-title{font-family:'Baloo 2',cursive;font-size:17px;font-weight:900;color:var(--dark);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
 .img-placeholder{width:100%;height:220px;border-radius:16px;background:linear-gradient(135deg,#8b4513,#5c2d0a);display:flex;align-items:center;justify-content:center;font-size:80px;margin-bottom:14px;}
 .burg-img{width:100%;height:220px;border-radius:16px;object-fit:cover;margin-bottom:14px;display:block;}
-
+ 
 .specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .spec-card{background:#f8f0ff;border:1.5px solid rgba(168,85,247,.12);border-radius:16px;padding:14px;text-align:center;}
 .spec-ic{font-size:28px;margin-bottom:5px;}
 .spec-val{font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;color:var(--dark);}
 .spec-lbl{font-size:11px;color:#999;font-weight:600;}
-
+ 
 .feat-list{display:flex;flex-direction:column;gap:0;}
 .feat{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #f5f5f5;font-size:13px;color:#444;line-height:1.6;}
 .feat:last-child{border:none;}
 .feat-ic{font-size:20px;flex-shrink:0;margin-top:1px;}
-
+ 
 .price-table{border-radius:16px;overflow:hidden;border:1.5px solid rgba(168,85,247,.15);}
 .pt-row{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid rgba(168,85,247,.08);}
 .pt-row:last-child{border:none;}
@@ -72,30 +72,30 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .pt-price{font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:var(--acc);}
 .pt-row.header .pt-price{color:white;}
 .pt-note{font-size:11px;color:#bbb;}
-
+ 
 .tag-chip{background:rgba(168,85,247,.08);border:1.5px solid rgba(168,85,247,.15);color:var(--acc);font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;padding:7px 14px;border-radius:30px;}
-
+ 
 .btns-wrap{padding:0 16px 20px;}
 .btn-main{display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:white;padding:16px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;text-decoration:none;box-shadow:0 8px 28px rgba(168,85,247,.35);margin-bottom:10px;min-height:56px;transition:transform .15s;}
 .btn-main:active{transform:scale(.97);}
 .btn-sec{display:flex;align-items:center;justify-content:center;gap:7px;background:white;border:2px solid rgba(168,85,247,.2);color:var(--acc);padding:14px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;text-decoration:none;min-height:50px;transition:transform .15s;}
 .btn-sec:active{transform:scale(.97);}
-
+ 
 footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
 .fl{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:white;margin-bottom:4px;}
 .flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:10px 0;}
 .flink{color:rgba(255,255,255,.62);text-decoration:none;font-size:11px;padding:4px 10px;background:rgba(255,255,255,.09);border-radius:20px;}
 .fcopy{font-size:11px;color:rgba(255,255,255,.42);margin-top:10px;}
-
+ 
 .reveal{opacity:1;transform:translateY(0);transition:opacity .5s ease,transform .5s ease;}
 .reveal.hide-init{opacity:0;transform:translateY(18px);}
 .reveal.visible{opacity:1;transform:translateY(0);}
-
+ 
 @media(min-width:768px){body{padding-bottom:0;}.bnav{display:none;}.ph{padding:36px 60px 90px;}.sec{padding:28px 60px 10px;max-width:960px;margin:0 auto;}.btns-wrap{padding:0 60px 24px;max-width:960px;margin:0 auto;}footer{padding:32px 60px 24px;}.specs-grid{grid-template-columns:repeat(4,1fr);}}
 </style>
 </head>
 <body>
-
+ 
 <div class="ph">
   <div class="stars" id="stars"></div>
   <div class="ph-bg"><div class="b1"></div><div class="b2"></div></div>
@@ -118,7 +118,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
     <path d="M0 30C60 10 120 50 195 28C270 6 330 46 390 26V60H0Z" fill="#f0f2f8"/>
   </svg>
 </div>
-
+ 
 <div class="price-strip reveal">
   <div>
     <div class="ps-price">140€</div>
@@ -126,21 +126,34 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
   </div>
   <div class="ps-divider"></div>
   <div class="ps-info">
-    <div class="ps-line">✅ Lieferung & Aufbau inklusive</div>
-    <div class="ps-line">✅ Kostenlos im 20 km Umkreis</div>
-    <div class="ps-line">✅ Abbau inklusive</div>
+    <div class="ps-line">✅ Kostenlos im 40 km Umkreis</div>
   </div>
 </div>
-
+ 
 <div class="sec">
-
+ 
   <!-- FOTO -->
   <div class="card reveal">
     <div class="card-title">📸 Bilder folgen bald</div>
-    <div class="img-placeholder">⚔️</div>
+    <div class="slideshow" id="rit-slide" style="position:relative;width:100%;height:220px;overflow:hidden;border-radius:16px;margin-bottom:14px;">
+      <div class="slides" style="display:flex;height:100%;transition:transform 0.4s ease;will-change:transform;">
+        <img style="min-width:100%;height:220px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_6710-standard.jpg" alt="Ritterburg">
+        <img style="min-width:100%;height:220px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://i.imgur.com/kW7FEQE.jpeg" alt="Ritterburg 1">
+        <img style="min-width:100%;height:220px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://i.imgur.com/SEIolcr.jpeg" alt="Ritterburg 2">
+        <img style="min-width:100%;height:220px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://i.imgur.com/ZFJVpVI.jpeg" alt="Ritterburg 3">
+        <img style="min-width:100%;height:220px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://i.imgur.com/ebv72Od.jpeg" alt="Ritterburg 4">
+      </div>
+      <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:2;">
+        <span class="sdot" data-i="0" style="width:8px;height:8px;border-radius:50%;background:white;opacity:1;cursor:pointer;display:block;"></span>
+        <span class="sdot" data-i="1" style="width:8px;height:8px;border-radius:50%;background:white;opacity:0.45;cursor:pointer;display:block;"></span>
+        <span class="sdot" data-i="2" style="width:8px;height:8px;border-radius:50%;background:white;opacity:0.45;cursor:pointer;display:block;"></span>
+        <span class="sdot" data-i="3" style="width:8px;height:8px;border-radius:50%;background:white;opacity:0.45;cursor:pointer;display:block;"></span>
+        <span class="sdot" data-i="4" style="width:8px;height:8px;border-radius:50%;background:white;opacity:0.45;cursor:pointer;display:block;"></span>
+      </div>
+    </div>
     <p style="font-size:12px;color:#aaa;text-align:center;">Fotos werden demnächst ergänzt.</p>
   </div>
-
+ 
   <!-- SPECS -->
   <div class="card reveal">
     <div class="card-title">📐 Technische Daten</div>
@@ -167,15 +180,15 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
       </div>
     </div>
   </div>
-
+ 
   <!-- FEATURES -->
   <div class="card reveal">
     <div class="card-title">⚔️ Was ist dabei?</div>
     <div class="feat-list">
-<div class="feat"><div class="feat-ic">⚔️</div><div><strong>Tolles Ritterburg-Design</strong> – Farbenfrohes Burgmotiv für kleine Helden.</div></div><div class="feat"><div class="feat-ic">🛝</div><div><strong>Integrierte Rutsche</strong> – Von der Burgmauer direkt in den Burghof rutschen!</div></div><div class="feat"><div class="feat-ic">🏰</div><div><strong>Stabiler Aufbau</strong> – Sicher verankert, auch bei lebhaftem Spiel.</div></div><div class="feat"><div class="feat-ic">🔧</div><div><strong>Lieferung & Aufbau</strong> – Wir bringen alles, bauen auf und wieder ab.</div></div><div class="feat"><div class="feat-ic">🔌</div><div><strong>Stromversorgung</strong> – Steckdose in der Nähe genügt (ca. 10 m).</div></div><div class="feat"><div class="feat-ic">🛡️</div><div><strong>Sicher & geprüft</strong> – Regelmäßig geprüft nach Sicherheitsstandards.</div></div>
+<div class="feat"><div class="feat-ic">⚔️</div><div><strong>Tolles Ritterburg-Design</strong> – Farbenfrohes Burgmotiv für kleine Helden.</div></div><div class="feat"><div class="feat-ic">🛝</div><div><strong>Integrierte Rutsche</strong> – Von der Burgmauer direkt in den Burghof rutschen!</div></div><div class="feat"><div class="feat-ic">🏰</div><div><strong>Stabiler Aufbau</strong> – Sicher verankert, auch bei lebhaftem Spiel.</div></div><div class="feat"><div class="feat-ic">🔌</div><div><strong>Stromversorgung</strong> – Steckdose in der Nähe genügt (ca. 10 m).</div></div>
     </div>
   </div>
-
+ 
   <!-- PREISTABELLE -->
   <div class="card reveal">
     <div class="card-title">💰 Preise</div>
@@ -197,9 +210,9 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
         <div class="pt-price">280 €</div>
       </div>
     </div>
-    <p style="font-size:11px;color:#bbb;margin-top:10px;text-align:center;line-height:1.6;">Lieferung kostenlos im 20 km Umkreis von Glödnitz. Jeder weitere km +0,55 €.</p>
+    <p style="font-size:11px;color:#bbb;margin-top:10px;text-align:center;line-height:1.6;">Lieferung kostenlos im 40 km Umkreis von Glödnitz. Jeder weitere km +0,55 €.</p>
   </div>
-
+ 
   <!-- IDEAL FÜR -->
   <div class="card reveal">
     <div class="card-title">🎉 Ideal für</div>
@@ -207,21 +220,21 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
 <span class="tag-chip">🎂 Kindergeburtstage</span><span class="tag-chip">🎪 Vereinsfeste</span><span class="tag-chip">🏘️ Dorffeste</span><span class="tag-chip">🌳 Gartenpartys</span><span class="tag-chip">🏫 Schulveranstaltungen</span>
     </div>
   </div>
-
+ 
   <!-- BESCHREIBUNG -->
   <div class="card reveal">
     <div class="card-title">ℹ️ Über diese Hüpfburg</div>
     <p style="font-size:13px;color:#555;line-height:1.7;">Die Ritterburg lässt Kinderträume wahr werden! Farbenfrohes Burgdesign mit strahlenden Farben und integrierter Rutsche. Kleine Ritter können hier hüpfen, rutschen und ihre eigene Burg verteidigen. Die Ritterburg ist ein Highlight auf jedem Kindergeburtstag und macht aus jedem Event ein mittelalterliches Abenteuerfest.</p>
   </div>
-
+ 
 </div>
-
+ 
 <!-- CTA BUTTONS -->
 <div class="btns-wrap reveal">
   <a href="anfragen.html?burg=ritterburg" class="btn-main">⚔️ Jetzt anfragen</a>
   <a href="https://www.huepfabenteuer.at/ritterburganleitung" target="_blank" class="btn-sec">📋 Aufbauanleitung</a>
 </div>
-
+ 
 <footer>
   <div class="fl">🏰 Hüpfabenteuer</div>
   <div style="font-size:12px;color:rgba(255,255,255,.55);margin:4px 0;">Schulstraße 3 · 9346 Glödnitz · Kärnten</div>
@@ -232,7 +245,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
   </div>
   <div class="fcopy">© 2025–2026 Hüpfabenteuer</div>
 </footer>
-
+ 
 <nav class="bnav">
   <a href="home.html" class="bi"><span class="bi-ic">🏠</span><span class="bi-lb">Home</span></a>
   <a href="unsere-angebote.html?filter=burg" class="bi on"><span class="bi-ic">🏰</span><span class="bi-lb">Hüpfburgen</span></a>
@@ -240,9 +253,47 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
   <a href="unsere-angebote.html?filter=extra" class="bi"><span class="bi-ic">🍭</span><span class="bi-lb">Extras</span></a>
   <a href="kontakt.html" class="bi"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
 </nav>
-
+ 
 <script>
-(function(){var sc=document.getElementById('stars');for(var i=0;i<20;i++){var s=document.createElement('div');s.className='star';var sz=Math.random()*2+1;s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;animation-duration:'+(Math.random()*3+2)+'s;animation-delay:'+(Math.random()*4)+'s;';sc.appendChild(s);}}{}
+(function(){var sc=document.getElementById('stars');for(var i=0;i<20;i++){var s=document.createElement('div');s.className='star';var sz=Math.random()*2+1;s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;animation-duration:'+(Math.random()*3+2)+'s;animation-delay:'+(Math.random()*4)+'s;';sc.appendChild(s);}})();
+document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('hide-init');});
+var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');x.target.classList.remove('hide-init');obs.unobserve(x.target);}})},{threshold:.05,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+</script>
+<script>
+(function(){
+  var ss = document.getElementById('rit-slide');
+  var slides = ss.querySelector('.slides');
+  var imgs = slides.querySelectorAll('img');
+  var dots = ss.querySelectorAll('.sdot');
+  var cur = 0, startX = 0, dragging = false;
+  function goTo(n){
+    cur = (n + imgs.length) % imgs.length;
+    slides.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    dots.forEach(function(d,i){ d.style.opacity = i===cur ? '1' : '0.45'; });
+  }
+  var timer = setInterval(function(){ goTo(cur+1); }, 3000);
+  dots.forEach(function(d){ d.addEventListener('click', function(){
+    clearInterval(timer); goTo(parseInt(d.getAttribute('data-i')));
+    timer = setInterval(function(){ goTo(cur+1); }, 3000);
+  }); });
+  ss.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; dragging=true; clearInterval(timer); },{passive:true});
+  ss.addEventListener('touchend', function(e){
+    if(!dragging) return;
+    var dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 40) goTo(dx < 0 ? cur+1 : cur-1);
+    dragging = false; timer = setInterval(function(){ goTo(cur+1); }, 3000);
+  });
+  ss.addEventListener('mousedown', function(e){ startX = e.clientX; dragging=true; clearInterval(timer); });
+  ss.addEventListener('mouseup', function(e){
+    if(!dragging) return;
+    var dx = e.clientX - startX;
+    if(Math.abs(dx) > 40) goTo(dx < 0 ? cur+1 : cur-1);
+    dragging = false; timer = setInterval(function(){ goTo(cur+1); }, 3000);
+  });
+})();
+</script>
+</body>
 document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('hide-init');});
 var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');x.target.classList.remove('hide-init');obs.unobserve(x.target);}})},{threshold:.05,rootMargin:'0px 0px -20px 0px'});
 document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
