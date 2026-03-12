@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="color-scheme" content="light only"/>
+<title>AGB – Hüpfabenteuer Kärnten</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--pink:#ff4fa3;--purple:#a855f7;--sky:#00c2ff;--sun:#FFD600;--green:#00d97e;--dark:#0f0b2e;--shadow:0 8px 32px rgba(0,0,0,.10);}
+html{color-scheme:light only;}*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:#f0f2f8;color:#0f0b2e;overflow-x:hidden;padding-bottom:86px;}
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,9,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);}
+.bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.5);position:relative;}
+.bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,var(--pink),var(--purple));transition:width .3s;}
+.bi.on{color:white;}.bi.on::after{width:36px;}
+.bi-ic{font-size:21px;}.bi-lb{font-family:'Baloo 2',cursive;font-size:10px;font-weight:700;}
+.ph{background:linear-gradient(155deg,#0d0929 0%,#1a0d55 40%,#2a1668 70%,#1e0d4a 100%);padding:20px 18px 60px;position:relative;overflow:hidden;}
+.ph-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+.ph-back{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);color:white;padding:8px 15px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;}
+.ph-title{font-family:'Baloo 2',cursive;font-size:26px;font-weight:900;color:white;margin-bottom:6px;}
+.ph-title em{color:var(--sun);font-style:normal;}
+.ph-sub{color:rgba(255,255,255,.75);font-size:13px;font-weight:600;}
+.wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
+.content{padding:24px 16px 8px;max-width:700px;margin:0 auto;}
+.card{background:white;border-radius:22px;padding:22px 20px;box-shadow:var(--shadow);margin-bottom:14px;}
+.card-title{font-family:'Baloo 2',cursive;font-size:17px;font-weight:900;color:#0f0b2e;display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid #f0f0f0;}
+.card-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Baloo 2',cursive;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.card-body{font-size:13px;color:#444;line-height:1.7;}
+.card-body ul{margin:8px 0 0 18px;}
+.card-body li{margin-bottom:5px;}
+.card-body strong{color:#0f0b2e;}
+footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
+.fl{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:white;margin-bottom:4px;}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:10px 0;}
+.flink{color:rgba(255,255,255,.62);text-decoration:none;font-size:11px;padding:4px 10px;background:rgba(255,255,255,.09);border-radius:20px;}
+.fcopy{font-size:11px;color:rgba(255,255,255,.42);margin-top:10px;}
+@media(min-width:768px){body{padding-bottom:0;}.bnav{display:none;}.content{padding:32px 60px 12px;}}
+</style>
+</head>
+<body>
+<div class="ph">
+  <div class="ph-topbar">
+    <a href="home.html" class="ph-back">← Home</a>
+  </div>
+  <h1 class="ph-title">Allgemeine Geschäfts<em>bedingungen</em></h1>
+  <p class="ph-sub">Hüpfabenteuer – Alexander Fodermayer</p>
+  <svg class="wave" viewBox="0 0 390 60" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 30C60 10 120 50 195 28C270 6 330 46 390 26V60H0Z" fill="#f0f2f8"/>
+  </svg>
+</div>
+
+<div class="content">
+
+  <div class="card">
+    <div class="card-title"><div class="card-num">1</div>Geltungsbereich</div>
+    <div class="card-body">Diese AGB gelten für sämtliche Mietverträge zwischen dem Vermieter (Hüpfabenteuer – Alexander Fodermayer, Schulstraße 3, 9346 Glödnitz) und dem Mieter, betreffend die Vermietung von Hüpfburgen und eventuellem Zusatzmaterial (z. B. Zuckerwattemaschine).</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="card-num">2</div>Vertragsabschluss</div>
+    <div class="card-body">Ein Mietvertrag kommt zustande, sobald eine schriftliche oder mündliche Bestätigung des Vermieters erfolgt. Reservierungen sind erst nach Bestätigung verbindlich.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="card-num">3</div>Mietdauer & Preise</div>
+    <div class="card-body">Die Mietdauer wird individuell vereinbart. Alle Preise gelten für den jeweiligen Mietzeitraum. Lieferung ist bis 40 km kostenlos, Auf- und Abbau sind gegen Aufpreis (50 €) möglich und werden separat vereinbart.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="card-num">4</div>Zahlung</div>
+    <div class="card-body">Die Zahlung erfolgt per Barzahlung bei Lieferung oder vorab per Überweisung. Der Vermieter behält sich das Recht vor, eine Anzahlung zu verlangen.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="card-num">5</div>Stornierung</div>
+    <div class="card-body">
+      Eine kostenlose Stornierung ist bis <strong>7 Tage vor dem vereinbarten Miettermin</strong> möglich. Danach gilt:<br><br>
+      <ul>
+        <li>Weniger als 7 Tage vorher: <strong>50 % des Mietpreises</strong></li>
+        <li>Am selben Tag oder Nichterscheinen: <strong>100 % des Mietpreises</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="card-num">6</div>Pflichten des Mieters</div>
+    <div class="card-body">
+      <ul>
+        <li>Die Hüpfburg muss durch <strong>Erwachsene beaufsichtigt</strong> werden.</li>
+        <li>Keine spitzen Gegenstände, Getränke oder Schuhe auf der Burg.</li>
+        <li>Die <strong>maximale Benutzeranzahl</strong> darf nicht überschritten werden.</li>
+        <li>Bei Regen, starkem Wind oder Sturm darf die Hüpfburg <strong>nicht genutzt</strong> werden.</li>
+        <li>Schäden oder Verschmutzungen müssen <strong>sofort gemeldet</strong> werden.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="card-num">7</div>Haftung</div>
+    <div class="card-body">Der Mieter haftet für alle Schäden, die durch unsachgemäße Nutzung entstehen. Der Vermieter übernimmt keine Haftung für Unfälle oder Verletzungen während der Nutzung.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="card-num">8</div>Lieferung, Auf- & Abbau</div>
+    <div class="card-body">Lieferung ist bis 40 km kostenlos (einfache Strecke). Auf- und Abbau erfolgen auf Wunsch gegen Aufpreis von <strong>50 €</strong>. Der genaue Betrag für weitere Entfernungen richtet sich nach Entfernung und Aufwand.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="card-num">9</div>Wetter</div>
+    <div class="card-body">Bei starkem Regen oder Unwetter kann die Buchung nach Absprache <strong>kostenlos storniert oder verschoben</strong> werden. Der Vermieter behält sich vor, bei schlechten Bedingungen die Anlieferung zu verweigern.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="card-num">10</div>Datenschutz</div>
+    <div class="card-body">Kundendaten werden ausschließlich zur Abwicklung des Mietverhältnisses verwendet und nicht an Dritte weitergegeben. Weitere Informationen findest du in unserer <a href="datenschutz.html" style="color:var(--purple);font-weight:700;">Datenschutzerklärung</a>.</div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="fl">🏰 Hüpfabenteuer</div>
+  <div style="font-size:12px;color:rgba(255,255,255,.55);margin:4px 0;">Schulstraße 3 · 9346 Glödnitz · Kärnten</div>
+  <div class="flinks">
+    <a href="impressum.html" class="flink">Impressum</a>
+    <a href="datenschutz.html" class="flink">Datenschutz</a>
+    <a href="agbs.html" class="flink">AGBs</a>
+  </div>
+  <div class="fcopy">© 2025–2026 Hüpfabenteuer</div>
+</footer>
+<nav class="bnav">
+  <a href="home.html" class="bi"><span class="bi-ic">🏠</span><span class="bi-lb">Home</span></a>
+  <a href="unsere-angebote.html?filter=burg" class="bi"><span class="bi-ic">🏰</span><span class="bi-lb">Hüpfburgen</span></a>
+  <a href="unsere-angebote.html?filter=foto" class="bi"><span class="bi-ic">📷</span><span class="bi-lb">Fotobox</span></a>
+  <a href="unsere-angebote.html?filter=extra" class="bi"><span class="bi-ic">🍭</span><span class="bi-lb">Extras</span></a>
+  <a href="kontakt.html" class="bi"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
+</nav>
+</body>
+</html>

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="color-scheme" content="light only"/>
+<meta name="description" content="Hüpfburgen, Fotoboxen, Zuckerwatte & mehr mieten in Kärnten. Lieferung & Aufbau aus Glödnitz im Gurktal."/>
+<title>Hüpfabenteuer – Hüpfburgen & Events in Kärnten</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --pink:#ff4fa3;--purple:#a855f7;--sky:#00c2ff;
+  --sun:#FFD600;--green:#00d97e;--dark:#0f0b2e;
+  --r:20px;--shadow:0 8px 32px rgba(0,0,0,.11);
+}
+html{color-scheme:light only;}*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e !important;overflow-x:hidden;padding-bottom:86px;-webkit-text-size-adjust:100%;}
+
+/* ── BOTTOM NAV ── */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,9,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
+.bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.5);transition:color .25s,transform .2s;position:relative;}
+.bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,var(--pink),var(--purple));transition:width .3s cubic-bezier(.34,1.56,.64,1);}
+.bi.on{color:white;}
+.bi.on::after{width:36px;}
+.bi:active{transform:scale(.9);}
+.bi-ic{font-size:21px;transition:transform .25s cubic-bezier(.34,1.56,.64,1);}
+.bi.on .bi-ic{transform:scale(1.22) translateY(-2px);}
+.bi-lb{font-family:'Baloo 2',cursive;font-size:10px;font-weight:700;}
+
+/* ── PARTICLES ── */
+.particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.particle{position:absolute;border-radius:50%;animation:fp linear infinite;}
+@keyframes fp{0%{transform:translateY(110vh) rotate(0deg);opacity:0;}10%{opacity:.1;}90%{opacity:.1;}100%{transform:translateY(-10vh) rotate(360deg);opacity:0;}}
+
+/* ── HERO ── */
+.hero-wrap{background:linear-gradient(155deg,#0d0929 0%,#1a0d55 40%,#2a1668 70%,#1e0d4a 100%);padding:20px 18px 68px;position:relative;overflow:hidden;text-align:center;}
+.hbg div{position:absolute;border-radius:50%;pointer-events:none;}
+.hbg .b1{width:340px;height:340px;top:-120px;right:-80px;background:radial-gradient(circle,rgba(255,79,163,.18),transparent 65%);}
+.hbg .b2{width:260px;height:260px;bottom:-60px;left:-70px;background:radial-gradient(circle,rgba(0,194,255,.14),transparent 65%);}
+.hbg .b3{width:200px;height:200px;top:40%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(168,85,247,.1),transparent 65%);}
+.stars{position:absolute;inset:0;pointer-events:none;}
+.star{position:absolute;border-radius:50%;background:white;animation:twinkle ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:.1;transform:scale(1);}50%{opacity:.55;transform:scale(1.4);}}
+.meteor{position:absolute;height:2px;border-radius:999px;pointer-events:none;opacity:0;transform-origin:left center;}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;position:relative;z-index:2;}
+.logo{display:flex;align-items:center;gap:8px;}
+.logo-txt{font-family:'Baloo 2',cursive;font-size:19px;font-weight:800;color:white;}
+.logo-mark{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#FFD600,#ff9800);display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:white;box-shadow:0 4px 14px rgba(255,185,0,.45);flex-shrink:0;}
+.logo-text-wrap{display:flex;flex-direction:column;gap:0;line-height:1;}
+.logo-main{font-family:'Baloo 2',cursive;font-size:17px;font-weight:900;color:white;letter-spacing:-0.3px;}
+.logo-accent{color:var(--sun);text-shadow:0 0 16px rgba(255,214,0,.35);}
+.logo-sub{font-family:'Nunito',sans-serif;font-size:9px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:1.5px;text-transform:uppercase;}
+.call-btn{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:white;padding:8px 16px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;backdrop-filter:blur(8px);transition:background .2s,transform .15s;}
+.call-btn:active{transform:scale(.96);}
+.hero-img{width:100%;max-width:360px;height:210px;margin:0 auto 20px;border-radius:22px;overflow:hidden;border:2px solid rgba(255,255,255,.18);box-shadow:0 18px 50px rgba(0,0,0,.4);position:relative;animation:heroFloat 4s ease-in-out infinite;}
+@keyframes heroFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+.hero-badge{position:absolute;top:-11px;right:-11px;background:linear-gradient(135deg,#FFD600,#ff9800);color:#1a0d00;font-family:'Baloo 2',cursive;font-size:11px;font-weight:900;padding:5px 12px;border-radius:30px;box-shadow:0 4px 18px rgba(255,180,0,.5);animation:badgePulse 2.2s ease-in-out infinite;z-index:2;}
+@keyframes badgePulse{0%,100%{transform:scale(1) rotate(-2deg);}50%{transform:scale(1.1) rotate(2deg);}}
+.hero-title{font-family:'Baloo 2',cursive;font-size:31px;font-weight:900;color:white;line-height:1.05;margin-bottom:8px;position:relative;z-index:2;}
+.hero-title em{color:var(--sun);font-style:normal;text-shadow:0 0 28px rgba(255,214,0,.38);}
+.hero-sub{color:rgba(255,255,255,.82);font-size:13px;font-weight:600;margin-bottom:16px;position:relative;z-index:2;}
+
+/* ── AVAILABILITY STRIP ── */
+.avail-strip{background:linear-gradient(90deg,rgba(255,79,163,.14),rgba(168,85,247,.14));border:1px solid rgba(255,79,163,.22);border-radius:14px;padding:10px 13px;margin:0 0 16px;display:flex;align-items:center;gap:10px;position:relative;z-index:2;backdrop-filter:blur(6px);}
+.avail-dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(0,217,126,.25);flex-shrink:0;animation:dotPulse 1.5s ease-in-out infinite;}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 0 3px rgba(0,217,126,.2);}50%{box-shadow:0 0 0 8px rgba(0,217,126,.07);}}
+.avail-txt{font-size:12px;font-weight:700;color:rgba(255,255,255,.92);flex:1;line-height:1.4;}
+.avail-txt strong{color:var(--green);}
+.avail-countdown{display:flex;gap:5px;flex-shrink:0;}
+.acd{background:rgba(0,0,0,.32);border-radius:8px;padding:4px 7px;text-align:center;}
+.acd-n{font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;color:var(--sun);line-height:1;display:block;}
+.acd-l{font-size:8px;color:rgba(255,255,255,.78);text-transform:uppercase;letter-spacing:.5px;display:block;}
+
+.stats{display:flex;justify-content:center;gap:0;margin-bottom:20px;position:relative;z-index:2;}
+.stat{text-align:center;padding:0 16px;}
+.stat-n{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;color:var(--sun);}
+.stat-l{font-size:10px;color:rgba(255,255,255,.85);text-transform:uppercase;letter-spacing:.7px;}
+.stat-div{width:1px;background:rgba(255,255,255,.2);margin:5px 0;align-self:stretch;}
+.hero-btns{display:flex;gap:10px;position:relative;z-index:2;}
+.hbtn-main{flex:1;background:linear-gradient(135deg,#FFD600,#ff9800);color:#1a0d00;padding:16px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;text-decoration:none;text-align:center;box-shadow:0 8px 28px rgba(255,185,0,.45);transition:transform .15s;}
+.hbtn-main:active{transform:scale(.97);}
+.hbtn-sec{background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.3);color:white;padding:16px 20px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:16px;font-weight:700;text-decoration:none;transition:background .2s,transform .15s;}
+.hbtn-sec:active{transform:scale(.97);}
+.wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
+
+/* ── TRUST BAR ── */
+.trust{background:white;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08);position:relative;}
+.trust::before,.trust::after{content:'';position:absolute;top:0;bottom:0;width:48px;z-index:2;pointer-events:none;}
+.trust::before{left:0;background:linear-gradient(to right,white,transparent);}
+.trust::after{right:0;background:linear-gradient(to left,white,transparent);}
+.trust-track{display:flex;width:max-content;animation:tickerScroll 16s linear infinite;}
+.trust-track:hover{animation-play-state:paused;}
+@keyframes tickerScroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.ti{display:flex;align-items:center;gap:8px;padding:13px 20px;flex-shrink:0;border-right:1px solid #f0f0f0;white-space:nowrap;}
+.ti-ic{font-size:19px;}
+.ti-main{font-size:11px;font-weight:800;color:var(--dark);}
+.ti-sub{font-size:10px;color:#888;font-weight:600;}
+
+/* ── TRUST SEALS ── */
+.seal-row{display:flex;gap:10px;padding:20px 18px 4px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;justify-content:center;}
+.seal-row::-webkit-scrollbar{display:none;}
+.seal{flex-shrink:0;background:white;border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:9px;box-shadow:var(--shadow);border:1.5px solid #f0eeff;min-width:148px;}
+.seal-ic{font-size:26px;flex-shrink:0;}
+.seal-main{font-family:'Baloo 2',cursive;font-size:12px;font-weight:800;color:var(--dark);line-height:1.2;}
+.seal-sub{font-size:10px;color:#a0a0b0;font-weight:600;}
+
+/* ── SECTIONS ── */
+.sec{padding:28px 16px 8px;}
+.tag{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,rgba(255,79,163,.1),rgba(168,85,247,.12));color:var(--pink);font-family:'Baloo 2',cursive;font-size:11px;font-weight:800;padding:3px 11px;border-radius:30px;margin-bottom:7px;text-transform:uppercase;letter-spacing:.7px;}
+.stitle{font-family:'Baloo 2',cursive;font-size:23px;font-weight:900;line-height:1.1;margin-bottom:14px;}
+.stitle em{color:var(--pink);font-style:normal;}
+
+/* ── SERVICE CARDS ── */
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+.svc{background:white;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);text-decoration:none;color:var(--dark);display:block;transition:transform .25s cubic-bezier(.34,1.2,.64,1),box-shadow .25s;border:1.5px solid rgba(0,0,0,.04);}
+.svc:active{transform:scale(.97) translateY(2px);box-shadow:0 4px 16px rgba(0,0,0,.09);}
+.svc.wide{grid-column:span 2;}
+.svc-img{display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.svc-img.h120{height:120px;}
+.svc-img.h165{height:165px;}
+.svc-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,rgba(0,0,0,.14) 100%);}
+.shim{position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:shim 2.8s infinite;}
+@keyframes shim{to{left:200%;}}
+.svc-foot{padding:14px 15px;}
+.svc-name{font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;}
+.svc.wide .svc-name{font-size:18px;}
+.svc-desc{font-size:11px;color:#999;margin:3px 0 8px;}
+.svc-pr{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:var(--pink);display:flex;align-items:center;justify-content:space-between;}
+.arr{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));display:flex;align-items:center;justify-content:center;color:white;font-size:13px;flex-shrink:0;}
+
+/* ── URGENCY BANNER ── */
+.urgency{margin:8px 18px;background:linear-gradient(135deg,rgba(255,79,163,.07),rgba(168,85,247,.07));border:1.5px solid rgba(255,79,163,.15);border-radius:16px;padding:12px 15px;display:flex;align-items:center;gap:10px;}
+.urgency-ic{font-size:22px;animation:shake 2.5s ease-in-out infinite;}
+@keyframes shake{0%,88%,100%{transform:rotate(0);}91%{transform:rotate(-8deg);}95%{transform:rotate(8deg);}98%{transform:rotate(-4deg);}}
+.urgency-txt{font-size:12px;font-weight:700;color:var(--dark);line-height:1.5;}
+.urgency-txt em{color:var(--pink);font-style:normal;}
+
+/* ── INDOOR ── */
+.indoor-banner{margin:0 18px 0;background:linear-gradient(135deg,#0f2744 0%,#1a3d6b 60%,#1e4878 100%);border-radius:20px;padding:18px;color:white;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.08);position:relative;overflow:hidden;}
+.indoor-banner::before{content:'❄️';position:absolute;font-size:110px;opacity:.06;right:-10px;top:-15px;pointer-events:none;}
+.indoor-banner::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);}
+
+/* ── DELIVERY ── */
+.deliv{background:white;border-radius:20px;padding:18px;box-shadow:var(--shadow);border:1.5px solid #eafff4;border-left:4px solid var(--green);}
+.deliv-title{font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;margin-bottom:10px;}
+.dr{display:flex;align-items:flex-start;gap:11px;padding:10px 0;border-bottom:1px solid #f5f5f5;font-size:13px;color:#444;}
+.dr:last-child{border:none;}
+
+/* ── REVIEWS ── */
+.rsumm{background:white;border-radius:20px;padding:16px;display:flex;gap:14px;margin-bottom:12px;box-shadow:var(--shadow);border:1.5px solid #f5f0ff;}
+.rleft{background:linear-gradient(135deg,var(--pink),var(--purple));border-radius:16px;padding:14px 12px;text-align:center;flex-shrink:0;min-width:80px;}
+.rbig{font-family:'Baloo 2',cursive;font-size:38px;font-weight:900;color:white;line-height:1;}
+.rstars{color:var(--sun);font-size:13px;letter-spacing:1px;margin:3px 0;}
+.rcnt{font-size:10px;color:rgba(255,255,255,.9);font-weight:700;}
+.rbars{flex:1;}
+.rb-ttl{font-family:'Baloo 2',cursive;font-size:12px;font-weight:800;color:var(--dark);margin-bottom:6px;}
+.rrow{display:flex;align-items:center;gap:5px;margin-bottom:4px;}
+.rlbl{font-size:10px;color:#999;width:18px;text-align:right;font-weight:700;}
+.rtrack{flex:1;height:6px;background:#f0f0f0;border-radius:10px;overflow:hidden;}
+.rfill{height:100%;background:linear-gradient(90deg,var(--sun),#ff9800);border-radius:10px;}
+.rcard{background:white;border-radius:18px;padding:14px 16px;box-shadow:var(--shadow);border:1.5px solid #f5f5ff;margin-bottom:10px;transition:transform .2s;}
+.rcard:active{transform:scale(.99);}
+.rc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.rstars-s{color:var(--sun);font-size:13px;letter-spacing:1px;}
+.rdate{font-size:10px;color:#ccc;font-weight:600;}
+.rtxt{font-size:13px;color:#3a3a4a;line-height:1.7;margin-bottom:8px;}
+.rauth{display:flex;align-items:center;gap:8px;border-top:1px solid #f5f5f5;padding-top:8px;}
+.rav{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-size:12px;font-weight:800;color:white;flex-shrink:0;}
+.rname{font-size:12px;font-weight:800;color:var(--dark);}
+.rmeta{font-size:10px;color:#bbb;display:flex;align-items:center;gap:3px;}
+.ggs{width:11px;height:11px;border-radius:50%;background:linear-gradient(135deg,#4285f4,#ea4335,#fbbc05,#34a853);display:inline-flex;align-items:center;justify-content:center;font-size:6px;font-weight:900;color:white;flex-shrink:0;}
+
+/* ── FAQ ── */
+.faq{background:white;border-radius:16px;margin-bottom:8px;box-shadow:0 3px 14px rgba(0,0,0,.07);overflow:hidden;border:1.5px solid transparent;transition:border-color .3s;}
+.faq.open{border-color:rgba(168,85,247,.2);}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:17px 16px;cursor:pointer;gap:10px;}
+.faq-qt{font-family:'Baloo 2',cursive;font-size:14px;font-weight:700;color:var(--dark);flex:1;line-height:1.3;}
+.faq-ic{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:transform .35s cubic-bezier(.34,1.2,.64,1);}
+.faq.open .faq-ic{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+.faq.open .faq-a{max-height:300px;}
+.faq-ai{padding:0 16px 16px;font-size:13px;color:#666;line-height:1.75;border-top:1.5px dashed #f0eeff;padding-top:12px;}
+
+/* ── CTA ── */
+.cta{background:linear-gradient(135deg,#c0187a,var(--pink) 40%,var(--purple));margin:20px 18px 8px;border-radius:22px;padding:30px 20px;text-align:center;position:relative;overflow:hidden;box-shadow:0 16px 48px rgba(255,79,163,.35);}
+.cta::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px,transparent 1px,transparent 14px);}
+.cta::after{content:'🎪';position:absolute;font-size:140px;opacity:.05;top:-20px;right:-20px;}
+.cta-em{font-size:44px;display:block;margin-bottom:8px;animation:bounce 2s ease-in-out infinite;filter:drop-shadow(0 4px 12px rgba(0,0,0,.25));}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+.cta-ttl{font-family:'Baloo 2',cursive;font-size:24px;font-weight:900;color:white;margin-bottom:7px;position:relative;}
+.cta-sub{color:rgba(255,255,255,.92);font-size:13px;margin-bottom:20px;line-height:1.65;position:relative;}
+.cta-btns{display:flex;flex-direction:column;gap:9px;position:relative;}
+.cb-main{display:flex;align-items:center;justify-content:center;gap:7px;background:white;color:var(--pink);padding:15px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.15);transition:transform .15s;}
+.cb-main:active{transform:scale(.97);}
+.cb-sec{display:flex;align-items:center;justify-content:center;gap:7px;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.35);color:white;padding:15px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;text-decoration:none;transition:transform .15s;}
+.cb-sec:active{transform:scale(.97);}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);padding:28px 20px 20px;text-align:center;position:relative;overflow:hidden;}
+footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);}
+.fl{font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:white;margin-bottom:4px;}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:12px 0;}
+.flink{color:rgba(255,255,255,.62);text-decoration:none;font-size:11px;padding:4px 10px;background:rgba(255,255,255,.09);border-radius:20px;}
+.fcopy{font-size:11px;color:rgba(255,255,255,.42);margin-top:12px;}
+
+/* ── POPUP ── */
+#popup-overlay{position:fixed;inset:0;background:rgba(10,8,40,.85);backdrop-filter:blur(12px);z-index:2000;display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .3s ease;}
+#popup-overlay.hide{display:none;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+#popup-box{background:white;border-radius:28px 28px 0 0;width:100%;max-width:480px;padding:0 0 32px;animation:slideUp .45s cubic-bezier(.34,1.08,.64,1);}
+@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+.pop-handle{width:40px;height:5px;background:#e0d8f0;border-radius:10px;margin:14px auto 0;}
+.pop-img{width:calc(100% - 32px);height:175px;margin:16px 16px 0;border-radius:22px;background:linear-gradient(135deg,#c0282c,#8b0000);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.pop-img::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.05) 0,rgba(255,255,255,.05) 1px,transparent 1px,transparent 12px);}
+.pop-img-shim{position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);animation:shim 2.5s infinite;}
+.pop-badge{position:absolute;top:12px;left:12px;background:var(--sun);color:#222;font-family:'Baloo 2',cursive;font-size:11px;font-weight:800;padding:5px 12px;border-radius:30px;box-shadow:0 4px 14px rgba(255,214,0,.5);z-index:1;}
+.pop-icon{font-size:66px;position:relative;z-index:1;animation:bounce 2s ease-in-out infinite;filter:drop-shadow(0 8px 20px rgba(0,0,0,.4));}
+.pop-body{padding:18px 20px 0;}
+.pop-title{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;color:var(--dark);line-height:1.15;margin-bottom:6px;}
+.pop-title em{color:var(--pink);font-style:normal;}
+.pop-sub{font-size:13px;color:#666;line-height:1.6;margin-bottom:14px;}
+.pop-price-row{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.pop-price{font-family:'Baloo 2',cursive;font-size:32px;font-weight:900;color:var(--pink);}
+.pop-price small{font-size:14px;color:#bbb;font-family:'Nunito';font-weight:600;}
+.pop-chips{display:flex;flex-wrap:wrap;gap:7px;}
+.pop-chip{background:#fff0f8;color:var(--pink);font-size:11px;font-weight:700;padding:4px 11px;border-radius:20px;display:flex;align-items:center;gap:4px;}
+.pop-btns{display:flex;flex-direction:column;gap:9px;margin-top:18px;}
+.pop-btn-main{display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;padding:14px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:17px;font-weight:800;text-decoration:none;box-shadow:0 8px 24px rgba(255,79,163,.4);}
+.pop-btn-skip{background:none;border:none;color:#888;font-size:13px;font-weight:700;cursor:pointer;text-align:center;width:100%;padding:12px 4px;font-family:'Nunito',sans-serif;}
+.pop-close{position:absolute;top:14px;right:14px;width:32px;height:32px;background:#ff3b5c;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:white;font-weight:900;box-shadow:0 4px 12px rgba(255,59,92,.45);transition:transform .15s ease,background .15s ease;z-index:10;line-height:1;}
+.pop-close:hover{transform:scale(1.12);background:#e0002a;}
+
+/* ── REVEAL ── */
+.reveal{opacity:1;transform:translateY(0);transition:opacity .55s ease,transform .55s ease;}
+.reveal.hide-init{opacity:0;transform:translateY(20px);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── MOBILE OPTIMIZATIONS ── */
+@media(min-width:600px){
+  .svc.wide .svc-img.h165{height:320px;}
+  .svc.wide img{object-position:center center;}
+}
+@media(max-width:420px){
+  .hero-title{font-size:27px;}
+  .avail-strip{flex-wrap:wrap;gap:8px;}
+  .avail-countdown{width:100%;justify-content:center;}
+  .acd-n{font-size:18px;}
+  .stats{gap:0;}
+  .stat{padding:0 12px;}
+  .seal-row{padding:16px 14px 4px;}
+  .svc-grid{gap:10px;}
+  .cta{margin:16px 14px 8px;padding:26px 16px;}
+  .cta-ttl{font-size:21px;}
+  .urgency{margin:8px 14px;}
+  .indoor-banner{margin:16px 14px 0;}
+  .deliv{padding:15px;}
+}
+/* ensure all interactive elements have min 44px touch target */
+.bi{min-height:44px;}
+.hbtn-main,.hbtn-sec,.cb-main,.cb-sec,.pop-btn-main{min-height:52px;}
+.faq-q{min-height:52px;}
+
+/* ── FORCE LIGHT MODE – override system dark mode ── */
+@media(prefers-color-scheme:dark){
+  html,body{background:#f0f2f8 !important;color:#0f0b2e !important;}
+  .trust,.svc,.rcard,.rsumm,.deliv,.faq,.seal,.anf-form-card{background:white !important;color:#0f0b2e !important;}
+  .urgency{background:linear-gradient(135deg,rgba(255,79,163,.09),rgba(168,85,247,.09)) !important;}
+  .stitle,.card-title,.svc-name,.faq-qt,.deliv-title,.rb-ttl,.rname{color:#0f0b2e !important;}
+  .svc-desc,.card-sub,.rtxt,.faq-ai,.dr{color:#555 !important;}
+  .urgency-txt{color:#0f0b2e !important;}
+  .ti-main{color:#0f0b2e !important;}
+  .ti-sub{color:#888 !important;}
+}
+</style>
+</head>
+<body>
+
+<!-- POPUP -->
+<div id="popup-overlay">
+  <div id="popup-box" style="position:relative;">
+    <div class="pop-handle"></div>
+    <button class="pop-close" onclick="document.getElementById('popup-overlay').classList.add('hide')" aria-label="Schließen">✕</button>
+    <div class="pop-img">
+      <div class="pop-img-shim"></div>
+      <div class="pop-badge">🆕 Jetzt NEU!</div>
+      <span class="pop-icon">🚒</span>
+    </div>
+    <div class="pop-body">
+      <div class="pop-title">Unsere neue<br><em>Feuerwehr-Hüpfburg!</em></div>
+      <div class="pop-sub">Die Kinder werden begeistert sein – jetzt verfügbar für Geburtstage & Events in Kärnten!</div>
+      <div class="pop-price-row">
+        <div class="pop-price">130€ <small>/ Tag</small></div>
+        <div class="pop-chips">
+          <span class="pop-chip">🚒 Feuerwehr-Design</span>
+          <span class="pop-chip">🚚 Lieferung bis 40 km gratis</span>
+        </div>
+      </div>
+      <div class="pop-btns">
+        <a href="anfragen.html?burg=feuerwehr" class="pop-btn-main">🚒 Jetzt anfragen!</a>
+        <button class="pop-btn-skip" onclick="document.getElementById('popup-overlay').classList.add('hide')">Nein danke, weiter zur Seite →</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="particles" id="particles"></div>
+
+<!-- HERO -->
+<div class="hero-wrap">
+  <div class="stars" id="stars"></div>
+  <div class="hbg"><div class="b1"></div><div class="b2"></div><div class="b3"></div></div>
+  <div class="topbar">
+    <div class="logo">
+      <div class="logo-mark">H</div>
+      <div class="logo-text-wrap">
+        <span class="logo-main">Hüpf<span class="logo-accent">abenteuer</span></span>
+        <span class="logo-sub">Kärnten</span>
+      </div>
+    </div>
+    <a href="tel:+436641852634" class="call-btn">📞 Anrufen</a>
+  </div>
+  <div class="hero-img" style="position:relative;">
+    <div style="width:100%;height:100%;">
+  <img src="https://i.imgur.com/oDlTjx4.jpeg" style="width:100%;height:100%;object-fit:cover;">
+   
+
+
+
+
+ </div>
+    <div class="hero-badge">⭐ 5,0 Google</div>
+  </div>
+  <h1 class="hero-title">Alles für dein<br><em>unvergessliches</em> Fest!</h1>
+  <p class="hero-sub">📍 Glödnitz · Kärnten · Lieferung gratis bis 40 km</p>
+
+  <!-- AVAILABILITY COUNTDOWN -->
+  <div class="avail-strip">
+    <div class="avail-dot"></div>
+    <div class="avail-txt">Nächster freier Termin: <strong>Dieses Wochenende!</strong><br>Jetzt anfragen – Termine gehen schnell weg</div>
+    <div class="avail-countdown">
+      <div class="acd"><span class="acd-n" id="cdH">00</span><span class="acd-l">Std</span></div>
+      <div class="acd"><span class="acd-n" id="cdM">00</span><span class="acd-l">Min</span></div>
+      <div class="acd"><span class="acd-n" id="cdS">00</span><span class="acd-l">Sek</span></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-n">5,0★</div><div class="stat-l">Google</div></div>
+    <div class="stat-div"></div>
+    <div class="stat"><div class="stat-n">13+</div><div class="stat-l">Bewertungen</div></div>
+    <div class="stat-div"></div>
+    <div class="stat"><div class="stat-n">40km</div><div class="stat-l">Gratis</div></div>
+  </div>
+  <div class="hero-btns">
+    <a href="unsere-angebote.html" class="hbtn-main">🏰 Angebote entdecken</a>
+    <a href="kontakt.html" class="hbtn-sec">📞</a>
+  </div>
+  <svg class="wave" viewBox="0 0 390 60" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+  <path d="M0 30C60 10 120 50 195 28C270 6 330 46 390 26V60H0Z" fill="#f0f2f8"/>
+</svg>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust">
+  <div class="trust-track">
+    <div class="ti"><span class="ti-ic">🏰</span><div><div class="ti-main">Hüpfburgen</div><div class="ti-sub">6 Modelle</div></div></div>
+    <div class="ti"><span class="ti-ic">📷</span><div><div class="ti-main">Fotoboxen</div><div class="ti-sub">3 Pakete</div></div></div>
+    <div class="ti"><span class="ti-ic">🍭</span><div><div class="ti-main">Zuckerwatte</div><div class="ti-sub">& Popcorn</div></div></div>
+    <div class="ti"><span class="ti-ic">🚚</span><div><div class="ti-main">Gratis Lieferung</div><div class="ti-sub">bis 40 km</div></div></div>
+    <div class="ti"><span class="ti-ic">❄️</span><div><div class="ti-main">Indoor möglich</div><div class="ti-sub">Gasthof Hochsteiner</div></div></div>
+    <div class="ti"><span class="ti-ic">🏰</span><div><div class="ti-main">Hüpfburgen</div><div class="ti-sub">6 Modelle</div></div></div>
+    <div class="ti"><span class="ti-ic">📷</span><div><div class="ti-main">Fotoboxen</div><div class="ti-sub">3 Pakete</div></div></div>
+    <div class="ti"><span class="ti-ic">🍭</span><div><div class="ti-main">Zuckerwatte</div><div class="ti-sub">& Popcorn</div></div></div>
+    <div class="ti"><span class="ti-ic">🚚</span><div><div class="ti-main">Gratis Lieferung</div><div class="ti-sub">bis 40 km</div></div></div>
+    <div class="ti"><span class="ti-ic">❄️</span><div><div class="ti-main">Indoor möglich</div><div class="ti-sub">Gasthof Hochsteiner</div></div></div>
+  </div>
+</div>
+
+<!-- TRUST SEALS -->
+<div class="seal-row reveal">
+  <div class="seal"><span class="seal-ic">⭐</span><div><div class="seal-main">5,0 Google</div><div class="seal-sub">13 Bewertungen</div></div></div>
+  <div class="seal"><span class="seal-ic">🚚</span><div><div class="seal-main">Gratis Lieferung</div><div class="seal-sub">bis 40 km</div></div></div>
+  <div class="seal"><span class="seal-ic">⚡</span><div><div class="seal-main">Schnelle Antwort</div><div class="seal-sub">innerhalb 24h</div></div></div>
+</div>
+
+<!-- ANGEBOTE -->
+<div class="sec">
+  <div class="reveal"><div class="tag">🎪 Unsere Angebote</div><div class="stitle">Was wir für euch <em>haben</em></div></div>
+  <div class="svc-grid reveal">
+    <a href="unsere-angebote.html?filter=burg" class="svc wide">
+      <div class="svc-img h165" style="background:linear-gradient(135deg,#9ba5b0,#6e7880);padding:0;">
+        <div class="shim"></div>
+        <img src="https://i.imgur.com/upp726c.jpeg" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="svc-foot">
+        <div class="svc-name">Hüpfburgen</div>
+        <div class="svc-desc">4 Modelle · Klassisch, Wasser, Dschungel & Superhelden</div>
+        <div class="svc-pr">ab 120€ <span class="arr">→</span></div>
+      </div>
+    </a>
+    <a href="unsere-angebote.html?filter=foto" class="svc">
+      <div class="svc-img h120" style="background:linear-gradient(135deg,#8898b8,#5a6880);">
+        <div class="shim"></div><img src="https://i.imgur.com/peCowa2.jpeg" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="svc-foot"><div class="svc-name">Fotobox</div><div class="svc-desc">3 Pakete</div><div class="svc-pr">Anfragen<span class="arr">→</span></div></div>
+    </a>
+    <a href="unsere-angebote.html?filter=extra" class="svc">
+      <div class="svc-img h120" style="background:linear-gradient(135deg,#a888b0,#786080);">
+        <div class="shim"></div><img src="https://i.imgur.com/BR3hyUb.jpeg" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="svc-foot"><div class="svc-name">Extras</div><div class="svc-desc">Zuckerwatte, Popcorn…</div><div class="svc-pr">Anfragen<span class="arr">→</span></div></div>
+    </a>
+  </div>
+</div>
+
+<!-- URGENCY -->
+<div class="urgency reveal">
+  <span class="urgency-ic">🔥</span>
+  <div class="urgency-txt">Saison startet bald! <em>Jetzt frühzeitig buchen</em> und Wunschtermin sichern – besonders Mai bis September sind schnell vergeben.</div>
+</div>
+
+<!-- INDOOR -->
+<div style="margin:16px 18px 0;" class="reveal">
+  <div class="indoor-banner">
+    <span style="font-size:38px;flex-shrink:0;filter:drop-shadow(0 4px 10px rgba(0,0,0,.3));">❄️</span>
+    <div>
+      <div style="font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;margin-bottom:3px;">Indoor-Option verfügbar!</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.88);line-height:1.5;">Wetterunabhängig beim Gasthof Hochsteiner – auch im Winter 🏔️</div>
+    </div>
+  </div>
+</div>
+
+<!-- LIEFERUNG -->
+<div class="sec" style="padding-top:20px;">
+  <div class="reveal"><div class="tag">🚚 Lieferung</div><div class="stitle">Faire <em>Lieferkosten</em></div></div>
+  <div class="deliv reveal">
+    <div class="deliv-title">🚚 Liefergebiet Kärnten</div>
+    <div class="dr"><span style="font-size:20px;">✅</span><div><strong>Lieferung kostenlos</strong> im Umkreis von 40 km (einfache Strecke)</div></div>
+    <div class="dr"><span style="font-size:20px;">🔧</span><div><strong>Auf- & Abbau</strong> optional für nur <strong>50 €</strong> zusätzlich buchbar</div></div>
+    <div class="dr"><span style="font-size:20px;">📍</span><div>Jeder weitere Kilometer nur <strong>0,50 € / km</strong></div></div>
+    <div class="dr"><span style="font-size:20px;">🏔️</span><div>Glödnitz · Gurk · St. Veit · Friesach · Feldkirchen & mehr</div></div>
+    <div class="dr"><span style="font-size:20px;">📞</span><div>Größere Distanz? Einfach <strong>anfragen!</strong></div></div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="sec">
+  <div class="reveal"><div class="tag">⭐ Google</div><div class="stitle">Was Kunden <em>sagen</em></div></div>
+  <div class="rsumm reveal">
+    <div class="rleft"><div class="rbig">5,0</div><div class="rstars">★★★★★</div><div class="rcnt">13 Bewertungen</div></div>
+    <div class="rbars">
+      <div class="rb-ttl">Google Bewertungen</div>
+      <div class="rrow"><span class="rlbl">5★</span><div class="rtrack"><div class="rfill" style="width:100%"></div></div><span style="font-size:10px;color:#999;width:20px;text-align:right;">13</span></div>
+      <div class="rrow"><span class="rlbl">4★</span><div class="rtrack"><div class="rfill" style="width:0"></div></div><span style="font-size:10px;color:#999;width:20px;text-align:right;">0</span></div>
+      <div class="rrow"><span class="rlbl">3★</span><div class="rtrack"><div class="rfill" style="width:0"></div></div><span style="font-size:10px;color:#999;width:20px;text-align:right;">0</span></div>
+    </div>
+  </div>
+  <div class="reveal">
+    <div class="rcard"><div class="rc-top"><div class="rstars-s">★★★★★</div><div class="rdate">Vor 7 Monaten</div></div><div class="rtxt">Absolut Klasse. Super Hüpfburgen, die Kinder hatten zum Geburtstag viel Spaß. Ein Highlight war auch die Zuckerwatte.</div><div class="rauth"><div class="rav" style="background:linear-gradient(135deg,#ff4fa3,#a855f7);">S</div><div><div class="rname">Sandra Dovjak</div><div class="rmeta"><span class="ggs">G</span> Local Guide</div></div></div></div>
+    <div class="rcard"><div class="rc-top"><div class="rstars-s">★★★★★</div><div class="rdate">Vor 7 Monaten</div></div><div class="rtxt">Wir sind begeistert! Anfrage schnell & professionell beantwortet, Termin sofort zugesagt. Hüpfburg bringt nicht nur Kinderaugen zum Strahlen 😊</div><div class="rauth"><div class="rav" style="background:linear-gradient(135deg,#00c2ff,#00d97e);">S</div><div><div class="rname">Stefanie Nussbaumer</div><div class="rmeta"><span class="ggs">G</span> Google Rezension</div></div></div></div>
+    <div class="rcard"><div class="rc-top"><div class="rstars-s">★★★★★</div><div class="rdate">Vor 3 Monaten</div></div><div class="rtxt">Danke für den tollen Service! Viel Spaß mit der Hüpfburg und die Zuckerwatte war der Hit bei Groß und Klein 🎉🍭</div><div class="rauth"><div class="rav" style="background:linear-gradient(135deg,#FFD600,#ff9800);">M</div><div><div class="rname">Melanie Moser</div><div class="rmeta"><span class="ggs">G</span> Google Rezension</div></div></div></div>
+    <div class="rcard"><div class="rc-top"><div class="rstars-s">★★★★★</div><div class="rdate">Vor 7 Monaten</div></div><div class="rtxt">Alles bestens! Sehr netter Kontakt. Die Hüpfburgen sind spitze!</div><div class="rauth"><div class="rav" style="background:linear-gradient(135deg,#a855f7,#6366f1);">P</div><div><div class="rname">Petra Glanzer</div><div class="rmeta"><span class="ggs">G</span> Google Rezension</div></div></div></div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="sec">
+  <div class="reveal"><div class="tag">❓ FAQ</div><div class="stitle">Häufige <em>Fragen</em></div></div>
+  <div class="reveal">
+    <div class="faq"><div class="faq-q"><span class="faq-qt">Wie weit liefert ihr?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Im Umkreis von 40 km kostenlos. Jeder weitere km kostet 0,50 €. Auf Anfrage auch weiter!</div></div></div>
+    <div class="faq"><div class="faq-q"><span class="faq-qt">Was ist alles inklusive?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Gebläse, Sicherheitsnetz, Einweisung & Support. Lieferung gratis bis 40 km. Auf- & Abbau optional für 50 €.</div></div></div>
+    <div class="faq"><div class="faq-q"><span class="faq-qt">Gibt es Indoor-Optionen?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Ja! Beim Gasthof Hochsteiner – wetterunabhängig, auch im Winter. Mit Kinoecke, Beamer & warmer Küche.</div></div></div>
+    <div class="faq"><div class="faq-q"><span class="faq-qt">Wie früh muss ich buchen?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">2–3 Wochen im Voraus empfohlen, besonders Mai–September. Kurzfristig manchmal möglich – einfach anrufen!</div></div></div>
+    <div class="faq"><div class="faq-q"><span class="faq-qt">Was bei schlechtem Wetter?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Bei schlechter Wettervorhersage muss 2–3 Tage vorher abgesagt werden – sonst kann die Anzahlung nicht erstattet werden.</div></div></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta reveal">
+  <span class="cta-em">🎉</span>
+  <div class="cta-ttl">Bereit fürs Abenteuer?</div>
+  <p class="cta-sub">Ruf uns an oder schreib uns – wir antworten schnell & beraten kostenlos!</p>
+  <div class="cta-btns">
+    <a href="tel:+436641852634" class="cb-main">📞 +43 664 185 26 34</a>
+    <a href="/cdn-cgi/l/email-protection#d5bcbbb3ba95bda0b0a5b3b4b7b0bba1b0a0b0a7fbb4a1" class="cb-sec">✉️ <span class="__cf_email__" data-cfemail="d3babdb5bc93bba6b6a3b5b2b1b6bda7b6a6b6a1fdb2a7">[email&#160;protected]</span></a>
+  </div>
+</div>
+
+<footer>
+  <div class="fl">🏰 Hüpfabenteuer</div>
+  <div style="font-size:12px;color:rgba(255,255,255,.55);margin:4px 0;">Schulstraße 3 · 9346 Glödnitz · Kärnten</div>
+  <div class="flinks">
+    <a href="impressum.html" class="flink">Impressum</a>
+    <a href="datenschutz.html" class="flink">Datenschutz</a>
+    <a href="agbs.html" class="flink">AGBs</a>
+  </div>
+  <div class="fcopy">© 2025–2026 Hüpfabenteuer</div>
+</footer>
+
+<nav class="bnav">
+  <a href="home.html"       class="bi on"><span class="bi-ic">🏠</span><span class="bi-lb">Home</span></a>
+  <a href="unsere-angebote.html?filter=burg" class="bi"><span class="bi-ic">🏰</span><span class="bi-lb">Hüpfburgen</span></a>
+  <a href="unsere-angebote.html?filter=foto"     class="bi"><span class="bi-ic">📷</span><span class="bi-lb">Fotobox</span></a>
+  <a href="unsere-angebote.html?filter=extra"      class="bi"><span class="bi-ic">🍭</span><span class="bi-lb">Extras</span></a>
+  <a href="kontakt.html"     class="bi"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
+</nav>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Particles
+(function(){
+  var pc=document.getElementById('particles');
+  var cl=['#ff4fa3','#a855f7','#00c2ff','#FFD600','#00d97e'];
+  for(var i=0;i<14;i++){
+    var p=document.createElement('div');p.className='particle';
+    var s=Math.random()*14+5;
+    p.style.cssText='width:'+s+'px;height:'+s+'px;left:'+Math.random()*100+'%;background:'+cl[Math.floor(Math.random()*cl.length)]+';animation-duration:'+(Math.random()*15+10)+'s;animation-delay:'+(Math.random()*10)+'s;opacity:.09;';
+    pc.appendChild(p);
+  }
+})();
+
+// Stars
+(function(){
+  var sc=document.getElementById('stars');
+  for(var i=0;i<28;i++){
+    var s=document.createElement('div');s.className='star';
+    var sz=Math.random()*2.5+1;
+    s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;animation-duration:'+(Math.random()*3+2)+'s;animation-delay:'+(Math.random()*4)+'s;';
+    sc.appendChild(s);
+  }
+})();
+
+// Scroll reveal – mark hidden first so fallback is always visible
+document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('hide-init');});
+var obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');e.target.classList.remove('hide-init');obs.unobserve(e.target);}});
+},{threshold:.05,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+
+// FAQ
+
+
+// Popup
+function closePopup(){document.getElementById('popup-overlay').classList.add('hide');}
+document.getElementById('popup-overlay').addEventListener('click',function(e){if(e.target===this)closePopup();});
+
+// Countdown to end of weekend (Sunday 23:59:59)
+(function(){
+  function pad(n){return n<10?'0'+n:n;}
+  function tick(){
+    var now=new Date();
+    var next=new Date(now);
+    var day=now.getDay(); // 0=Sun,1=Mon,...,6=Sat
+    var daysToSun;
+    if(day===0){daysToSun=0;}
+    else if(day===6){daysToSun=1;}
+    else{daysToSun=7-day;}
+    next.setDate(now.getDate()+daysToSun);
+    next.setHours(23,59,59,0);
+    var diff=next-now;
+    if(diff<0)diff=0;
+    var totalH=Math.floor(diff/3600000);
+    var m=Math.floor((diff%3600000)/60000);
+    var s=Math.floor((diff%60000)/1000);
+    var elH=document.getElementById('cdH');
+    var elM=document.ge
+// Countdown tick interval
+    if(elH) elH.textContent=pad(totalH);
+    if(elM) elM.textContent=pad(m);
+    var elS=document.getElementById('cdS');
+    if(elS) elS.textContent=pad(s);
+  }
+  tick(); setInterval(tick,1000);
+})();
+</script>
+
+<!-- Meteors -->
+<script>
+(function(){
+  var hero = document.querySelector('.hero-wrap');
+  if(!hero) return;
+  function spawnMeteor(){
+    var m = document.createElement('div');
+    m.className = 'meteor';
+    // Random position anywhere in hero
+    var startX = Math.random() * 90;
+    var startY = Math.random() * 70;
+    // Random angle: mostly diagonal directions (0-360deg)
+    var angle = Math.random() * 360;
+    var rad = angle * Math.PI / 180;
+    var len = 60 + Math.random() * 80; // 60–140px tail
+    var dx = Math.cos(rad) * len * 3;
+    var dy = Math.sin(rad) * len * 3;
+    var dur = 700 + Math.random() * 600; // 0.7–1.3s
+    m.style.cssText = 'left:'+startX+'%;top:'+startY+'%;width:'+len+'px;transform:rotate('+angle+'deg);'
+      +'background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.95) 60%,rgba(255,255,255,0));';
+    hero.appendChild(m);
+    // Animate with keyframes via Web Animations API
+    m.animate([
+      {opacity:0, transform:'rotate('+angle+'deg) translateX(0)'},
+      {opacity:1, transform:'rotate('+angle+'deg) translateX('+(len*0.3)+'px)', offset:0.08},
+      {opacity:0.8, transform:'rotate('+angle+'deg) translateX('+(len*1.5)+'px)', offset:0.7},
+      {opacity:0, transform:'rotate('+angle+'deg) translateX('+(len*2.5)+'px)'}
+    ], {duration: dur, easing:'ease-in'}).onfinish = function(){ m.remove(); };
+  }
+  // Spawn 3 meteors with random intervals, repeat forever
+  function scheduleMeteor(){
+    spawnMeteor();
+    setTimeout(scheduleMeteor, 800 + Math.random() * 2400);
+  }
+  // Start 3 independent streams with offset delays
+  setTimeout(scheduleMeteor, 300);
+  setTimeout(scheduleMeteor, 1400);
+  setTimeout(scheduleMeteor, 2800);
+})();
+</script>
+
+<!-- FAQ: standalone Cloudflare-safe script -->
+<script>
+(function(){
+  function initFaq(){
+    document.querySelectorAll('.faq-q').forEach(function(q){
+      q.addEventListener('click', function(){
+        var item = this.parentElement;
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq.open').forEach(function(x){ x.classList.remove('open'); });
+        if(!isOpen){ item.classList.add('open'); }
+      });
+    });
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initFaq);
+  } else {
+    initFaq();
+  }
+})();
+</script>
+</body>
+</html>

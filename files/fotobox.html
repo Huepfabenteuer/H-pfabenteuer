@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="color-scheme" content="light only"/>
+<meta name="description" content="Fotobox mieten in Kärnten – Hüpfabenteuer. Digital ab 199€, Standard ab 299€, Premium ab 399€. Jetzt anfragen!"/>
+<title>Fotobox anfragen – Hüpfabenteuer Kärnten</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17627141841"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17627141841');
+</script>
+
+<style>
+:root{--pink:#ff4fa3;--purple:#a855f7;--sky:#00c2ff;--sun:#FFD600;--green:#00d97e;--dark:#0f0b2e;--shadow:0 8px 32px rgba(0,0,0,.10);--ok:#1b8d4b;--err:#b3261e;}
+html{color-scheme:light only;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e !important;overflow-x:hidden;padding-bottom:86px;-webkit-text-size-adjust:100%;}
+@media(prefers-color-scheme:dark){html,body{background:#f0f2f8 !important;color:#0f0b2e !important;}.card{background:white !important;}}
+
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,9,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
+.bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.5);transition:color .25s;position:relative;min-height:44px;}
+.bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,var(--pink),var(--purple));transition:width .3s cubic-bezier(.34,1.56,.64,1);}
+.bi.on{color:white;}.bi.on::after{width:36px;}.bi:active{transform:scale(.9);}
+.bi-ic{font-size:21px;}.bi.on .bi-ic{transform:scale(1.22) translateY(-2px);}.bi-lb{font-family:'Baloo 2',cursive;font-size:10px;font-weight:700;}
+
+/* HERO */
+.ph{background:linear-gradient(155deg,#0d0929 0%,#1a0d55 40%,#2a1668 70%,#1e0d4a 100%);padding:20px 18px 60px;position:relative;overflow:hidden;}
+.ph-bg div{position:absolute;border-radius:50%;pointer-events:none;}
+.ph-bg .b1{width:300px;height:300px;top:-100px;right:-60px;background:radial-gradient(circle,rgba(0,194,255,.18),transparent 65%);}
+.ph-bg .b2{width:220px;height:220px;bottom:-50px;left:-50px;background:radial-gradient(circle,rgba(255,79,163,.12),transparent 65%);}
+.stars{position:absolute;inset:0;pointer-events:none;}
+.star{position:absolute;border-radius:50%;background:white;animation:twinkle ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:.1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
+.ph-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;position:relative;z-index:2;}
+.ph-back{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);color:white;padding:8px 15px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;backdrop-filter:blur(8px);}
+.ph-call{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);color:white;padding:8px 15px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;backdrop-filter:blur(8px);}
+.ph-title{font-family:'Baloo 2',cursive;font-size:28px;font-weight:900;color:white;line-height:1.05;margin-bottom:6px;position:relative;z-index:2;}
+.ph-title em{color:var(--sky);font-style:normal;text-shadow:0 0 24px rgba(0,194,255,.4);}
+.ph-sub{color:rgba(255,255,255,.82);font-size:13px;font-weight:600;position:relative;z-index:2;margin-bottom:16px;}
+.wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
+
+/* FORM */
+.form-section{padding:20px 16px;}
+.card{background:white;border-radius:22px;padding:22px 20px;box-shadow:var(--shadow);margin-bottom:16px;border:1.5px solid rgba(0,0,0,.04);}
+.card-title{font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:var(--dark);margin-bottom:4px;display:flex;align-items:center;gap:7px;}
+.card-sub{font-size:12px;color:#999;margin-bottom:16px;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:12px;font-weight:800;color:#555;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;}
+.field input,.field select,.field textarea{width:100%;padding:13px 15px;border:2px solid #eee;border-radius:14px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;color:var(--dark);background:white;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none;}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--sky);box-shadow:0 0 0 4px rgba(0,194,255,.1);}
+.field textarea{resize:vertical;min-height:90px;line-height:1.6;}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+/* PAKET PICKER */
+.paket-picker{display:flex;flex-direction:column;gap:16px;}
+.paket-opt{display:flex;flex-direction:column;border-radius:20px;cursor:pointer;transition:all .25s cubic-bezier(.34,1.2,.64,1);position:relative;overflow:hidden;}
+.paket-opt input[type=radio]{display:none;}
+
+/* DIGITAL */
+.paket-opt.tier-digital{background:white;border:2px solid #e2e8f0;padding:18px 18px 16px;}
+.paket-opt.tier-digital.selected{border-color:var(--sky);box-shadow:0 8px 28px rgba(0,194,255,.2);transform:translateY(-2px);}
+.paket-opt.tier-digital .tier-bar{background:linear-gradient(90deg,#00c2ff,#0077cc);}
+.paket-opt.tier-digital .pname{color:#005fa3;}
+.paket-opt.tier-digital .pprice{color:#005fa3;}
+.paket-opt.tier-digital .pfeat::before{color:#00c2ff;}
+.paket-opt.tier-digital .pcheck.on{background:linear-gradient(135deg,#00c2ff,#0077cc);border-color:#00c2ff;}
+.paket-opt.tier-digital .pbadge{background:#e0f4ff;color:#005fa3;}
+
+/* STANDARD */
+.paket-opt.tier-standard{background:linear-gradient(160deg,#120a38 0%,#1e0f60 100%);border:2px solid rgba(168,85,247,.4);padding:20px 18px 18px;}
+.paket-opt.tier-standard.selected{border-color:var(--purple);box-shadow:0 12px 40px rgba(168,85,247,.4);transform:translateY(-3px);}
+.paket-opt.tier-standard .tier-bar{background:linear-gradient(90deg,var(--pink),var(--purple),var(--sky));}
+.paket-opt.tier-standard .pname{color:white;}
+.paket-opt.tier-standard .pprice{color:var(--sun);}
+.paket-opt.tier-standard .pprice span{color:rgba(255,255,255,.4);}
+.paket-opt.tier-standard .pfeat{color:rgba(255,255,255,.85);}
+.paket-opt.tier-standard .pfeat::before{color:var(--green);}
+.paket-opt.tier-standard .pcheck{border-color:rgba(255,255,255,.25);}
+.paket-opt.tier-standard .pcheck.on{background:linear-gradient(135deg,var(--pink),var(--purple));border-color:var(--purple);}
+.paket-opt.tier-standard .pbadge{background:linear-gradient(135deg,var(--pink),var(--purple));color:white;}
+.paket-opt.tier-standard .plabel{color:rgba(255,255,255,.55);}
+
+/* PREMIUM */
+.paket-opt.tier-premium{background:linear-gradient(160deg,#1c0c00 0%,#3d1f00 60%,#1c0c00 100%);border:2px solid rgba(255,185,0,.4);padding:22px 18px 20px;}
+.paket-opt.tier-premium.selected{border-color:#FFD600;box-shadow:0 16px 52px rgba(255,185,0,.35),0 0 0 1px rgba(255,214,0,.15);transform:translateY(-4px);}
+.paket-opt.tier-premium .tier-bar{background:linear-gradient(90deg,#cc7a00,#FFD600,#ff9800,#FFD600,#cc7a00);background-size:200% 100%;animation:goldShimmer 2s linear infinite;}
+@keyframes goldShimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+.paket-opt.tier-premium .pname{color:white;}
+.paket-opt.tier-premium .pprice{color:var(--sun);}
+.paket-opt.tier-premium .pprice span{color:rgba(255,255,255,.4);}
+.paket-opt.tier-premium .pfeat{color:rgba(255,255,255,.85);}
+.paket-opt.tier-premium .pfeat::before{content:'★';color:#FFD600;font-size:11px;}
+.paket-opt.tier-premium .pcheck{border-color:rgba(255,214,0,.3);}
+.paket-opt.tier-premium .pcheck.on{background:linear-gradient(135deg,#ff9800,#FFD600);border-color:#FFD600;}
+.paket-opt.tier-premium .pbadge{background:linear-gradient(135deg,#ff8c00,#FFD600);color:#3d1f00;font-weight:900;}
+.paket-opt.tier-premium .plabel{color:rgba(255,255,255,.55);}
+
+/* SHARED */
+.tier-bar{height:3px;margin-bottom:14px;border-radius:0;margin-left:-18px;margin-right:-18px;margin-top:-18px;}
+.paket-opt.tier-standard .tier-bar{margin-top:-20px;height:3px;}
+.paket-opt.tier-premium .tier-bar{margin-top:-22px;height:4px;}
+.paket-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
+.paket-left{display:flex;align-items:flex-start;gap:10px;}
+.paket-icon{font-size:30px;line-height:1;flex-shrink:0;}
+.pname-wrap{display:flex;flex-direction:column;gap:3px;}
+.pname{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;}
+.plabel{font-size:11px;color:#888;font-weight:700;}
+.pbadge{font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;display:inline-block;width:fit-content;}
+.pprice{font-family:'Baloo 2',cursive;font-size:26px;font-weight:900;text-align:right;color:var(--pink);line-height:1.1;padding-right:36px;}
+.pprice span{font-size:11px;color:#bbb;font-weight:600;display:block;text-align:right;}
+.pfeatures{display:flex;flex-direction:column;gap:5px;margin-top:2px;}
+.pfeat{font-size:12px;font-weight:600;color:#555;display:flex;align-items:center;gap:7px;}
+.pfeat::before{content:'✓';font-weight:900;font-size:13px;flex-shrink:0;color:var(--green);}
+.pcheck{position:absolute;top:16px;right:16px;width:24px;height:24px;border-radius:50%;border:2px solid #ddd;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:13px;color:white;flex-shrink:0;}
+
+/* BESTELLÜBERSICHT */
+.order-summary{background:linear-gradient(135deg,rgba(0,194,255,.06),rgba(168,85,247,.08));border:2px solid rgba(0,194,255,.18);border-radius:18px;padding:18px;margin-bottom:16px;display:none;}
+.order-summary.visible{display:block;}
+.order-summary-title{font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:var(--dark);margin-bottom:12px;display:flex;align-items:center;gap:7px;}
+.order-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(0,194,255,.1);font-size:13px;}
+.order-row:last-child{border:none;padding-bottom:0;}
+.order-row.total{padding-top:10px;margin-top:4px;border-top:2px solid rgba(0,194,255,.2);border-bottom:none;}
+.order-label{color:#555;font-weight:600;}
+.order-val{font-family:'Baloo 2',cursive;font-weight:800;color:var(--dark);font-size:13px;}
+.order-total-label{font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;color:var(--dark);}
+.order-total-val{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;color:var(--pink);}
+.order-note{font-size:10px;color:#bbb;margin-top:8px;text-align:center;}
+
+/* SUBMIT */
+.btn-submit{width:100%;background:linear-gradient(135deg,var(--sky),var(--purple));color:white;padding:17px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;border:none;cursor:pointer;box-shadow:0 8px 28px rgba(0,194,255,.35);transition:transform .15s,box-shadow .15s,opacity .15s;display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;}
+.btn-submit:active{transform:scale(.97);}
+.btn-submit:disabled{opacity:.6;cursor:not-allowed;}
+
+/* FORM STATUS MESSAGE */
+.form-msg{margin-top:14px;font-weight:700;text-align:center;font-size:15px;padding:12px 16px;border-radius:12px;display:none;}
+.form-msg.ok{display:block;color:var(--ok);background:rgba(27,141,75,.08);border:1.5px solid rgba(27,141,75,.2);}
+.form-msg.err{display:block;color:var(--err);background:rgba(179,38,30,.06);border:1.5px solid rgba(179,38,30,.18);}
+
+
+
+/* FOOTER */
+footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
+.fl{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:white;margin-bottom:4px;}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:10px 0;}
+.flink{color:rgba(255,255,255,.62);text-decoration:none;font-size:11px;padding:4px 10px;background:rgba(255,255,255,.09);border-radius:20px;}
+.fcopy{font-size:11px;color:rgba(255,255,255,.42);margin-top:10px;}
+
+@media(min-width:768px){
+  body{padding-bottom:0;}.bnav{display:none;}
+  .ph{padding:32px 60px 80px;}
+  .form-section{padding:28px 60px;max-width:720px;margin:0 auto;}
+  footer{padding:32px 60px 24px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="ph">
+  <div class="stars" id="stars"></div>
+  <div class="ph-bg"><div class="b1"></div><div class="b2"></div></div>
+  <div class="ph-topbar">
+    <a href="unsere-angebote.html" class="ph-back">← Angebote</a>
+    <a href="tel:+436641852634" class="ph-call">📞 Anrufen</a>
+  </div>
+  <h1 class="ph-title">📸 <em>Fotobox</em> anfragen</h1>
+  <p class="ph-sub">Sofortdrucke, Accessoires & individuelle Vorlagen – für unvergessliche Events!</p>
+  <svg class="wave" viewBox="0 0 390 60" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 30C60 10 120 50 195 28C270 6 330 46 390 26V60H0Z" fill="#f0f2f8"/>
+  </svg>
+</div>
+
+<!-- FORMCARRY FORM -->
+<form id="fotobox-form" accept-charset="UTF-8" novalidate>
+  <input type="hidden" name="subject" id="form-subject" value="Neue Fotobox-Anfrage – Hüpfabenteuer">
+  <input type="text" name="company" tabindex="-1" autocomplete="off" style="display:none">
+
+  <div class="form-section">
+
+    <!-- PAKET WÄHLEN -->
+    <div class="card">
+      <div class="card-title">📦 Paket wählen</div>
+      <div class="card-sub">Welches Paket passt zu deinem Event?</div>
+      <div class="paket-picker" id="paketPicker">
+
+        <!-- DIGITAL -->
+        <label class="paket-opt tier-digital" data-name="Digital" data-price="199">
+          <input type="radio" name="Paket" value="Digital – 199 €"/>
+          <div class="tier-bar"></div>
+          <div class="paket-top">
+            <div class="paket-left">
+              <span class="paket-icon">📱</span>
+              <div class="pname-wrap">
+                <span class="pname">Digital</span>
+                <span class="plabel">Einfach starten</span>
+                <span class="pbadge">Einsteiger</span>
+              </div>
+            </div>
+            <div class="pprice">199 €<span>/ Paket</span></div>
+          </div>
+          <div class="pfeatures">
+            <div class="pfeat">Premium Fotobox</div>
+            <div class="pfeat">Unbegrenzte digitale Fotos</div>
+            <div class="pfeat">Lieferung + Auf- & Abbau inklusive</div>
+            <div class="pfeat">Telefonischer Support nach Aufstellung</div>
+            <div class="pfeat">Alle Fotos per USB-Stick erhältlich</div>
+          </div>
+          <div class="pcheck"></div>
+        </label>
+
+        <!-- STANDARD -->
+        <label class="paket-opt tier-standard" data-name="Standard" data-price="299">
+          <input type="radio" name="Paket" value="Standard – 299 €"/>
+          <div class="tier-bar"></div>
+          <div class="paket-top">
+            <div class="paket-left">
+              <span class="paket-icon">🖨️</span>
+              <div class="pname-wrap">
+                <span class="pname">Standard</span>
+                <span class="plabel">Für tolle Partys</span>
+                <span class="pbadge">Beliebt</span>
+              </div>
+            </div>
+            <div class="pprice">299 €<span>/ Paket</span></div>
+          </div>
+          <div class="pfeatures">
+            <div class="pfeat">Premium Fotobox</div>
+            <div class="pfeat">1× Drucker</div>
+            <div class="pfeat">1 vorgegebener Fotorahmen</div>
+            <div class="pfeat">300 Fotos inkludiert</div>
+            <div class="pfeat">Unbegrenzte digitale Fotos</div>
+            <div class="pfeat">Lieferung + Auf- & Abbau inklusive</div>
+            <div class="pfeat">Telefonischer Support nach Aufstellung</div>
+          </div>
+          <div class="pcheck"></div>
+        </label>
+
+        <!-- PREMIUM -->
+        <label class="paket-opt tier-premium" data-name="Premium" data-price="399">
+          <input type="radio" name="Paket" value="Premium – 399 €"/>
+          <div class="tier-bar"></div>
+          <div class="paket-top">
+            <div class="paket-left">
+              <span class="paket-icon">⭐</span>
+              <div class="pname-wrap">
+                <span class="pname">Premium</span>
+                <span class="plabel">Das Beste vom Besten</span>
+                <span class="pbadge">Exklusiv</span>
+              </div>
+            </div>
+            <div class="pprice">399 €<span>/ Paket</span></div>
+          </div>
+          <div class="pfeatures">
+            <div class="pfeat">Premium Fotobox</div>
+            <div class="pfeat">1× Drucker</div>
+            <div class="pfeat">Individueller Fotorahmen (nach Wunsch)</div>
+            <div class="pfeat">500 Fotos inkludiert</div>
+            <div class="pfeat">Unbegrenzte digitale Fotos</div>
+            <div class="pfeat">Accessoire-Set inklusive</div>
+            <div class="pfeat">Lieferung + Auf- & Abbau inklusive</div>
+            <div class="pfeat">Telefonischer Support nach Aufstellung</div>
+          </div>
+          <div class="pcheck"></div>
+        </label>
+
+      </div>
+    </div>
+
+    <!-- DATUM & ORT -->
+    <div class="card">
+      <div class="card-title">📅 Datum & Ort</div>
+      <div class="card-sub">Wann und wo findet dein Event statt?</div>
+      <div class="field-row">
+        <div class="field">
+          <label>Datum *</label>
+          <input type="date" name="Datum" id="datumFoto" required/>
+        </div>
+        <div class="field">
+          <label>Anlass</label>
+          <select name="Anlass">
+            <option value="">Bitte wählen</option>
+            <option>Hochzeit</option>
+            <option>Geburtstag</option>
+            <option>Firmenfeier</option>
+            <option>Vereinsfest</option>
+            <option>Taufe / Kommunion</option>
+            <option>Sonstiges</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Straße & Hausnummer</label>
+        <input type="text" name="Strasse" placeholder="z.B. Hauptstraße 12"/>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>PLZ</label>
+          <input type="text" name="PLZ" id="plzFeld" placeholder="9020" inputmode="numeric"/>
+        </div>
+        <div class="field">
+          <label>Ort</label>
+          <input type="text" name="Ort" placeholder="Klagenfurt"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- KONTAKT -->
+    <div class="card">
+      <div class="card-title">👤 Kontaktdaten</div>
+      <div class="card-sub">Wie können wir dich erreichen?</div>
+      <div class="field-row">
+        <div class="field">
+          <label>Vorname *</label>
+          <input type="text" name="Vorname" id="vornameFoto" placeholder="Maria" required/>
+        </div>
+        <div class="field">
+          <label>Nachname</label>
+          <input type="text" name="Nachname" placeholder="Muster"/>
+        </div>
+      </div>
+      <div class="field">
+        <label>Telefon *</label>
+        <input type="tel" name="Telefon" id="telefonFoto" placeholder="+43 660 123 456" required inputmode="tel"/>
+      </div>
+      <div class="field">
+        <label>E-Mail</label>
+        <input type="email" name="E-Mail" placeholder="maria@beispiel.at" inputmode="email"/>
+      </div>
+      <div class="field">
+        <label>Nachricht / Wünsche</label>
+        <textarea name="Nachricht" placeholder="z.B. individueller Fotorahmen gewünscht, Accessoire-Wünsche, besondere Hinweise..."></textarea>
+      </div>
+    </div>
+
+    <!-- BESTELLÜBERSICHT -->
+    <div class="order-summary" id="orderSummary">
+      <div class="order-summary-title">📋 Deine Auswahl</div>
+      <div id="orderRows"></div>
+      <div class="order-note">* Geschätzter Preis, Endpreis nach Bestätigung</div>
+    </div>
+
+    <!-- SUBMIT -->
+    <button type="button" class="btn-submit" id="submitBtn" onclick="submitFotobox()">
+      📸 Anfrage absenden
+    </button>
+    <div class="form-msg" id="form-msg"></div>
+
+  </div>
+</form>
+
+<footer>
+  <div class="fl">🏰 Hüpfabenteuer</div>
+  <div style="font-size:12px;color:rgba(255,255,255,.55);margin:4px 0;">Schulstraße 3 · 9346 Glödnitz · Kärnten</div>
+  <div class="flinks">
+    <a href="impressum.html" class="flink">Impressum</a>
+    <a href="datenschutz.html" class="flink">Datenschutz</a>
+    <a href="agbs.html" class="flink">AGBs</a>
+  </div>
+  <div class="fcopy">© 2025–2026 Hüpfabenteuer</div>
+</footer>
+
+<nav class="bnav">
+  <a href="home.html" class="bi"><span class="bi-ic">🏠</span><span class="bi-lb">Home</span></a>
+  <a href="unsere-angebote.html" class="bi"><span class="bi-ic">🏰</span><span class="bi-lb">Hüpfburgen</span></a>
+  <a href="fotobox.html" class="bi on"><span class="bi-ic">📷</span><span class="bi-lb">Fotobox</span></a>
+  <a href="unsere-angebote.html" class="bi"><span class="bi-ic">🍭</span><span class="bi-lb">Extras</span></a>
+  <a href="kontakt.html" class="bi"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
+</nav>
+
+<script>
+// ── Stars ──
+(function(){
+  var sc=document.getElementById('stars');
+  for(var i=0;i<24;i++){
+    var s=document.createElement('div');s.className='star';
+    var sz=Math.random()*2.5+1;
+    s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;animation-duration:'+(Math.random()*3+2)+'s;animation-delay:'+(Math.random()*4)+'s;';
+    sc.appendChild(s);
+  }
+})();
+
+// ── Paket selection ──
+var selectedPaket = '';
+var selectedPrice = 0;
+
+document.querySelectorAll('.paket-opt').forEach(function(opt){
+  opt.addEventListener('click', function(){
+    document.querySelectorAll('.paket-opt').forEach(function(o){
+      o.classList.remove('selected');
+      var chk = o.querySelector('.pcheck');
+      if(chk){ chk.textContent=''; chk.classList.remove('on'); }
+    });
+    opt.classList.add('selected');
+    var chk = opt.querySelector('.pcheck');
+    if(chk){ chk.textContent = '✓'; chk.classList.add('on'); }
+    opt.querySelector('input[type=radio]').checked = true;
+    selectedPaket = opt.dataset.name;
+    selectedPrice = parseInt(opt.dataset.price);
+    updateSummary();
+  });
+});
+
+// ── Set min date ──
+window.addEventListener('DOMContentLoaded', function(){
+  var today = new Date().toISOString().split('T')[0];
+  document.getElementById('datumFoto').min = today;
+});
+
+// ── Update order summary ──
+function updateSummary(){
+  var rows = [];
+  var total = 0;
+
+  if(selectedPaket){
+    rows.push({label: '📷 Fotobox ' + selectedPaket, val: selectedPrice + ' €'});
+    total += selectedPrice;
+  }
+
+  var summary = document.getElementById('orderSummary');
+  var orderRows = document.getElementById('orderRows');
+
+  if(rows.length === 0){ summary.classList.remove('visible'); return; }
+
+  var html = '';
+  rows.forEach(function(r){
+    html += '<div class="order-row"><span class="order-label">'+r.label+'</span><span class="order-val">'+r.val+'</span></div>';
+  });
+  html += '<div class="order-row total"><span class="order-total-label">Gesamt (geschätzt)</span><span class="order-total-val">'+total.toFixed(2)+' €*</span></div>';
+  orderRows.innerHTML = html;
+  summary.classList.add('visible');
+}
+
+// ── Show status message ──
+function showMsg(text, ok){
+  var el = document.getElementById('form-msg');
+  el.textContent = text;
+  el.className = 'form-msg ' + (ok ? 'ok' : 'err');
+}
+
+// ── Formcarry config ──
+var FORMCARRY_ENDPOINT = 'https://formcarry.com/s/a0drkd2yAwf';
+var THANK_YOU_URL = '/danke.html';
+
+// ── Submit ──
+function submitFotobox(){
+  var vorname  = document.getElementById('vornameFoto').value.trim();
+  var telefon  = document.getElementById('telefonFoto').value.trim();
+  var datum    = document.getElementById('datumFoto').value;
+  var paket    = document.querySelector('input[name="Paket"]:checked');
+  var nachname = document.querySelector('[name="Nachname"]').value.trim();
+  var email    = document.querySelector('[name="E-Mail"]').value.trim();
+  var strasse  = document.querySelector('[name="Strasse"]').value.trim();
+  var plz      = document.querySelector('[name="PLZ"]').value.trim();
+  var ort      = document.querySelector('[name="Ort"]').value.trim();
+  var anlass   = document.querySelector('[name="Anlass"]').value;
+  var nachricht= document.querySelector('[name="Nachricht"]').value.trim();
+
+  if(!vorname || !telefon){
+    showMsg('⚠️ Bitte zumindest Vorname und Telefonnummer angeben.', false);
+    return;
+  }
+  if(!datum){
+    showMsg('⚠️ Bitte ein Datum wählen.', false);
+    return;
+  }
+  if(!paket){
+    showMsg('⚠️ Bitte ein Paket auswählen.', false);
+    return;
+  }
+
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Wird gesendet…';
+  showMsg('Anfrage wird gesendet…', true);
+
+  var adresse = [strasse, (plz + ' ' + ort).trim()].filter(Boolean).join(', ');
+
+  var fd = new FormData();
+  fd.append('subject',   'Neue Fotobox-Anfrage – ' + paket.value + ' – ' + datum);
+  fd.append('Paket',     paket.value);
+  fd.append('Datum',     datum);
+  if(anlass)   fd.append('Anlass',   anlass);
+  fd.append('Name',      vorname + (nachname ? ' ' + nachname : ''));
+  fd.append('Telefon',   telefon);
+  if(email)    fd.append('E-Mail',   email);
+  if(adresse)  fd.append('Adresse',  adresse);
+  if(nachricht)fd.append('Nachricht',nachricht);
+
+  fetch(FORMCARRY_ENDPOINT, {
+    method:  'POST',
+    headers: { 'Accept': 'application/json' },
+    body:    fd
+  })
+  .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
+  .then(function(result){
+    if(result.ok){
+      showMsg('✅ Anfrage gesendet!', true);
+      var params = new URLSearchParams({ burg: 'Fotobox ' + selectedPaket, datum: datum, name: vorname });
+      setTimeout(function(){
+        window.location.replace(THANK_YOU_URL + '?' + params.toString());
+      }, 800);
+    } else {
+      var err = (result.data && result.data.message) ? result.data.message : 'Senden fehlgeschlagen.';
+      showMsg('❌ ' + err + ' Bitte ruf uns direkt an!', false);
+      btn.disabled = false; btn.textContent = '📸 Anfrage absenden';
+    }
+  })
+  .catch(function(){
+    showMsg('❌ Netzwerkfehler. Bitte ruf uns an: +43 664 185 26 34', false);
+    btn.disabled = false; btn.textContent = '📸 Anfrage absenden';
+  });
+}
+</script>
+</body>
+</html>

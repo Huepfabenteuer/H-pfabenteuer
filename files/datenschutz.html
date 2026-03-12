@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="color-scheme" content="light only"/>
+<title>Datenschutz – Hüpfabenteuer Kärnten</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--pink:#ff4fa3;--purple:#a855f7;--dark:#0f0b2e;--shadow:0 8px 32px rgba(0,0,0,.10);}
+html{color-scheme:light only;}*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:#f0f2f8;color:#0f0b2e;overflow-x:hidden;padding-bottom:86px;}
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,9,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);}
+.bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.5);position:relative;}
+.bi.on{color:white;}.bi-ic{font-size:21px;}.bi-lb{font-family:'Baloo 2',cursive;font-size:10px;font-weight:700;}
+.ph{background:linear-gradient(155deg,#0d0929,#1a0d55,#2a1668);padding:24px 18px 60px;position:relative;overflow:hidden;}
+.ph-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.ph-back{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);color:white;padding:8px 15px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;}
+.ph-title{font-family:'Baloo 2',cursive;font-size:26px;font-weight:900;color:white;}
+.wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
+.content{max-width:800px;margin:0 auto;padding:24px 16px;}
+.card{background:white;border-radius:22px;padding:24px;box-shadow:var(--shadow);margin-bottom:16px;}
+.card h2{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;margin-bottom:12px;color:var(--dark);}
+.card p{font-size:13px;color:#555;line-height:1.8;margin-bottom:10px;}
+.card p:last-child{margin-bottom:0;}
+footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
+.fl{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:white;margin-bottom:4px;}
+.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:10px 0;}
+.flink{color:rgba(255,255,255,.62);text-decoration:none;font-size:11px;padding:4px 10px;background:rgba(255,255,255,.09);border-radius:20px;}
+.fcopy{font-size:11px;color:rgba(255,255,255,.42);margin-top:10px;}
+@media(min-width:768px){body{padding-bottom:0;}.bnav{display:none;}.content{padding:32px 60px;}}
+</style>
+</head>
+<body>
+<div class="ph">
+  <div class="ph-topbar">
+    <a href="home.html" class="ph-back">← Home</a>
+  </div>
+  <div style="font-size:40px;text-align:center;margin-bottom:10px;">🔒</div>
+  <h1 class="ph-title" style="text-align:center;">Datenschutz</h1>
+  <svg class="wave" viewBox="0 0 390 60" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 30C60 10 120 50 195 28C270 6 330 46 390 26V60H0Z" fill="#f0f2f8"/>
+  </svg>
+</div>
+<div class="content">
+  
+  <div class="card">
+    <h2>Datenschutzerklärung</h2>
+    <p>Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen. Wir verarbeiten Ihre Daten daher ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO, TKG 2003).</p>
+  </div>
+  <div class="card">
+    <h2>Verantwortlicher</h2>
+    <p><strong>Hüpfabenteuer</strong><br>Schulstraße 3, 9346 Glödnitz<br>
+    📞 <a href="tel:+436641852634" style="color:#a855f7;">+43 664 185 26 34</a></p>
+  </div>
+  <div class="card">
+    <h2>Erhobene Daten</h2>
+    <p>Bei der Nutzung unseres Kontaktformulars werden Ihre Angaben (Name, E-Mail, Telefon, Nachricht) zur Bearbeitung Ihrer Anfrage gespeichert. Eine Weitergabe an Dritte findet nicht statt.</p>
+    <p>Diese Seite befindet sich im Aufbau. Bei Fragen stehen wir gerne telefonisch zur Verfügung.</p>
+  </div>
+
+</div>
+<footer>
+  <div class="fl">🏰 Hüpfabenteuer</div>
+  <div style="font-size:12px;color:rgba(255,255,255,.55);margin:4px 0;">Schulstraße 3 · 9346 Glödnitz · Kärnten</div>
+  <div class="flinks">
+    <a href="impressum.html" class="flink">Impressum</a>
+    <a href="datenschutz.html" class="flink">Datenschutz</a>
+    <a href="agbs.html" class="flink">AGBs</a>
+  </div>
+  <div class="fcopy">© 2025–2026 Hüpfabenteuer</div>
+</footer>
+<nav class="bnav">
+  <a href="home.html" class="bi"><span class="bi-ic">🏠</span><span class="bi-lb">Home</span></a>
+  <a href="unsere-angebote.html" class="bi"><span class="bi-ic">🏰</span><span class="bi-lb">Angebote</span></a>
+  <a href="unsere-angebote.html?filter=foto" class="bi"><span class="bi-ic">📷</span><span class="bi-lb">Fotobox</span></a>
+  <a href="unsere-angebote.html?filter=extra" class="bi"><span class="bi-ic">🍭</span><span class="bi-lb">Extras</span></a>
+  <a href="kontakt.html" class="bi"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
+</nav>
+</body>
+</html>
