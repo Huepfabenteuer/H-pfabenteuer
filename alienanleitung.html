@@ -17,12 +17,12 @@ html{color-scheme:light only;}
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e !important;overflow-x:hidden;padding-bottom:86px;-webkit-text-size-adjust:100%;}
-
+ 
 @media(prefers-color-scheme:dark){
   html,body{background:#f0f2f8 !important;color:#0f0b2e !important;}
   .card{background:white !important;color:#0f0b2e !important;}
 }
-
+ 
 /* ── BOTTOM NAV ── */
 .bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,9,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
 .bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.5);transition:color .25s;position:relative;min-height:44px;}
@@ -33,7 +33,7 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .bi-ic{font-size:21px;transition:transform .25s cubic-bezier(.34,1.56,.64,1);}
 .bi.on .bi-ic{transform:scale(1.22) translateY(-2px);}
 .bi-lb{font-family:'Baloo 2',cursive;font-size:10px;font-weight:700;}
-
+ 
 /* ── HERO HEADER ── */
 .ph{background:linear-gradient(155deg,#0d0929 0%,#1a0d55 40%,#2a1668 70%,#1e0d4a 100%);padding:20px 18px 60px;position:relative;overflow:hidden;}
 .ph-bg div{position:absolute;border-radius:50%;pointer-events:none;}
@@ -51,14 +51,14 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .ph-chips{display:flex;flex-wrap:wrap;gap:7px;position:relative;z-index:2;}
 .ph-chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:white;font-size:12px;font-weight:700;padding:5px 12px;border-radius:30px;}
 .wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
-
+ 
 /* ── CONTENT ── */
 .sec{padding:24px 16px 8px;}
 .tag{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,rgba(255,79,163,.1),rgba(168,85,247,.12));color:var(--pink);font-family:'Baloo 2',cursive;font-size:11px;font-weight:800;padding:3px 11px;border-radius:30px;margin-bottom:7px;text-transform:uppercase;letter-spacing:.7px;}
 .stitle{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;line-height:1.1;margin-bottom:4px;color:#0f0b2e;}
 .stitle em{color:var(--pink);font-style:normal;}
 .stitle-sub{font-size:12px;color:#888;font-weight:600;margin-bottom:14px;}
-
+ 
 /* ── STEP CARDS ── */
 .steps-list{display:flex;flex-direction:column;gap:12px;margin-top:4px;}
 .step-card{background:white;border-radius:18px;padding:16px 18px;box-shadow:var(--shadow);border:1.5px solid rgba(0,0,0,.04);display:flex;gap:14px;align-items:flex-start;}
@@ -67,13 +67,13 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .step-title{font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;color:#0f0b2e;margin-bottom:4px;}
 .step-desc{font-size:13px;color:#555;line-height:1.65;}
 .step-img{width:100%;border-radius:12px;margin-top:10px;object-fit:cover;max-height:200px;}
-
+ 
 /* ── TIP BOX ── */
 .tip-box{background:linear-gradient(135deg,rgba(0,201,126,.07),rgba(0,194,255,.07));border:1.5px solid rgba(0,201,126,.18);border-radius:16px;padding:14px 16px;margin:16px 0 8px;display:flex;gap:12px;align-items:flex-start;}
 .tip-icon{font-size:22px;flex-shrink:0;}
 .tip-text{font-size:13px;color:#0a5c3a;line-height:1.6;font-weight:600;}
 .tip-text strong{font-family:'Baloo 2',cursive;font-size:14px;display:block;margin-bottom:2px;}
-
+ 
 /* ── CTA ── */
 .cta{background:linear-gradient(135deg,#c0187a,var(--pink) 40%,var(--purple));margin:20px 16px 8px;border-radius:22px;padding:26px 20px;text-align:center;position:relative;overflow:hidden;box-shadow:0 16px 48px rgba(255,79,163,.3);}
 .cta::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px,transparent 1px,transparent 14px);}
@@ -82,7 +82,7 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .cta-ttl{font-family:'Baloo 2',cursive;font-size:21px;font-weight:900;color:white;margin-bottom:6px;position:relative;}
 .cta-sub{color:rgba(255,255,255,.9);font-size:12px;margin-bottom:16px;position:relative;line-height:1.6;}
 .cb-main{display:flex;align-items:center;justify-content:center;gap:7px;background:white;color:var(--pink);padding:14px;border-radius:15px;font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.12);position:relative;}
-
+ 
 /* ── FOOTER ── */
 footer{background:var(--dark);padding:26px 20px 18px;text-align:center;position:relative;}
 footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);}
@@ -90,11 +90,11 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 .flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:10px 0;}
 .flink{color:rgba(255,255,255,.62);text-decoration:none;font-size:11px;padding:4px 10px;background:rgba(255,255,255,.09);border-radius:20px;}
 .fcopy{font-size:11px;color:rgba(255,255,255,.42);margin-top:10px;}
-
+ 
 /* ── REVEAL ── */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
-
+ 
 /* ── DESKTOP ── */
 @media(min-width:768px){
   .ph{padding:32px 48px 80px;}
@@ -111,7 +111,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 </style>
 </head>
 <body>
-
+ 
 <!-- HERO -->
 <div class="ph">
   <div class="ph-bg"><div class="b1"></div><div class="b2"></div></div>
@@ -129,13 +129,13 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   </div>
   <svg class="wave" viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 40 C360 0 1080 0 1440 40 L1440 40 L0 40 Z" fill="#f0f2f8"/></svg>
 </div>
-
+ 
 <!-- STEPS -->
 <div class="sec">
   <div class="tag">📋 Anleitung</div>
   <div class="stitle">So wird die <em>Alienburg</em> abgebaut</div>
   <p class="stitle-sub">Bitte alle Schritte der Reihe nach befolgen</p>
-
+ 
   <div class="tip-box reveal">
     <div class="tip-icon">💡</div>
     <div class="tip-text">
@@ -143,9 +143,9 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
       Am besten zu zweit arbeiten – das geht schneller und schont die Hüpfburg. Stellt sicher, dass keine Kinder mehr drin sind!
     </div>
   </div>
-
+ 
   <div class="steps-list">
-
+ 
     <div class="step-card reveal">
       <div class="step-num">1</div>
       <div class="step-body">
@@ -153,7 +153,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
         <div class="step-desc">Achte darauf, dass sich möglichst wenig Luft in der Hüpfburg befindet. So lässt sich die Burg leichter zusammenrollen und passt gut in den Transportsack.</div>
       </div>
     </div>
-
+ 
     <div class="step-card reveal">
       <div class="step-num">2</div>
       <div class="step-body">
@@ -161,16 +161,16 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
         <div class="step-desc">Kippe alle beweglichen Teile der Hüpfburg (z. B. Figuren, Türme) möglichst zur Mitte. Dadurch entstehen beim Einrollen keine unerwarteten Probleme.</div>
       </div>
     </div>
-
+ 
     <div class="step-card reveal">
       <div class="step-num">3</div>
       <div class="step-body">
         <div class="step-title">Hüpfburg halbieren</div>
         <div class="step-desc">Wenn alles vorbereitet ist, kann die Hüpfburg wie abgebildet der Länge nach einmal in der Mitte gefaltet werden.</div>
-        <img src="https://i.imgur.com/pDbYeWU.jpeg" alt="Hüpfburg halbieren" class="step-img"/>
+        <img src="https://i.imgur.com/pSPeDYs.jpeg" alt="Hüpfburg halbieren" class="step-img"/>
       </div>
     </div>
-
+ 
     <div class="step-card reveal">
       <div class="step-num">4</div>
       <div class="step-body">
@@ -178,25 +178,25 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
         <div class="step-desc">Achte darauf, dass die Schläuche, an denen das Gebläse angeschlossen wird, beim Einrollen außen liegen – diese müssen beim nächsten Aufbau sofort zugänglich sein.</div>
       </div>
     </div>
-
+ 
     <div class="step-card reveal">
       <div class="step-num">5</div>
       <div class="step-body">
         <div class="step-title">Zweite Seite zur Mitte falten</div>
         <div class="step-desc">Danach klappst du die andere Seite ebenfalls zur Mitte, sodass beide Seiten übereinanderliegen.</div>
-        <img src="https://i.imgur.com/SIFPXue.jpeg" alt="Zweite Seite falten" class="step-img"/>
+        <img src="https://i.imgur.com/pDbYeWU.jpeg" alt="Zweite Seite falten" class="step-img"/>
       </div>
     </div>
-
+ 
     <div class="step-card reveal">
       <div class="step-num">6</div>
       <div class="step-body">
         <div class="step-title">Burg einrollen</div>
         <div class="step-desc">Nun kannst du die Hüpfburg straff von einem Ende zum anderen einrollen. Je fester du rollst, desto kompakter wird das Ergebnis und desto leichter passt es in den Transportsack.</div>
-        <img src="https://i.imgur.com/pSPeDYs.jpeg" alt="Burg einrollen" class="step-img"/>
+        <img src="https://i.imgur.com/SIFPXue.jpeg" alt="Burg einrollen" class="step-img"/>
       </div>
     </div>
-
+ 
     <div class="step-card reveal">
       <div class="step-num">7</div>
       <div class="step-body">
@@ -204,9 +204,9 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
         <div class="step-desc">Stecke die fertig gerollte Hüpfburg in den mitgelieferten Transportsack. Schläuche und Gebläse separat einpacken. Alles bereit für die Rückgabe!</div>
       </div>
     </div>
-
+ 
   </div>
-
+ 
   <div class="tip-box reveal" style="margin-top:16px;">
     <div class="tip-icon">✅</div>
     <div class="tip-text">
@@ -215,7 +215,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     </div>
   </div>
 </div>
-
+ 
 <!-- CTA -->
 <div class="cta reveal">
   <span class="cta-em">🏰</span>
@@ -223,7 +223,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <p class="cta-sub">Die Alienburg macht jede Party unvergesslich –<br>jetzt einfach & schnell anfragen!</p>
   <a href="anfragen.html?burg=alienburg" class="cb-main">🚀 Jetzt anfragen</a>
 </div>
-
+ 
 <!-- FOOTER -->
 <footer>
   <div class="fl">🎪 Hüpfabenteuer Kärnten</div>
@@ -237,7 +237,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   </div>
   <div class="fcopy">© 2025 Hüpfabenteuer Kärnten</div>
 </footer>
-
+ 
 <!-- BOTTOM NAV -->
 <nav class="bnav">
   <a href="index.html" class="bi"><span class="bi-ic">🏠</span><span class="bi-lb">Home</span></a>
@@ -245,7 +245,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <a href="anfragen.html" class="bi"><span class="bi-ic">📋</span><span class="bi-lb">Anfragen</span></a>
   <a href="kontakt.html" class="bi"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
 </nav>
-
+ 
 <script>
 // Stars
 const sc = document.getElementById('stars');
@@ -256,7 +256,7 @@ for(let i=0;i<18;i++){
   s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-duration:${2+Math.random()*3}s;animation-delay:${Math.random()*3}s;`;
   sc.appendChild(s);
 }
-
+ 
 // Reveal on scroll
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
