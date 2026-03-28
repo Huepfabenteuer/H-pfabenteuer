@@ -455,13 +455,13 @@ function submitFotobox(){
   var telefon  = document.getElementById('telefonFoto').value.trim();
   var datum    = document.getElementById('datumFoto').value;
   var paket    = document.querySelector('input[name="Paket"]:checked');
-  var nachname = document.querySelector('[name="Nachname"]').value.trim();
-  var email    = document.querySelector('[name="E-Mail"]').value.trim();
-  var strasse  = document.querySelector('[name="Strasse"]').value.trim();
-  var plz      = document.querySelector('[name="PLZ"]').value.trim();
-  var ort      = document.querySelector('[name="Ort"]').value.trim();
-  var anlass   = document.querySelector('[name="Anlass"]').value;
-  var nachricht= document.querySelector('[name="Nachricht"]').value.trim();
+  var nachname = document.querySelector('[name="Nachname"]') ? document.querySelector('[name="Nachname"]').value.trim() : '';
+  var email    = document.querySelector('[name="E-Mail"]') ? document.querySelector('[name="E-Mail"]').value.trim() : '';
+  var strasse  = document.querySelector('[name="Strasse"]') ? document.querySelector('[name="Strasse"]').value.trim() : '';
+  var plz      = document.querySelector('[name="PLZ"]') ? document.querySelector('[name="PLZ"]').value.trim() : '';
+  var ort      = document.querySelector('[name="Ort"]') ? document.querySelector('[name="Ort"]').value.trim() : '';
+  var anlass   = document.querySelector('[name="Anlass"]') ? document.querySelector('[name="Anlass"]').value : '';
+  var nachricht= document.querySelector('[name="Nachricht"]') ? document.querySelector('[name="Nachricht"]').value.trim() : '';
 
   if(!vorname || !telefon){
     showMsg('⚠️ Bitte zumindest Vorname und Telefonnummer angeben.', false);
@@ -521,3 +521,4 @@ function submitFotobox(){
 </script>
 </body>
 </html>
+
