@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light only"/>
-<meta name="description" content="Fotobox mieten in Kärnten – Hüpfabenteuer. Digital ab 199€, Standard ab 299€, Premium ab 399€. Jetzt anfragen!"/>
+<meta name="description" content="Fotobox mieten in Kärnten – Hüpfabenteuer. Digital ab 199€, Standard ab 299€, Premium ab 349€. Jetzt anfragen!"/>
 <title>Fotobox anfragen – Hüpfabenteuer Kärnten</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 
@@ -244,8 +244,8 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
         </label>
 
         <!-- PREMIUM -->
-        <label class="paket-opt tier-premium" data-name="Premium" data-price="399">
-          <input type="radio" name="Paket" value="Premium – 399 €"/>
+        <label class="paket-opt tier-premium" data-name="Premium" data-price="349">
+          <input type="radio" name="Paket" value="Premium – 349 €"/>
           <div class="tier-bar"></div>
           <div class="paket-top">
             <div class="paket-left">
@@ -256,7 +256,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
                 <span class="pbadge">Exklusiv</span>
               </div>
             </div>
-            <div class="pprice">399 €<span>/ Paket</span></div>
+            <div class="pprice"> 349 €<span>/ Paket</span></div>
           </div>
           <div class="pfeatures">
             <div class="pfeat">Premium Fotobox</div>
@@ -345,6 +345,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
       <div class="order-summary-title">📋 Deine Auswahl</div>
       <div id="orderRows"></div>
       <div class="order-note">* Geschätzter Preis, Endpreis nach Bestätigung</div>
+      <div id="anzahlungHinweis" style="display:none;margin-top:10px;padding:10px 14px;border-radius:12px;background:linear-gradient(135deg,rgba(255,214,0,.12),rgba(0,194,255,.08));border:1.5px solid rgba(255,214,0,.4);font-size:12px;font-weight:700;color:#7a5c00;line-height:1.6;"></div>
     </div>
 
     <!-- SUBMIT -->
@@ -436,6 +437,20 @@ function updateSummary(){
   html += '<div class="order-row total"><span class="order-total-label">Gesamt (geschätzt)</span><span class="order-total-val">'+total.toFixed(2)+' €*</span></div>';
   orderRows.innerHTML = html;
   summary.classList.add('visible');
+
+  // ── Anzahlungs-Hinweis ──
+  var hinweis = document.getElementById('anzahlungHinweis');
+  if(hinweis){
+    if(total >= 300){
+      hinweis.style.display = 'block';
+      hinweis.innerHTML = '💳 Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 100 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird bei Lieferung oder Abholung bezahlt.';
+    } else if(total >= 200){
+      hinweis.style.display = 'block';
+      hinweis.innerHTML = '💳 Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 50 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird bei Lieferung oder Abholung bezahlt.';
+    } else {
+      hinweis.style.display = 'none';
+    }
+  }
 }
 
 // ── Show status message ──
