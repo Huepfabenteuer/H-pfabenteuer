@@ -86,7 +86,7 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
  
 /* ── BURG CARDS ── */
 .burg-list{display:flex;flex-direction:column;gap:14px;}
-.burg-card{background:white;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);border:1.5px solid rgba(0,0,0,.04);transition:transform .2s,box-shadow .2s;text-decoration:none;color:inherit;display:block;}
+.burg-card{background:white;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);border:1.5px solid rgba(0,0,0,.04);transition:transform .2s,box-shadow .2s;text-decoration:none;color:inherit;display:block;cursor:pointer;}
 .burg-card:active{transform:scale(.99);box-shadow:0 4px 18px rgba(0,0,0,.09);}
 .burg-img{width:100%;height:200px;object-fit:cover;object-position:center;display:block;}
 .burg-img-ph{width:100%;height:200px;background:linear-gradient(135deg,#9ba5b0,#6e7880);display:flex;align-items:center;justify-content:center;font-size:60px;}
@@ -354,7 +354,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     </a>
  
     <!-- ALIENBURG -->
-    <div class="burg-card reveal" data-cat="burg">
+    <div class="burg-card reveal" data-cat="burg" onclick="if(!event.target.closest('a,button'))window.location.href='anfragen.html?burg=alienburg'">
       <div class="slideshow" id="ali-slide" style="position:relative;width:100%;height:200px;overflow:hidden;">
         <div class="slides" style="display:flex;height:100%;transition:transform 0.4s ease;will-change:transform;">
           <img style="min-width:100%;height:200px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_6816-high.jpg?enable-io=true&enable=upscale&crop=1.3497%3A1&width=800" alt="Alienburg">
@@ -405,7 +405,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     </div>
  
     <!-- PIRATENBURG -->
-    <div class="burg-card reveal" data-cat="burg">
+    <div class="burg-card reveal" data-cat="burg" onclick="if(!event.target.closest('a,button'))window.location.href='anfragen.html?burg=piratenburg'">
       <div class="slideshow" id="pir-slide" style="position:relative;width:100%;height:200px;overflow:hidden;">
         <div class="slides" style="display:flex;height:100%;transition:transform 0.4s ease;will-change:transform;">
           <img style="min-width:100%;height:200px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/a935ec86-ecba-44f8-ae5e-4d58174c492c-standard.jpg" alt="Piratenburg">
@@ -454,7 +454,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     </div>
  
     <!-- RITTERBURG -->
-    <div class="burg-card reveal" data-cat="burg">
+    <div class="burg-card reveal" data-cat="burg" onclick="if(!event.target.closest('a,button'))window.location.href='anfragen.html?burg=ritterburg'">
       <div class="slideshow" id="rit-slide" style="position:relative;width:100%;height:200px;overflow:hidden;">
         <div class="slides" style="display:flex;height:100%;transition:transform 0.4s ease;will-change:transform;">
           <img style="min-width:100%;height:200px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_6710-standard.jpg" alt="Ritterburg">
@@ -504,7 +504,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     </div>
  
     <!-- CANDYBURG -->
-    <div class="burg-card reveal" data-cat="burg">
+    <div class="burg-card reveal" data-cat="burg" onclick="if(!event.target.closest('a,button'))window.location.href='anfragen.html?burg=candyburg'">
       <div class="slideshow" id="can-slide" style="position:relative;width:100%;height:200px;overflow:hidden;">
         <div class="slides" style="display:flex;height:100%;transition:transform 0.4s ease;will-change:transform;">
           <img style="min-width:100%;height:200px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://i.imgur.com/zIqeBQ9.jpeg" alt="Candyburg 1">
@@ -553,7 +553,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     </div>
  
     <!-- HOCHZEITSBURG -->
-    <div class="burg-card reveal" data-cat="burg">
+    <div class="burg-card reveal" data-cat="burg" onclick="if(!event.target.closest('a,button'))window.location.href='anfragen.html?burg=hochzeitsburg'">
       <div class="slideshow" id="hoch-slide" style="position:relative;width:100%;height:200px;overflow:hidden;">
         <div class="slides" style="display:flex;height:100%;transition:transform 0.4s ease;will-change:transform;">
           <img style="min-width:100%;height:200px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://i.imgur.com/nrIyuLj.jpeg" alt="Hochzeitsburg 1">
@@ -1036,4 +1036,3 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
-
