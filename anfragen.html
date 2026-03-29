@@ -549,17 +549,19 @@ document.getElementById('popcorn-set-btn').addEventListener('click', function(){
 function updateOrderSummary(){
   var rows = [];
   var total = 0;
- 
+  var params = new URLSearchParams(window.location.search);
+  var paket = params.get('paket') ? params.get('paket').toLowerCase() : '';
+
   // Hüpfburg
   if(selectedName){
     var burgPreis = selectedPrice > 0 ? (days === 1 ? selectedPrice : selectedPrice + (days-1)*(selectedPrice*0.5)) : 0;
     rows.push({label: (selectedName === 'Hochzeitsburg' ? '💒' : '🏰') + ' ' + selectedName, val: burgPreis > 0 ? Math.round(burgPreis) + ' €' : 'Auf Anfrage'});
     if(burgPreis > 0) total += Math.round(burgPreis);
   }
- 
+
   // Auf- & Abbau
   if(aufbauOn){ rows.push({label:'🔧 Auf- & Abbau', val:'+50 €'}); total += 50; }
- 
+
   // Süße Extras
   var extrasVal = document.getElementById('extras-select').value;
   if(extrasVal && extrasVal !== 'Keine Extras'){
@@ -567,22 +569,35 @@ function updateOrderSummary(){
     rows.push({label: extrasVal.indexOf('Zuckerwatte + Popcorn') !== -1 ? '🍭🍿 Zuckerwatte + Popcorn' : extrasVal.indexOf('Zuckerwatte') !== -1 ? '🍭 Zuckerwatte' : '🍿 Popcorn', val:'+' + extrasPreis + ' €'});
     total += extrasPreis;
   }
- 
+
   // Sets
   if(zuckerwatteSetOn){ rows.push({label:'🍭 Zuckerwatte-Set', val:'+20 €'}); total += 20; }
   if(popcornSetOn){ rows.push({label:'🍿 Popcorn-Set', val:'+20 €'}); total += 20; }
- 
+
+  // ── Rabatt berechnen ──
+  var rabattProzent = 0;
+  var rabattLabel = '';
+  if(paket === 'sweet'){ rabattProzent = 5; rabattLabel = '🏷️ Süßes Paket -5%'; }
+  if(paket === 'allin'){  rabattProzent = 10; rabattLabel = '🏷️ All-Inclusive -10%'; }
+  var rabattBetrag = 0;
+  if(rabattProzent > 0 && total > 0){
+    rabattBetrag = Math.round(total * rabattProzent / 100 * 100) / 100;
+    rows.push({label: rabattLabel, val: '−' + rabattBetrag.toFixed(2) + ' €', rabatt: true});
+    total = Math.round((total - rabattBetrag) * 100) / 100;
+  }
+
   var summary = document.getElementById('orderSummary');
   var orderRows = document.getElementById('orderRows');
- 
+
   if(rows.length === 0){
     summary.classList.remove('visible');
     return;
   }
- 
+
   var html = '';
   rows.forEach(function(r){
-    html += '<div class="order-row"><span class="order-label">'+r.label+'</span><span class="order-val">'+r.val+'</span></div>';
+    var style = r.rabatt ? 'color:#00a651;font-weight:800;' : '';
+    html += '<div class="order-row"><span class="order-label">'+r.label+'</span><span class="order-val" style="'+style+'">'+r.val+'</span></div>';
   });
   html += '<div class="order-row total"><span class="order-total-label">Gesamt (geschätzt)</span><span class="order-total-val">'+total.toFixed(2)+' €*</span></div>';
   orderRows.innerHTML = html;
