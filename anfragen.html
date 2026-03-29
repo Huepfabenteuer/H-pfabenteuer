@@ -610,20 +610,79 @@ function updateOrderSummary(){
 window.addEventListener('DOMContentLoaded', function(){
   var params = new URLSearchParams(window.location.search);
   var burg   = params.get('burg');
+  var paket  = params.get('paket');
+
   if(burg){
-    // Match by data-name (case-insensitive)
     var opts = document.querySelectorAll('.burg-opt');
     for(var i=0;i<opts.length;i++){
       if(opts[i].dataset.name && opts[i].dataset.name.toLowerCase()===burg.toLowerCase()){
         opts[i].click(); break;
       }
-      // fallback: match radio value
       var radio = opts[i].querySelector('input[type=radio]');
       if(radio && radio.value.toLowerCase().indexOf(burg.toLowerCase())===0){
         opts[i].click(); break;
       }
     }
   }
+
+  // ── Paket vorauswählen ──
+  if(paket){
+    // Paket-Banner anzeigen
+    var paketNamen = {
+      'komfort': { name: 'Komfort-Paket', desc: 'Hüpfburg + Auf- & Abbau', icon: '🔧' },
+      'sweet':   { name: 'Süßes Paket',   desc: 'Hüpfburg + Auf&Abbau + Zuckerwatte (-5%)', icon: '🍭' },
+      'snack':   { name: 'Snack-Paket',   desc: 'Hüpfburg + Popcornmaschine', icon: '🍿' },
+      'allin':   { name: 'All-Inclusive', desc: 'Hüpfburg + Auf&Abbau + Zuckerwatte + Popcorn (-10%)', icon: '🎉' }
+    };
+    var pk = paketNamen[paket.toLowerCase()];
+    if(pk){
+      // Paket-Hinweis Banner einblenden
+      var banner = document.createElement('div');
+      banner.style.cssText = 'margin:12px 16px 0;background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(255,79,163,.06));border:1.5px solid rgba(168,85,247,.2);border-radius:16px;padding:14px 18px;display:flex;align-items:center;gap:12px;';
+      banner.innerHTML = '<span style="font-size:32px;">'+pk.icon+'</span><div><div style="font-family:\'Baloo 2\',cursive;font-size:16px;font-weight:900;color:#0f0b2e;">'+pk.name+'</div><div style="font-size:12px;color:#888;font-weight:600;">'+pk.desc+'</div></div>';
+      var burgBanner = document.getElementById('burgBanner');
+      burgBanner.parentNode.insertBefore(banner, burgBanner);
+    }
+
+    // Auf & Abbau aktivieren (komfort, sweet, allin)
+    if(['komfort','sweet','allin'].indexOf(paket.toLowerCase()) !== -1){
+      var aufbauBtn = document.getElementById('aufbau-btn');
+      if(aufbauBtn && !aufbauOn) aufbauBtn.click();
+    }
+
+    // Zuckerwatte aktivieren (sweet, allin)
+    if(['sweet','allin'].indexOf(paket.toLowerCase()) !== -1){
+      var extrasSelect = document.getElementById('extras-select');
+      if(extrasSelect){
+        // Wenn Popcorn auch dabei → Kombi wählen
+        if(paket.toLowerCase() === 'allin'){
+          extrasSelect.value = 'Zuckerwatte + Popcorn (+100€)';
+        } else {
+          extrasSelect.value = 'Zuckerwatte (+45€)';
+        }
+        extrasSelect.dispatchEvent(new Event('change'));
+      }
+    }
+
+    // Nur Popcorn (snack)
+    if(paket.toLowerCase() === 'snack'){
+      var extrasSelect = document.getElementById('extras-select');
+      if(extrasSelect){
+        extrasSelect.value = 'Popcorn (+60€)';
+        extrasSelect.dispatchEvent(new Event('change'));
+      }
+    }
+
+    // Paket als hidden field mitsenden
+    var paketInput = document.createElement('input');
+    paketInput.type = 'hidden';
+    paketInput.name = 'Paket';
+    paketInput.value = pk ? pk.name : paket;
+    document.getElementById('anfrage-form').appendChild(paketInput);
+
+    updateOrderSummary();
+  }
+
   // Set min date to today
   var today=new Date().toISOString().split('T')[0];
   document.getElementById('datumStart').min=today;
