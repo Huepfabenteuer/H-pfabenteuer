@@ -222,6 +222,25 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   .burg-price{font-size:20px;}
   .burg-img,.burg-img-ph{height:180px;}
 }
+/* ── PAKETE ── */
+.paket-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;}
+.paket-card{background:white;border-radius:20px;padding:18px 16px 16px;box-shadow:var(--shadow);border:1.5px solid rgba(0,0,0,.04);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:6px;transition:transform .2s,box-shadow .2s;cursor:pointer;position:relative;overflow:hidden;}
+.paket-card:active{transform:scale(.98);}
+.paket-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+.paket-card.pk-komfort::before{background:linear-gradient(90deg,#a855f7,#7c3aed);}
+.paket-card.pk-sweet::before{background:linear-gradient(90deg,#ff4fa3,#f43f8e);}
+.paket-card.pk-snack::before{background:linear-gradient(90deg,#ff8c00,#f59e0b);}
+.paket-card.pk-allin::before{background:linear-gradient(90deg,#00d97e,#059669);}
+.paket-icon{font-size:28px;line-height:1;}
+.paket-name{font-family:'Baloo 2',cursive;font-size:14px;font-weight:900;color:#0f0b2e;line-height:1.2;}
+.paket-items{font-size:11px;color:#666;line-height:1.7;}
+.paket-items span{display:block;}
+.paket-price{font-family:'Baloo 2',cursive;font-size:12px;font-weight:800;color:var(--pink);margin-top:2px;}
+.paket-badge{display:inline-block;background:linear-gradient(135deg,#00d97e,#059669);color:white;font-family:'Baloo 2',cursive;font-size:10px;font-weight:900;padding:2px 8px;border-radius:20px;}
+.paket-btn{margin-top:auto;padding-top:10px;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;padding:9px;border-radius:12px;font-family:'Baloo 2',cursive;font-size:12px;font-weight:800;text-align:center;display:block;}
+.paket-card.pk-allin{border-color:rgba(0,217,126,.2);}
+.paket-card.pk-allin .paket-btn{background:linear-gradient(135deg,#00d97e,#059669);}
+@media(min-width:768px){.paket-grid{grid-template-columns:repeat(4,1fr);}}
 </style>
  
   <script type="application/ld+json">
@@ -299,6 +318,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <div class="filter-tabs">
     <button class="ftab on" data-filter="all" onclick="filter('all',this)">🎪 Alle</button>
     <button class="ftab" data-filter="burg" onclick="filter('burg',this)">🏰 Hüpfburgen</button>
+    <button class="ftab" data-filter="paket" onclick="filter('paket',this)">🎁 Pakete</button>
     <button class="ftab" data-filter="extra" onclick="filter('extra',this)">🍭 Extras</button>
     <button class="ftab" data-filter="foto" onclick="filter('foto',this)">📷 Fotobox</button>
   </div>
@@ -642,6 +662,68 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   </div>
 </div>
  
+<!-- PAKETE -->
+<div class="sec">
+  <div class="reveal">
+    <div class="tag">🎁 Pakete</div>
+    <div class="stitle">Spare mit unseren <em>Kombi-Paketen</em></div>
+    <div class="stitle-sub">Hüpfburg deiner Wahl + Extras – bequem kombiniert</div>
+  </div>
+  <div class="paket-grid">
+
+    <!-- KOMFORT-PAKET -->
+    <a href="anfragen.html?paket=komfort" class="paket-card pk-komfort reveal" data-cat="paket">
+      <div class="paket-icon">🔧</div>
+      <div class="paket-name">Komfort-Paket</div>
+      <div class="paket-items">
+        <span>✅ Hüpfburg deiner Wahl</span>
+        <span>✅ Auf- &amp; Abbau</span>
+      </div>
+      <div class="paket-price">ab 170 € · kein Stress</div>
+      <div class="paket-btn">Jetzt anfragen →</div>
+    </a>
+
+    <!-- SÜSSES PAKET -->
+    <a href="anfragen.html?paket=sweet" class="paket-card pk-sweet reveal" data-cat="paket">
+      <div class="paket-icon">🍭</div>
+      <div class="paket-name">Süßes Paket</div>
+      <div class="paket-items">
+        <span>✅ Hüpfburg deiner Wahl</span>
+        <span>✅ Auf- &amp; Abbau</span>
+        <span>✅ Zuckerwattemaschine</span>
+      </div>
+      <div class="paket-badge" style="background:linear-gradient(135deg,#ff4fa3,#a855f7);">🏷️ 5% Rabatt</div>
+      <div class="paket-btn">Jetzt anfragen →</div>
+    </a>
+
+    <!-- SNACK-PAKET -->
+    <a href="anfragen.html?paket=snack" class="paket-card pk-snack reveal" data-cat="paket">
+      <div class="paket-icon">🍿</div>
+      <div class="paket-name">Snack-Paket</div>
+      <div class="paket-items">
+        <span>✅ Hüpfburg deiner Wahl</span>
+        <span>✅ Popcornmaschine</span>
+      </div>
+      <div class="paket-price">ab 170 € · knusprig gut</div>
+      <div class="paket-btn">Jetzt anfragen →</div>
+    </a>
+
+    <!-- ALL-INCLUSIVE -->
+    <a href="anfragen.html?paket=allin" class="paket-card pk-allin reveal" data-cat="paket">
+      <div class="paket-icon">🎉</div>
+      <div class="paket-name">All-Inclusive</div>
+      <div class="paket-items">
+        <span>✅ Hüpfburg deiner Wahl</span>
+        <span>✅ Auf- &amp; Abbau</span>
+        <span>✅ Zuckerwatte &amp; Popcorn</span>
+      </div>
+      <div class="paket-badge">🏷️ 10% Rabatt</div>
+      <div class="paket-btn">Jetzt anfragen →</div>
+    </a>
+
+  </div>
+</div>
+
 <!-- LIEFERUNG -->
 <div class="sec">
   <div class="reveal">
