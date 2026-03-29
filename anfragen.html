@@ -382,6 +382,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
       <div class="order-summary-title">🛒 Deine Auswahl</div>
       <div id="orderRows"></div>
       <div class="order-note">* Geschätzter Preis · Lieferung gratis bis 40 km · Endpreis nach Bestätigung</div>
+      <div id="anzahlungHinweis" style="display:none;margin-top:10px;padding:10px 14px;border-radius:12px;background:linear-gradient(135deg,rgba(255,214,0,.12),rgba(255,79,163,.08));border:1.5px solid rgba(255,214,0,.4);font-size:12px;font-weight:700;color:#7a5c00;line-height:1.6;"></div>
     </div>
  
     <button type="button" class="btn-submit reveal" id="submitBtn" onclick="submitAnfrage()">
@@ -589,6 +590,20 @@ function updateOrderSummary(){
   // Gesamtpreis global speichern für Formcarry
   window._gesamtpreis = total > 0 ? total.toFixed(2) + ' €' : null;
   window._preisdetails = rows.map(function(r){ return r.label + ': ' + r.val; }).join(' | ');
+
+  // ── Anzahlungs-Hinweis ──
+  var hinweis = document.getElementById('anzahlungHinweis');
+  if(hinweis){
+    if(total >= 300){
+      hinweis.style.display = 'block';
+      hinweis.innerHTML = '💳 Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 100 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird bei Lieferung oder Abholung bezahlt.';
+    } else if(total >= 200){
+      hinweis.style.display = 'block';
+      hinweis.innerHTML = '💳 Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 50 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird bei Lieferung oder Abholung bezahlt.';
+    } else {
+      hinweis.style.display = 'none';
+    }
+  }
 }
  
 // ── Pre-select burg from URL ──
