@@ -334,7 +334,8 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
         </span>
       </button>
       <input type="hidden" name="Auf- und Abbau" id="aufbau-val" value="Nein">
- 
+      <div id="aufbau-paket-hint" style="display:none;margin-top:6px;font-size:12px;font-weight:700;color:#1b8d4b;padding:6px 12px;background:rgba(27,141,75,.08);border-radius:10px;border:1px solid rgba(27,141,75,.2);">✅ Im Paket enthalten – kann nicht entfernt werden</div>
+
       <div class="field" style="margin-top:10px;">
         <label>Süße Extras (optional)</label>
         <select name="Extras" id="extras-select">
@@ -343,6 +344,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
           <option value="Popcorn (+60€)">🍿 Popcorn (+60€)</option>
           <option value="Zuckerwatte + Popcorn (+100€)">🍭🍿 Zuckerwatte + Popcorn (+100€)</option>
         </select>
+        <div id="extras-paket-hint" style="display:none;margin-top:6px;font-size:12px;font-weight:700;color:#1b8d4b;padding:6px 12px;background:rgba(27,141,75,.08);border-radius:10px;border:1px solid rgba(27,141,75,.2);">✅ Im Paket enthalten – kann nicht entfernt werden</div>
       </div>
  
       <!-- SUB-EXTRA: Zuckerwatte-Set -->
@@ -578,6 +580,7 @@ function updateOrderSummary(){
   var rabattProzent = 0;
   var rabattLabel = '';
   if(paket === 'sweet'){ rabattProzent = 5; rabattLabel = '🏷️ Süßes Paket -5%'; }
+  if(paket === 'snack'){ rabattProzent = 5; rabattLabel = '🏷️ Snack-Paket -5%'; }
   if(paket === 'allin'){  rabattProzent = 10; rabattLabel = '🏷️ All-Inclusive -10%'; }
   var rabattBetrag = 0;
   if(rabattProzent > 0 && total > 0){
@@ -659,8 +662,8 @@ window.addEventListener('DOMContentLoaded', function(){
       burgBanner.parentNode.insertBefore(banner, burgBanner);
     }
 
-    // Auf & Abbau aktivieren (komfort, sweet, allin)
-    if(['komfort','sweet','allin'].indexOf(paket.toLowerCase()) !== -1){
+    // Auf & Abbau aktivieren (komfort, sweet, snack, allin)
+    if(['komfort','sweet','snack','allin'].indexOf(paket.toLowerCase()) !== -1){
       var aufbauBtn = document.getElementById('aufbau-btn');
       if(aufbauBtn && !aufbauOn) aufbauBtn.click();
     }
@@ -696,6 +699,29 @@ window.addEventListener('DOMContentLoaded', function(){
     document.getElementById('anfrage-form').appendChild(paketInput);
 
     updateOrderSummary();
+
+    // ── Paket-Extras sperren ──
+    var aufbauHint = document.getElementById('aufbau-paket-hint');
+    if(aufbauHint) aufbauHint.style.display = 'block';
+    document.getElementById('aufbau-btn').addEventListener('click', function(e){
+      if(aufbauOn){
+        e.stopImmediatePropagation();
+        var btn = this;
+        btn.style.transition = 'border .1s';
+        btn.style.border = '2px solid #1b8d4b';
+        setTimeout(function(){ btn.style.border = ''; }, 700);
+      }
+    }, true);
+
+    if(['sweet','snack','allin'].indexOf(paket.toLowerCase()) !== -1){
+      var extrasHint = document.getElementById('extras-paket-hint');
+      if(extrasHint) extrasHint.style.display = 'block';
+      var lockedVal = paket === 'allin' ? 'Zuckerwatte + Popcorn (+100€)' :
+                      paket === 'sweet' ? 'Zuckerwatte (+45€)' : 'Popcorn (+60€)';
+      document.getElementById('extras-select').addEventListener('mousedown', function(e){ e.preventDefault(); }, true);
+      document.getElementById('extras-select').style.pointerEvents = 'none';
+      document.getElementById('extras-select').style.opacity = '0.7';
+    }
   }
 
   // Set min date to today
