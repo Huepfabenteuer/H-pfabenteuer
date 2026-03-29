@@ -256,12 +256,10 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
           <input type="date" id="datumEnde" name="Enddatum" onclick="try{this.showPicker&&this.showPicker()}catch(e){}">
         </div>
       </div>
-      <div class="field">
+      <div class="field" id="tage-anzeige" style="display:none;">
         <label>Anzahl Tage</label>
-        <div class="stepper">
-          <button type="button" class="step-btn" onclick="changeDays(-1)">−</button>
-          <div class="step-val" id="daysVal">1</div>
-          <button type="button" class="step-btn" onclick="changeDays(1)">+</button>
+        <div style="padding:13px 15px;border:2px solid #eee;border-radius:14px;font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;color:var(--dark);background:#f9f9f9;">
+          <span id="daysVal">1</span> Tag<span id="tagePlural"></span>
         </div>
       </div>
       <!-- Hidden: Tage als Formwert -->
@@ -489,7 +487,38 @@ function updatePrice(){
 // ── Datum: Enddatum >= Startdatum ──
 document.getElementById('datumStart').addEventListener('change', function(){
   if(this.value) document.getElementById('datumEnde').min=this.value;
+  berechneTage();
 });
+
+document.getElementById('datumEnde').addEventListener('change', function(){
+  berechneTage();
+});
+
+function berechneTage(){
+  var start = document.getElementById('datumStart').value;
+  var ende  = document.getElementById('datumEnde').value;
+  var tageAnzeige = document.getElementById('tage-anzeige');
+  if(start && ende && ende >= start){
+    var diff = Math.round((new Date(ende) - new Date(start)) / (1000*60*60*24)) + 1;
+    if(diff >= 1 && diff <= 14){
+      days = diff;
+      document.getElementById('daysVal').textContent = days;
+      document.getElementById('tagePlural').textContent = days > 1 ? 'e' : '';
+      document.getElementById('hiddenDays').value = days;
+      if(tageAnzeige) tageAnzeige.style.display = 'block';
+      updatePrice();
+      updateOrderSummary();
+    }
+  } else if(start && !ende){
+    days = 1;
+    document.getElementById('daysVal').textContent = 1;
+    document.getElementById('tagePlural').textContent = '';
+    document.getElementById('hiddenDays').value = 1;
+    if(tageAnzeige) tageAnzeige.style.display = 'none';
+    updatePrice();
+    updateOrderSummary();
+  }
+}
  
 // ── Auf- & Abbau Toggle ──
 var aufbauOn = false;
