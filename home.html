@@ -56,7 +56,8 @@ body{font-family:'Nunito',sans-serif;background:#ddeeff !important;color:#0f0b2e
 @keyframes twinkle{0%,100%{opacity:.1;transform:scale(1);}50%{opacity:.55;transform:scale(1.4);}}
 .meteor{position:absolute;height:2px;border-radius:999px;pointer-events:none;opacity:0;transform-origin:left center;}
  
-.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;position:relative;z-index:2;}
+.topbar{display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:997;padding:10px 18px;background:rgba(10,22,40,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 2px 20px rgba(0,0,0,.25);}
+.hero-wrap{padding-top:72px;}
 .logo{display:flex;align-items:center;gap:8px;}
 .logo-txt{font-family:'Baloo 2',cursive;font-size:19px;font-weight:800;color:white;}
 .logo-mark{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#FFD600,#ff9800);display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:white;box-shadow:0 4px 14px rgba(255,185,0,.45);flex-shrink:0;}
@@ -352,45 +353,47 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <body>
  
  
+<!-- STICKY TOPBAR -->
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-mark">H</div>
+    <div class="logo-text-wrap">
+      <span class="logo-main">Hüpf<span class="logo-accent">abenteuer</span></span>
+      <span class="logo-sub">Kärnten</span>
+    </div>
+  </div>
+  <button class="hbg-btn" id="hbgBtn" onclick="toggleMenu()" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+
+<!-- OVERLAY -->
+<div class="hbg-overlay" id="hbgOverlay" onclick="closeMenu()"></div>
+
+<!-- DRAWER -->
+<div class="hbg-drawer" id="hbgDrawer">
+  <div class="hbg-drawer-top">
+    <div class="hbg-drawer-logo">Hüpf<span>abenteuer</span></div>
+    <div class="hbg-close" onclick="closeMenu()">✕</div>
+  </div>
+  <nav class="hbg-nav">
+    <a href="home.html" class="hbg-link" data-page="home"><span class="hbg-link-ic">🏠</span>Home</a>
+    <a href="unsere-angebote.html?filter=burg" class="hbg-link" data-page="burg"><span class="hbg-link-ic">🏰</span>Hüpfburgen</a>
+    <a href="unsere-angebote.html?filter=foto" class="hbg-link" data-page="foto"><span class="hbg-link-ic">📷</span>Fotobox</a>
+    <a href="unsere-angebote.html?filter=extra" class="hbg-link" data-page="extra"><span class="hbg-link-ic">🍭</span>Extras</a>
+    <a href="kontakt.html" class="hbg-link" data-page="kontakt"><span class="hbg-link-ic">📞</span>Kontakt</a>
+  </nav>
+  <div class="hbg-divider"></div>
+  <div class="hbg-contact">
+    <a href="tel:+436641852634" class="hbg-clink phone">📞 +43 664 185 26 34</a>
+    <a href="https://wa.me/436641852634" target="_blank" class="hbg-clink wa">💬 WhatsApp schreiben</a>
+  </div>
+</div>
+
 <!-- HERO -->
 <div class="hero-wrap">
   <div class="stars" id="stars"></div>
   <div class="hbg"><div class="b1"></div><div class="b2"></div><div class="b3"></div></div>
-  <div class="topbar">
-    <div class="logo">
-      <div class="logo-mark">H</div>
-      <div class="logo-text-wrap">
-        <span class="logo-main">Hüpf<span class="logo-accent">abenteuer</span></span>
-        <span class="logo-sub">Kärnten</span>
-      </div>
-    </div>
-    <button class="hbg-btn" id="hbgBtn" onclick="toggleMenu()" aria-label="Menü öffnen">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-
-  <!-- OVERLAY -->
-  <div class="hbg-overlay" id="hbgOverlay" onclick="closeMenu()"></div>
-
-  <!-- DRAWER -->
-  <div class="hbg-drawer" id="hbgDrawer">
-    <div class="hbg-drawer-top">
-      <div class="hbg-drawer-logo">Hüpf<span>abenteuer</span></div>
-      <div class="hbg-close" onclick="closeMenu()">✕</div>
-    </div>
-    <nav class="hbg-nav">
-      <a href="home.html" class="hbg-link active"><span class="hbg-link-ic">🏠</span>Home</a>
-      <a href="unsere-angebote.html?filter=burg" class="hbg-link"><span class="hbg-link-ic">🏰</span>Hüpfburgen</a>
-      <a href="unsere-angebote.html?filter=foto" class="hbg-link"><span class="hbg-link-ic">📷</span>Fotobox</a>
-      <a href="unsere-angebote.html?filter=extra" class="hbg-link"><span class="hbg-link-ic">🍭</span>Extras</a>
-      <a href="kontakt.html" class="hbg-link"><span class="hbg-link-ic">📞</span>Kontakt</a>
-    </nav>
-    <div class="hbg-divider"></div>
-    <div class="hbg-contact">
-      <a href="tel:+436641852634" class="hbg-clink phone">📞 +43 664 185 26 34</a>
-      <a href="https://wa.me/436641852634" target="_blank" class="hbg-clink wa">💬 WhatsApp schreiben</a>
-    </div>
-  </div>
   <div class="hero-img" style="position:relative;">
     <div class="hero-badge">⭐ 5,0 Google</div>
     <div style="width:100%;height:100%;">
@@ -757,6 +760,26 @@ function closeMenu(){
   document.body.style.overflow='';
 }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(); });
+
+// ── Aktive Seite erkennen ──
+(function(){
+  var path = window.location.pathname;
+  var params = window.location.search;
+  var page = 'home';
+  if(path.indexOf('unsere-angebote') !== -1){
+    if(params.indexOf('filter=burg') !== -1) page = 'burg';
+    else if(params.indexOf('filter=foto') !== -1) page = 'foto';
+    else if(params.indexOf('filter=extra') !== -1) page = 'extra';
+    else page = 'burg';
+  } else if(path.indexOf('kontakt') !== -1){ page = 'kontakt'; }
+  else if(path.indexOf('anfragen') !== -1){ page = ''; }
+
+  document.querySelectorAll('.hbg-link').forEach(function(link){
+    if(link.dataset.page === page){
+      link.classList.add('active');
+    }
+  });
+})();
 </script>
 </body>
 </html>
