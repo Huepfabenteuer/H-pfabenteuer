@@ -27,12 +27,12 @@
 }
 html{color-scheme:light only;}*{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e !important;overflow-x:hidden;padding-bottom:86px;-webkit-text-size-adjust:100%;}
+body{font-family:'Nunito',sans-serif;background:#ddeeff !important;color:#0f0b2e !important;overflow-x:hidden;padding-bottom:86px;-webkit-text-size-adjust:100%;}
  
 /* ── BOTTOM NAV ── */
-.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,9,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(10,22,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.12);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
 .bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.5);transition:color .25s,transform .2s;position:relative;}
-.bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,var(--pink),var(--purple));transition:width .3s cubic-bezier(.34,1.56,.64,1);}
+.bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,#00c2ff,#378ADD);transition:width .3s cubic-bezier(.34,1.56,.64,1);}
 .bi.on{color:white;}
 .bi.on::after{width:36px;}
 .bi:active{transform:scale(.9);}
@@ -46,7 +46,7 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 @keyframes fp{0%{transform:translateY(110vh) rotate(0deg);opacity:0;}10%{opacity:.1;}90%{opacity:.1;}100%{transform:translateY(-10vh) rotate(360deg);opacity:0;}}
  
 /* ── HERO ── */
-.hero-wrap{background:linear-gradient(155deg,#0d0929 0%,#1a0d55 40%,#2a1668 70%,#1e0d4a 100%);padding:20px 18px 68px;position:relative;overflow:hidden;text-align:center;}
+.hero-wrap{background:linear-gradient(155deg,#0a1628 0%,#0e2a4a 40%,#153d6b 70%,#0c2038 100%);padding:20px 18px 68px;position:relative;overflow:hidden;text-align:center;}
 .hbg div{position:absolute;border-radius:50%;pointer-events:none;}
 .hbg .b1{width:340px;height:340px;top:-120px;right:-80px;background:radial-gradient(circle,rgba(255,79,163,.18),transparent 65%);}
 .hbg .b2{width:260px;height:260px;bottom:-60px;left:-70px;background:radial-gradient(circle,rgba(0,194,255,.14),transparent 65%);}
@@ -66,6 +66,40 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .logo-sub{font-family:'Nunito',sans-serif;font-size:9px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:1.5px;text-transform:uppercase;}
 .call-btn{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:white;padding:6px 11px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:11px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:4px;backdrop-filter:blur(8px);transition:background .2s,transform .15s;}
 .call-btn:active{transform:scale(.96);}
+
+/* ── HAMBURGER MENU ── */
+.hbg-btn{width:42px;height:42px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;backdrop-filter:blur(8px);transition:background .2s,transform .15s;flex-shrink:0;}
+.hbg-btn:active{transform:scale(.93);}
+.hbg-btn span{display:block;width:18px;height:2px;background:white;border-radius:2px;transition:transform .3s ease,opacity .3s ease;}
+.hbg-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hbg-btn.open span:nth-child(2){opacity:0;}
+.hbg-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.hbg-overlay{position:fixed;inset:0;z-index:1998;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;}
+.hbg-overlay.open{background:rgba(0,0,0,.45);pointer-events:all;}
+
+.hbg-drawer{position:fixed;top:0;right:0;bottom:0;z-index:1999;width:260px;background:rgba(8,18,32,.98);backdrop-filter:blur(24px);border-left:1px solid rgba(255,255,255,.1);transform:translateX(100%);transition:transform .35s cubic-bezier(.34,1.08,.64,1);display:flex;flex-direction:column;padding:24px 20px 32px;box-shadow:-8px 0 40px rgba(0,0,0,.4);}
+.hbg-drawer.open{transform:translateX(0);}
+
+.hbg-drawer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
+.hbg-drawer-logo{font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:white;}
+.hbg-drawer-logo span{color:var(--sun);}
+.hbg-close{width:34px;height:34px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:white;font-size:18px;line-height:1;transition:background .2s;}
+.hbg-close:active{background:rgba(255,255,255,.2);}
+
+.hbg-nav{display:flex;flex-direction:column;gap:6px;flex:1;}
+.hbg-link{display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:14px;text-decoration:none;color:rgba(255,255,255,.75);font-family:'Baloo 2',cursive;font-size:15px;font-weight:700;transition:background .2s,color .2s;}
+.hbg-link:active{background:rgba(255,255,255,.08);}
+.hbg-link.active{background:linear-gradient(135deg,rgba(21,61,107,.6),rgba(14,42,74,.6));color:white;border:1px solid rgba(0,194,255,.25);}
+.hbg-link-ic{font-size:20px;width:28px;text-align:center;flex-shrink:0;}
+
+.hbg-divider{height:1px;background:rgba(255,255,255,.08);margin:10px 0;}
+
+.hbg-contact{display:flex;flex-direction:column;gap:8px;margin-top:4px;}
+.hbg-clink{display:flex;align-items:center;justify-content:center;gap:7px;padding:12px;border-radius:13px;font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;text-decoration:none;transition:transform .15s;}
+.hbg-clink:active{transform:scale(.97);}
+.hbg-clink.phone{background:rgba(21,61,107,.7);border:1.5px solid rgba(0,194,255,.25);color:white;}
+.hbg-clink.wa{background:linear-gradient(135deg,#25d366,#128c7e);color:white;}
 .hero-img{width:100%;max-width:480px;height:280px;margin:0 auto 20px;border-radius:22px;overflow:hidden;border:2px solid rgba(255,255,255,.18);box-shadow:0 18px 50px rgba(0,0,0,.4);position:relative;animation:heroFloat 4s ease-in-out infinite;}
 @keyframes heroFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
 .hero-badge{position:absolute;top:-11px;right:-11px;background:linear-gradient(135deg,#FFD600,#ff9800);color:#1a0d00;font-family:'Baloo 2',cursive;font-size:11px;font-weight:900;padding:5px 12px;border-radius:30px;box-shadow:0 4px 18px rgba(255,180,0,.5);animation:badgePulse 2.2s ease-in-out infinite;z-index:2;}
@@ -91,9 +125,9 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .stat-l{font-size:10px;color:rgba(255,255,255,.85);text-transform:uppercase;letter-spacing:.7px;}
 .stat-div{width:1px;background:rgba(255,255,255,.2);margin:5px 0;align-self:stretch;}
 .hero-btns{display:flex;gap:10px;position:relative;z-index:2;}
-.hbtn-main{flex:1;background:linear-gradient(135deg,#FFD600,#ff9800);color:#1a0d00;padding:16px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;text-decoration:none;text-align:center;box-shadow:0 8px 28px rgba(255,185,0,.45);transition:transform .15s;}
+.hbtn-main{flex:1;background:linear-gradient(135deg,#FFD600,#ff9800);color:#1a0d00;padding:19px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:17px;font-weight:800;text-decoration:none;text-align:center;box-shadow:0 8px 28px rgba(255,185,0,.45);transition:transform .15s;}
 .hbtn-main:active{transform:scale(.97);}
-.hbtn-sec{background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.3);color:white;padding:16px 20px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:16px;font-weight:700;text-decoration:none;transition:background .2s,transform .15s;}
+.hbtn-sec{background:rgba(255,255,255,.92);border:none;color:#0e2a4a;padding:19px 20px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;text-decoration:none;transition:background .2s,transform .15s;}
 .hbtn-sec:active{transform:scale(.97);}
 .wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
  
@@ -240,7 +274,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
  
 /* ── FORCE LIGHT MODE – override system dark mode ── */
 @media(prefers-color-scheme:dark){
-  html,body{background:#f0f2f8 !important;color:#0f0b2e !important;}
+  html,body{background:#ddeeff !important;color:#0f0b2e !important;}
   .trust,.svc,.rcard,.rsumm,.deliv,.faq,.seal,.anf-form-card{background:white !important;color:#0f0b2e !important;}
   .urgency{background:linear-gradient(135deg,rgba(255,79,163,.09),rgba(168,85,247,.09)) !important;}
   .stitle,.card-title,.svc-name,.faq-qt,.deliv-title,.rb-ttl,.rname{color:#0f0b2e !important;}
@@ -302,7 +336,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Alienburg mieten"}, "price": "180", "priceCurrency": "EUR"},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Ritterburg mieten"}, "price": "140", "priceCurrency": "EUR"},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Candyburg mieten"}, "price": "120", "priceCurrency": "EUR"},
-        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Feuerwehrauto Hüpfburg mieten"}, "price": "130", "priceCurrency": "EUR"},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Feuerwehrauto Hüpfburg mieten"}, "price": "140", "priceCurrency": "EUR"},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Hochzeitsburg mieten"}, "price": "0", "priceCurrency": "EUR"},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Fotobox mieten Kärnten"}, "price": "199", "priceCurrency": "EUR"},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Zuckerwattemaschine mieten"}, "price": "45", "priceCurrency": "EUR"},
@@ -330,12 +364,35 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
         <span class="logo-sub">Kärnten</span>
       </div>
     </div>
-    <div style="display:flex;gap:8px;">
-      <a href="tel:+436641852634" class="call-btn">📞 Anrufen</a>
-      <a href="https://wa.me/436641852634" target="_blank" class="call-btn" style="background:rgba(37,211,102,.25);border-color:rgba(37,211,102,.5);">💬 WhatsApp</a>
+    <button class="hbg-btn" id="hbgBtn" onclick="toggleMenu()" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- OVERLAY -->
+  <div class="hbg-overlay" id="hbgOverlay" onclick="closeMenu()"></div>
+
+  <!-- DRAWER -->
+  <div class="hbg-drawer" id="hbgDrawer">
+    <div class="hbg-drawer-top">
+      <div class="hbg-drawer-logo">Hüpf<span>abenteuer</span></div>
+      <div class="hbg-close" onclick="closeMenu()">✕</div>
+    </div>
+    <nav class="hbg-nav">
+      <a href="home.html" class="hbg-link active"><span class="hbg-link-ic">🏠</span>Home</a>
+      <a href="unsere-angebote.html?filter=burg" class="hbg-link"><span class="hbg-link-ic">🏰</span>Hüpfburgen</a>
+      <a href="unsere-angebote.html?filter=foto" class="hbg-link"><span class="hbg-link-ic">📷</span>Fotobox</a>
+      <a href="unsere-angebote.html?filter=extra" class="hbg-link"><span class="hbg-link-ic">🍭</span>Extras</a>
+      <a href="kontakt.html" class="hbg-link"><span class="hbg-link-ic">📞</span>Kontakt</a>
+    </nav>
+    <div class="hbg-divider"></div>
+    <div class="hbg-contact">
+      <a href="tel:+436641852634" class="hbg-clink phone">📞 +43 664 185 26 34</a>
+      <a href="https://wa.me/436641852634" target="_blank" class="hbg-clink wa">💬 WhatsApp schreiben</a>
     </div>
   </div>
   <div class="hero-img" style="position:relative;">
+    <div class="hero-badge">⭐ 5,0 Google</div>
     <div style="width:100%;height:100%;">
   <img src="https://i.imgur.com/oDlTjx4.jpeg" style="width:100%;height:100%;object-fit:cover;">
     </div>
@@ -361,12 +418,15 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     <div class="stat-div"></div>
     <div class="stat"><div class="stat-n">40km</div><div class="stat-l">Gratis</div></div>
   </div>
-  <div class="hero-btns">
+  <div class="hero-btns" style="flex-direction:column;gap:9px;">
     <a href="unsere-angebote.html" class="hbtn-main">🏰 Angebote entdecken</a>
-    <a href="tel:+436641852634" class="hbtn-sec">📞 Anrufen</a>
+    <div style="display:flex;gap:9px;">
+      <a href="tel:+436641852634" class="hbtn-sec" style="flex:1;text-align:center;">📞 Anrufen</a>
+      <a href="https://wa.me/436641852634" target="_blank" class="hbtn-sec" style="flex:1;text-align:center;background:#25d366;color:#064e1f;">💬 WhatsApp</a>
+    </div>
   </div>
   <svg class="wave" viewBox="0 0 390 60" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
-  <path d="M0 30C60 10 120 50 195 28C270 6 330 46 390 26V60H0Z" fill="#f0f2f8"/>
+  <path d="M0 30C60 10 120 50 195 28C270 6 330 46 390 26V60H0Z" fill="#ddeeff"/>
 </svg>
 </div>
  
@@ -390,16 +450,16 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
  
  
 <!-- NEU BANNER -->
-<a href="anfragen.html?burg=Feuerwehrauto" style="text-decoration:none;display:block;margin:8px 16px 0;">
+<a href="unsere-angebote.html" style="text-decoration:none;display:block;margin:8px 16px 0;">
   <div style="background:linear-gradient(135deg,#cc1a1a,#ff4500);border-radius:18px;padding:14px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 28px rgba(255,69,0,.35);position:relative;overflow:hidden;">
     <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 12px);pointer-events:none;"></div>
     <div style="font-size:42px;flex-shrink:0;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3));">🚒</div>
     <div style="flex:1;position:relative;">
       <div style="background:linear-gradient(135deg,#FFD600,#ff9800);color:#1a0d00;font-family:'Baloo 2',cursive;font-size:10px;font-weight:900;padding:2px 9px;border-radius:20px;display:inline-block;margin-bottom:4px;">🆕 NEU dabei</div>
       <div style="font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:white;line-height:1.2;">Feuerwehr-Hüpfburg</div>
-      <div style="font-size:11px;color:rgba(255,255,255,.85);font-weight:600;">Bald verfügbar · 140€/Tag · Jetzt vormerken →</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.85);font-weight:600;">Jetzt verfügbar · 140€/Tag · Zum Angebot →</div>
     </div>
-    <div style="background:rgba(255,255,255,.2);border-radius:12px;padding:8px 12px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;color:white;white-space:nowrap;backdrop-filter:blur(6px);">Vormerken →</div>
+    <div style="background:rgba(255,255,255,.2);border-radius:12px;padding:8px 12px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;color:white;white-space:nowrap;backdrop-filter:blur(6px);">Ansehen →</div>
   </div>
 </a>
  
@@ -414,7 +474,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
       </div>
       <div class="svc-foot">
         <div class="svc-name">Hüpfburgen</div>
-        <div class="svc-desc">6 Modelle · Klassisch, Wasser, Dschungel & Superhelden</div>
+        <div class="svc-desc">6 Modelle · Alienburg, Ritterburg, Piratenburg, Candyburg & mehr</div>
         <div class="svc-pr">ab 120€ <span class="arr">→</span></div>
       </div>
     </a>
@@ -436,7 +496,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <!-- URGENCY -->
 <div class="urgency reveal">
   <span class="urgency-ic">🔥</span>
-  <div class="urgency-txt">Saison startet bald! <em>Jetzt frühzeitig buchen</em> und Wunschtermin sichern – besonders Mai bis September sind schnell vergeben.</div>
+  <div class="urgency-txt">Saison läuft! <em>Jetzt buchen</em> und Wunschtermin sichern – Mai bis September sind schnell vergeben.</div>
 </div>
  
 <!-- INDOOR -->
@@ -457,7 +517,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     <div class="deliv-title">🚚 Liefergebiet Kärnten</div>
     <div class="dr"><span style="font-size:20px;">✅</span><div><strong>Lieferung kostenlos</strong> im Umkreis von 40 km (einfache Strecke)</div></div>
     <div class="dr"><span style="font-size:20px;">🔧</span><div><strong>Auf- & Abbau</strong> optional für nur <strong>50 €</strong> zusätzlich buchbar</div></div>
-    <div class="dr"><span style="font-size:20px;">📍</span><div>Jeder weitere Kilometer nur <strong>0,50 € / km</strong></div></div>
+    <div class="dr"><span style="font-size:20px;">📍</span><div>Jeder weitere Kilometer nur <strong>0,55 € / km</strong></div></div>
     <div class="dr"><span style="font-size:20px;">🏔️</span><div>Glödnitz · Gurk · St. Veit · Friesach · Feldkirchen & mehr</div></div>
     <div class="dr"><span style="font-size:20px;">📞</span><div>Größere Distanz? Einfach <strong>anfragen!</strong></div></div>
   </div>
@@ -487,11 +547,12 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <div class="sec">
   <div class="reveal"><div class="tag">❓ FAQ</div><div class="stitle">Häufige <em>Fragen</em></div></div>
   <div class="reveal">
-    <div class="faq"><div class="faq-q"><span class="faq-qt">Wie weit liefert ihr?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Im Umkreis von 40 km kostenlos. Jeder weitere km kostet 0,50 €. Auf Anfrage auch weiter!</div></div></div>
+    <div class="faq"><div class="faq-q"><span class="faq-qt">Wie weit liefert ihr?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Im Umkreis von 40 km kostenlos. Jeder weitere km kostet 0,55 €. Auf Anfrage auch weiter!</div></div></div>
     <div class="faq"><div class="faq-q"><span class="faq-qt">Was ist alles inklusive?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Gebläse, Sicherheitsnetz, Einweisung & Support. Lieferung gratis bis 40 km. Auf- & Abbau optional für 50 €.</div></div></div>
     <div class="faq"><div class="faq-q"><span class="faq-qt">Gibt es Indoor-Optionen?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Ja! Beim Gasthof Hochsteiner – wetterunabhängig, auch im Winter. Mit Kinoecke, Beamer & warmer Küche.</div></div></div>
     <div class="faq"><div class="faq-q"><span class="faq-qt">Wie früh muss ich buchen?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">2–3 Wochen im Voraus empfohlen, besonders Mai–September. Kurzfristig manchmal möglich – einfach anrufen!</div></div></div>
     <div class="faq"><div class="faq-q"><span class="faq-qt">Was bei schlechtem Wetter?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Bei schlechter Wettervorhersage muss 2–3 Tage vorher abgesagt werden – sonst kann die Anzahlung nicht erstattet werden.</div></div></div>
+    <div class="faq"><div class="faq-q"><span class="faq-qt">Gibt es eine Anzahlung?</span><span class="faq-ic">+</span></div><div class="faq-a"><div class="faq-ai">Ja – bei Bestellungen ab 220 € wird eine Anzahlung von 50 € fällig, ab 300 € sind es 100 €. Der Restbetrag wird bei Lieferung bezahlt.</div></div></div>
   </div>
 </div>
  
@@ -674,6 +735,28 @@ function denyCookies(){
   localStorage.setItem('cookie_consent','necessary');
   document.getElementById('cookie-banner').style.transform='translateY(100%)';
 }
+</script>
+<!-- HAMBURGER MENU SCRIPT -->
+<script>
+function toggleMenu(){
+  var btn=document.getElementById('hbgBtn');
+  var drawer=document.getElementById('hbgDrawer');
+  var overlay=document.getElementById('hbgOverlay');
+  var isOpen=drawer.classList.contains('open');
+  if(isOpen){ closeMenu(); } else {
+    btn.classList.add('open');
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+}
+function closeMenu(){
+  document.getElementById('hbgBtn').classList.remove('open');
+  document.getElementById('hbgDrawer').classList.remove('open');
+  document.getElementById('hbgOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(); });
 </script>
 </body>
 </html>
