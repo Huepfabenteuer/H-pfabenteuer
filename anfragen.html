@@ -25,14 +25,14 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 @media(prefers-color-scheme:dark){html,body{background:#f0f2f8 !important;color:#0f0b2e !important;}.card{background:white !important;}}
  
 /* BOTTOM NAV */
-.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,9,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(10,22,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
 .bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.5);transition:color .25s;position:relative;min-height:44px;}
-.bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,var(--pink),var(--purple));transition:width .3s cubic-bezier(.34,1.56,.64,1);}
+.bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,#00c2ff,#378ADD);transition:width .3s cubic-bezier(.34,1.56,.64,1);}
 .bi.on{color:white;}.bi.on::after{width:36px;}.bi:active{transform:scale(.9);}
 .bi-ic{font-size:21px;}.bi.on .bi-ic{transform:scale(1.22) translateY(-2px);}.bi-lb{font-family:'Baloo 2',cursive;font-size:10px;font-weight:700;}
  
 /* HERO */
-.ph{background:linear-gradient(155deg,#0d0929 0%,#1a0d55 40%,#2a1668 70%,#1e0d4a 100%);padding:20px 18px 60px;position:relative;overflow:hidden;}
+.ph{padding-top:72px !important;background:linear-gradient(155deg,#0d0929 0%,#1a0d55 40%,#2a1668 70%,#1e0d4a 100%);padding:20px 18px 60px;position:relative;overflow:hidden;}
 .ph-bg div{position:absolute;border-radius:50%;pointer-events:none;}
 .ph-bg .b1{width:300px;height:300px;top:-100px;right:-60px;background:radial-gradient(circle,rgba(255,79,163,.16),transparent 65%);}
 .ph-bg .b2{width:220px;height:220px;bottom:-50px;left:-50px;background:radial-gradient(circle,rgba(0,194,255,.12),transparent 65%);}
@@ -155,18 +155,84 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
   .form-section{padding:28px 60px;max-width:720px;margin:0 auto;}
   footer{padding:32px 60px 24px;}
 }
+
+/* ── STICKY TOPBAR ── */
+.topbar-sticky{display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:997;padding:10px 18px;background:rgba(10,22,40,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 2px 20px rgba(0,0,0,.25);}
+.ts-logo{display:flex;align-items:center;gap:8px;}
+.ts-logo-mark{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#FFD600,#ff9800);display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:white;box-shadow:0 4px 14px rgba(255,185,0,.45);flex-shrink:0;}
+.ts-logo-text{display:flex;flex-direction:column;gap:0;line-height:1;}
+.ts-logo-main{font-family:'Baloo 2',cursive;font-size:17px;font-weight:900;color:white;letter-spacing:-0.3px;}
+.ts-logo-accent{color:#FFD600;text-shadow:0 0 16px rgba(255,214,0,.35);}
+.ts-logo-sub{font-family:'Nunito',sans-serif;font-size:9px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:1.5px;text-transform:uppercase;}
+.hbg-btn{width:42px;height:42px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;backdrop-filter:blur(8px);transition:background .2s,transform .15s;flex-shrink:0;}
+.hbg-btn:active{transform:scale(.93);}
+.hbg-btn span{display:block;width:18px;height:2px;background:white;border-radius:2px;transition:transform .3s ease,opacity .3s ease;}
+.hbg-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hbg-btn.open span:nth-child(2){opacity:0;}
+.hbg-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.hbg-overlay{position:fixed;inset:0;z-index:1998;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;}
+.hbg-overlay.open{background:rgba(0,0,0,.45);pointer-events:all;}
+.hbg-drawer{position:fixed;top:0;right:0;bottom:0;z-index:1999;width:260px;background:rgba(8,18,32,.98);backdrop-filter:blur(24px);border-left:1px solid rgba(255,255,255,.1);transform:translateX(100%);transition:transform .35s cubic-bezier(.34,1.08,.64,1);display:flex;flex-direction:column;padding:24px 20px 32px;box-shadow:-8px 0 40px rgba(0,0,0,.4);}
+.hbg-drawer.open{transform:translateX(0);}
+.hbg-drawer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
+.hbg-drawer-logo{font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:white;}
+.hbg-drawer-logo span{color:#FFD600;}
+.hbg-close{width:34px;height:34px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:white;font-size:18px;line-height:1;transition:background .2s;}
+.hbg-close:active{background:rgba(255,255,255,.2);}
+.hbg-nav{display:flex;flex-direction:column;gap:6px;flex:1;}
+.hbg-link{display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:14px;text-decoration:none;color:rgba(255,255,255,.75);font-family:'Baloo 2',cursive;font-size:15px;font-weight:700;transition:background .2s,color .2s;}
+.hbg-link:active{background:rgba(255,255,255,.08);}
+.hbg-link.active{background:linear-gradient(135deg,rgba(21,61,107,.6),rgba(14,42,74,.6));color:white;border:1px solid rgba(0,194,255,.25);}
+.hbg-link-ic{font-size:20px;width:28px;text-align:center;flex-shrink:0;}
+.hbg-divider{height:1px;background:rgba(255,255,255,.08);margin:10px 0;}
+.hbg-contact{display:flex;flex-direction:column;gap:8px;margin-top:4px;}
+.hbg-clink{display:flex;align-items:center;justify-content:center;gap:7px;padding:12px;border-radius:13px;font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;text-decoration:none;transition:transform .15s;}
+.hbg-clink:active{transform:scale(.97);}
+.hbg-clink.phone{background:rgba(21,61,107,.7);border:1.5px solid rgba(0,194,255,.25);color:white;}
+.hbg-clink.wa{background:linear-gradient(135deg,#25d366,#128c7e);color:white;}
 </style>
 </head>
 <body>
+<!-- STICKY TOPBAR -->
+<div class="topbar-sticky">
+  <div class="ts-logo">
+    <div class="ts-logo-mark">H</div>
+    <div class="ts-logo-text">
+      <span class="ts-logo-main">Hüpf<span class="ts-logo-accent">abenteuer</span></span>
+      <span class="ts-logo-sub">Kärnten</span>
+    </div>
+  </div>
+  <button class="hbg-btn" id="hbgBtn" onclick="toggleMenu()" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+<!-- OVERLAY -->
+<div class="hbg-overlay" id="hbgOverlay" onclick="closeMenu()"></div>
+<!-- DRAWER -->
+<div class="hbg-drawer" id="hbgDrawer">
+  <div class="hbg-drawer-top">
+    <div class="hbg-drawer-logo">Hüpf<span>abenteuer</span></div>
+    <div class="hbg-close" onclick="closeMenu()">✕</div>
+  </div>
+  <nav class="hbg-nav">
+    <a href="home.html" class="hbg-link" data-page="home"><span class="hbg-link-ic">🏠</span>Home</a>
+    <a href="unsere-angebote.html?filter=burg" class="hbg-link" data-page="burg"><span class="hbg-link-ic">🏰</span>Hüpfburgen</a>
+    <a href="unsere-angebote.html?filter=foto" class="hbg-link" data-page="foto"><span class="hbg-link-ic">📷</span>Fotobox</a>
+    <a href="unsere-angebote.html?filter=extra" class="hbg-link" data-page="extra"><span class="hbg-link-ic">🍭</span>Extras</a>
+    <a href="kontakt.html" class="hbg-link" data-page="kontakt"><span class="hbg-link-ic">📞</span>Kontakt</a>
+  </nav>
+  <div class="hbg-divider"></div>
+  <div class="hbg-contact">
+    <a href="tel:+436641852634" class="hbg-clink phone">📞 +43 664 185 26 34</a>
+    <a href="https://wa.me/436641852634" target="_blank" class="hbg-clink wa">💬 WhatsApp schreiben</a>
+  </div>
+</div>
+
  
 <!-- HERO -->
 <div class="ph">
   <div class="stars" id="stars"></div>
   <div class="ph-bg"><div class="b1"></div><div class="b2"></div></div>
-  <div class="ph-topbar">
-    <a href="unsere-angebote.html" class="ph-back">← Angebote</a>
-    <a href="tel:+436641852634" class="ph-call">📞 Anrufen</a>
-  </div>
   <h1 class="ph-title">Jetzt <em>Anfragen</em></h1>
   <p class="ph-sub">Schnell & einfach – wir melden uns innerhalb 24 Stunden!</p>
   <svg class="wave" viewBox="0 0 390 60" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -415,7 +481,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
   <a href="unsere-angebote.html?filter=burg" class="bi"><span class="bi-ic">🏰</span><span class="bi-lb">Hüpfburgen</span></a>
   <a href="unsere-angebote.html?filter=foto" class="bi"><span class="bi-ic">📷</span><span class="bi-lb">Fotobox</span></a>
   <a href="unsere-angebote.html?filter=extra" class="bi"><span class="bi-ic">🍭</span><span class="bi-lb">Extras</span></a>
-  <a href="kontakt.html" class="bi on"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
+  <a href="kontakt.html" class="bi"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
 </nav>
  
 <script>
@@ -845,6 +911,27 @@ function submitAnfrage(){
   });
 }
  
+</script>
+<script>
+function toggleMenu(){
+  var btn=document.getElementById('hbgBtn');
+  var drawer=document.getElementById('hbgDrawer');
+  var overlay=document.getElementById('hbgOverlay');
+  var isOpen=drawer.classList.contains('open');
+  if(isOpen){ closeMenu(); } else {
+    btn.classList.add('open');
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+}
+function closeMenu(){
+  document.getElementById('hbgBtn').classList.remove('open');
+  document.getElementById('hbgDrawer').classList.remove('open');
+  document.getElementById('hbgOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(); });
 </script>
 </body>
 </html>
