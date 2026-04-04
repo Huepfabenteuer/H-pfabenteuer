@@ -198,7 +198,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
  
 @media(min-width:768px){
   body{padding-bottom:0;}
-  .bnav{display:none;}
+  
   .ph{padding:36px 60px 90px;}
   .ph::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(8,4,28,.7) 0%,rgba(15,8,40,.5) 50%,rgba(20,10,60,.3) 100%);pointer-events:none;z-index:1;}
   .ph-topbar,.ph-title,.ph-sub,.ph-chips,.stars,.ph-bg{position:relative;z-index:2;}
@@ -347,13 +347,13 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <body>
 <!-- STICKY TOPBAR -->
 <div class="topbar-sticky">
-  <div class="ts-logo">
+  <a href="home.html" class="ts-logo" style="text-decoration:none;">
     <div class="ts-logo-mark">H</div>
     <div class="ts-logo-text">
       <span class="ts-logo-main">Hüpf<span class="ts-logo-accent">abenteuer</span></span>
       <span class="ts-logo-sub">Kärnten</span>
     </div>
-  </div>
+  </a>
   <button class="hbg-btn" id="hbgBtn" onclick="toggleMenu()" aria-label="Menü öffnen">
     <span></span><span></span><span></span>
   </button>
@@ -1285,26 +1285,25 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(
     { id:'section-extra', key:'extra' },
   ];
 
-  var scrollObs = new IntersectionObserver(function(entries){
+  // Scroll-basiert: welche Section ist gerade oben im Viewport
+  function updateNavFromScroll(){
     if(_activeFilter !== 'all') return;
-    entries.forEach(function(entry){
-      if(entry.isIntersecting){
-        for(var i=0;i<sections.length;i++){
-          if(sections[i].id === entry.target.id){
-            setActiveNav(sections[i].key);
-            break;
-          }
-        }
+    var offset = 120;
+    var current = sections[0].key;
+    for(var i = 0; i < sections.length; i++){
+      var el = document.getElementById(sections[i].id);
+      if(!el) continue;
+      if(el.getBoundingClientRect().top <= offset){
+        current = sections[i].key;
       }
-    });
-  }, { threshold: 0.15, rootMargin:'-56px 0px -50% 0px' });
+    }
+    setActiveNav(current);
+  }
+
+  window.addEventListener('scroll', updateNavFromScroll, { passive: true });
 
   // Startet nach dem Laden
   document.addEventListener('DOMContentLoaded', function(){
-    sections.forEach(function(s){
-      var el = document.getElementById(s.id);
-      if(el) scrollObs.observe(el);
-    });
 
     // URL-Parameter beim Laden auswerten
     var params = new URLSearchParams(window.location.search);
