@@ -406,9 +406,9 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   <div class="filter-tabs">
     <button class="ftab on" data-filter="all" onclick="filter('all',this)">🎪 Alle</button>
     <button class="ftab" data-filter="burg" onclick="filter('burg',this)">🏰 Hüpfburgen</button>
-    <button class="ftab" data-filter="paket" onclick="filter('paket',this)">🎁 Pakete</button>
-    <button class="ftab" data-filter="extra" onclick="filter('extra',this)">🍭 Extras</button>
     <button class="ftab" data-filter="foto" onclick="filter('foto',this)">📷 Fotobox</button>
+    <button class="ftab" data-filter="extra" onclick="filter('extra',this)">🍭 Extras</button>
+    <button class="ftab" data-filter="paket" onclick="filter('paket',this)">🎁 Pakete</button>
   </div>
 </div>
  
@@ -714,12 +714,13 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   </div>
 </div>
  
- 
-<div class="sec" id="section-extra">
+
+<!-- FOTOBOX -->
+<div class="sec" id="section-foto">
   <div class="reveal">
-    <div class="tag">🍭 Extras & Fotobox</div>
-    <div class="stitle">Noch mehr <em>Spaß</em></div>
-    <div class="stitle-sub">Perfekte Ergänzung für dein Event</div>
+    <div class="tag">📷 Fotobox</div>
+    <div class="stitle">Unvergessliche <em>Erinnerungen</em></div>
+    <div class="stitle-sub">Sofortdruck · 3 Pakete · Perfekt für jedes Event</div>
   </div>
   <div class="extras-grid reveal">
     <a href="fotobox.html" class="extras-card" data-cat="foto">
@@ -731,6 +732,17 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
         <div class="ext-pr">Anfragen<span class="ext-arr">→</span></div>
       </div>
     </a>
+  </div>
+</div>
+ 
+
+<div class="sec" id="section-extra">
+  <div class="reveal">
+    <div class="tag">🍭 Extras</div>
+    <div class="stitle">Noch mehr <em>Spaß</em></div>
+    <div class="stitle-sub">Perfekte Ergänzung für dein Event</div>
+  </div>
+  <div class="extras-grid reveal">
     <a href="zuckerwatte.html" class="extras-card" data-cat="extra">
       <img class="extras-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_6594-high-8biq12.jpg?enable-io=true&enable=upscale&crop=1.2527%3A1&width=800" alt="Zuckerwatte" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <div class="extras-img-ph" style="display:none;background:linear-gradient(135deg,#ffb3de,#ff69b4);">🍭</div>
@@ -859,11 +871,11 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 </footer>
  
 <nav class="bnav">
-  <a href="home.html"          class="bi"><span class="bi-ic">🏠</span><span class="bi-lb">Home</span></a>
-  <a href="unsere-angebote.html?filter=burg" class="bi"><span class="bi-ic">🏰</span><span class="bi-lb">Hüpfburgen</span></a>
-  <a href="unsere-angebote.html?filter=foto"        class="bi"><span class="bi-ic">📷</span><span class="bi-lb">Fotobox</span></a>
-  <a href="unsere-angebote.html?filter=extra"         class="bi"><span class="bi-ic">🍭</span><span class="bi-lb">Extras</span></a>
-  <a href="kontakt.html"        class="bi"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
+  <a href="home.html"                        class="bi" data-nav="home">  <span class="bi-ic">🏠</span><span class="bi-lb">Home</span></a>
+  <a href="unsere-angebote.html?filter=burg" class="bi" data-nav="burg">  <span class="bi-ic">🏰</span><span class="bi-lb">Hüpfburgen</span></a>
+  <a href="unsere-angebote.html?filter=foto" class="bi" data-nav="foto">  <span class="bi-ic">📷</span><span class="bi-lb">Fotobox</span></a>
+  <a href="unsere-angebote.html?filter=extra" class="bi" data-nav="extra"><span class="bi-ic">🍭</span><span class="bi-lb">Extras</span></a>
+  <a href="kontakt.html"                     class="bi" data-nav="kontakt"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
 </nav>
  
 <script>
@@ -948,15 +960,6 @@ function filter(cat, btn){
   }
 }
  
-// Auto-filter from URL parameter
-window.addEventListener('DOMContentLoaded', function(){
-  const urlParams = new URLSearchParams(window.location.search);
-  const catParam = urlParams.get('filter');
-  if(catParam){
-    const btn = document.querySelector('.ftab[data-filter="'+catParam+'"]');
-    if(btn) filter(catParam, btn);
-  }
-});
 </script>
 <script>
 (function(){
@@ -1246,57 +1249,75 @@ function closeMenu(){
 }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(); });
 
-// ── Scroll-basiertes Highlighting ──
+// ── Nav Highlighting: Bottom-Nav + Hamburger synchron ──
 (function(){
-  // Mapping: section-id → filter-tab → bnav + hamburger data-page
-  var sectionMap = {
-    'section-burg':   { filter:'burg',  page:'burg'  },
-    'section-extra':  { filter:'extra', page:'extra' },
-    'section-paket':  { filter:'paket', page:''      },
-    'section-foto':   { filter:'foto',  page:'foto'  },
-  };
 
-  function setActive(filterKey, pageKey){
+  // Setzt Bottom-Nav und Hamburger aktiv
+  function setActiveNav(key){
     // Bottom-Nav
     document.querySelectorAll('.bi').forEach(function(b){ b.classList.remove('on'); });
-    var bnavMap = { burg:'burg', foto:'foto', extra:'extra' };
-    if(bnavMap[pageKey]){
-      var bEl = document.querySelector('.bi[href*="filter='+bnavMap[pageKey]+'"]');
-      if(bEl) bEl.classList.add('on');
+    if(key){
+      var b = document.querySelector('.bi[data-nav="'+key+'"]');
+      if(b) b.classList.add('on');
     }
     // Hamburger
     document.querySelectorAll('.hbg-link').forEach(function(l){ l.classList.remove('active'); });
-    if(pageKey){
-      var hEl = document.querySelector('.hbg-link[data-page="'+pageKey+'"]');
-      if(hEl) hEl.classList.add('active');
+    if(key){
+      var h = document.querySelector('.hbg-link[data-page="'+key+'"]');
+      if(h) h.classList.add('active');
     }
   }
 
-  // Nur aktiv wenn Filter auf "all" steht (kein spezifischer Filter)
-  var activeFilter = 'all';
-  var origFilter = window.filter;
+  // Filter-Funktion wrappen: bei Klick auf Tab sofort updaten
+  var _origFilter = window.filter;
+  var _activeFilter = 'all';
   window.filter = function(cat, btn){
-    origFilter(cat, btn);
-    activeFilter = cat;
-    // Wenn spezifischer Filter → kein Scroll-Override
+    _origFilter(cat, btn);
+    _activeFilter = cat;
+    var tabToNav = { burg:'burg', foto:'foto', extra:'extra', paket:'', all:'burg' };
+    setActiveNav(tabToNav[cat] !== undefined ? tabToNav[cat] : '');
   };
 
-  var observer = new IntersectionObserver(function(entries){
-    if(activeFilter !== 'all') return; // nur bei "Alle"
+  // Beim Scrollen: nur wenn Filter = "Alle"
+  var sections = [
+    { id:'section-burg',  key:'burg'  },
+    { id:'section-foto',  key:'foto'  },
+    { id:'section-extra', key:'extra' },
+  ];
+
+  var scrollObs = new IntersectionObserver(function(entries){
+    if(_activeFilter !== 'all') return;
     entries.forEach(function(entry){
       if(entry.isIntersecting){
-        var info = sectionMap[entry.target.id];
-        if(info) setActive(info.filter, info.page);
+        for(var i=0;i<sections.length;i++){
+          if(sections[i].id === entry.target.id){
+            setActiveNav(sections[i].key);
+            break;
+          }
+        }
       }
     });
-  }, { threshold: 0.25, rootMargin: '-60px 0px -40% 0px' });
+  }, { threshold: 0.15, rootMargin:'-56px 0px -50% 0px' });
 
+  // Startet nach dem Laden
   document.addEventListener('DOMContentLoaded', function(){
-    Object.keys(sectionMap).forEach(function(id){
-      var el = document.getElementById(id);
-      if(el) observer.observe(el);
+    sections.forEach(function(s){
+      var el = document.getElementById(s.id);
+      if(el) scrollObs.observe(el);
     });
+
+    // URL-Parameter beim Laden auswerten
+    var params = new URLSearchParams(window.location.search);
+    var cat = params.get('filter');
+    if(cat){
+      var btn = document.querySelector('.ftab[data-filter="'+cat+'"]');
+      if(btn) window.filter(cat, btn);
+    } else {
+      // Kein Filter = Alle → Hüpfburgen ist ganz oben → sofort markieren
+      setActiveNav('burg');
+    }
   });
+
 })();
 </script>
 </body>
