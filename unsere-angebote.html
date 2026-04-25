@@ -160,6 +160,7 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .cta::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px,transparent 1px,transparent 14px);}
 .cta-em{font-size:38px;display:block;margin-bottom:6px;animation:bounce 2s ease-in-out infinite;}
 @keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes btnShimmer{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
 @keyframes pulse-badge{0%,100%{box-shadow:0 4px 12px rgba(255,69,0,.4);}50%{box-shadow:0 4px 20px rgba(255,69,0,.7);}}
 .cta-ttl{font-family:'Baloo 2',cursive;font-size:21px;font-weight:900;color:white;margin-bottom:6px;position:relative;}
 .cta-sub{color:rgba(255,255,255,.9);font-size:12px;margin-bottom:16px;position:relative;line-height:1.6;}
@@ -433,7 +434,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <!-- HÜPFBURGEN -->
 <div class="sec" id="section-burg">
   <div class="reveal">
-    <div class="tag">🏰 Hüpfburgen</div>
     <div class="stitle">Unsere <em>Burgen</em></div>
     <div class="stitle-sub">Lieferung gratis bis 40 km · Auf- & Abbau +50 €</div>
   </div>
@@ -736,27 +736,39 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <!-- FOTOBOX -->
 <div class="sec" id="section-foto">
   <div class="reveal">
-    <div class="tag">📷 Fotobox</div>
     <div class="stitle">Unvergessliche <em>Erinnerungen</em></div>
-    <div class="stitle-sub">Sofortdruck · 3 Pakete · Perfekt für jedes Event</div>
+    <div class="stitle-sub">Fotobox mit Sofortdruck · 3 Pakete · Perfekt für jedes Event</div>
   </div>
-  <div class="extras-grid reveal">
-    <a href="fotobox.html" class="extras-card" data-cat="foto">
-      <img class="extras-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_8637-high-94tedm.jpg?enable-io=true&enable=upscale&crop=0.7505%3A1&width=800" alt="Fotobox" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="extras-img-ph" style="display:none;background:linear-gradient(135deg,#8898b8,#5a6880);">📷</div>
-      <div class="extras-card-foot">
-        <div class="ext-name">Fotobox</div>
-        <div class="ext-desc">3 Pakete · Sofortdruck</div>
-        <div class="ext-pr">Anfragen<span class="ext-arr">→</span></div>
+  <div class="burg-list reveal">
+    <div class="burg-card" data-cat="foto" onclick="if(!event.target.closest('a,button'))window.location.href='fotobox.html'" style="position:relative;">
+      <div style="position:absolute;top:14px;left:14px;z-index:3;background:linear-gradient(135deg,var(--purple),#6366f1);color:white;font-family:'Baloo 2',cursive;font-size:11px;font-weight:800;padding:5px 12px;border-radius:30px;box-shadow:0 4px 12px rgba(168,85,247,.4);">📷 Fotobox</div>
+      <img class="burg-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_8637-high-94tedm.jpg?enable-io=true&enable=upscale&crop=0.7505%3A1&width=800" alt="Fotobox mieten Kärnten – Sofortdruck für Hochzeit und Geburtstag" loading="lazy" onerror="this.style.display='none'">
+      <div class="burg-card-foot" style="border-top:3px solid var(--purple);">
+        <div class="burg-top">
+          <div class="burg-name">Fotobox mit Sofortdruck</div>
+          <div class="burg-price-wrap">
+            <div class="burg-price" style="color:var(--purple);">ab 199€</div>
+            <div class="burg-price-sub">pro Event</div>
+          </div>
+        </div>
+        <p class="burg-desc">Die perfekte Ergänzung für jedes Event! Fotobox mit Sofortdruck – lustige Props, unbegrenzte Fotos und sofortige Ausdrucke für deine Gäste. Ideal für Hochzeiten, Geburtstage & Firmenfeiern.</p>
+        <div class="specs">
+          <span class="spec" style="background:#f5f0ff;color:#6b21a8;">📷 Sofortdruck</span>
+          <span class="spec" style="background:#f5f0ff;color:#6b21a8;">🎭 Props inklusive</span>
+          <span class="spec" style="background:#f5f0ff;color:#6b21a8;">♾️ Unbegrenzte Fotos</span>
+          <span class="spec green">💒 Hochzeit · 🎂 Geburtstag · 🏢 Firmenfeier</span>
+        </div>
+        <div class="burg-btns">
+          <a href="fotobox.html" class="btn-anfragen" style="background:linear-gradient(135deg,#00c2ff,#a855f7,#ff4fa3);background-size:200% 100%;box-shadow:0 6px 24px rgba(168,85,247,.35);animation:btnShimmer 3s ease-in-out infinite;">📷 Pakete entdecken</a>
+        </div>
       </div>
-    </a>
+    </div>
   </div>
 </div>
  
 
 <div class="sec" id="section-extra">
   <div class="reveal">
-    <div class="tag">🍭 Extras</div>
     <div class="stitle">Noch mehr <em>Spaß</em></div>
     <div class="stitle-sub">Perfekte Ergänzung für dein Event</div>
   </div>
@@ -791,9 +803,8 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 </div>
  
 <!-- PAKETE -->
-<div class="sec">
+<div class="sec" id="section-paket">
   <div class="reveal">
-    <div class="tag">🎁 Pakete</div>
     <div class="stitle">Spare mit unseren <em>Kombi-Paketen</em></div>
     <div class="stitle-sub">Hüpfburg deiner Wahl + Extras – bequem kombiniert · Hüpfburg im Anfrageformular auswählen</div>
   </div>
@@ -856,7 +867,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 <!-- LIEFERUNG -->
 <div class="sec">
   <div class="reveal">
-    <div class="tag">🚚 Lieferung</div>
     <div class="stitle">Faire <em>Lieferkosten</em></div>
   </div>
   <div class="deliv reveal">
@@ -945,32 +955,41 @@ document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
 function filter(cat, btn){
   document.querySelectorAll('.ftab').forEach(function(t){t.classList.remove('on');});
   btn.classList.add('on');
-  document.querySelectorAll('[data-cat]').forEach(function(card){
-    if(cat==='all'||card.dataset.cat===cat){
-      card.style.display='';
-    } else {
-      card.style.display='none';
-    }
-  });
-  // show/hide section headers
+
   var secBurg  = document.getElementById('section-burg');
+  var secFoto  = document.getElementById('section-foto');
   var secExtra = document.getElementById('section-extra');
-  if(cat==='paket'){
-    if(secBurg)  secBurg.style.display='none';
-    if(secExtra) secExtra.style.display='none';
-  } else if(cat==='foto'||cat==='extra'){
-    if(secBurg)  secBurg.style.display='none';
+  var secPaket = document.getElementById('section-paket');
+
+  // Show/hide entire sections based on filter
+  if(cat==='all'){
+    if(secBurg)  secBurg.style.display='';
+    if(secFoto)  secFoto.style.display='';
     if(secExtra) secExtra.style.display='';
   } else if(cat==='burg'){
     if(secBurg)  secBurg.style.display='';
+    if(secFoto)  secFoto.style.display='none';
     if(secExtra) secExtra.style.display='none';
-  } else {
-    if(secBurg)  secBurg.style.display='';
+  } else if(cat==='foto'){
+    if(secBurg)  secBurg.style.display='none';
+    if(secFoto)  secFoto.style.display='';
+    if(secExtra) secExtra.style.display='none';
+  } else if(cat==='extra'){
+    if(secBurg)  secBurg.style.display='none';
+    if(secFoto)  secFoto.style.display='none';
     if(secExtra) secExtra.style.display='';
+  } else if(cat==='paket'){
+    if(secBurg)  secBurg.style.display='none';
+    if(secFoto)  secFoto.style.display='none';
+    if(secExtra) secExtra.style.display='none';
   }
+
+  // Pakete always visible
+  if(secPaket) secPaket.style.display='';
+
   // ── Hamburger aktiven Link synchronisieren ──
   document.querySelectorAll('.hbg-link').forEach(function(l){ l.classList.remove('active'); });
-  var pageMap = {burg:'burg', foto:'foto', extra:'extra', paket:'burg', all:''};
+  var pageMap = {burg:'burg', foto:'foto', extra:'extra', paket:'', all:''};
   var activePage = pageMap[cat] || '';
   if(activePage){
     var activeLink = document.querySelector('.hbg-link[data-page="'+activePage+'"]');
