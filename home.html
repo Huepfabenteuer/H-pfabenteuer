@@ -74,7 +74,7 @@ body{font-family:'Nunito',sans-serif;background:#ddeeff !important;color:#0f0b2e
 .logo-sub{font-family:'Nunito',sans-serif;font-size:9px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:1.5px;text-transform:uppercase;}
 .call-btn{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:white;padding:6px 11px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:11px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:4px;backdrop-filter:blur(8px);transition:background .2s,transform .15s;}
 .call-btn:active{transform:scale(.96);}
-
+ 
 /* ── HAMBURGER MENU ── */
 .hbg-btn{width:42px;height:42px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;backdrop-filter:blur(8px);transition:background .2s,transform .15s;flex-shrink:0;}
 .hbg-btn:active{transform:scale(.93);}
@@ -82,27 +82,27 @@ body{font-family:'Nunito',sans-serif;background:#ddeeff !important;color:#0f0b2e
 .hbg-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
 .hbg-btn.open span:nth-child(2){opacity:0;}
 .hbg-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-
+ 
 .hbg-overlay{position:fixed;inset:0;z-index:1998;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;}
 .hbg-overlay.open{background:rgba(0,0,0,.45);pointer-events:all;}
-
+ 
 .hbg-drawer{position:fixed;top:0;right:0;bottom:0;z-index:1999;width:260px;background:rgba(8,18,32,.98);backdrop-filter:blur(24px);border-left:1px solid rgba(255,255,255,.1);transform:translateX(100%);transition:transform .35s cubic-bezier(.34,1.08,.64,1);display:flex;flex-direction:column;padding:24px 20px 32px;box-shadow:-8px 0 40px rgba(0,0,0,.4);}
 .hbg-drawer.open{transform:translateX(0);}
-
+ 
 .hbg-drawer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
 .hbg-drawer-logo{font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:white;}
 .hbg-drawer-logo span{color:var(--sun);}
 .hbg-close{width:34px;height:34px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:white;font-size:18px;line-height:1;transition:background .2s;}
 .hbg-close:active{background:rgba(255,255,255,.2);}
-
+ 
 .hbg-nav{display:flex;flex-direction:column;gap:6px;flex:1;}
 .hbg-link{display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:14px;text-decoration:none;color:rgba(255,255,255,.75);font-family:'Baloo 2',cursive;font-size:15px;font-weight:700;transition:background .2s,color .2s;}
 .hbg-link:active{background:rgba(255,255,255,.08);}
 .hbg-link.active{background:linear-gradient(135deg,rgba(21,61,107,.6),rgba(14,42,74,.6));color:white;border:1px solid rgba(0,194,255,.25);}
 .hbg-link-ic{font-size:20px;width:28px;text-align:center;flex-shrink:0;}
-
+ 
 .hbg-divider{height:1px;background:rgba(255,255,255,.08);margin:10px 0;}
-
+ 
 .hbg-contact{display:flex;flex-direction:column;gap:8px;margin-top:4px;}
 .hbg-clink{display:flex;align-items:center;justify-content:center;gap:7px;padding:12px;border-radius:13px;font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;text-decoration:none;transition:transform .15s;}
 .hbg-clink:active{transform:scale(.97);}
@@ -256,7 +256,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 .reveal.hide-init{opacity:0;transform:translateY(24px) scale(0.97);}
 .reveal.visible{opacity:1;transform:translateY(0) scale(1);}
 .reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
-
+ 
 /* ── SERVICE CARD HOVER (desktop) ── */
 @media(hover:hover){
   .svc:hover{transform:translateY(-5px) scale(1.015);box-shadow:0 14px 40px rgba(0,0,0,.14);border-color:rgba(255,79,163,.15);}
@@ -268,7 +268,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   .deliv:hover{box-shadow:0 10px 30px rgba(0,0,0,.08);}
   .deliv{transition:box-shadow .25s;}
 }
-
+ 
 /* ── DESKTOP LAYOUT (768px+) ── */
 @media(min-width:768px){
   body{padding-bottom:0;}
@@ -300,7 +300,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   .svc.wide .svc-img.h165{height:380px;}
   .stitle{font-size:28px;}
 }
-
+ 
 /* ── MOBILE OPTIMIZATIONS ── */
 @media(min-width:600px) and (max-width:767px){
   .svc.wide .svc-img.h165{height:320px;}
@@ -324,21 +324,21 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 /* ensure all interactive elements have min 44px touch target */
 .bi{min-height:44px;}
 .hbtn-main,.hbtn-sec,.cb-main,.cb-sec,.faq-q{min-height:52px;}
-
+ 
 /* ── ENHANCED CARDS ── */
 .svc-img img{transition:transform .4s ease;}
 .svc:hover .svc-img img,.svc:active .svc-img img{transform:scale(1.05);}
 .arr{transition:transform .25s ease,box-shadow .25s;}
 .svc:hover .arr{box-shadow:0 4px 12px rgba(255,79,163,.3);}
-
+ 
 /* ── REVIEW CARD SUBTLE BORDER GLOW ── */
 .rcard{transition:transform .25s,box-shadow .25s,border-color .25s;}
 .rcard:hover{border-color:rgba(168,85,247,.15);}
-
+ 
 /* ── FAQ SMOOTH ── */
 .faq{transition:border-color .3s,box-shadow .3s;}
 .faq.open{box-shadow:0 6px 20px rgba(168,85,247,.08);}
-
+ 
 /* ── CTA SHINE ── */
 .cta{position:relative;}
 .cta-shine{position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);animation:ctaShine 4s ease-in-out infinite;pointer-events:none;}
@@ -436,6 +436,23 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     ]
   }
   </script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1256236772328604');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
  
@@ -453,10 +470,10 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     <span></span><span></span><span></span>
   </button>
 </div>
-
+ 
 <!-- OVERLAY -->
 <div class="hbg-overlay" id="hbgOverlay" onclick="closeMenu()"></div>
-
+ 
 <!-- DRAWER -->
 <div class="hbg-drawer" id="hbgDrawer">
   <div class="hbg-drawer-top">
@@ -476,7 +493,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     <a href="https://wa.me/436641852634" target="_blank" class="hbg-clink wa">💬 WhatsApp schreiben</a>
   </div>
 </div>
-
+ 
 <!-- HERO -->
 <div class="hero-wrap">
   <div class="stars" id="stars"></div>
@@ -710,7 +727,7 @@ document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
 // Dynamic copyright year
 var fy=document.getElementById('f-year');
 if(fy) fy.textContent=new Date().getFullYear();
-
+ 
 // Trust bar: duplicate items until seamless on any screen
 (function(){
   var track=document.getElementById('trust-track');
@@ -859,7 +876,7 @@ function closeMenu(){
   document.body.style.overflow='';
 }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(); });
-
+ 
 // ── Aktive Seite erkennen ──
 (function(){
   var path = window.location.pathname;
@@ -872,7 +889,7 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(
     else page = 'burg';
   } else if(path.indexOf('kontakt') !== -1){ page = 'kontakt'; }
   else if(path.indexOf('anfragen') !== -1){ page = ''; }
-
+ 
   document.querySelectorAll('.hbg-link').forEach(function(link){
     if(link.dataset.page === page){
       link.classList.add('active');
@@ -881,5 +898,4 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(
 })();
 </script>
 </body>
-</html>
 
