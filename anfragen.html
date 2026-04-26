@@ -155,7 +155,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
   .form-section{padding:28px 60px;max-width:720px;margin:0 auto;}
   footer{padding:32px 60px 24px;}
 }
-
+ 
 /* ── STICKY TOPBAR ── */
 .topbar-sticky{display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:997;padding:10px 18px;background:rgba(10,22,40,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 2px 20px rgba(0,0,0,.25);}
 .ts-logo{display:flex;align-items:center;gap:8px;}
@@ -190,7 +190,26 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
 .hbg-clink:active{transform:scale(.97);}
 .hbg-clink.phone{background:rgba(21,61,107,.7);border:1.5px solid rgba(0,194,255,.25);color:white;}
 .hbg-clink.wa{background:linear-gradient(135deg,#25d366,#128c7e);color:white;}
+.lief-btn{flex:1;padding:12px 10px;border-radius:14px;border:2px solid #d0d8e8;background:#f0f4fa;color:#555;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;text-align:center;}
+.lief-btn.lief-active{background:linear-gradient(135deg,#0e2a4a,#153d6b);border-color:rgba(0,194,255,.4);color:white;}
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1256236772328604');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 <!-- STICKY TOPBAR -->
@@ -227,7 +246,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
     <a href="https://wa.me/436641852634" target="_blank" class="hbg-clink wa">💬 WhatsApp schreiben</a>
   </div>
 </div>
-
+ 
  
 <!-- HERO -->
 <div class="ph">
@@ -363,13 +382,32 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
       </div>
     </div>
  
-    <!-- LIEFERADRESSE -->
+ 
+    <!-- LIEFERUNG JA/NEIN -->
     <div class="card reveal">
+      <div class="card-title">🚚 Lieferung gewünscht?</div>
+      <div class="card-sub">Wir liefern gratis bis 40 km · danach 0,55 €/km</div>
+      <div style="display:flex;gap:10px;margin-top:4px;">
+        <button type="button" id="lief-ja" onclick="setLieferung(true)" class="lief-btn lief-active">
+          ✅ Ja, bitte liefern
+        </button>
+        <button type="button" id="lief-nein" onclick="setLieferung(false)" class="lief-btn">
+          🚗 Nein, ich hole selbst ab
+        </button>
+      </div>
+      <input type="hidden" name="Lieferung" id="lieferung-val" value="Ja">
+      <div id="lief-hinweis" style="margin-top:10px;font-size:12px;font-weight:700;color:#1b6e8d;padding:6px 12px;background:rgba(0,194,255,.08);border-radius:10px;border:1px solid rgba(0,194,255,.2);">
+        📍 Gratis bis 40 km ab Glödnitz · darüber 0,55 €/km
+      </div>
+    </div>
+ 
+    <!-- LIEFERADRESSE -->
+    <div class="card reveal" id="adresse-card">
       <div class="card-title">📍 Lieferadresse</div>
       <div class="card-sub">Wo soll die Hüpfburg aufgebaut werden?</div>
       <div class="field">
         <label>Straße & Hausnummer *</label>
-        <input type="text" name="Strasse" placeholder="Musterstraße 1" required>
+        <input type="text" name="Strasse" id="strasseField" placeholder="Musterstraße 1" required>
       </div>
       <div class="field-row">
         <div class="field">
@@ -399,7 +437,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
       </button>
       <input type="hidden" name="Auf- und Abbau" id="aufbau-val" value="Nein">
       <div id="aufbau-paket-hint" style="display:none;margin-top:6px;font-size:12px;font-weight:700;color:#1b8d4b;padding:6px 12px;background:rgba(27,141,75,.08);border-radius:10px;border:1px solid rgba(27,141,75,.2);">✅ Im Paket enthalten – kann nicht entfernt werden</div>
-
+ 
       <div class="field" style="margin-top:10px;">
         <label>Süße Extras (optional)</label>
         <select name="Extras" id="extras-select">
@@ -555,11 +593,11 @@ document.getElementById('datumStart').addEventListener('change', function(){
   if(this.value) document.getElementById('datumEnde').min=this.value;
   berechneTage();
 });
-
+ 
 document.getElementById('datumEnde').addEventListener('change', function(){
   berechneTage();
 });
-
+ 
 function berechneTage(){
   var start = document.getElementById('datumStart').value;
   var ende  = document.getElementById('datumEnde').value;
@@ -648,17 +686,17 @@ function updateOrderSummary(){
   var total = 0;
   var params = new URLSearchParams(window.location.search);
   var paket = params.get('paket') ? params.get('paket').toLowerCase() : '';
-
+ 
   // Hüpfburg
   if(selectedName){
     var burgPreis = selectedPrice > 0 ? (days === 1 ? selectedPrice : selectedPrice + (days-1)*(selectedPrice*0.5)) : 0;
     rows.push({label: (selectedName === 'Hochzeitsburg' ? '💒' : '🏰') + ' ' + selectedName, val: burgPreis > 0 ? Math.round(burgPreis) + ' €' : 'Auf Anfrage'});
     if(burgPreis > 0) total += Math.round(burgPreis);
   }
-
+ 
   // Auf- & Abbau
   if(aufbauOn){ rows.push({label:'🔧 Auf- & Abbau', val:'+50 €'}); total += 50; }
-
+ 
   // Süße Extras
   var extrasVal = document.getElementById('extras-select').value;
   if(extrasVal && extrasVal !== 'Keine Extras'){
@@ -666,11 +704,11 @@ function updateOrderSummary(){
     rows.push({label: extrasVal.indexOf('Zuckerwatte + Popcorn') !== -1 ? '🍭🍿 Zuckerwatte + Popcorn' : extrasVal.indexOf('Zuckerwatte') !== -1 ? '🍭 Zuckerwatte' : '🍿 Popcorn', val:'+' + extrasPreis + ' €'});
     total += extrasPreis;
   }
-
+ 
   // Sets
   if(zuckerwatteSetOn){ rows.push({label:'🍭 Zuckerwatte-Set', val:'+20 €'}); total += 20; }
   if(popcornSetOn){ rows.push({label:'🍿 Popcorn-Set', val:'+20 €'}); total += 20; }
-
+ 
   // ── Rabatt berechnen ──
   var rabattProzent = 0;
   var rabattLabel = '';
@@ -683,15 +721,15 @@ function updateOrderSummary(){
     rows.push({label: rabattLabel, val: '−' + rabattBetrag.toFixed(2) + ' €', rabatt: true});
     total = Math.round((total - rabattBetrag) * 100) / 100;
   }
-
+ 
   var summary = document.getElementById('orderSummary');
   var orderRows = document.getElementById('orderRows');
-
+ 
   if(rows.length === 0){
     summary.classList.remove('visible');
     return;
   }
-
+ 
   var html = '';
   rows.forEach(function(r){
     var style = r.rabatt ? 'color:#00a651;font-weight:800;' : '';
@@ -703,7 +741,7 @@ function updateOrderSummary(){
   // Gesamtpreis global speichern für Formcarry
   window._gesamtpreis = total > 0 ? total.toFixed(2) + ' €' : null;
   window._preisdetails = rows.map(function(r){ return r.label + ': ' + r.val; }).join(' | ');
-
+ 
   // ── Anzahlungs-Hinweis ──
   var hinweis = document.getElementById('anzahlungHinweis');
   if(hinweis){
@@ -724,7 +762,7 @@ window.addEventListener('DOMContentLoaded', function(){
   var params = new URLSearchParams(window.location.search);
   var burg   = params.get('burg');
   var paket  = params.get('paket');
-
+ 
   if(burg){
     var opts = document.querySelectorAll('.burg-opt');
     for(var i=0;i<opts.length;i++){
@@ -737,7 +775,7 @@ window.addEventListener('DOMContentLoaded', function(){
       }
     }
   }
-
+ 
   // ── Paket vorauswählen ──
   if(paket){
     // Paket-Banner anzeigen
@@ -756,13 +794,13 @@ window.addEventListener('DOMContentLoaded', function(){
       var burgBanner = document.getElementById('burgBanner');
       burgBanner.parentNode.insertBefore(banner, burgBanner);
     }
-
+ 
     // Auf & Abbau aktivieren (komfort, sweet, snack, allin)
     if(['komfort','sweet','snack','allin'].indexOf(paket.toLowerCase()) !== -1){
       var aufbauBtn = document.getElementById('aufbau-btn');
       if(aufbauBtn && !aufbauOn) aufbauBtn.click();
     }
-
+ 
     // Zuckerwatte aktivieren (sweet, allin)
     if(['sweet','allin'].indexOf(paket.toLowerCase()) !== -1){
       var extrasSelect = document.getElementById('extras-select');
@@ -776,7 +814,7 @@ window.addEventListener('DOMContentLoaded', function(){
         extrasSelect.dispatchEvent(new Event('change'));
       }
     }
-
+ 
     // Nur Popcorn (snack)
     if(paket.toLowerCase() === 'snack'){
       var extrasSelect = document.getElementById('extras-select');
@@ -785,16 +823,16 @@ window.addEventListener('DOMContentLoaded', function(){
         extrasSelect.dispatchEvent(new Event('change'));
       }
     }
-
+ 
     // Paket als hidden field mitsenden
     var paketInput = document.createElement('input');
     paketInput.type = 'hidden';
     paketInput.name = 'Paket';
     paketInput.value = pk ? pk.name : paket;
     document.getElementById('anfrage-form').appendChild(paketInput);
-
+ 
     updateOrderSummary();
-
+ 
     // ── Paket-Extras sperren ──
     var aufbauHint = document.getElementById('aufbau-paket-hint');
     if(aufbauHint) aufbauHint.style.display = 'block';
@@ -807,7 +845,7 @@ window.addEventListener('DOMContentLoaded', function(){
         setTimeout(function(){ btn.style.border = ''; }, 700);
       }
     }, true);
-
+ 
     if(['sweet','snack','allin'].indexOf(paket.toLowerCase()) !== -1){
       var extrasHint = document.getElementById('extras-paket-hint');
       if(extrasHint) extrasHint.style.display = 'block';
@@ -818,7 +856,7 @@ window.addEventListener('DOMContentLoaded', function(){
       document.getElementById('extras-select').style.opacity = '0.7';
     }
   }
-
+ 
   // Set min date to today
   var today=new Date().toISOString().split('T')[0];
   document.getElementById('datumStart').min=today;
@@ -932,6 +970,26 @@ function closeMenu(){
   document.body.style.overflow='';
 }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(); });
+</script>
+<script>
+function setLieferung(ja){
+  var val = document.getElementById('lieferung-val');
+  var hinweis = document.getElementById('lief-hinweis');
+  var btnJa = document.getElementById('lief-ja');
+  var btnNein = document.getElementById('lief-nein');
+ 
+  if(ja){
+    val.value = 'Ja';
+    hinweis.style.display = '';
+    btnJa.classList.add('lief-active');
+    btnNein.classList.remove('lief-active');
+  } else {
+    val.value = 'Nein – Selbstabholung';
+    hinweis.style.display = 'none';
+    btnJa.classList.remove('lief-active');
+    btnNein.classList.add('lief-active');
+  }
+}
 </script>
 </body>
 </html>
