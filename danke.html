@@ -7,20 +7,46 @@
 <title>Danke für deine Anfrage – Hüpfabenteuer Kärnten</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 
-<!-- ═══════════════════════════════════════════════════
-     GOOGLE ADS CONVERSION TRACKING
-     Lead-Formular senden → Conversion wird hier getrackt
-     ═══════════════════════════════════════════════════ -->
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6KYW215PYR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6KYW215PYR');
+  // Conversion Event für Analytics
+  gtag('event', 'anfrage_gesendet', { 'event_category': 'conversion', 'event_label': 'danke_seite' });
+</script>
+<!-- End Google Analytics -->
+
+<!-- Google Ads Conversion Tracking -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17627141841"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'AW-17627141841');
-
-  // Conversion-Event: Lead-Formular gesendet
   gtag('event', 'conversion', {'send_to': 'AW-17627141841/nIoZCLPn-agbENGto9VB'});
 </script>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1256236772328604');
+fbq('track', 'PageView');
+fbq('track', 'Lead');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1256236772328604&ev=Lead&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 
 <style>
 :root{--pink:#ff4fa3;--purple:#a855f7;--sky:#00c2ff;--sun:#FFD600;--green:#00d97e;--dark:#0f0b2e;--shadow:0 8px 32px rgba(0,0,0,.10);}
@@ -29,13 +55,13 @@ html{color-scheme:light only;}
 body{font-family:'Nunito',sans-serif;background:#f0f2f8;color:#0f0b2e;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column;}
 
 /* BOTTOM NAV */
-.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,9,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(10,22,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.12);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
 .bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.5);transition:color .25s;position:relative;min-height:44px;}
-.bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,var(--pink),var(--purple));transition:width .3s;}
+.bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,#00c2ff,#378ADD);transition:width .3s;}
 .bi.on{color:white;}.bi.on::after{width:36px;}.bi:active{transform:scale(.9);}
 .bi-ic{font-size:21px;}.bi-lb{font-family:'Baloo 2',cursive;font-size:10px;font-weight:700;}
 
-/* HERO – grün für Erfolg */
+/* HERO */
 .hero{background:linear-gradient(155deg,#052b12 0%,#0a4a22 40%,#0d6b32 70%,#074a1e 100%);padding:56px 24px 80px;text-align:center;position:relative;overflow:hidden;}
 .hero-bg-circle{position:absolute;border-radius:50%;pointer-events:none;}
 .hero-bg-circle.c1{width:400px;height:400px;top:-150px;right:-100px;background:radial-gradient(circle,rgba(0,217,126,.18),transparent 65%);}
@@ -86,13 +112,6 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;margin-to
 .flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:10px 0;}
 .flink{color:rgba(255,255,255,.62);text-decoration:none;font-size:11px;padding:4px 10px;background:rgba(255,255,255,.09);border-radius:20px;}
 .fcopy{font-size:11px;color:rgba(255,255,255,.42);margin-top:10px;}
-
-@media(min-width:768px){
-  body{padding-bottom:0;}.bnav{display:none;}
-  .hero{padding:72px 60px 100px;}
-  .content{padding:36px 60px 60px;}
-  footer{padding:32px 60px 24px;}
-}
 </style>
 </head>
 <body>
@@ -113,13 +132,11 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;margin-to
 <!-- CONTENT -->
 <div class="content">
 
-  <!-- ZUSAMMENFASSUNG (wird per JS gefüllt) -->
   <div class="info-card" id="summaryCard" style="display:none;">
     <div class="info-title">📋 Deine Anfrage</div>
     <div id="summaryRows"></div>
   </div>
 
-  <!-- WAS PASSIERT ALS NÄCHSTES -->
   <div class="info-card">
     <div class="info-title">🗺️ Was passiert jetzt?</div>
     <div class="steps">
@@ -138,14 +155,12 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;margin-to
     </div>
   </div>
 
-  <!-- CTA -->
   <div class="cta-row">
     <a href="tel:+436641852634" class="btn-primary">📞 Lieber direkt anrufen</a>
     <a href="home.html" class="btn-secondary">🏠 Zurück zur Startseite</a>
     <a href="unsere-angebote.html" class="btn-secondary">🏰 Weitere Angebote ansehen</a>
   </div>
 
-  <!-- TRUST -->
   <div class="trust-row">
     <div class="trust-badge">⭐ 5,0 Google</div>
     <div class="trust-badge">⚡ Antwort in 24h</div>
@@ -174,7 +189,6 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;margin-to
 </nav>
 
 <script>
-// ── Stars ──
 (function(){
   var sc=document.getElementById('stars');
   for(var i=0;i<24;i++){
@@ -185,25 +199,22 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;margin-to
   }
 })();
 
-// ── Zusammenfassung aus URL-Params befüllen ──
 window.addEventListener('DOMContentLoaded', function(){
   var params = new URLSearchParams(window.location.search);
   var burg   = params.get('burg')  || '';
   var datum  = params.get('datum') || '';
   var name   = params.get('name')  || '';
 
-  // Hero personalisieren wenn Name vorhanden
   if(name){
     document.getElementById('heroSub').innerHTML =
       'Hallo <strong>'+escHtml(name)+'</strong>! Wir haben deine Anfrage erhalten und melden uns innerhalb von <strong>24 Stunden</strong>.';
   }
 
-  // Zusammenfassungs-Card befüllen
   var rows = [];
   var isFotobox = burg && burg.toLowerCase().indexOf('fotobox') !== -1;
   if(burg)   rows.push({label: isFotobox ? '📷 Fotobox' : '🏰 Hüpfburg', val: burg});
-  if(datum)  rows.push({label:'📅 Datum',    val: formatDate(datum)});
-  if(name)   rows.push({label:'👤 Name',     val: name});
+  if(datum)  rows.push({label:'📅 Datum', val: formatDate(datum)});
+  if(name)   rows.push({label:'👤 Name',  val: name});
   rows.push({label:'⚡ Status', val: 'Anfrage eingegangen ✅'});
 
   if(rows.length > 1){
