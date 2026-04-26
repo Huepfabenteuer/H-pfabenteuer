@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Bewertung – Hüpfabenteuer</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{min-height:100vh;font-family:'Nunito',sans-serif;overflow-x:hidden;}
+
+body{
+  background:#0a1628;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:100vh;padding:24px 16px;
+  position:relative;
+}
+
+/* Animated background */
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;}
+.bg-circle{position:absolute;border-radius:50%;pointer-events:none;filter:blur(80px);opacity:0.4;}
+.bg-circle.c1{width:500px;height:500px;top:-100px;left:-150px;background:radial-gradient(circle,#FFD600,transparent 70%);}
+.bg-circle.c2{width:400px;height:400px;bottom:-80px;right:-100px;background:radial-gradient(circle,#ff4fa3,transparent 70%);}
+.bg-circle.c3{width:300px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,#00c2ff,transparent 70%);}
+
+/* Floating stars background */
+.star{position:fixed;border-radius:50%;background:white;pointer-events:none;animation:twinkle ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:.05;}50%{opacity:.3;}}
+
+/* Card */
+.card{
+  position:relative;z-index:1;
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(32px);
+  border:1.5px solid rgba(255,255,255,.12);
+  border-radius:32px;
+  padding:40px 28px 36px;
+  max-width:420px;width:100%;
+  box-shadow:0 32px 80px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.15);
+  text-align:center;
+  animation:cardIn .6s cubic-bezier(.34,1.2,.64,1) both;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(.96);}to{opacity:1;transform:none;}}
+
+/* Logo */
+.logo{
+  width:64px;height:64px;border-radius:20px;
+  background:linear-gradient(135deg,#FFD600,#ff9800);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Baloo 2',cursive;font-size:32px;font-weight:900;color:white;
+  box-shadow:0 8px 28px rgba(255,185,0,.5);
+  margin:0 auto 20px;
+  animation:logoIn .8s cubic-bezier(.34,1.5,.64,1) .2s both;
+}
+@keyframes logoIn{from{opacity:0;transform:scale(0) rotate(-20deg);}to{opacity:1;transform:none;}}
+
+.brand{font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+
+.title{font-family:'Baloo 2',cursive;font-size:26px;font-weight:900;color:white;margin-bottom:8px;line-height:1.2;}
+.title em{color:#FFD600;font-style:normal;}
+
+.subtitle{font-size:14px;color:rgba(255,255,255,.65);font-weight:600;margin-bottom:32px;line-height:1.6;}
+
+/* Stars */
+.stars-wrap{display:flex;justify-content:center;gap:10px;margin-bottom:14px;}
+.star-btn{
+  font-size:44px;cursor:pointer;
+  transition:transform .2s cubic-bezier(.34,1.5,.64,1),filter .2s;
+  filter:grayscale(1) brightness(.5);
+  display:block;line-height:1;
+  border:none;background:none;padding:4px;
+  animation:starIn .5s cubic-bezier(.34,1.5,.64,1) both;
+}
+.star-btn:nth-child(1){animation-delay:.3s;}
+.star-btn:nth-child(2){animation-delay:.35s;}
+.star-btn:nth-child(3){animation-delay:.4s;}
+.star-btn:nth-child(4){animation-delay:.45s;}
+.star-btn:nth-child(5){animation-delay:.5s;}
+@keyframes starIn{from{opacity:0;transform:scale(0);}to{opacity:1;transform:scale(1);}}
+
+.star-btn.active{filter:grayscale(0) brightness(1);}
+.star-btn.active:hover,.star-btn:hover{transform:scale(1.25);}
+
+.rating-label{
+  font-family:'Baloo 2',cursive;font-size:15px;font-weight:700;
+  color:rgba(255,255,255,.6);margin-bottom:28px;min-height:22px;
+  transition:all .2s;
+}
+
+/* Submit button */
+.btn-submit{
+  width:100%;padding:16px;border-radius:16px;border:none;
+  font-family:'Baloo 2',cursive;font-size:17px;font-weight:800;
+  cursor:pointer;transition:transform .15s,box-shadow .2s,opacity .2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  opacity:.4;pointer-events:none;
+}
+.btn-submit.ready{
+  opacity:1;pointer-events:all;
+  background:linear-gradient(135deg,#FFD600,#ff9800);
+  color:#1a0d00;
+  box-shadow:0 8px 28px rgba(255,185,0,.45);
+}
+.btn-submit.ready:active{transform:scale(.97);}
+
+/* Feedback form (for 1-3 stars) */
+.feedback-wrap{
+  display:none;margin-top:20px;
+  animation:fadeIn .4s ease;
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+.feedback-wrap.show{display:block;}
+
+.feedback-label{font-size:13px;font-weight:700;color:rgba(255,255,255,.7);margin-bottom:10px;text-align:left;}
+textarea{
+  width:100%;border-radius:14px;padding:14px;
+  background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);
+  color:white;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;
+  resize:none;outline:none;transition:border .2s;
+  min-height:100px;
+}
+textarea::placeholder{color:rgba(255,255,255,.35);}
+textarea:focus{border-color:rgba(255,214,0,.4);}
+
+/* Divider */
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 0;}
+.divider-line{flex:1;height:1px;background:rgba(255,255,255,.1);}
+.divider-txt{font-size:11px;color:rgba(255,255,255,.35);font-weight:700;letter-spacing:1px;}
+
+/* Thank you screen */
+.thankyou{display:none;text-align:center;animation:cardIn .5s ease;}
+.thankyou.show{display:block;}
+.thankyou-ic{font-size:72px;display:block;margin-bottom:16px;animation:popIn .6s cubic-bezier(.34,1.5,.64,1);}
+@keyframes popIn{from{transform:scale(0);}to{transform:scale(1);}}
+.thankyou-title{font-family:'Baloo 2',cursive;font-size:24px;font-weight:900;color:white;margin-bottom:8px;}
+.thankyou-sub{font-size:14px;color:rgba(255,255,255,.65);font-weight:600;line-height:1.6;}
+
+/* Main content */
+.main-content{}
+</style>
+</head>
+<body>
+
+<div class="bg">
+  <div class="bg-circle c1"></div>
+  <div class="bg-circle c2"></div>
+  <div class="bg-circle c3"></div>
+</div>
+
+<div class="card">
+  <div class="main-content" id="mainContent">
+    <div class="logo">H</div>
+    <div class="brand">Hüpfabenteuer · Kärnten</div>
+    <h1 class="title">Wie war dein <em>Erlebnis?</em></h1>
+    <p class="subtitle">Deine Meinung ist uns wichtig!<br>Bewerte uns in nur 5 Sekunden. 🙏</p>
+
+    <div class="stars-wrap" id="starsWrap">
+      <button class="star-btn" data-val="1" onclick="setRating(1)" aria-label="1 Stern">⭐</button>
+      <button class="star-btn" data-val="2" onclick="setRating(2)" aria-label="2 Sterne">⭐</button>
+      <button class="star-btn" data-val="3" onclick="setRating(3)" aria-label="3 Sterne">⭐</button>
+      <button class="star-btn" data-val="4" onclick="setRating(4)" aria-label="4 Sterne">⭐</button>
+      <button class="star-btn" data-val="5" onclick="setRating(5)" aria-label="5 Sterne">⭐</button>
+    </div>
+
+    <div class="rating-label" id="ratingLabel">Tippe auf einen Stern</div>
+
+    <div class="feedback-wrap" id="feedbackWrap">
+      <div class="feedback-label">Was können wir besser machen? 💬</div>
+      <textarea id="feedbackText" placeholder="Dein Feedback hilft uns, besser zu werden..." rows="4"></textarea>
+    </div>
+
+    <button class="btn-submit" id="submitBtn" onclick="submitRating()">
+      Bewertung abschicken →
+    </button>
+  </div>
+
+  <div class="thankyou" id="thankyouScreen">
+    <span class="thankyou-ic" id="thankyouIc">🎉</span>
+    <div class="thankyou-title" id="thankyouTitle">Danke für deine Bewertung!</div>
+    <p class="thankyou-sub" id="thankyouSub">Du wirst gleich zu Google weitergeleitet...</p>
+  </div>
+</div>
+
+<script>
+var currentRating = 0;
+var GOOGLE_REVIEW_URL = 'https://g.page/r/CUE00P_892NPEAE/review';
+
+var labels = ['', 'Schade 😔', 'Könnte besser sein 😐', 'War okay 🙂', 'Hat uns gefallen! 😊', 'Absolut top! 🤩'];
+
+function setRating(val){
+  currentRating = val;
+  var stars = document.querySelectorAll('.star-btn');
+  stars.forEach(function(s, i){
+    s.classList.toggle('active', i < val);
+  });
+  document.getElementById('ratingLabel').textContent = labels[val];
+
+  var btn = document.getElementById('submitBtn');
+  btn.classList.add('ready');
+
+  var fw = document.getElementById('feedbackWrap');
+  if(val <= 3){
+    fw.classList.add('show');
+    btn.innerHTML = 'Feedback senden →';
+  } else {
+    fw.classList.remove('show');
+    btn.innerHTML = val === 5 ? '⭐ Google Bewertung schreiben →' : 'Weiter zu Google →';
+  }
+}
+
+function submitRating(){
+  if(!currentRating) return;
+
+  var main = document.getElementById('mainContent');
+  var ty = document.getElementById('thankyouScreen');
+  var ic = document.getElementById('thankyouIc');
+  var title = document.getElementById('thankyouTitle');
+  var sub = document.getElementById('thankyouSub');
+
+  main.style.display = 'none';
+  ty.classList.add('show');
+
+  if(currentRating >= 4){
+    ic.textContent = '🌟';
+    title.textContent = 'Vielen Dank!';
+    sub.textContent = 'Du wirst in 2 Sekunden zu Google weitergeleitet...';
+    setTimeout(function(){
+      window.location.href = GOOGLE_REVIEW_URL;
+    }, 2000);
+  } else {
+    ic.textContent = '🙏';
+    title.textContent = 'Danke für dein Feedback!';
+    sub.textContent = 'Wir nehmen deine Rückmeldung ernst und arbeiten daran, noch besser zu werden. Bis zum nächsten Mal! 😊';
+
+    // Send feedback via WhatsApp to you (optional)
+    var msg = document.getElementById('feedbackText').value;
+    if(msg.trim()){
+      // Optional: send to your WhatsApp
+      // window.open('https://wa.me/436641852634?text=Feedback+(' + currentRating + '%20Sterne):+' + encodeURIComponent(msg));
+    }
+  }
+}
+
+// Generate twinkling stars background
+(function(){
+  for(var i=0;i<30;i++){
+    var s=document.createElement('div');
+    s.className='star';
+    var sz=Math.random()*2+1;
+    s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'vh;left:'+Math.random()*100+'vw;animation-duration:'+(Math.random()*4+2)+'s;animation-delay:'+(Math.random()*5)+'s;';
+    document.body.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>
