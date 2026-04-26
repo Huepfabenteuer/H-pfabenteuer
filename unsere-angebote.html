@@ -178,7 +178,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 .reveal{opacity:1;transform:translateY(0);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}
 .reveal.hide-init{opacity:0;transform:translateY(24px) scale(0.97);}
 .reveal.visible{opacity:1;transform:translateY(0) scale(1);}
-
+ 
 /* ── CARD HOVER (desktop) ── */
 @media(hover:hover){
   .burg-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.13);border-color:rgba(255,79,163,.12);}
@@ -189,7 +189,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   .burg-card:hover .burg-img,.extras-card:hover .extras-img{transform:scale(1.03);}
   .burg-img,.extras-img{transition:transform .4s ease;}
 }
-
+ 
 /* lazy fade removed – caused slideshow images to stay invisible */
  
  
@@ -262,7 +262,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 .paket-card.pk-allin{border-color:rgba(0,217,126,.2);}
 .paket-card.pk-allin .paket-btn{background:linear-gradient(135deg,#00d97e,#059669);}
 @media(min-width:768px){.paket-grid{grid-template-columns:repeat(4,1fr);}}
-
+ 
 /* ── STICKY TOPBAR ── */
 .topbar-sticky{display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:997;padding:10px 18px;background:rgba(10,22,40,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 2px 20px rgba(0,0,0,.25);}
 .ts-logo{display:flex;align-items:center;gap:8px;}
@@ -362,6 +362,23 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     ]
   }
   </script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1256236772328604');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 <!-- STICKY TOPBAR -->
@@ -398,7 +415,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     <a href="https://wa.me/436641852634" target="_blank" class="hbg-clink wa">💬 WhatsApp schreiben</a>
   </div>
 </div>
-
+ 
  
 <!-- PARTICLES -->
 <div style="position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;" id="particles"></div>
@@ -732,7 +749,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   </div>
 </div>
  
-
+ 
 <!-- FOTOBOX -->
 <div class="sec" id="section-foto">
   <div class="reveal">
@@ -766,7 +783,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   </div>
 </div>
  
-
+ 
 <div class="sec" id="section-extra">
   <div class="reveal">
     <div class="stitle">Noch mehr <em>Spaß</em></div>
@@ -809,7 +826,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     <div class="stitle-sub">Hüpfburg deiner Wahl + Extras – bequem kombiniert · Hüpfburg im Anfrageformular auswählen</div>
   </div>
   <div class="paket-grid">
-
+ 
     <!-- KOMFORT-PAKET -->
     <a href="anfragen.html?paket=komfort" class="paket-card pk-komfort reveal" data-cat="paket">
       <div class="paket-icon">🔧</div>
@@ -821,7 +838,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
       <div class="paket-price">ab 170 € · kein Stress</div>
       <div class="paket-btn">Jetzt anfragen →</div>
     </a>
-
+ 
     <!-- SÜSSES PAKET -->
     <a href="anfragen.html?paket=sweet" class="paket-card pk-sweet reveal" data-cat="paket">
       <div class="paket-icon">🍭</div>
@@ -834,7 +851,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
       <div class="paket-badge pk-sweet-badge">🏷️ 5% Rabatt</div>
       <div class="paket-btn">Jetzt anfragen →</div>
     </a>
-
+ 
     <!-- SNACK-PAKET -->
     <a href="anfragen.html?paket=snack" class="paket-card pk-snack reveal" data-cat="paket">
       <div class="paket-icon">🍿</div>
@@ -847,7 +864,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
       <div class="paket-badge pk-sweet-badge">🏷️ 5% Rabatt</div>
       <div class="paket-btn">Jetzt anfragen →</div>
     </a>
-
+ 
     <!-- ALL-INCLUSIVE -->
     <a href="anfragen.html?paket=allin" class="paket-card pk-allin reveal" data-cat="paket">
       <div class="paket-icon">🎉</div>
@@ -860,10 +877,10 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
       <div class="paket-badge pk-allin-badge">🏷️ 10% Rabatt</div>
       <div class="paket-btn">Jetzt anfragen →</div>
     </a>
-
+ 
   </div>
 </div>
-
+ 
 <!-- LIEFERUNG -->
 <div class="sec">
   <div class="reveal">
@@ -955,12 +972,12 @@ document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
 function filter(cat, btn){
   document.querySelectorAll('.ftab').forEach(function(t){t.classList.remove('on');});
   btn.classList.add('on');
-
+ 
   var secBurg  = document.getElementById('section-burg');
   var secFoto  = document.getElementById('section-foto');
   var secExtra = document.getElementById('section-extra');
   var secPaket = document.getElementById('section-paket');
-
+ 
   // Show/hide entire sections based on filter
   if(cat==='all'){
     if(secBurg)  secBurg.style.display='';
@@ -983,10 +1000,10 @@ function filter(cat, btn){
     if(secFoto)  secFoto.style.display='none';
     if(secExtra) secExtra.style.display='none';
   }
-
+ 
   // Pakete always visible
   if(secPaket) secPaket.style.display='';
-
+ 
   // ── Hamburger aktiven Link synchronisieren ──
   document.querySelectorAll('.hbg-link').forEach(function(l){ l.classList.remove('active'); });
   var pageMap = {burg:'burg', foto:'foto', extra:'extra', paket:'', all:''};
@@ -1285,10 +1302,10 @@ function closeMenu(){
   document.body.style.overflow='';
 }
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(); });
-
+ 
 // ── Nav Highlighting: Bottom-Nav + Hamburger synchron ──
 (function(){
-
+ 
   // Setzt Bottom-Nav und Hamburger aktiv
   function setActiveNav(key){
     // Bottom-Nav
@@ -1304,7 +1321,7 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(
       if(h) h.classList.add('active');
     }
   }
-
+ 
   // Filter-Funktion wrappen: bei Klick auf Tab sofort updaten
   var _origFilter = window.filter;
   var _activeFilter = 'all';
@@ -1314,14 +1331,14 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(
     var tabToNav = { burg:'burg', foto:'foto', extra:'extra', paket:'', all:'burg' };
     setActiveNav(tabToNav[cat] !== undefined ? tabToNav[cat] : '');
   };
-
+ 
   // Beim Scrollen: nur wenn Filter = "Alle"
   var sections = [
     { id:'section-burg',  key:'burg'  },
     { id:'section-foto',  key:'foto'  },
     { id:'section-extra', key:'extra' },
   ];
-
+ 
   // Scroll-basiert: welche Section ist gerade oben im Viewport
   function updateNavFromScroll(){
     if(_activeFilter !== 'all') return;
@@ -1336,12 +1353,12 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(
     }
     setActiveNav(current);
   }
-
+ 
   window.addEventListener('scroll', updateNavFromScroll, { passive: true });
-
+ 
   // Startet nach dem Laden
   document.addEventListener('DOMContentLoaded', function(){
-
+ 
     // URL-Parameter beim Laden auswerten
     var params = new URLSearchParams(window.location.search);
     var cat = params.get('filter');
@@ -1353,13 +1370,13 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(
       setActiveNav('burg');
     }
   });
-
+ 
 })();
-
+ 
 // Dynamic copyright year
 var fy=document.getElementById('f-year');
 if(fy) fy.textContent=new Date().getFullYear();
-
+ 
 // Lazy load non-first slideshow images
 document.querySelectorAll('.slideshow').forEach(function(ss){
   var imgs=ss.querySelectorAll('img');
@@ -1367,7 +1384,7 @@ document.querySelectorAll('.slideshow').forEach(function(ss){
     if(i>0) img.setAttribute('loading','lazy');
   });
 });
-
+ 
 // Hide bottom nav on desktop
 if(window.innerWidth>=768){
   var bn=document.querySelector('.bnav');
@@ -1377,3 +1394,4 @@ if(window.innerWidth>=768){
 </script>
 </body>
 </html>
+ 
