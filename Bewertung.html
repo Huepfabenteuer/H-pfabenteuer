@@ -233,12 +233,18 @@ function submitRating(){
     title.textContent = 'Danke für dein Feedback!';
     sub.textContent = 'Wir nehmen deine Rückmeldung ernst und arbeiten daran, noch besser zu werden. Bis zum nächsten Mal! 😊';
 
-    // Send feedback via WhatsApp to you (optional)
+    // Send feedback via Formcarry to info@huepfabenteuer.at
     var msg = document.getElementById('feedbackText').value;
-    if(msg.trim()){
-      // Optional: send to your WhatsApp
-      // window.open('https://wa.me/436641852634?text=Feedback+(' + currentRating + '%20Sterne):+' + encodeURIComponent(msg));
-    }
+    var formData = new FormData();
+    formData.append('Bewertung', currentRating + ' Sterne');
+    formData.append('Feedback', msg || '(kein Text eingegeben)');
+    formData.append('_subject', 'Neues Feedback – ' + currentRating + ' Sterne');
+
+    fetch('https://formcarry.com/s/a0drkd2yAwf', {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    }).catch(function(){ /* silent fail */ });
   }
 }
 
