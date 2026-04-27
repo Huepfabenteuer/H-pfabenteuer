@@ -1085,32 +1085,45 @@ function filter(cat, btn){
   var imgs = slides.children;
   var dots = ss.querySelectorAll('.sdot2');
   var cur = 0, startX = 0, dragging = false;
+  var timer;
+  function getDuration(){
+    var el = imgs[cur];
+    if(el && el.tagName === 'VIDEO'){
+      var d = el.duration;
+      if(isFinite(d) && d > 0) return d * 1000;
+      return 13000;
+    }
+    return 3000;
+  }
   function goTo(n){
     cur = (n + imgs.length) % imgs.length;
     slides.style.transform = 'translateX(-' + (cur * 100) + '%)';
     dots.forEach(function(d,i){ d.style.opacity = i===cur ? '1' : '0.45'; });
   }
-  var timer = setInterval(function(){ goTo(cur+1); }, 3000);
+  function scheduleNext(){
+    clearTimeout(timer);
+    timer = setTimeout(function(){ goTo(cur+1); scheduleNext(); }, getDuration());
+  }
+  scheduleNext();
   dots.forEach(function(d){ d.addEventListener('click', function(){
-    clearInterval(timer);
     goTo(parseInt(d.getAttribute('data-i')));
-    timer = setInterval(function(){ goTo(cur+1); }, 3000);
+    scheduleNext();
   }); });
-  ss.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; dragging=true; clearInterval(timer); },{passive:true});
+  ss.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; dragging=true; clearTimeout(timer); },{passive:true});
   ss.addEventListener('touchend', function(e){
     if(!dragging) return;
     var dx = e.changedTouches[0].clientX - startX;
     if(Math.abs(dx) > 40) goTo(dx < 0 ? cur+1 : cur-1);
     dragging = false;
-    timer = setInterval(function(){ goTo(cur+1); }, 3000);
+    scheduleNext();
   });
-  ss.addEventListener('mousedown', function(e){ startX = e.clientX; dragging=true; clearInterval(timer); });
+  ss.addEventListener('mousedown', function(e){ startX = e.clientX; dragging=true; clearTimeout(timer); });
   ss.addEventListener('mouseup', function(e){
     if(!dragging) return;
     var dx = e.clientX - startX;
     if(Math.abs(dx) > 40) goTo(dx < 0 ? cur+1 : cur-1);
     dragging = false;
-    timer = setInterval(function(){ goTo(cur+1); }, 3000);
+    scheduleNext();
   });
 })();
 </script>
