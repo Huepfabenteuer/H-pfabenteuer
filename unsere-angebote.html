@@ -236,7 +236,8 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   .ph-sub{font-size:16px;text-shadow:0 2px 12px rgba(0,0,0,.5);}
   .filter-wrap{padding:16px 60px;}
   .sec{padding:32px 60px 12px;max-width:1200px;margin:0 auto;}
-  .cta{margin:24px 60px 12px;max-width:1200px;}
+  .cta{margin:24px auto 12px;max-width:600px;}
+  .cta .cb-main{max-width:340px;margin-left:auto;margin-right:auto;}
   footer{padding:32px 60px 24px;}
   .burg-list{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
   .extras-grid{grid-template-columns:repeat(4,1fr);}
@@ -581,7 +582,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     <div class="burg-card reveal" data-cat="burg" onclick="if(!event.target.closest('a,button'))window.location.href='anfragen.html?burg=piratenburg'">
       <div class="slideshow" id="pir-slide" style="position:relative;width:100%;height:200px;overflow:hidden;">
         <div class="slides" style="display:flex;height:100%;transition:transform 0.4s ease;will-change:transform;">
-          <video src="piratenburg-hero.mp4" autoplay muted loop playsinline preload="metadata" poster="piratenburg-poster.jpg" aria-label="Piratenburg Hüpfburg in Aktion" style="min-width:100%;height:200px;object-fit:cover;object-position:center;flex-shrink:0;display:block;"></video>
+          <video src="piratenburg-hero.mp4" muted loop playsinline preload="none" poster="piratenburg-poster.jpg" aria-label="Piratenburg Hüpfburg in Aktion" style="min-width:100%;height:200px;object-fit:cover;object-position:center;flex-shrink:0;display:block;"></video>
           <img loading="lazy" decoding="async" style="min-width:100%;height:200px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://i.imgur.com/hh0KRsy.jpeg" alt="Piratenburg 1">
           <img loading="lazy" decoding="async" style="min-width:100%;height:200px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://i.imgur.com/GQYATw2.jpeg" alt="Piratenburg 2">
           <img loading="lazy" decoding="async" style="min-width:100%;height:200px;object-fit:cover;object-position:center;flex-shrink:0;" src="https://i.imgur.com/p3ECbTG.jpeg" alt="Piratenburg 3">
@@ -776,7 +777,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     <div class="stitle">Unvergessliche <em>Erinnerungen</em></div>
     <div class="stitle-sub">Fotobox mit Sofortdruck · 3 Pakete · Perfekt für jedes Event</div>
   </div>
-  <div class="burg-list reveal">
+  <div class="burg-list reveal" style="grid-template-columns:1fr;max-width:600px;margin-left:auto;margin-right:auto;">
     <div class="burg-card" data-cat="foto" onclick="if(!event.target.closest('a,button'))window.location.href='fotobox.html'" style="position:relative;">
       <div style="position:absolute;top:14px;left:14px;z-index:3;background:linear-gradient(135deg,var(--purple),#6366f1);color:white;font-family:'Baloo 2',cursive;font-size:11px;font-weight:800;padding:5px 12px;border-radius:30px;box-shadow:0 4px 12px rgba(168,85,247,.4);">📷 Fotobox</div>
       <img class="burg-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_8637-high-94tedm.jpg?enable-io=true&enable=upscale&crop=0.7505%3A1&width=800" alt="Fotobox mieten Kärnten – Sofortdruck für Hochzeit und Geburtstag" loading="lazy" onerror="this.style.display='none'" style="height:280px;">
@@ -1038,6 +1039,7 @@ function filter(cat, btn){
 <script>
 (function(){
   document.querySelectorAll('.slideshow').forEach(function(ss){
+    if(ss.id === 'pir-slide') return; // Piratenburg hat eigenen Handler (Video)
     var slides = ss.querySelector('.slides');
     if(!slides) return;
     var imgs = slides.querySelectorAll('img');
@@ -1084,8 +1086,10 @@ function filter(cat, btn){
   var slides = ss.querySelector('.slides');
   var imgs = slides.children;
   var dots = ss.querySelectorAll('.sdot2');
+  var video = slides.querySelector('video');
   var cur = 0, startX = 0, dragging = false;
   var timer;
+  var isVisible = false;
   function getDuration(){
     var el = imgs[cur];
     if(el && el.tagName === 'VIDEO'){
@@ -1095,16 +1099,42 @@ function filter(cat, btn){
     }
     return 3000;
   }
+  function updateVideoState(){
+    if(!video) return;
+    if(isVisible && cur === 0){
+      try { video.currentTime = 0; } catch(e){}
+      var p = video.play();
+      if(p && typeof p.catch === 'function') p.catch(function(){});
+    } else {
+      try { video.pause(); } catch(e){}
+    }
+  }
   function goTo(n){
     cur = (n + imgs.length) % imgs.length;
     slides.style.transform = 'translateX(-' + (cur * 100) + '%)';
     dots.forEach(function(d,i){ d.style.opacity = i===cur ? '1' : '0.45'; });
+    updateVideoState();
   }
   function scheduleNext(){
     clearTimeout(timer);
+    if(!isVisible) return;
     timer = setTimeout(function(){ goTo(cur+1); scheduleNext(); }, getDuration());
   }
-  scheduleNext();
+  // Lazy-Autoplay: Erst starten wenn Galerie auf Höhe ist
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        isVisible = entry.isIntersecting;
+        updateVideoState();
+        if(isVisible){ scheduleNext(); } else { clearTimeout(timer); }
+      });
+    }, { threshold: 0.4 });
+    io.observe(ss);
+  } else {
+    isVisible = true;
+    updateVideoState();
+    scheduleNext();
+  }
   dots.forEach(function(d){ d.addEventListener('click', function(){
     goTo(parseInt(d.getAttribute('data-i')));
     scheduleNext();
@@ -1399,8 +1429,9 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(
       var btn = document.querySelector('.ftab[data-filter="'+cat+'"]');
       if(btn) window.filter(cat, btn);
     } else {
-      // Kein Filter = Alle → Hüpfburgen ist ganz oben → sofort markieren
-      setActiveNav('burg');
+      // Kein Filter = "Alle" explizit aktivieren
+      var alleBtn = document.querySelector('.ftab[data-filter="all"]');
+      if(alleBtn) window.filter('all', alleBtn);
     }
   });
  
