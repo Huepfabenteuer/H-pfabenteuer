@@ -36,7 +36,9 @@
 <link rel="preload" as="image" href="alienburg-poster.jpg" fetchpriority="high"/>
 <link rel="preload" as="video" href="alienburg-hero.mp4" type="video/mp4"/>
 
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<!-- PERFORMANCE: Async-load fonts (no render blocking) -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/></noscript>
 <style>
 :root{
   --pink:#ff4fa3;--purple:#a855f7;--sky:#00c2ff;
