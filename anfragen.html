@@ -932,6 +932,7 @@ function submitAnfrage(){
   if(email)     fd.append('E-Mail',        email);
   if(adresse)   fd.append('Adresse',       adresse);
   fd.append('Auf- und Abbau', aufbau);
+  fd.append('Lieferung',      document.getElementById('lieferung-val').value);
   if(extras && extras !== 'Keine Extras') fd.append('Extras', extras);
   if(zuckerwatteSetOn) fd.append('Zuckerwatte-Set', 'Ja – Zuckerwatte-Set (+20 €)');
   if(popcornSetOn)     fd.append('Popcorn-Set',     'Ja – Popcorn-Set (+20 €)');
