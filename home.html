@@ -25,6 +25,17 @@
 <meta name="twitter:title" content="Hüpfburg & Fotobox mieten Kärnten – ab 120€ | Hüpfabenteuer"/>
 <meta name="twitter:description" content="6 Hüpfburgen + Fotobox mit Sofortdruck mieten ✓ Gratis Lieferung bis 40km ✓ Zuckerwatte & Popcorn ✓ 5,0★ Google ✓ Jetzt anfragen!"/>
 <title>Hüpfburg mieten Kärnten – Hüpfabenteuer | ab 120€ Gratis Lieferung bis 40km</title>
+
+<!-- PERFORMANCE: Preconnect to external domains -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://i.imgur.com"/>
+<link rel="dns-prefetch" href="https://i.imgur.com"/>
+
+<!-- PERFORMANCE: Preload hero assets for fast LCP -->
+<link rel="preload" as="image" href="alienburg-poster.jpg" fetchpriority="high"/>
+<link rel="preload" as="video" href="alienburg-hero.mp4" type="video/mp4"/>
+
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <style>
 :root{
@@ -508,7 +519,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   <div class="hbg"><div class="b1"></div><div class="b2"></div><div class="b3"></div></div>
   <div class="hero-img" style="position:relative;">
     <div style="width:100%;height:100%;">
-  <video src="alienburg-hero.mp4" autoplay muted loop playsinline preload="auto" poster="https://i.imgur.com/oDlTjx4.jpeg" aria-label="Hüpfburg Alienburg in Aktion – Kärnten" width="480" height="280" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+  <video src="alienburg-hero.mp4" autoplay muted loop playsinline preload="auto" fetchpriority="high" poster="alienburg-poster.jpg" aria-label="Hüpfburg Alienburg in Aktion – Kärnten" width="480" height="280" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
     </div>
   </div>
   <h1 class="hero-title">Alles für dein<br><em>unvergessliches</em> Fest!</h1>
@@ -919,4 +930,3 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeMenu(
 </script>
 </body>
 </html>
- 
