@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemaps/image/1.1">
- 
+        xmlns:image="http://www.google.com/schemas/sitemaps/image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemaps/video/1.1">
+
   <!-- ===== HAUPTSEITEN ===== -->
   <url>
     <loc>https://huepfabenteuer.at/home.html</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://i.imgur.com/xNdofDm.jpeg</image:loc>
+      <image:title>Hüpfabenteuer Kärnten – Hüpfburgverleih</image:title>
+      <image:caption>Hüpfburg mieten in Kärnten – Alienburg, Ritterburg und mehr</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://huepfabenteuer.at/unsere-angebote.html</loc>
@@ -15,51 +21,150 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
- 
-  <!-- ===== HÜPFBURG-DETAILSEITEN ===== -->
+
+  <!-- ===== HÜPFBURG-DETAILSEITEN mit Bildern + Video ===== -->
   <url>
     <loc>https://huepfabenteuer.at/alienburg.html</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://i.imgur.com/xNdofDm.jpeg</image:loc>
+      <image:title>Alienburg Hüpfburg mieten Kärnten</image:title>
+      <image:caption>Alienburg mit Rutsche – 9,30 × 3 × 5 m – Bestseller</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.imgur.com/bXgqvuK.jpeg</image:loc>
+      <image:title>Alienburg Hüpfburg Detail</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.imgur.com/Yg89MCP.jpeg</image:loc>
+      <image:title>Alienburg Hüpfburg in Aktion</image:title>
+    </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://huepfabenteuer.at/alienburg-poster.jpg</video:thumbnail_loc>
+      <video:title>Alienburg Hüpfburg – Hüpfabenteuer Kärnten</video:title>
+      <video:description>Alienburg Hüpfburg in Aktion – Außerirdischer Hüpfspaß für Kindergeburtstage in Kärnten.</video:description>
+      <video:content_loc>https://huepfabenteuer.at/alienburg-hero.mp4</video:content_loc>
+    </video:video>
   </url>
+
   <url>
     <loc>https://huepfabenteuer.at/piratenburg.html</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://i.imgur.com/hh0KRsy.jpeg</image:loc>
+      <image:title>Piratenburg Hüpfburg mieten Kärnten</image:title>
+      <image:caption>Piratenburg mit Rutsche – 5 × 4 × 4,1 m</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.imgur.com/GQYATw2.jpeg</image:loc>
+      <image:title>Piratenburg Hüpfburg Detail</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.imgur.com/p3ECbTG.jpeg</image:loc>
+      <image:title>Piratenburg Hüpfburg in Aktion</image:title>
+    </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://huepfabenteuer.at/piratenburg-poster.jpg</video:thumbnail_loc>
+      <video:title>Piratenburg Hüpfburg – Hüpfabenteuer Kärnten</video:title>
+      <video:description>Piratenburg Hüpfburg in Aktion – Piraten-Abenteuer für Kindergeburtstage in Kärnten.</video:description>
+      <video:content_loc>https://huepfabenteuer.at/piratenburg-hero.mp4</video:content_loc>
+    </video:video>
   </url>
+
   <url>
     <loc>https://huepfabenteuer.at/ritterburg.html</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://i.imgur.com/kW7FEQE.jpeg</image:loc>
+      <image:title>Ritterburg Hüpfburg mieten Kärnten</image:title>
+      <image:caption>Ritterburg mit Rutsche – 5 × 4,2 × 3,4 m</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.imgur.com/SEIolcr.jpeg</image:loc>
+      <image:title>Ritterburg Hüpfburg Detail</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.imgur.com/ZFJVpVI.jpeg</image:loc>
+      <image:title>Ritterburg Hüpfburg in Aktion</image:title>
+    </image:image>
   </url>
+
   <url>
     <loc>https://huepfabenteuer.at/candyburg.html</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://i.imgur.com/zIqeBQ9.jpeg</image:loc>
+      <image:title>Candyburg Hüpfburg mieten Kärnten</image:title>
+      <image:caption>Bunte Candyburg mit Rutsche – 6,5 × 3 × 3 m</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.imgur.com/hVtyUKU.jpeg</image:loc>
+      <image:title>Candyburg Hüpfburg Detail</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.imgur.com/YTJdQoN.jpeg</image:loc>
+      <image:title>Candyburg Hüpfburg in Aktion</image:title>
+    </image:image>
   </url>
+
   <url>
     <loc>https://huepfabenteuer.at/feuerwehrburg.html</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://i.imgur.com/IulKevy.jpeg</image:loc>
+      <image:title>Feuerwehr-Hüpfburg mieten Kärnten</image:title>
+      <image:caption>Feuerwehr-Hüpfburg mit Rutsche – NEU im Programm</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.imgur.com/qRqbWjb.jpeg</image:loc>
+      <image:title>Feuerwehr-Hüpfburg Detail</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.imgur.com/DN91TXi.jpeg</image:loc>
+      <image:title>Feuerwehr-Hüpfburg in Aktion</image:title>
+    </image:image>
   </url>
+
   <url>
     <loc>https://huepfabenteuer.at/hochzeitsburg.html</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://i.imgur.com/nrIyuLj.jpeg</image:loc>
+      <image:title>Hochzeitsburg mieten Kärnten</image:title>
+      <image:caption>Elegante Hochzeitsburg – 5,1 × 4 × 4,8 m</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.imgur.com/JYSliWm.jpeg</image:loc>
+      <image:title>Hochzeitsburg Detail</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.imgur.com/YWPcq3n.jpeg</image:loc>
+      <image:title>Hochzeitsburg bei einer Hochzeit</image:title>
+    </image:image>
   </url>
- 
+
   <!-- ===== FOTOBOX & EXTRAS ===== -->
   <url>
     <loc>https://huepfabenteuer.at/fotobox.html</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_8637-high-94tedm.jpg?enable-io=true&amp;enable=upscale&amp;width=1200</image:loc>
+      <image:title>Fotobox mit Sofortdruck mieten Kärnten</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://huepfabenteuer.at/zuckerwatte.html</loc>
@@ -73,7 +178,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
- 
+
   <!-- ===== KONTAKT & ANFRAGE ===== -->
   <url>
     <loc>https://huepfabenteuer.at/anfragen.html</loc>
@@ -87,7 +192,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
- 
+
   <!-- ===== ANLEITUNGEN ===== -->
   <url>
     <loc>https://huepfabenteuer.at/alienanleitung.html</loc>
@@ -113,7 +218,7 @@
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
- 
+
   <!-- ===== RECHTLICHES ===== -->
   <url>
     <loc>https://huepfabenteuer.at/impressum.html</loc>
@@ -133,5 +238,5 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
- 
+
 </urlset>
