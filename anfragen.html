@@ -98,15 +98,18 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .pe-note{font-size:10px;color:#bbb;margin-top:2px;}
  
 /* EXTRA TOGGLE BUTTON */
-.extra-toggle{width:100%;padding:16px;border:2px dashed rgba(168,85,247,.4);border-radius:14px;background:white;cursor:pointer;text-align:left;display:flex;gap:12px;align-items:flex-start;transition:.2s;margin-bottom:4px;}
-.extra-toggle .icon{font-size:22px;line-height:1;flex-shrink:0;}
-.extra-toggle .extra-copy{display:flex;flex-direction:column;gap:4px;}
-.extra-toggle .extra-title{font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;color:var(--dark);}
+.extra-toggle{width:100%;padding:16px 18px;border:1.5px solid #e0e0ec;border-radius:14px;background:white;cursor:pointer;text-align:left;display:flex;gap:14px;align-items:center;transition:all .25s cubic-bezier(.34,1.2,.64,1);margin-bottom:4px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.extra-toggle .extra-copy{display:flex;flex-direction:column;gap:3px;flex:1;}
+.extra-toggle .extra-title{font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;color:var(--dark);}
 .extra-toggle .extra-price{font-size:13px;font-weight:700;color:var(--purple);}
-.extra-toggle .extra-hint{font-size:11px;color:#aaa;}
-.extra-toggle:hover{background:#f8f4ff;border-color:var(--purple);}
-.extra-toggle.selected{background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(255,79,163,.06));border-color:var(--purple);border-style:solid;}
+.extra-toggle .extra-hint{font-size:11px;color:#999;font-weight:600;}
+.extra-toggle .extra-switch{position:relative;width:48px;height:28px;background:#e0e0ec;border-radius:99px;flex-shrink:0;transition:background .25s;}
+.extra-toggle .extra-switch::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;background:white;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.18);transition:transform .28s cubic-bezier(.34,1.4,.64,1);}
+.extra-toggle:hover{border-color:var(--purple);background:#fbf9ff;transform:translateY(-1px);box-shadow:0 4px 14px rgba(168,85,247,.1);}
+.extra-toggle.selected{background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(255,79,163,.04));border-color:var(--purple);box-shadow:0 4px 14px rgba(168,85,247,.15);}
 .extra-toggle.selected .extra-title{color:var(--purple);}
+.extra-toggle.selected .extra-switch{background:var(--purple);}
+.extra-toggle.selected .extra-switch::after{transform:translateX(20px);}
  
 /* SUB-EXTRAS PANEL */
 .sub-extra-panel{display:none;margin-top:8px;margin-bottom:8px;background:linear-gradient(135deg,rgba(255,214,0,.06),rgba(255,79,163,.06));border:1.5px solid rgba(255,214,0,.3);border-radius:14px;padding:14px 16px;animation:fadeSlide .25s ease;}
@@ -295,7 +298,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
  
     <!-- BURG WÄHLEN -->
     <div class="card reveal">
-      <div class="card-title">🏰 Hüpfburg wählen</div>
+      <div class="card-title">Hüpfburg wählen</div>
       <div class="card-sub">Welche Burg darf es sein?</div>
       <div class="burg-picker" id="burgPicker">
         <label class="burg-opt" data-name="Alienburg" data-price="180" data-icon="🛸">
@@ -384,8 +387,8 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
           <input type="text" id="vorname" name="Vorname" placeholder="Max" required>
         </div>
         <div class="field">
-          <label>Nachname</label>
-          <input type="text" name="Nachname" placeholder="Mustermann">
+          <label>Nachname *</label>
+          <input type="text" name="Nachname" placeholder="Mustermann" required>
         </div>
       </div>
       <div class="field">
@@ -401,14 +404,14 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
  
     <!-- LIEFERUNG JA/NEIN -->
     <div class="card reveal">
-      <div class="card-title">🚚 Lieferung gewünscht?</div>
+      <div class="card-title">Lieferung gewünscht?</div>
       <div class="card-sub">Wir liefern gratis bis 40 km · danach 0,55 €/km</div>
       <div style="display:flex;gap:10px;margin-top:4px;">
         <button type="button" id="lief-ja" onclick="setLieferung(true)" class="lief-btn lief-active">
-          ✅ Ja, bitte liefern
+          Ja, bitte liefern
         </button>
         <button type="button" id="lief-nein" onclick="setLieferung(false)" class="lief-btn">
-          🚗 Nein, ich hole selbst ab
+          Nein, ich hole selbst ab
         </button>
       </div>
       <input type="hidden" name="Lieferung" id="lieferung-val" value="Ja">
@@ -444,12 +447,12 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
  
       <!-- Auf- & Abbau Toggle -->
       <button type="button" class="extra-toggle" id="aufbau-btn">
-        <span class="icon">🔧</span>
         <span class="extra-copy">
           <span class="extra-title">Auf- &amp; Abbau dazubuchen</span>
           <span class="extra-price">+50 € · wir bauen alles auf &amp; ab</span>
-          <span class="extra-hint">👉 Klicken zum Aktivieren</span>
+          <span class="extra-hint">Zum Aktivieren antippen</span>
         </span>
+        <span class="extra-switch"></span>
       </button>
       <input type="hidden" name="Auf- und Abbau" id="aufbau-val" value="Nein">
       <div id="aufbau-paket-hint" style="display:none;margin-top:6px;font-size:12px;font-weight:700;color:#1b8d4b;padding:6px 12px;background:rgba(27,141,75,.08);border-radius:10px;border:1px solid rgba(27,141,75,.2);">✅ Im Paket enthalten – kann nicht entfernt werden</div>
@@ -519,8 +522,19 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   </div>
 </form>
  
+<!-- ANZAHLUNG INFO -->
+<div style="background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(0,194,255,.06));border-top:1.5px solid rgba(168,85,247,.18);padding:20px 18px 22px;text-align:center;">
+  <div style="font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;color:#0f0b2e;margin-bottom:10px;">Anzahlung zur Terminreservierung</div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:480px;margin:0 auto;">
+    <div style="background:white;padding:9px 14px;border-radius:12px;font-size:12px;color:#0f0b2e;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Baloo 2',cursive;">bis 219 €</strong> → <span style="color:#ff4fa3;font-weight:900;">30 €</span></div>
+    <div style="background:white;padding:9px 14px;border-radius:12px;font-size:12px;color:#0f0b2e;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Baloo 2',cursive;">220 – 299 €</strong> → <span style="color:#ff4fa3;font-weight:900;">50 €</span></div>
+    <div style="background:white;padding:9px 14px;border-radius:12px;font-size:12px;color:#0f0b2e;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Baloo 2',cursive;">ab 300 €</strong> → <span style="color:#ff4fa3;font-weight:900;">100 €</span></div>
+  </div>
+  <div style="font-size:11px;color:#666;margin-top:12px;">Restbetrag bezahlbar am Veranstaltungstag</div>
+</div>
+
 <footer>
-  <div class="fl">🏰 Hüpfabenteuer</div>
+  <div class="fl">Hüpfabenteuer</div>
   <div style="font-size:12px;color:rgba(255,255,255,.55);margin:4px 0;">Schulstraße 3 · 9346 Glödnitz · Kärnten</div>
   <div class="flinks">
     <a href="impressum.html" class="flink">Impressum</a>
@@ -646,7 +660,7 @@ document.getElementById('aufbau-btn').addEventListener('click', function(){
   aufbauOn = !aufbauOn;
   this.classList.toggle('selected', aufbauOn);
   document.getElementById('aufbau-val').value = aufbauOn ? 'Ja – Auf- & Abbau (+50 €)' : 'Nein';
-  this.querySelector('.extra-hint').textContent = aufbauOn ? '✅ Aktiviert – wird dazugerechnet' : '👉 Klicken zum Aktivieren';
+  this.querySelector('.extra-hint').textContent = aufbauOn ? 'Aktiviert – wird dazugerechnet' : 'Zum Aktivieren antippen';
   updateOrderSummary();
 });
  
@@ -711,7 +725,7 @@ function updateOrderSummary(){
   }
 
   // Auf- & Abbau
-  if(aufbauOn){ rows.push({label:'🔧 Auf- & Abbau', val:'+50 €'}); total += 50; }
+  if(aufbauOn){ rows.push({label:'Auf- & Abbau', val:'+50 €'}); total += 50; }
 
   // Süße Extras
   var extrasVal = document.getElementById('extras-select').value;
@@ -763,10 +777,13 @@ function updateOrderSummary(){
   if(hinweis){
     if(total >= 300){
       hinweis.style.display = 'block';
-      hinweis.innerHTML = '💳 Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 100 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird bei Lieferung oder Abholung bezahlt.';
-    } else if(total >= 200){
+      hinweis.innerHTML = '💳 Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 100 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird am Veranstaltungstag bezahlt.';
+    } else if(total >= 220){
       hinweis.style.display = 'block';
-      hinweis.innerHTML = '💳 Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 50 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird bei Lieferung oder Abholung bezahlt.';
+      hinweis.innerHTML = '💳 Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 50 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird am Veranstaltungstag bezahlt.';
+    } else if(total > 0){
+      hinweis.style.display = 'block';
+      hinweis.innerHTML = '💳 Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 30 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird am Veranstaltungstag bezahlt.';
     } else {
       hinweis.style.display = 'none';
     }
