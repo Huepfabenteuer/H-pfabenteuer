@@ -505,9 +505,12 @@ function updateSummary(){
     if(total >= 300){
       hinweis.style.display = 'block';
       hinweis.innerHTML = '💳 Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 100 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird bei Lieferung oder Abholung bezahlt.';
-    } else if(total >= 200){
+    } else if(total >= 220){
       hinweis.style.display = 'block';
       hinweis.innerHTML = '💳 Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 50 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird bei Lieferung oder Abholung bezahlt.';
+    } else if(total > 0){
+      hinweis.style.display = 'block';
+      hinweis.innerHTML = '💳 Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 30 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird bei Lieferung oder Abholung bezahlt.';
     } else {
       hinweis.style.display = 'none';
     }
