@@ -1,1 +1,44 @@
-/  /home.html  200
+# Netlify _redirects für Hüpfabenteuer
+# https://docs.netlify.com/routing/redirects/
+
+# ─────────────────────────────────────────────────────────────
+# ROOT-FIX: Force-Rewrite damit index.html ignoriert wird
+# Status 200! = User sieht weiter huepfabenteuer.at (kein URL-Wechsel),
+# bekommt aber den Inhalt von /home.html (indexierbar).
+# Das "!" (Force-Flag) ist ESSENTIELL: ohne ! würde Netlify die
+# noindex-index.html ausspielen, weil sie existiert.
+# ─────────────────────────────────────────────────────────────
+/                  /home.html              200!
+/index.html        /home.html              301!
+
+# ─────────────────────────────────────────────────────────────
+# CLEAN URLS: /home, /alienburg etc. → .html-Version
+# Sorgt dafür, dass Links ohne .html-Endung trotzdem funktionieren.
+# Status 301 = permanenter Redirect (sammelt Linkkraft).
+# ─────────────────────────────────────────────────────────────
+/home              /home.html              301
+/unsere-angebote   /unsere-angebote.html   301
+/alienburg         /alienburg.html         301
+/piratenburg       /piratenburg.html       301
+/ritterburg        /ritterburg.html        301
+/candyburg         /candyburg.html         301
+/feuerwehrburg     /feuerwehrburg.html     301
+/hochzeitsburg     /hochzeitsburg.html     301
+/fotobox           /fotobox.html           301
+/zuckerwatte       /zuckerwatte.html       301
+/popcorn           /popcorn.html           301
+/anfragen          /anfragen.html          301
+/kontakt           /kontakt.html           301
+/impressum         /impressum.html         301
+/datenschutz       /datenschutz.html       301
+/agbs              /agbs.html              301
+/alienanleitung    /alienanleitung.html    301
+/piratenanleitung  /piratenanleitung.html  301
+/ritterburganleitung /ritterburganleitung.html 301
+/candyburganleitung  /candyburganleitung.html  301
+
+# ─────────────────────────────────────────────────────────────
+# DUPLICATE-CONTENT SCHUTZ: alter files/-Ordner blockieren
+# Falls Google das schon gecrawlt hat, gehen die zur Hauptversion
+# ─────────────────────────────────────────────────────────────
+/files/*           /:splat                 301
