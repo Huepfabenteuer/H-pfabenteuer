@@ -160,6 +160,20 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .dsgvo-consent label a{color:var(--purple);font-weight:700;text-decoration:underline;}
 .dsgvo-consent .dsgvo-star{color:var(--pink);}
  
+/* FIELD ERROR HIGHLIGHT */
+.field-error input,.field-error select,.field-error textarea{border-color:var(--err) !important;box-shadow:0 0 0 4px rgba(179,38,30,.10) !important;animation:shake .42s ease;}
+.card.field-error{border-color:rgba(179,38,30,.4) !important;box-shadow:0 0 0 3px rgba(179,38,30,.10) !important;animation:shake .42s ease;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
+ 
+/* TOAST */
+.toast-container{position:fixed;top:74px;left:50%;transform:translateX(-50%);z-index:2000;display:flex;flex-direction:column;gap:8px;pointer-events:none;width:calc(100% - 28px);max-width:380px;}
+.toast{background:rgba(15,11,46,.95);color:white;padding:12px 16px;border-radius:14px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;box-shadow:0 8px 28px rgba(0,0,0,.32);backdrop-filter:blur(12px);display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(-14px);transition:opacity .25s,transform .28s cubic-bezier(.34,1.3,.64,1);pointer-events:auto;border:1px solid rgba(255,255,255,.1);}
+.toast.show{opacity:1;transform:translateY(0);}
+.toast-icon{font-size:18px;flex-shrink:0;line-height:1;}
+.toast-text{flex:1;line-height:1.35;}
+.toast-info{border-left:3px solid var(--purple);}
+.toast-success{border-left:3px solid var(--green);}
+ 
 /* SUBMIT */
 .btn-submit{width:100%;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;padding:17px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;border:none;cursor:pointer;box-shadow:0 8px 28px rgba(255,79,163,.4);transition:transform .15s,box-shadow .15s,opacity .15s;display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;}
 .btn-submit:active{transform:scale(.97);}
@@ -979,6 +993,41 @@ var days = 1;
 var selectedPrice = 0;
 var selectedName = '';
  
+// ── Toast-System ──
+var _toastContainer = null;
+function showToast(msg, type){
+  type = type || 'info';
+  if(!_toastContainer){
+    _toastContainer = document.createElement('div');
+    _toastContainer.className = 'toast-container';
+    document.body.appendChild(_toastContainer);
+  }
+  var t = document.createElement('div');
+  t.className = 'toast toast-' + type;
+  var icon = type === 'success' ? '✅' : type === 'info' ? '💡' : 'ℹ️';
+  t.innerHTML = '<span class="toast-icon">' + icon + '</span><span class="toast-text">' + msg + '</span>';
+  _toastContainer.appendChild(t);
+  requestAnimationFrame(function(){ t.classList.add('show'); });
+  setTimeout(function(){
+    t.classList.remove('show');
+    setTimeout(function(){ if(t.parentNode) t.remove(); }, 320);
+  }, 3400);
+}
+ 
+// ── Field-Error-Highlight + Scroll ──
+function flagField(el, scrollIt){
+  if(!el) return;
+  var wrap = el.closest('.field') || el.closest('.card') || el.closest('.dsgvo-consent') || el.parentElement;
+  if(wrap){
+    wrap.classList.add('field-error');
+    setTimeout(function(){ wrap.classList.remove('field-error'); }, 2600);
+  }
+  if(scrollIt !== false){
+    (wrap || el).scrollIntoView({behavior:'smooth', block:'center'});
+    setTimeout(function(){ try{ el.focus({preventScroll:true}); }catch(e){} }, 380);
+  }
+}
+ 
 // ── Stars ──
 (function(){
   var sc=document.getElementById('stars');
@@ -1595,6 +1644,7 @@ document.querySelectorAll('.burg-opt[data-name="Hochzeitsburg"]').forEach(functi
       e.preventDefault();
       e.stopPropagation();
       applyModus('hochzeit');
+      showToast('Auf Hochzeitsmodus gewechselt &ndash; w&auml;hle jetzt dein Fotobox-Paket', 'info');
       // visual feedback - smooth scroll zum Bereich
       setTimeout(function(){
         var topbar = document.querySelector('.modus-selector');
@@ -1632,49 +1682,82 @@ function submitAnfrage(){
   var extras   = document.querySelector('[name="Extras"]') ? document.querySelector('[name="Extras"]').value : '';
  
   // ── Pflichtfelder validieren ──
-  if(!vorname || !nachname){
-    showMsg('\u26a0\ufe0f Bitte Vor- und Nachname angeben.', false);
+  if(!vorname){
+    showMsg('\u26a0\ufe0f Bitte deinen Vornamen angeben.', false);
+    flagField(document.getElementById('vorname'));
+    return;
+  }
+  if(!nachname){
+    showMsg('\u26a0\ufe0f Bitte deinen Nachnamen angeben.', false);
+    flagField(document.querySelector('[name="Nachname"]'));
     return;
   }
   if(!telefon){
     showMsg('\u26a0\ufe0f Bitte deine Telefonnummer angeben.', false);
+    flagField(document.getElementById('telefon'));
     return;
   }
   if(!email || email.indexOf('@') === -1){
     showMsg('\u26a0\ufe0f Bitte g\u00fcltige E-Mail angeben \u2013 wir senden dir die Best\u00e4tigung per Mail.', false);
+    flagField(document.querySelector('[name="E-Mail"]'));
     return;
   }
-  if(!startDat){
-    showMsg('\u26a0\ufe0f Bitte ein Startdatum w\u00e4hlen.', false);
-    return;
-  }
-  if(!strasse || !plz || !ort){
-    showMsg('\u26a0\ufe0f Bitte Lieferadresse vollst\u00e4ndig ausf\u00fcllen (Stra\u00dfe, PLZ, Ort).', false);
-    return;
-  }
-  // DSGVO-Einwilligung
-  var dsgvoCheck = document.getElementById('dsgvoCheck');
-  var dsgvoWrap = dsgvoCheck ? dsgvoCheck.closest('.dsgvo-consent') : null;
-  if(!dsgvoCheck || !dsgvoCheck.checked){
-    showMsg('\u26a0\ufe0f Bitte stimme der Datenschutzerkl\u00e4rung zu, um fortzufahren.', false);
-    if(dsgvoWrap){
-      dsgvoWrap.classList.add('error');
-      dsgvoWrap.scrollIntoView({behavior:'smooth', block:'center'});
-      setTimeout(function(){ dsgvoWrap.classList.remove('error'); }, 3000);
-    }
-    return;
-  }
-  // Modus-spezifische Validierung
+  // Modus-spezifische Validierung – BEFORE adress, damit klar ist was fehlt
   if(currentModus === 'burg' && !selectedName){
     showMsg('\u26a0\ufe0f Bitte eine H\u00fcpfburg w\u00e4hlen.', false);
+    var bp = document.getElementById('burgPicker');
+    if(bp){
+      var bpCard = bp.closest('.card');
+      if(bpCard){ bpCard.classList.add('field-error'); setTimeout(function(){ bpCard.classList.remove('field-error'); }, 2600); }
+      bp.scrollIntoView({behavior:'smooth', block:'center'});
+    }
     return;
   }
   if(currentModus === 'foto' && !selectedFoto){
     showMsg('\u26a0\ufe0f Bitte ein Fotobox-Paket w\u00e4hlen.', false);
+    var fp = document.getElementById('fotoPicker');
+    if(fp){
+      var fpCard = fp.closest('.card');
+      if(fpCard){ fpCard.classList.add('field-error'); setTimeout(function(){ fpCard.classList.remove('field-error'); }, 2600); }
+      fp.scrollIntoView({behavior:'smooth', block:'center'});
+    }
     return;
   }
   if(currentModus === 'hochzeit' && (!selectedName || !selectedFoto)){
     showMsg('\u26a0\ufe0f Hochzeitspaket: Bitte H\u00fcpfburg UND Fotobox-Paket w\u00e4hlen.', false);
+    var miss = !selectedName ? document.getElementById('burgPicker') : document.getElementById('fotoPicker');
+    if(miss){
+      var missCard = miss.closest('.card');
+      if(missCard){ missCard.classList.add('field-error'); setTimeout(function(){ missCard.classList.remove('field-error'); }, 2600); }
+      miss.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+    return;
+  }
+  if(!startDat){
+    showMsg('\u26a0\ufe0f Bitte ein Startdatum w\u00e4hlen.', false);
+    flagField(document.getElementById('datumStart'));
+    return;
+  }
+  if(!strasse){
+    showMsg('\u26a0\ufe0f Bitte Stra\u00dfe und Hausnummer angeben.', false);
+    flagField(document.querySelector('[name="Strasse"]'));
+    return;
+  }
+  if(!plz){
+    showMsg('\u26a0\ufe0f Bitte PLZ angeben.', false);
+    flagField(document.getElementById('plzField'));
+    return;
+  }
+  if(!ort){
+    showMsg('\u26a0\ufe0f Bitte Ort angeben.', false);
+    flagField(document.getElementById('ortField'));
+    return;
+  }
+  // DSGVO-Einwilligung
+  var dsgvoCheck = document.getElementById('dsgvoCheck');
+  if(!dsgvoCheck || !dsgvoCheck.checked){
+    showMsg('\u26a0\ufe0f Bitte stimme der Datenschutzerkl\u00e4rung zu, um fortzufahren.', false);
+    flagField(dsgvoCheck);
     return;
   }
  
@@ -1719,6 +1802,7 @@ function submitAnfrage(){
   .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
   .then(function(result){
     if(result.ok){
+      try { localStorage.removeItem('huepfabenteuer_anfrage_draft_v1'); } catch(e){}
       showMsg('\u2705 Anfrage gesendet!', true);
       var params = new URLSearchParams({ burg: selectedName||'', datum: datumLine||'', name: vorname||'' });
       setTimeout(function(){
@@ -1735,6 +1819,147 @@ function submitAnfrage(){
     btn.disabled = false; btn.textContent = '\uD83D\uDE80 Anfrage absenden';
   });
 }
+ 
+// ─────────────────────────────────────────────────────────
+// ── DRAFT-BACKUP via localStorage ──
+// Speichert halb ausgef\u00fcllte Anfragen, rettet sie bei Reload / Back-Swipe
+// ─────────────────────────────────────────────────────────
+var DRAFT_KEY = 'huepfabenteuer_anfrage_draft_v1';
+var DRAFT_MAX_AGE_MS = 24 * 60 * 60 * 1000; // 24h
+var _isRestoring = false;
+ 
+function _val(sel){ var el = typeof sel === 'string' ? document.querySelector(sel) : sel; return el ? (el.value || '') : ''; }
+ 
+function saveDraft(){
+  if(_isRestoring) return;
+  try {
+    var d = {
+      ts: Date.now(),
+      modus: currentModus,
+      selectedName: selectedName || '',
+      selectedFoto: selectedFoto || '',
+      vorname:   _val('#vorname'),
+      nachname:  _val('[name="Nachname"]'),
+      telefon:   _val('#telefon'),
+      email:     _val('[name="E-Mail"]'),
+      datumStart:_val('#datumStart'),
+      datumEnde: _val('#datumEnde'),
+      strasse:   _val('[name="Strasse"]'),
+      plz:       _val('#plzField'),
+      ort:       _val('#ortField'),
+      extras:    _val('#extras-select'),
+      nachricht: _val('[name="Nachricht"]'),
+      aufbauOn: !!aufbauOn,
+      zuckerwatteSetOn: !!zuckerwatteSetOn,
+      popcornSetOn: !!popcornSetOn,
+      extraFoto: document.body.classList.contains('extra-foto'),
+      lieferung: _val('#lieferung-val')
+    };
+    // Nur speichern wenn irgendwas Sinnvolles drin steht
+    if(d.vorname || d.nachname || d.telefon || d.email || d.selectedName || d.selectedFoto || d.datumStart || d.strasse || d.plz || d.ort || d.nachricht){
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(d));
+    }
+  } catch(e) { /* localStorage voll oder deaktiviert \u2013 ignorieren */ }
+}
+ 
+function loadDraft(){
+  // URL-Parameter haben Vorrang (Paket-Links, Burg-Preselection aus Werbung)
+  var p = new URLSearchParams(window.location.search);
+  if(p.get('paket') || p.get('burg') || p.get('modus')) return false;
+  try {
+    var raw = localStorage.getItem(DRAFT_KEY);
+    if(!raw) return false;
+    var d = JSON.parse(raw);
+    if(!d || !d.ts || (Date.now() - d.ts) > DRAFT_MAX_AGE_MS){
+      localStorage.removeItem(DRAFT_KEY);
+      return false;
+    }
+    _isRestoring = true;
+ 
+    // 1. Modus (l\u00f6st ggf. clearForm aus)
+    if(d.modus && d.modus !== currentModus){
+      applyModus(d.modus);
+    }
+ 
+    // 2. Burg-Auswahl
+    if(d.selectedName){
+      var bopt = document.querySelector('.burg-opt[data-name="' + d.selectedName + '"]');
+      if(bopt && !bopt.classList.contains('selected')) bopt.click();
+    }
+    // 3. Foto-Auswahl
+    if(d.selectedFoto){
+      // Falls Foto-Paket nur im Burg-Modus zubuchbar (extra-foto), erst Banner aktivieren
+      if((d.modus === 'burg' || d.modus === 'hochzeit') && d.extraFoto && !document.body.classList.contains('extra-foto')){
+        var fdb = document.getElementById('fotoDazuBanner');
+        if(fdb) fdb.click();
+      }
+      var fopt = document.querySelector('.foto-opt[data-name="' + d.selectedFoto + '"]');
+      if(fopt && !fopt.classList.contains('selected')) fopt.click();
+    }
+ 
+    // 4. Eingabefelder
+    function setVal(sel, v){ var el = document.querySelector(sel); if(el) el.value = v || ''; }
+    setVal('#vorname', d.vorname);
+    setVal('[name="Nachname"]', d.nachname);
+    setVal('#telefon', d.telefon);
+    setVal('[name="E-Mail"]', d.email);
+    setVal('#datumStart', d.datumStart);
+    setVal('#datumEnde', d.datumEnde);
+    setVal('[name="Strasse"]', d.strasse);
+    setVal('#plzField', d.plz);
+    setVal('#ortField', d.ort);
+    setVal('[name="Nachricht"]', d.nachricht);
+    if(d.datumStart && typeof berechneTage === 'function') berechneTage();
+ 
+    // 5. Aufbau + Extras + Sets
+    if(d.aufbauOn && !aufbauOn){
+      var ab = document.getElementById('aufbau-btn');
+      if(ab) ab.click();
+    }
+    if(d.extras && d.extras !== 'Keine Extras'){
+      var es = document.getElementById('extras-select');
+      if(es){ es.value = d.extras; es.dispatchEvent(new Event('change')); }
+    }
+    if(d.zuckerwatteSetOn && !zuckerwatteSetOn){
+      var zsb = document.getElementById('zuckerwatte-set-btn');
+      if(zsb) zsb.click();
+    }
+    if(d.popcornSetOn && !popcornSetOn){
+      var psb = document.getElementById('popcorn-set-btn');
+      if(psb) psb.click();
+    }
+ 
+    // 6. Lieferung
+    if(d.lieferung === 'Nein \u2013 Selbstabholung' && typeof setLieferung === 'function'){
+      setLieferung(false);
+    }
+ 
+    if(typeof updateOrderSummary === 'function') updateOrderSummary();
+    _isRestoring = false;
+    return true;
+  } catch(e) {
+    _isRestoring = false;
+    return false;
+  }
+}
+ 
+// Auto-Save erst NACH dem Initial-Load aktivieren
+window.addEventListener('DOMContentLoaded', function(){
+  // Etwas Zeit lassen damit die anderen DOMContentLoaded-Handler (URL-Params) zuerst laufen
+  setTimeout(function(){
+    var restored = loadDraft();
+    if(restored){
+      showToast('Letzte Anfrage wiederhergestellt &ndash; einfach weiter ausf&uuml;llen', 'success');
+    }
+    // Auto-Save bei Eingabe/\u00c4nderung
+    document.addEventListener('input', saveDraft);
+    document.addEventListener('change', saveDraft);
+    // Klicks auf interaktive Auswahl-Buttons triggern auch Save (Burg, Foto, Modus, Aufbau, etc.)
+    document.querySelectorAll('.burg-opt, .foto-opt, .modus-btn, .lief-btn, .extra-toggle, .sub-extra-toggle').forEach(function(el){
+      el.addEventListener('click', function(){ setTimeout(saveDraft, 80); });
+    });
+  }, 200);
+});
  
 </script>
 <script>
