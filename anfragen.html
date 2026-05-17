@@ -230,6 +230,141 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
 }
 @media(max-width:600px){.wa-fab{bottom:84px;right:14px;width:54px;height:54px;}.wa-fab svg{width:28px;height:28px;}}
 @media(prefers-reduced-motion:reduce){.wa-fab{animation:none;}}
+
+/* ── MODUS-SELECTOR ── */
+.modus-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 16px 18px;}
+.modus-btn{background:white;border:1.5px solid rgba(0,0,0,.08);border-radius:14px;padding:14px 8px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:all .2s;color:#0f0b2e;font-family:'Baloo 2',cursive;}
+.modus-btn:active{transform:scale(.97);}
+.modus-btn.active{border-color:var(--purple);background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(255,79,163,.05));box-shadow:0 4px 14px rgba(168,85,247,.18);}
+.modus-icon{font-size:24px;line-height:1;}
+.modus-label{font-size:13px;font-weight:800;letter-spacing:.2px;}
+.modus-sub{font-size:10px;color:#888;font-weight:600;}
+.modus-btn.active .modus-sub{color:var(--purple);}
+
+/* Show/Hide pro Modus */
+body[data-modus="burg"] .nur-foto{display:none !important;}
+body[data-modus="foto"] .nur-burg{display:none !important;}
+/* hochzeit zeigt beides */
+
+/* ── FOTOBOX-PICKER ── */
+.foto-picker{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+.foto-opt{background:white;border:1.5px solid rgba(0,0,0,.08);border-radius:14px;padding:14px 16px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px;position:relative;}
+.foto-opt:active{transform:scale(.99);}
+.foto-opt input[type="radio"]{position:absolute;opacity:0;pointer-events:none;}
+.foto-opt.selected{border-color:var(--purple);background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(255,79,163,.03));box-shadow:0 4px 16px rgba(168,85,247,.18);}
+.foto-icon{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,rgba(168,85,247,.12),rgba(99,102,241,.08));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.foto-info{flex:1;}
+.foto-name{font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;color:#0f0b2e;}
+.foto-sub{font-size:11px;color:#666;font-weight:600;line-height:1.4;}
+.foto-price{font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:var(--purple);text-align:right;}
+.foto-opt.tier-premium{background:linear-gradient(135deg,#1c0c00,#3d1f00);border-color:rgba(255,185,0,.35);}
+.foto-opt.tier-premium .foto-name{color:white;}
+.foto-opt.tier-premium .foto-sub{color:rgba(255,215,0,.7);}
+.foto-opt.tier-premium .foto-price{color:#FFD600;}
+.foto-opt.tier-premium .foto-icon{background:linear-gradient(135deg,rgba(255,215,0,.2),rgba(255,165,0,.1));}
+.foto-opt.tier-premium.selected{border-color:#FFD600;box-shadow:0 6px 22px rgba(255,185,0,.3);}
+
+/* Features pro Foto-Paket */
+.foto-opt{flex-direction:column;align-items:stretch;gap:0;padding:14px 14px 12px;}
+.foto-head{display:flex;align-items:center;gap:12px;}
+.foto-feats{display:flex;flex-direction:column;gap:4px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,0,0,.06);}
+.foto-feat{font-size:11.5px;color:#555;font-weight:500;display:flex;align-items:flex-start;gap:7px;line-height:1.4;}
+.foto-feat::before{content:"✓";color:var(--purple);font-weight:900;flex-shrink:0;font-size:13px;line-height:1.3;}
+.foto-opt.tier-premium .foto-feats{border-top-color:rgba(255,215,0,.18);}
+.foto-opt.tier-premium .foto-feat{color:rgba(255,255,255,.82);}
+.foto-opt.tier-premium .foto-feat::before{content:"★";color:#FFD600;}
+
+/* Hochzeit-Modus: nur Hochzeitsburg sichtbar */
+body[data-modus="hochzeit"] .burg-opt[data-name="Alienburg"],
+body[data-modus="hochzeit"] .burg-opt[data-name="Piratenburg"],
+body[data-modus="hochzeit"] .burg-opt[data-name="Ritterburg"],
+body[data-modus="hochzeit"] .burg-opt[data-name="Candyburg"],
+body[data-modus="hochzeit"] .burg-opt[data-name="Feuerwehrauto"]{display:none !important;}
+body[data-modus="hochzeit"] .card .card-sub-burg-hide{display:none;}
+body[data-modus="hochzeit"] #burgPicker{justify-content:center;}
+
+/* Aufbau-Toggle nur bei Burgen / Inklusive-Hinweis nur bei Fotobox */
+body[data-modus="burg"] .aufbau-foto-only{display:none !important;}
+body[data-modus="hochzeit"] .aufbau-foto-only{display:none !important;}
+body[data-modus="foto"] .aufbau-burg-only{display:none !important;}
+body[data-modus="foto"] .aufbau-foto-only{display:flex !important;}
+
+/* Fotobox-zusatz-Banner im Burg-Modus */
+
+.foto-dazu-toggle{font-family:'Baloo 2',cursive;font-size:12px;font-weight:800;color:var(--purple);flex-shrink:0;}
+
+
+
+/* "Mehr als..."-Marker bei Foto-Paketen */
+.foto-feats-plus{margin-top:8px;padding-top:8px;border-top:1px dashed rgba(168,85,247,.25);}
+.foto-feats-plus-title{font-family:'Baloo 2',cursive;font-size:10px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;display:flex;align-items:center;gap:5px;}
+.foto-feats-plus .foto-feat{font-weight:600;}
+.foto-feats-plus .foto-feat::before{content:"★";color:var(--pink);}
+.foto-opt.tier-premium .foto-feats-plus{border-top-color:rgba(255,215,0,.3);}
+.foto-opt.tier-premium .foto-feats-plus-title{color:#FFD600;}
+.foto-opt.tier-premium .foto-feats-plus .foto-feat::before{content:"★";color:#FFD600;}
+
+/* Foto-dazubuchen-Toggle (im Burg- + Hochzeit-Modus) */
+.foto-dazu-wrap{margin:0 16px;}
+.foto-dazu-toggle-btn .extra-title{display:flex;align-items:center;gap:4px;}
+.foto-rabatt-hint{display:none;margin-top:6px;font-size:11.5px;font-weight:700;color:#059669;background:rgba(0,217,126,.10);padding:5px 11px;border-radius:10px;border:1px solid rgba(0,217,126,.22);align-self:flex-start;}
+.foto-dazu-toggle-btn.selected .foto-rabatt-hint{display:inline-block;}
+
+/* Foto-dazu nur im Burg- + Hochzeit-Modus, NICHT im Foto-Modus */
+body[data-modus="burg"] .foto-dazu-wrap{display:block;}
+body[data-modus="hochzeit"] .foto-dazu-wrap{display:block;}
+body[data-modus="foto"] .foto-dazu-wrap{display:none;}
+
+/* Im Burg-Modus: Foto-Card versteckt; mit .extra-foto sichtbar */
+body[data-modus="burg"] .nur-foto{display:none !important;}
+body[data-modus="burg"].extra-foto .nur-foto{display:block !important;}
+/* Hochzeit: Foto-Card mit .extra-foto sichtbar (analog) */
+body[data-modus="hochzeit"] .nur-foto{display:none !important;}
+body[data-modus="hochzeit"].extra-foto .nur-foto{display:block !important;}
+
+/* Im Foto-Modus: Datum-Ende verstecken (nur 1 Tag) */
+body[data-modus="foto"] .nur-burg-datum{display:none !important;}
+body[data-modus="foto"] #tage-anzeige{display:none !important;}
+
+/* Hochzeitsburg im Burg-Modus: Badge rechts (statt Preis) */
+.burg-opt-badge-hochzeit{
+  background:linear-gradient(135deg,#FFD700,#FFA500);
+  color:#5a3500;
+  font-family:'Baloo 2',cursive;
+  font-size:10px;
+  font-weight:900;
+  padding:5px 10px;
+  border-radius:14px;
+  letter-spacing:.3px;
+  margin-left:auto;
+  box-shadow:0 2px 6px rgba(255,165,0,.25);
+  white-space:nowrap;
+}
+
+/* Rabatt-Banner (oben, wenn Rabatt aktiv) */
+.rabatt-banner{margin:0 16px 8px;background:linear-gradient(135deg,rgba(0,217,126,.15),rgba(0,201,126,.06));border:1.5px solid rgba(0,201,126,.38);border-radius:14px;padding:11px 14px;display:flex;align-items:center;gap:11px;font-family:'Baloo 2',cursive;animation:rabattPulse 2s ease-in-out infinite;}
+.rabatt-banner-icon{font-size:22px;line-height:1;}
+.rabatt-banner-content{flex:1;line-height:1.3;}
+.rabatt-banner-text{font-size:14px;font-weight:700;color:#059669;}
+.rabatt-banner-text strong{font-size:18px;font-weight:900;color:#047857;margin-left:3px;}
+.rabatt-banner-label{font-size:10.5px;color:#059669;opacity:.85;font-weight:600;margin-top:2px;}
+@keyframes rabattPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(0,217,126,.18);}
+  50%{box-shadow:0 0 0 8px rgba(0,217,126,0);}
+}
+@media(prefers-reduced-motion:reduce){.rabatt-banner{animation:none;}}
+
+/* Rabatt-Hinweis in Extras */
+.rabatt-hint-card{margin:10px 0 14px;background:linear-gradient(135deg,rgba(0,217,126,.08),rgba(168,85,247,.04));border:1px dashed rgba(0,201,126,.3);border-radius:13px;padding:11px 13px;display:flex;gap:11px;align-items:flex-start;}
+.rh-icon{font-size:18px;line-height:1.1;flex-shrink:0;margin-top:1px;}
+.rh-text{flex:1;font-family:'Baloo 2',cursive;}
+.rh-title{font-size:13px;font-weight:800;color:#0f0b2e;margin-bottom:5px;}
+.rh-list{display:flex;flex-direction:column;gap:3px;}
+.rh-item{font-size:11.5px;color:#444;font-weight:600;display:flex;align-items:center;gap:7px;line-height:1.3;}
+.rh-item em{color:#888;font-style:normal;font-weight:600;}
+.rh-pill{font-family:'Baloo 2',cursive;font-size:10px;font-weight:900;padding:2px 7px;border-radius:9px;flex-shrink:0;letter-spacing:.2px;}
+.rh-pill-5{background:rgba(0,217,126,.15);color:#047857;}
+.rh-pill-10{background:linear-gradient(135deg,#00d97e,#059669);color:white;}
 </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -315,6 +450,36 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   </svg>
 </div>
  
+
+<!-- MODUS-SELECTOR -->
+<div class="modus-selector reveal">
+  <button type="button" class="modus-btn active" data-modus="burg">
+    <span class="modus-icon">🏰</span>
+    <span class="modus-label">Hüpfburg</span>
+    <span class="modus-sub">ab 120 €</span>
+  </button>
+  <button type="button" class="modus-btn" data-modus="foto">
+    <span class="modus-icon">📷</span>
+    <span class="modus-label">Fotobox</span>
+    <span class="modus-sub">ab 199 €</span>
+  </button>
+  <button type="button" class="modus-btn" data-modus="hochzeit">
+    <span class="modus-icon">💒</span>
+    <span class="modus-label">Hochzeit</span>
+    <span class="modus-sub">Burg + Foto</span>
+  </button>
+</div>
+
+<!-- RABATT-BANNER (wird sichtbar wenn Rabatt aktiv) -->
+<div class="rabatt-banner reveal" id="rabattBanner" style="display:none;">
+  <span class="rabatt-banner-icon">🎉</span>
+  <div class="rabatt-banner-content">
+    <div class="rabatt-banner-text">Rabatt aktiv: <strong id="rabattBannerProzent">−5%</strong></div>
+    <div class="rabatt-banner-label" id="rabattBannerLabel"></div>
+  </div>
+</div>
+
+
 <!-- SELECTED BURG BANNER -->
 <div class="burg-banner reveal" id="burgBanner" style="display:none;">
   <div class="burg-banner-icon" id="bannerIcon">🏰</div>
@@ -334,9 +499,10 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   <div class="form-section">
  
     <!-- BURG WÄHLEN -->
-    <div class="card reveal">
+    <div class="card reveal nur-burg">
       <div class="card-title">Hüpfburg wählen</div>
-      <div class="card-sub">Welche Burg darf es sein?</div>
+      <div class="card-sub card-sub-burg-hide">Welche Burg darf es sein?</div>
+      <div class="card-sub" style="display:none;color:#FFD600;font-weight:700;" id="hochzeit-burg-hint">💒 Hochzeitsburg ist im Hochzeitspaket fix enthalten</div>
       <div class="burg-picker" id="burgPicker">
         <label class="burg-opt" data-name="Alienburg" data-price="180" data-icon="🛸">
           <input type="radio" name="Hüpfburg" value="Alienburg (180 €/Tag)">
@@ -366,12 +532,12 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
           <div class="burg-opt-name">Candyburg</div>
           <div class="burg-opt-price">120 €/Tag</div>
         </label>
-        <label class="burg-opt" data-name="Hochzeitsburg" data-price="0" data-icon="💒">
-          <input type="radio" name="Hüpfburg" value="Hochzeitsburg (Auf Anfrage)">
+        <label class="burg-opt" data-name="Hochzeitsburg" data-price="220" data-icon="💒">
+          <input type="radio" name="Hüpfburg" value="Hochzeitsburg (220 €/Tag · inkl. Dekoration)">
           <div class="burg-opt-check"></div>
           <div class="burg-opt-icon">💒</div>
           <div class="burg-opt-name">Hochzeitsburg</div>
-          <div class="burg-opt-price">Auf Anfrage</div>
+          <div class="burg-opt-badge-hochzeit">💒 Hochzeitspaket →</div>
         </label>
         <label class="burg-opt" data-name="Feuerwehrauto" data-price="140" data-icon="🚒">
           <input type="radio" name="Hüpfburg" value="Feuerwehrauto (140 €/Tag)">
@@ -383,6 +549,104 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
       </div>
     </div>
  
+    
+
+<!-- FOTOBOX DAZUBUCHEN-TOGGLE (Burg- + Hochzeit-Modus) -->
+<div class="foto-dazu-wrap">
+<button type="button" class="extra-toggle foto-dazu-toggle-btn" id="fotoDazuBanner">
+  <span class="extra-copy">
+    <span class="extra-title">📷 Fotobox dazubuchen?</span>
+    <span class="extra-price" id="fotoDazuPriceText">+ ab 199 € · perfekt für unvergessliche Erinnerungen</span>
+    <span class="extra-hint" id="fotoDazuHint">Zum Anzeigen antippen</span>
+    <span class="foto-rabatt-hint" id="fotoRabattHint">🎉 Kombi-Bonus: <strong>−5 %</strong> zusätzlich auf die Gesamtsumme!</span>
+  </span>
+  <span class="extra-switch"></span>
+</button>
+</div>
+
+    <!-- FOTOBOX PAKET (nur-foto, wird je nach Modus angezeigt) -->
+    <div class="card reveal nur-foto">
+      <div class="card-title">📷 Fotobox-Paket wählen</div>
+      <div class="card-sub">Welches Paket darf es sein? Auf- &amp; Abbau ist immer inklusive.</div>
+      <div class="foto-picker" id="fotoPicker">
+
+        <label class="foto-opt" data-name="Fotobox Digital" data-price="199">
+          <input type="radio" name="Fotobox-Paket" value="Digital – 199 €">
+          <div class="foto-head">
+            <div class="foto-icon">📱</div>
+            <div class="foto-info">
+              <div class="foto-name">Digital</div>
+              <div class="foto-sub">Einfach starten</div>
+            </div>
+            <div class="foto-price">199 €</div>
+          </div>
+          <div class="foto-feats">
+            <div class="foto-feat">Premium Fotobox</div>
+            <div class="foto-feat">Unbegrenzte digitale Fotos</div>
+            <div class="foto-feat">Alle Fotos per USB-Stick</div>
+            <div class="foto-feat">Lieferung erste 40 km gratis</div>
+            <div class="foto-feat">Auf- &amp; Abbau inklusive</div>
+            <div class="foto-feat">Telefonischer Support nach Aufstellung</div>
+          </div>
+        </label>
+
+        <label class="foto-opt" data-name="Fotobox Standard" data-price="299">
+          <input type="radio" name="Fotobox-Paket" value="Standard – 299 €">
+          <div class="foto-head">
+            <div class="foto-icon">🖨️</div>
+            <div class="foto-info">
+              <div class="foto-name">Standard <span style="font-size:10px;color:var(--pink);background:rgba(255,79,163,.12);padding:2px 7px;border-radius:10px;font-weight:800;margin-left:4px;">BELIEBT</span></div>
+              <div class="foto-sub">Für tolle Partys</div>
+            </div>
+            <div class="foto-price">299 €</div>
+          </div>
+          <div class="foto-feats">
+            <div class="foto-feat">Premium Fotobox</div>
+            <div class="foto-feat">Unbegrenzte digitale Fotos</div>
+            <div class="foto-feat">Alle Fotos per USB-Stick</div>
+            <div class="foto-feat">Lieferung erste 40 km gratis</div>
+            <div class="foto-feat">Auf- &amp; Abbau inklusive</div>
+            <div class="foto-feat">Telefonischer Support</div>
+          </div>
+          <div class="foto-feats-plus">
+            <div class="foto-feats-plus-title">✨ Mehr als Digital</div>
+            <div class="foto-feat">1× Drucker mit Sofortdruck</div>
+            <div class="foto-feat">300 Fotos inkludiert</div>
+            <div class="foto-feat">1 vorgegebener Fotorahmen</div>
+          </div>
+        </label>
+
+        <label class="foto-opt tier-premium" data-name="Fotobox Premium" data-price="349">
+          <input type="radio" name="Fotobox-Paket" value="Premium – 349 €">
+          <div class="foto-head">
+            <div class="foto-icon">⭐</div>
+            <div class="foto-info">
+              <div class="foto-name">Premium</div>
+              <div class="foto-sub">Alle Highlights inkl.</div>
+            </div>
+            <div class="foto-price">349 €</div>
+          </div>
+          <div class="foto-feats">
+            <div class="foto-feat">Premium Fotobox</div>
+            <div class="foto-feat">1× Drucker mit Sofortdruck</div>
+            <div class="foto-feat">300 Fotos inkludiert</div>
+            <div class="foto-feat">Unbegrenzte digitale Fotos</div>
+            <div class="foto-feat">Alle Fotos per USB-Stick</div>
+            <div class="foto-feat">Lieferung erste 40 km gratis</div>
+            <div class="foto-feat">Auf- &amp; Abbau inklusive</div>
+            <div class="foto-feat">Telefonischer Support</div>
+          </div>
+          <div class="foto-feats-plus">
+            <div class="foto-feats-plus-title">⭐ Mehr als Standard</div>
+            <div class="foto-feat">Personalisierter Fotorahmen</div>
+            <div class="foto-feat">Requisiten &amp; Spiele inklusive</div>
+            <div class="foto-feat">Unbegrenzte Drucke</div>
+          </div>
+        </label>
+
+      </div>
+    </div>
+
     <!-- DATUM & DAUER -->
     <div class="card reveal">
       <div class="card-title">📅 Datum & Dauer</div>
@@ -481,18 +745,42 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     <div class="card reveal">
       <div class="card-title">🍭 Extras & Wünsche</div>
       <div class="card-sub">Möchtest du noch etwas dazubuchen?</div>
+
+      <!-- Rabatt-Hinweis: Anreiz für Kombi-Pakete -->
+      <div class="rabatt-hint-card">
+        <div class="rh-icon">💡</div>
+        <div class="rh-text">
+          <div class="rh-title">Mehr dazu = mehr Rabatt</div>
+          <div class="rh-list">
+            <div class="rh-item"><span class="rh-pill rh-pill-5">−5%</span> Burg + Aufbau + Zuckerwatte <em>oder</em> Popcorn</div>
+            <div class="rh-item"><span class="rh-pill rh-pill-10">−10%</span> Burg + Aufbau + Zuckerwatte <em>&</em> Popcorn</div>
+            <div class="rh-item"><span class="rh-pill rh-pill-5">+5%</span> Wenn auch Fotobox dazu</div>
+          </div>
+        </div>
+      </div>
  
-      <!-- Auf- & Abbau Toggle -->
-      <button type="button" class="extra-toggle" id="aufbau-btn">
-        <span class="extra-copy">
-          <span class="extra-title">Auf- &amp; Abbau dazubuchen</span>
-          <span class="extra-price">+50 € · wir bauen alles auf &amp; ab</span>
-          <span class="extra-hint">Zum Aktivieren antippen</span>
-        </span>
-        <span class="extra-switch"></span>
-      </button>
-      <input type="hidden" name="Auf- und Abbau" id="aufbau-val" value="Nein">
-      <div id="aufbau-paket-hint" style="display:none;margin-top:6px;font-size:12px;font-weight:700;color:#1b8d4b;padding:6px 12px;background:rgba(27,141,75,.08);border-radius:10px;border:1px solid rgba(27,141,75,.2);">✅ Im Paket enthalten – kann nicht entfernt werden</div>
+      <!-- Auf- & Abbau Toggle (nur für Burgen relevant) -->
+      <div class="aufbau-burg-only">
+        <button type="button" class="extra-toggle" id="aufbau-btn">
+          <span class="extra-copy">
+            <span class="extra-title">Auf- &amp; Abbau dazubuchen</span>
+            <span class="extra-price">+50 € · wir bauen alles auf &amp; ab</span>
+            <span class="extra-hint">Zum Aktivieren antippen</span>
+          </span>
+          <span class="extra-switch"></span>
+        </button>
+        <input type="hidden" name="Auf- und Abbau" id="aufbau-val" value="Nein">
+        <div id="aufbau-paket-hint" style="display:none;margin-top:6px;font-size:12px;font-weight:700;color:#1b8d4b;padding:6px 12px;background:rgba(27,141,75,.08);border-radius:10px;border:1px solid rgba(27,141,75,.2);">✅ Im Paket enthalten – kann nicht entfernt werden</div>
+      </div>
+
+      <!-- Fotobox-INKLUSIVE-Hinweis (nur im Foto-Modus) -->
+      <div class="aufbau-foto-only" style="display:none;background:linear-gradient(135deg,rgba(0,201,126,.10),rgba(0,217,126,.05));border:1.5px solid rgba(0,201,126,.28);border-radius:14px;padding:11px 15px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:20px;flex-shrink:0;">✅</span>
+        <div style="flex:1;font-family:'Baloo 2',cursive;color:#0a6b3e;">
+          <div style="font-size:13px;font-weight:800;line-height:1.2;">Auf- &amp; Abbau INKLUSIVE</div>
+          <div style="font-size:11px;font-weight:600;opacity:.85;margin-top:2px;">Bei der Fotobox ist alles dabei – kein Aufschlag</div>
+        </div>
+      </div>
 
       <div class="field" style="margin-top:10px;">
         <label>Süße Extras (optional)</label>
@@ -666,6 +954,16 @@ document.getElementById('datumEnde').addEventListener('change', function(){
 });
 
 function berechneTage(){
+  // Im Foto-Modus: immer 1 Tag, kein Enddatum
+  if(typeof currentModus !== 'undefined' && currentModus === 'foto'){
+    days = 1;
+    if(document.getElementById('hiddenDays')) document.getElementById('hiddenDays').value = 1;
+    var tA = document.getElementById('tage-anzeige');
+    if(tA) tA.style.display = 'none';
+    if(typeof updatePrice === 'function') updatePrice();
+    if(typeof updateOrderSummary === 'function') updateOrderSummary();
+    return;
+  }
   var start = document.getElementById('datumStart').value;
   var ende  = document.getElementById('datumEnde').value;
   var tageAnzeige = document.getElementById('tage-anzeige');
@@ -754,15 +1052,22 @@ function updateOrderSummary(){
   var params = new URLSearchParams(window.location.search);
   var paket = params.get('paket') ? params.get('paket').toLowerCase() : '';
 
-  // Hüpfburg
-  if(selectedName){
+  // Hüpfburg (nur in burg/hochzeit Modus)
+  if(selectedName && currentModus !== 'foto'){
     var burgPreis = selectedPrice > 0 ? (days === 1 ? selectedPrice : selectedPrice + (days-1)*(selectedPrice*0.5)) : 0;
-    rows.push({label: (selectedName === 'Hochzeitsburg' ? '💒' : '🏰') + ' ' + selectedName, val: burgPreis > 0 ? Math.round(burgPreis) + ' €' : 'Auf Anfrage'});
+    var burgLabel = (selectedName === 'Hochzeitsburg' ? '💒' : '🏰') + ' ' + selectedName + (selectedName === 'Hochzeitsburg' ? ' (inkl. Deko)' : '');
+    rows.push({label: burgLabel, val: burgPreis > 0 ? Math.round(burgPreis) + ' €' : 'Auf Anfrage'});
     if(burgPreis > 0) total += Math.round(burgPreis);
   }
 
+  // Fotobox (alle Modi wenn ausgewählt)
+  if(selectedFoto){
+    rows.push({label: '📷 ' + selectedFoto, val: selectedFotoPrice + ' €'});
+    total += selectedFotoPrice;
+  }
+
   // Auf- & Abbau
-  if(aufbauOn){ rows.push({label:'Auf- & Abbau', val:'+50 €'}); total += 50; }
+  if(aufbauOn && currentModus !== 'foto'){ rows.push({label:'Auf- & Abbau', val:'+50 €'}); total += 50; }
 
   // Süße Extras
   var extrasVal = document.getElementById('extras-select').value;
@@ -776,17 +1081,68 @@ function updateOrderSummary(){
   if(zuckerwatteSetOn){ rows.push({label:'🍭 Zuckerwatte-Set', val:'+20 €'}); total += 20; }
   if(popcornSetOn){ rows.push({label:'🍿 Popcorn-Set', val:'+20 €'}); total += 20; }
 
-  // ── Rabatt berechnen ──
+  // ── Rabatt berechnen (Auto-Detection basierend auf der tatsächlichen Auswahl) ──
   var rabattProzent = 0;
   var rabattLabel = '';
-  if(paket === 'sweet'){ rabattProzent = 5; rabattLabel = '🏷️ Süßes Paket -5%'; }
-  if(paket === 'snack'){ rabattProzent = 5; rabattLabel = '🏷️ Snack-Paket -5%'; }
-  if(paket === 'allin'){  rabattProzent = 10; rabattLabel = '🏷️ All-Inclusive -10%'; }
+  var hasBurg = selectedName && currentModus !== 'foto';
+  var hasFoto = !!selectedFoto;
+  var hasZuckerwatte = extrasVal.indexOf('Zuckerwatte') !== -1;
+  var hasPopcorn = extrasVal.indexOf('Popcorn') !== -1;
+
+  // Auto-Paket-Erkennung: passt die Auswahl zu einem Paket auf der Website?
+  if(hasBurg && aufbauOn){
+    if(hasZuckerwatte && hasPopcorn){
+      rabattProzent = 10;
+      rabattLabel = '🏷️ All-Inclusive-Paket −10%';
+    } else if(hasZuckerwatte){
+      rabattProzent = 5;
+      rabattLabel = '🏷️ Süßes Paket −5%';
+    } else if(hasPopcorn){
+      rabattProzent = 5;
+      rabattLabel = '🏷️ Snack-Paket −5%';
+    }
+  }
+
+  // Foto-Modus (reine Fotobox): Süße Extras geben Rabatt – Cap bei 10%
+  if(hasFoto && !hasBurg){
+    if(hasZuckerwatte && hasPopcorn){
+      rabattProzent = 10;
+      rabattLabel = '🏷️ Fotobox + Süßes-Komplett −10%';
+    } else if(hasZuckerwatte){
+      rabattProzent = 5;
+      rabattLabel = '🏷️ Fotobox + Süßes −5%';
+    } else if(hasPopcorn){
+      rabattProzent = 5;
+      rabattLabel = '🏷️ Fotobox + Snack −5%';
+    }
+  }
+
+  // Kombi-Bonus: Burg + Fotobox = zusätzlich +5% (kumulativ obendrauf)
+  if(hasBurg && hasFoto){
+    rabattProzent = Math.min(rabattProzent + 5, 15);  // Cap bei 15%
+    if(rabattLabel){
+      rabattLabel = rabattLabel + ' + 🎉 Kombi-Bonus';
+    } else {
+      rabattLabel = '🎉 Kombi-Rabatt Burg + Fotobox −5%';
+    }
+  }
   var rabattBetrag = 0;
   if(rabattProzent > 0 && total > 0){
     rabattBetrag = Math.round(total * rabattProzent / 100 * 100) / 100;
     rows.push({label: rabattLabel, val: '−' + rabattBetrag.toFixed(2) + ' €', rabatt: true});
     total = Math.round((total - rabattBetrag) * 100) / 100;
+  }
+
+    // Rabatt-Banner sichtbar machen wenn aktiv
+  var rb = document.getElementById('rabattBanner');
+  if(rb){
+    if(rabattProzent > 0){
+      rb.style.display = 'flex';
+      document.getElementById('rabattBannerProzent').textContent = '−' + rabattProzent + '%';
+      document.getElementById('rabattBannerLabel').textContent = rabattLabel.replace(/[🏷️🎉]/g,'').trim();
+    } else {
+      rb.style.display = 'none';
+    }
   }
 
   var summary = document.getElementById('orderSummary');
@@ -932,6 +1288,222 @@ window.addEventListener('DOMContentLoaded', function(){
   document.getElementById('datumStart').min=today;
 });
  
+
+// ── MODUS-SELECTOR LOGIC ──
+var currentModus = 'burg';
+var selectedFoto = null;
+var selectedFotoPrice = 0;
+var selectedFotoEl = null;
+
+function applyModus(modus){
+  // 1. Aktuellen State speichern (für späteren Rückwechsel)
+  if(currentModus && currentModus !== modus){
+    modusState[currentModus] = captureState();
+  }
+
+  currentModus = modus;
+  document.body.dataset.modus = modus;
+  document.querySelectorAll('.modus-btn').forEach(function(b){
+    b.classList.toggle('active', b.dataset.modus === modus);
+  });
+
+  // 2. Form leeren – Warenkorb leer beim Modus-Wechsel
+  clearForm();
+
+  // 3. Hochzeit-Hint
+  var hint = document.getElementById('hochzeit-burg-hint');
+  if(hint){ hint.style.display = (modus === 'hochzeit') ? 'block' : 'none'; }
+
+  // 4. Datum-Ende-Sichtbarkeit (Foto = nur 1 Tag)
+  var datumEnde = document.getElementById('datumEnde');
+  if(datumEnde && modus === 'foto'){
+    datumEnde.value = '';
+  }
+
+  // 5. Wenn früheren State für diesen Modus haben → wiederherstellen
+  if(modusState[modus]){
+    restoreState(modusState[modus]);
+  } else {
+    // Default für Hochzeit-Modus: Hochzeitsburg auto-auswählen
+    if(modus === 'hochzeit'){
+      var hochzeitOpt = document.querySelector('.burg-opt[data-name="Hochzeitsburg"]');
+      if(hochzeitOpt && !hochzeitOpt.classList.contains('selected')){
+        hochzeitOpt.click();
+      }
+    }
+  }
+
+  if(typeof updateOrderSummary === 'function') updateOrderSummary();
+}
+
+document.querySelectorAll('.modus-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    applyModus(this.dataset.modus);
+  });
+});
+
+// ── FOTOBOX-PAKET-AUSWAHL ──
+document.querySelectorAll('.foto-opt').forEach(function(opt){
+  opt.addEventListener('click', function(e){
+    if(selectedFotoEl) selectedFotoEl.classList.remove('selected');
+    this.classList.add('selected');
+    selectedFotoEl = this;
+    selectedFoto = this.dataset.name;
+    selectedFotoPrice = parseInt(this.dataset.price, 10);
+    var radio = this.querySelector('input[type=radio]');
+    if(radio) radio.checked = true;
+    if(typeof updateOrderSummary === 'function') updateOrderSummary();
+  });
+});
+
+// ── URL-PARAMETER: ?modus= unterstützen ──
+(function(){
+  var p = new URLSearchParams(window.location.search);
+  var m = p.get('modus');
+  if(m && ['burg','foto','hochzeit'].indexOf(m) !== -1){
+    applyModus(m);
+  } else {
+    document.body.dataset.modus = 'burg';
+  }
+})();
+
+
+
+// ── Fotobox dazubuchen Toggle ──
+var fotoDazuBanner = document.getElementById('fotoDazuBanner');
+if(fotoDazuBanner){
+  fotoDazuBanner.addEventListener('click', function(){
+    var active = document.body.classList.toggle('extra-foto');
+    this.classList.toggle('selected', active);
+    var hint = document.getElementById('fotoDazuHint');
+    if(hint) hint.textContent = active ? 'Fotobox-Pakete unten auswählen' : 'Zum Anzeigen antippen';
+    if(!active){
+      selectedFoto = null;
+      selectedFotoPrice = 0;
+      if(selectedFotoEl){ selectedFotoEl.classList.remove('selected'); selectedFotoEl = null; }
+      if(typeof updateOrderSummary === 'function') updateOrderSummary();
+    }
+  });
+}
+
+// ── STATE-MANAGEMENT pro Modus ──
+// Erfasst pro Modus: Datum, Auswahl, Aufbau, Extras, Sets, Foto-extras, Foto-Paket
+var modusState = {
+  burg: null,
+  foto: null,
+  hochzeit: null
+};
+
+function captureState(){
+  return {
+    selectedName: selectedName || '',
+    selectedPrice: selectedPrice || 0,
+    selectedFoto: selectedFoto || null,
+    selectedFotoPrice: selectedFotoPrice || 0,
+    datumStart: document.getElementById('datumStart').value,
+    datumEnde: document.getElementById('datumEnde') ? document.getElementById('datumEnde').value : '',
+    aufbauOn: aufbauOn,
+    extras: document.getElementById('extras-select') ? document.getElementById('extras-select').value : 'Keine Extras',
+    zuckerwatteSetOn: zuckerwatteSetOn,
+    popcornSetOn: popcornSetOn,
+    extraFoto: document.body.classList.contains('extra-foto')
+  };
+}
+
+function restoreState(s){
+  if(!s) return;
+  // Datum
+  if(document.getElementById('datumStart')) document.getElementById('datumStart').value = s.datumStart || '';
+  if(document.getElementById('datumEnde')) document.getElementById('datumEnde').value = s.datumEnde || '';
+  if(s.datumStart) berechneTage();
+  // Burg-Auswahl
+  if(s.selectedName){
+    var opt = document.querySelector('.burg-opt[data-name="' + s.selectedName + '"]');
+    if(opt && !opt.classList.contains('selected')) opt.click();
+  } else {
+    selectedName = ''; selectedPrice = 0;
+    document.querySelectorAll('.burg-opt').forEach(function(o){o.classList.remove('selected');});
+    document.getElementById('burgBanner').style.display = 'none';
+  }
+  // Foto-Auswahl
+  if(s.selectedFoto){
+    var fopt = document.querySelector('.foto-opt[data-name="' + s.selectedFoto + '"]');
+    if(fopt && !fopt.classList.contains('selected')) fopt.click();
+  } else {
+    selectedFoto = null; selectedFotoPrice = 0;
+    if(selectedFotoEl){selectedFotoEl.classList.remove('selected'); selectedFotoEl = null;}
+  }
+  // Aufbau
+  if(s.aufbauOn !== aufbauOn){
+    var btn = document.getElementById('aufbau-btn');
+    if(btn) btn.click();
+  }
+  // Extras
+  if(document.getElementById('extras-select')){
+    document.getElementById('extras-select').value = s.extras || 'Keine Extras';
+    document.getElementById('extras-select').dispatchEvent(new Event('change'));
+  }
+  // Sets
+  if(s.zuckerwatteSetOn !== zuckerwatteSetOn){
+    var zsb = document.getElementById('zuckerwatte-set-btn');
+    if(zsb) zsb.click();
+  }
+  if(s.popcornSetOn !== popcornSetOn){
+    var psb = document.getElementById('popcorn-set-btn');
+    if(psb) psb.click();
+  }
+  // Extra-Foto-Toggle
+  document.body.classList.toggle('extra-foto', !!s.extraFoto);
+  var fdb = document.getElementById('fotoDazuBanner');
+  if(fdb) fdb.classList.toggle('selected', !!s.extraFoto);
+  if(typeof updateOrderSummary === 'function') updateOrderSummary();
+}
+
+function clearForm(){
+  // Burg
+  selectedName = ''; selectedPrice = 0;
+  document.querySelectorAll('.burg-opt').forEach(function(o){o.classList.remove('selected');});
+  document.getElementById('burgBanner').style.display = 'none';
+  // Foto
+  selectedFoto = null; selectedFotoPrice = 0;
+  if(selectedFotoEl){selectedFotoEl.classList.remove('selected'); selectedFotoEl = null;}
+  // Datum
+  if(document.getElementById('datumStart')) document.getElementById('datumStart').value = '';
+  if(document.getElementById('datumEnde')) document.getElementById('datumEnde').value = '';
+  days = 1;
+  var anz = document.getElementById('tage-anzeige'); if(anz) anz.style.display = 'none';
+  // Aufbau
+  if(aufbauOn){var b = document.getElementById('aufbau-btn'); if(b) b.click();}
+  // Extras
+  if(document.getElementById('extras-select')){
+    document.getElementById('extras-select').value = 'Keine Extras';
+    document.getElementById('extras-select').dispatchEvent(new Event('change'));
+  }
+  // extra-foto Klasse
+  document.body.classList.remove('extra-foto');
+  var fdb = document.getElementById('fotoDazuBanner');
+  if(fdb) fdb.classList.remove('selected');
+}
+
+
+
+// ── Hochzeitsburg im Burg-Modus: Redirect zum Hochzeit-Modus ──
+document.querySelectorAll('.burg-opt[data-name="Hochzeitsburg"]').forEach(function(opt){
+  opt.addEventListener('click', function(e){
+    if(currentModus === 'burg'){
+      e.preventDefault();
+      e.stopPropagation();
+      applyModus('hochzeit');
+      // visual feedback - smooth scroll zum Bereich
+      setTimeout(function(){
+        var topbar = document.querySelector('.modus-selector');
+        if(topbar) topbar.scrollIntoView({behavior:'smooth', block:'start'});
+      }, 100);
+    }
+  }, true);
+});
+
+
 // ── Show status message ──
 function showMsg(text, ok){
   var el = document.getElementById('form-msg');
@@ -966,6 +1538,19 @@ function submitAnfrage(){
     showMsg('\u26a0\ufe0f Bitte ein Startdatum w\u00e4hlen.', false);
     return;
   }
+  // Modus-spezifische Validierung
+  if(currentModus === 'burg' && !selectedName){
+    showMsg('\u26a0\ufe0f Bitte eine H\u00fcpfburg w\u00e4hlen.', false);
+    return;
+  }
+  if(currentModus === 'foto' && !selectedFoto){
+    showMsg('\u26a0\ufe0f Bitte ein Fotobox-Paket w\u00e4hlen.', false);
+    return;
+  }
+  if(currentModus === 'hochzeit' && (!selectedName || !selectedFoto)){
+    showMsg('\u26a0\ufe0f Hochzeitspaket: Bitte H\u00fcpfburg UND Fotobox-Paket w\u00e4hlen.', false);
+    return;
+  }
  
   var burgLine  = selectedName || 'Nicht ausgew\u00e4hlt';
   var datumLine = startDat + (endDat ? ' bis ' + endDat : '');
@@ -978,13 +1563,18 @@ function submitAnfrage(){
  
   // FormData für Formcarry zusammenbauen
   var fd = new FormData();
-  fd.append('subject',        'Neue Anfrage \u2013 ' + burgLine + ' \u2013 ' + startDat);
+  var subjectLine = 'Neue Anfrage \u2013 ' + (currentModus === 'foto' ? (selectedFoto || 'Fotobox') : (currentModus === 'hochzeit' ? 'Hochzeitspaket' : burgLine)) + ' \u2013 ' + startDat;
+  fd.append('subject',        subjectLine);
   fd.append('H\u00fcpfburg',  burgLine);
   fd.append('Datum',          datumLine);
   fd.append('Name',           vorname + (nachname ? ' ' + nachname : ''));
   fd.append('Telefon',        telefon);
   if(email)     fd.append('E-Mail',        email);
   if(adresse)   fd.append('Adresse',       adresse);
+  if(selectedFoto){
+    fd.append('Fotobox-Paket', selectedFoto + ' (' + selectedFotoPrice + ' \u20ac)');
+  }
+  fd.append('Anfrage-Typ', currentModus === 'foto' ? 'Nur Fotobox' : (currentModus === 'hochzeit' ? 'Hochzeitspaket (H\u00fcpfburg + Fotobox)' : 'H\u00fcpfburg'));
   fd.append('Auf- und Abbau', aufbau);
   fd.append('Lieferung',      document.getElementById('lieferung-val').value);
   if(extras && extras !== 'Keine Extras') fd.append('Extras', extras);
