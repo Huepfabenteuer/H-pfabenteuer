@@ -194,6 +194,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 @media(hover:hover){
   .burg-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.13);border-color:rgba(255,79,163,.12);}
   .extras-card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.12);}
+  .paket-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.1);}
   .burg-card{transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;}
   .extras-card{transition:transform .3s ease,box-shadow .3s ease;}
   .burg-card:hover .burg-img,.extras-card:hover .extras-img{transform:scale(1.03);}
@@ -252,6 +253,28 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   .burg-price{font-size:20px;}
   .burg-img,.burg-img-ph{height:180px;}
 }
+/* ── PAKETE ── */
+.paket-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px;}
+.paket-card{background:white;border-radius:20px;padding:18px 16px 16px;box-shadow:var(--shadow);border:1.5px solid rgba(0,0,0,.04);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:6px;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden;}
+.paket-card:active{transform:scale(.98);}
+.paket-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+.paket-card.pk-komfort::before{background:linear-gradient(90deg,#a855f7,#7c3aed);}
+.paket-card.pk-sweet::before{background:linear-gradient(90deg,#ff4fa3,#f43f8e);}
+.paket-card.pk-snack::before{background:linear-gradient(90deg,#ff8c00,#f59e0b);}
+.paket-card.pk-allin::before{background:linear-gradient(90deg,#00d97e,#059669);}
+.paket-icon{font-size:28px;line-height:1;}
+.paket-name{font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;color:#0f0b2e;line-height:1.2;}
+.paket-items{display:flex;flex-direction:column;gap:4px;}
+.paket-item{font-size:12px;color:#555;font-weight:600;display:flex;align-items:center;gap:6px;}
+.paket-price{font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;color:var(--pink);margin-top:2px;}
+.paket-badge{display:inline-block;font-family:'Baloo 2',cursive;font-size:11px;font-weight:900;padding:3px 12px;border-radius:20px;margin-top:4px;width:fit-content;}
+.pk-sweet-badge{background:linear-gradient(135deg,#ff4fa3,#a855f7);color:white;}
+.pk-allin-badge{background:linear-gradient(135deg,#00d97e,#059669);color:white;}
+.paket-btn{margin-top:8px;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;padding:11px;border-radius:14px;font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;text-align:center;display:block;}
+.paket-card.pk-allin{border-color:rgba(0,217,126,.2);}
+.paket-card.pk-allin .paket-btn{background:linear-gradient(135deg,#00d97e,#059669);}
+@media(min-width:768px){.paket-grid{grid-template-columns:repeat(4,1fr);}}
+ 
 /* ── STICKY TOPBAR ── */
 .topbar-sticky{display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:997;padding:10px 18px;background:rgba(10,22,40,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 2px 20px rgba(0,0,0,.25);}
 .ts-logo{display:flex;align-items:center;gap:8px;}
@@ -286,91 +309,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 .hbg-clink:active{transform:scale(.97);}
 .hbg-clink.phone{background:rgba(21,61,107,.7);border:1.5px solid rgba(0,194,255,.25);color:white;}
 .hbg-clink.wa{background:linear-gradient(135deg,#25d366,#128c7e);color:white;}
-
-/* ── PAKETE v2 (eleganter, mit Hochzeit & Fotobox) ── */
-.paket-section{padding:0 16px;margin-top:16px;}
-.paket-headline{font-family:'Baloo 2',cursive;font-size:24px;font-weight:900;color:#0f0b2e;line-height:1.15;margin-bottom:4px;}
-.paket-headline em{color:var(--pink);font-style:normal;}
-.paket-subline{font-size:13px;color:#666;font-weight:500;margin-bottom:14px;line-height:1.4;}
-.paket-grid{display:grid;grid-template-columns:1fr;gap:10px;}
-
-.paket-card{
-  background:white;
-  border-radius:16px;
-  padding:16px;
-  box-shadow:0 2px 12px rgba(0,0,0,.05);
-  border:1px solid rgba(0,0,0,.06);
-  text-decoration:none;
-  color:inherit;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  transition:transform .2s,box-shadow .2s,border-color .2s;
-  position:relative;
-}
-.paket-card:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 24px rgba(0,0,0,.08);
-  border-color:rgba(168,85,247,.18);
-}
-.paket-card:active{transform:scale(.99);}
-
-.paket-head{display:flex;align-items:center;gap:10px;}
-.paket-icon-wrap{
-  width:38px;height:38px;
-  border-radius:11px;
-  background:linear-gradient(135deg,rgba(168,85,247,.1),rgba(255,79,163,.06));
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;
-  flex-shrink:0;
-}
-.paket-name{font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;color:#0f0b2e;line-height:1.2;flex:1;}
-.paket-badge-mini{
-  font-family:'Baloo 2',cursive;font-size:10px;font-weight:800;
-  padding:3px 9px;border-radius:12px;
-  background:rgba(0,217,126,.12);color:#059669;
-  letter-spacing:.3px;flex-shrink:0;text-transform:uppercase;
-}
-.paket-badge-mini.popular{background:rgba(168,85,247,.12);color:#7c3aed;}
-.paket-badge-mini.premium{background:linear-gradient(135deg,#FFD700,#FFA500);color:#5a3500;}
-.paket-badge-mini.new{background:rgba(255,79,163,.12);color:#d6336c;}
-
-.paket-items{display:flex;flex-direction:column;gap:5px;}
-.paket-item{font-size:12.5px;color:#555;font-weight:500;display:flex;align-items:center;gap:8px;line-height:1.4;}
-.paket-item::before{content:"";width:5px;height:5px;border-radius:50%;background:#a855f7;flex-shrink:0;}
-
-.paket-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:10px;border-top:1px solid rgba(0,0,0,.05);}
-.paket-price{font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;color:#0f0b2e;}
-.paket-price small{font-family:'Nunito',sans-serif;font-size:10px;color:#888;font-weight:500;letter-spacing:.4px;text-transform:uppercase;margin-left:4px;}
-.paket-arrow{font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;color:var(--purple);display:flex;align-items:center;gap:3px;}
-.paket-arrow::after{content:"→";display:inline-block;transition:transform .2s;}
-.paket-card:hover .paket-arrow::after{transform:translateX(3px);}
-
-/* PREMIUM-STIL für Hochzeit */
-.paket-card.pk-hochzeit{
-  background:linear-gradient(135deg,#1a1530 0%,#0f0b2e 100%);
-  border-color:rgba(255,215,0,.22);
-}
-.paket-card.pk-hochzeit:hover{border-color:rgba(255,215,0,.45);box-shadow:0 8px 28px rgba(0,0,0,.18);}
-.paket-card.pk-hochzeit .paket-icon-wrap{background:linear-gradient(135deg,rgba(255,215,0,.22),rgba(255,165,0,.1));}
-.paket-card.pk-hochzeit .paket-name{color:white;}
-.paket-card.pk-hochzeit .paket-item{color:rgba(255,255,255,.72);}
-.paket-card.pk-hochzeit .paket-item::before{background:#FFD700;}
-.paket-card.pk-hochzeit .paket-foot{border-top-color:rgba(255,255,255,.1);}
-.paket-card.pk-hochzeit .paket-price{color:white;}
-.paket-card.pk-hochzeit .paket-price small{color:rgba(255,215,0,.7);}
-.paket-card.pk-hochzeit .paket-arrow{color:#FFD700;}
-
-/* Beliebt-Highlight für Komplett-Paket */
-.paket-card.pk-popular{border-color:rgba(168,85,247,.25);}
-.paket-card.pk-popular:hover{border-color:rgba(168,85,247,.45);}
-
-@media(min-width:640px){
-  .paket-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
-}
-@media(min-width:1024px){
-  .paket-grid{grid-template-columns:repeat(3,1fr);}
-}
 
 /* ── WHATSAPP-FAB (Sticky Floating Action Button) ── */
 .wa-fab{position:fixed;bottom:88px;right:16px;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,.55);z-index:1500;text-decoration:none;transition:transform .2s;animation:wa-pulse 2.4s infinite;}
@@ -915,7 +853,22 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   </div>
 </div>
  
-
+<!-- PAKETE -->
+<div class="sec" id="section-paket">
+  <div class="reveal">
+    <div class="stitle">Spare mit unseren <em>Kombi-Paketen</em></div>
+    <div class="stitle-sub">Hüpfburg deiner Wahl + Extras – bequem kombiniert · Hüpfburg im Anfrageformular auswählen</div>
+  </div>
+  <div class="paket-grid">
+ 
+    <!-- KOMFORT-PAKET -->
+    <a href="anfragen.html?paket=komfort" class="paket-card pk-komfort reveal" data-cat="paket">
+      <div class="paket-icon">🔧</div>
+      <div class="paket-name">Komfort-Paket</div>
+      <div class="paket-items">
+        <div class="paket-item">✅ Hüpfburg deiner Wahl</div>
+        <div class="paket-item">✅ Auf- &amp; Abbau</div>
+      </div>
       <div class="paket-price">ab 170 € · kein Stress</div>
       <div class="paket-btn">Jetzt anfragen →</div>
     </a>
@@ -962,107 +915,6 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   </div>
 </div>
  
-<div class="sec" id="section-paket">
-<!-- PAKETE -->
-<div class="paket-section reveal">
-  <h2 class="paket-headline">Komplett-Pakete<br><em>spar Zeit & Geld</em></h2>
-  <p class="paket-subline">Komplettlösungen für jedes Event – von Geburtstag bis Hochzeit.</p>
-  <div class="paket-grid">
-
-    <!-- 1. KLASSIK -->
-    <a href="anfragen.html?paket=komfort" class="paket-card" data-cat="paket">
-      <div class="paket-head">
-        <div class="paket-icon-wrap">🏰</div>
-        <div class="paket-name">Klassik-Paket</div>
-      </div>
-      <div class="paket-items">
-        <div class="paket-item">Hüpfburg deiner Wahl</div>
-        <div class="paket-item">Auf- &amp; Abbau inklusive</div>
-      </div>
-      <div class="paket-foot">
-        <div class="paket-price">ab 170 €<small>/Tag</small></div>
-        <div class="paket-arrow">Anfragen</div>
-      </div>
-    </a>
-
-    <!-- 2. FAMILIENFEST -->
-    <a href="anfragen.html?paket=sweet" class="paket-card" data-cat="paket">
-      <div class="paket-head">
-        <div class="paket-icon-wrap">🎂</div>
-        <div class="paket-name">Familienfest</div>
-        <span class="paket-badge-mini">−5%</span>
-      </div>
-      <div class="paket-items">
-        <div class="paket-item">Hüpfburg deiner Wahl</div>
-        <div class="paket-item">Auf- &amp; Abbau inklusive</div>
-        <div class="paket-item">Zuckerwatte oder Popcorn</div>
-      </div>
-      <div class="paket-foot">
-        <div class="paket-price">ab 200 €<small>/Tag</small></div>
-        <div class="paket-arrow">Anfragen</div>
-      </div>
-    </a>
-
-    <!-- 3. KOMPLETT (BELIEBT) -->
-    <a href="anfragen.html?paket=allin" class="paket-card pk-popular" data-cat="paket">
-      <div class="paket-head">
-        <div class="paket-icon-wrap">🎊</div>
-        <div class="paket-name">Komplett-Paket</div>
-        <span class="paket-badge-mini popular">Beliebt · −10%</span>
-      </div>
-      <div class="paket-items">
-        <div class="paket-item">Hüpfburg deiner Wahl</div>
-        <div class="paket-item">Auf- &amp; Abbau inklusive</div>
-        <div class="paket-item">Zuckerwatte &amp; Popcorn</div>
-      </div>
-      <div class="paket-foot">
-        <div class="paket-price">ab 240 €<small>/Tag</small></div>
-        <div class="paket-arrow">Anfragen</div>
-      </div>
-    </a>
-
-    <!-- 4. HOCHZEIT (PREMIUM) -->
-    <a href="hochzeitsburg.html" class="paket-card pk-hochzeit" data-cat="paket">
-      <div class="paket-head">
-        <div class="paket-icon-wrap">💒</div>
-        <div class="paket-name">Hochzeits-Paket</div>
-        <span class="paket-badge-mini premium">Premium</span>
-      </div>
-      <div class="paket-items">
-        <div class="paket-item">Hochzeitsburg</div>
-        <div class="paket-item">Fotobox mit Sofortdruck</div>
-        <div class="paket-item">Auf- &amp; Abbau inklusive</div>
-      </div>
-      <div class="paket-foot">
-        <div class="paket-price">Auf Anfrage</div>
-        <div class="paket-arrow">Mehr erfahren</div>
-      </div>
-    </a>
-
-    <!-- 5. FOTOBOX-EVENT -->
-    <a href="fotobox.html" class="paket-card" data-cat="paket">
-      <div class="paket-head">
-        <div class="paket-icon-wrap">📸</div>
-        <div class="paket-name">Fotobox-Event</div>
-        <span class="paket-badge-mini new">Indoor</span>
-      </div>
-      <div class="paket-items">
-        <div class="paket-item">Fotobox mit Sofortdruck</div>
-        <div class="paket-item">Auf- &amp; Abbau inklusive</div>
-        <div class="paket-item">Ideal für Firmen, Galas</div>
-      </div>
-      <div class="paket-foot">
-        <div class="paket-price">ab 199 €</div>
-        <div class="paket-arrow">Mehr erfahren</div>
-      </div>
-    </a>
-
-  </div>
-</div>
-
-
-</div>
-
 <!-- LIEFERUNG -->
 <div class="sec">
   <div class="reveal">
