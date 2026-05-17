@@ -232,10 +232,17 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
 @media(prefers-reduced-motion:reduce){.wa-fab{animation:none;}}
 
 /* ── MODUS-SELECTOR ── */
-.modus-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 16px 18px;}
-.modus-btn{background:white;border:1.5px solid rgba(0,0,0,.08);border-radius:14px;padding:14px 8px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:all .2s;color:#0f0b2e;font-family:'Baloo 2',cursive;}
+.modus-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 16px 18px;max-width:680px;margin-left:auto;margin-right:auto;}
+.modus-btn{background:white;border:2px solid #e2e5ee;border-radius:14px;padding:14px 8px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:all .2s;color:#0f0b2e;font-family:'Baloo 2',cursive;box-shadow:0 2px 8px rgba(15,11,46,.05);}
+.modus-btn:hover{border-color:#cbd2e0;box-shadow:0 4px 14px rgba(15,11,46,.08);transform:translateY(-1px);}
 .modus-btn:active{transform:scale(.97);}
-.modus-btn.active{border-color:var(--purple);background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(255,79,163,.05));box-shadow:0 4px 14px rgba(168,85,247,.18);}
+.modus-btn.active{border-color:var(--purple);background:linear-gradient(135deg,rgba(168,85,247,.10),rgba(255,79,163,.06));box-shadow:0 6px 18px rgba(168,85,247,.25);transform:translateY(-1px);}
+@media(min-width:768px){
+  .modus-selector{gap:14px;padding:0 24px;}
+  .modus-btn{padding:18px 12px 16px;}
+  .modus-icon{font-size:28px !important;}
+  .modus-label{font-size:14px !important;}
+}
 .modus-icon{font-size:24px;line-height:1;}
 .modus-label{font-size:13px;font-weight:800;letter-spacing:.2px;}
 .modus-sub{font-size:10px;color:#888;font-weight:600;}
@@ -341,30 +348,95 @@ body[data-modus="foto"] #tage-anzeige{display:none !important;}
   white-space:nowrap;
 }
 
-/* Rabatt-Banner (oben, wenn Rabatt aktiv) */
-.rabatt-banner{margin:0 16px 8px;background:linear-gradient(135deg,rgba(0,217,126,.15),rgba(0,201,126,.06));border:1.5px solid rgba(0,201,126,.38);border-radius:14px;padding:11px 14px;display:flex;align-items:center;gap:11px;font-family:'Baloo 2',cursive;animation:rabattPulse 2s ease-in-out infinite;}
-.rabatt-banner-icon{font-size:22px;line-height:1;}
-.rabatt-banner-content{flex:1;line-height:1.3;}
-.rabatt-banner-text{font-size:14px;font-weight:700;color:#059669;}
-.rabatt-banner-text strong{font-size:18px;font-weight:900;color:#047857;margin-left:3px;}
-.rabatt-banner-label{font-size:10.5px;color:#059669;opacity:.85;font-weight:600;margin-top:2px;}
-@keyframes rabattPulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(0,217,126,.18);}
-  50%{box-shadow:0 0 0 8px rgba(0,217,126,0);}
+/* Rabatt-Banner (oben, wenn Rabatt aktiv) – mobile-first */
+.rabatt-banner{margin:0 16px 8px;background:linear-gradient(135deg,#10b981,#059669);border-radius:12px;padding:11px 14px;display:flex;align-items:center;gap:10px;font-family:'Baloo 2',cursive;box-shadow:0 4px 12px rgba(0,217,126,.25);}
+.rabatt-banner-icon{font-size:20px;line-height:1;flex-shrink:0;}
+.rabatt-banner-content{flex:1;line-height:1.25;color:white;}
+.rabatt-banner-text{font-size:13px;font-weight:700;}
+.rabatt-banner-text strong{font-size:17px;font-weight:900;margin-left:3px;}
+.rabatt-banner-label{font-size:10.5px;opacity:.9;font-weight:600;margin-top:1px;}
+@media(min-width:768px){
+  .rabatt-banner{max-width:680px;margin-left:auto;margin-right:auto;padding:13px 16px;}
+  .rabatt-banner-text{font-size:14px;}
+  .rabatt-banner-text strong{font-size:19px;}
 }
-@media(prefers-reduced-motion:reduce){.rabatt-banner{animation:none;}}
 
-/* Rabatt-Hinweis in Extras */
-.rabatt-hint-card{margin:10px 0 14px;background:linear-gradient(135deg,rgba(0,217,126,.08),rgba(168,85,247,.04));border:1px dashed rgba(0,201,126,.3);border-radius:13px;padding:11px 13px;display:flex;gap:11px;align-items:flex-start;}
-.rh-icon{font-size:18px;line-height:1.1;flex-shrink:0;margin-top:1px;}
-.rh-text{flex:1;font-family:'Baloo 2',cursive;}
-.rh-title{font-size:13px;font-weight:800;color:#0f0b2e;margin-bottom:5px;}
-.rh-list{display:flex;flex-direction:column;gap:3px;}
-.rh-item{font-size:11.5px;color:#444;font-weight:600;display:flex;align-items:center;gap:7px;line-height:1.3;}
-.rh-item em{color:#888;font-style:normal;font-weight:600;}
-.rh-pill{font-family:'Baloo 2',cursive;font-size:10px;font-weight:900;padding:2px 7px;border-radius:9px;flex-shrink:0;letter-spacing:.2px;}
-.rh-pill-5{background:rgba(0,217,126,.15);color:#047857;}
-.rh-pill-10{background:linear-gradient(135deg,#00d97e,#059669);color:white;}
+/* Rabatt-Hinweis-Card in Extras (mobile-first) */
+.rabatt-hint-card{margin:12px 0 16px;background:linear-gradient(135deg,#f0fdf4,#faf5ff);border:1.5px solid rgba(0,201,126,.25);border-radius:14px;padding:12px 14px;font-family:'Baloo 2',cursive;}
+.rh-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px dashed rgba(0,201,126,.25);}
+.rh-icon{font-size:20px;line-height:1;}
+.rh-title{font-size:14px;font-weight:800;color:#047857;letter-spacing:.2px;}
+.rh-list{display:flex;flex-direction:column;gap:8px;}
+.rh-row{display:flex;align-items:center;gap:11px;padding:6px 0;}
+.rh-row-best{padding:8px 10px;background:rgba(0,217,126,.10);border-radius:10px;}
+.rh-row-bonus{padding:6px 10px;background:rgba(168,85,247,.08);border-radius:10px;border:1px dashed rgba(168,85,247,.2);}
+.rh-badge{font-size:14px;font-weight:900;color:#047857;background:white;padding:6px 12px;border-radius:20px;border:1.5px solid rgba(0,217,126,.35);min-width:46px;text-align:center;flex-shrink:0;}
+.rh-badge-best{background:linear-gradient(135deg,#00d97e,#059669);color:white;border-color:#059669;box-shadow:0 2px 6px rgba(0,217,126,.3);}
+.rh-bonus{font-size:13px;font-weight:900;color:var(--purple);background:white;padding:6px 12px;border-radius:20px;border:1.5px solid rgba(168,85,247,.35);flex-shrink:0;white-space:nowrap;}
+.rh-desc{font-size:13px;color:#1f2937;font-weight:600;line-height:1.3;flex:1;}
+@media(min-width:768px){
+  .rh-title{font-size:15px;}
+  .rh-desc{font-size:14px;}
+  .rh-badge,.rh-bonus{font-size:15px;}
+}
+
+/* ═══════ MOBILE-FIRST OPTIMIERUNGEN ═══════ */
+/* Touch-Targets: alle Inputs/Buttons min 44px */
+input[type="text"],input[type="email"],input[type="tel"],input[type="date"],select,textarea{min-height:44px;font-size:15px !important;}
+button:not(.modus-btn):not(.tab-btn){min-height:44px;}
+
+/* Burg-Auswahl mobile-friendly */
+.burg-opt{min-height:54px;padding:14px 14px;gap:13px;}
+.burg-opt-name{font-size:15px;}
+.burg-opt-price{font-size:14px;}
+.burg-opt-badge-hochzeit{font-size:11px;padding:6px 11px;}
+
+/* Foto-Karten kompakter auf Mobile */
+.foto-opt{padding:14px 14px 13px;}
+.foto-name{font-size:15px;}
+.foto-sub{font-size:12px;}
+.foto-price{font-size:17px;}
+.foto-feat{font-size:12.5px;}
+
+/* Modus-Selector größer auf Mobile */
+.modus-btn{padding:14px 8px 12px;min-height:74px;}
+.modus-icon{font-size:24px;}
+.modus-label{font-size:13.5px;}
+.modus-sub{font-size:10.5px;}
+
+/* Extras-Toggle Touch-friendly */
+.extra-toggle{min-height:60px;padding:13px 15px;}
+.extra-title{font-size:14.5px;}
+.extra-price{font-size:13px;}
+.extra-hint{font-size:11.5px;}
+
+/* Cards general padding */
+.card{padding:16px 14px;}
+.card-title{font-size:15px;}
+.card-sub{font-size:12.5px;}
+
+/* Rabatt-Hinweis-Card lesbarer */
+.rh-desc{font-size:13px;line-height:1.35;}
+.rh-badge,.rh-bonus{font-size:14px;padding:7px 13px;min-width:50px;}
+
+/* Order Summary lesbar */
+#orderSummary{font-size:13.5px;}
+
+/* Submit-Button echt klickbar */
+#submitBtn{min-height:56px;font-size:16px;}
+
+/* Modus-Selector: kein Hover-Lift auf Touch */
+@media(hover:none){
+  .modus-btn:hover{transform:none;box-shadow:0 2px 8px rgba(15,11,46,.05);}
+  .modus-btn:active{transform:scale(.97);}
+}
+
+/* Gesamt-Rabatt-Badge in der Bestellübersicht */
+.rabatt-total-badge{display:inline-block;background:linear-gradient(135deg,#10b981,#059669);color:white;font-family:'Baloo 2',cursive;font-size:11px;font-weight:900;padding:3px 9px;border-radius:11px;margin-left:6px;white-space:nowrap;letter-spacing:.2px;box-shadow:0 1px 3px rgba(0,217,126,.3);vertical-align:middle;}
+.order-row-rabatt .order-label{display:flex;flex-wrap:wrap;align-items:center;gap:4px;}
+@media(min-width:768px){
+  .rabatt-total-badge{font-size:12px;padding:3px 11px;}
+}
 </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -502,7 +574,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     <div class="card reveal nur-burg">
       <div class="card-title">Hüpfburg wählen</div>
       <div class="card-sub card-sub-burg-hide">Welche Burg darf es sein?</div>
-      <div class="card-sub" style="display:none;color:#FFD600;font-weight:700;" id="hochzeit-burg-hint">💒 Hochzeitsburg ist im Hochzeitspaket fix enthalten</div>
+      <div class="card-sub" style="display:none;color:#FFD600;font-weight:700;" id="hochzeit-burg-hint">Hochzeitsburg ist im Paket fix enthalten</div>
       <div class="burg-picker" id="burgPicker">
         <label class="burg-opt" data-name="Alienburg" data-price="180" data-icon="🛸">
           <input type="radio" name="Hüpfburg" value="Alienburg (180 €/Tag)">
@@ -537,7 +609,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
           <div class="burg-opt-check"></div>
           <div class="burg-opt-icon">💒</div>
           <div class="burg-opt-name">Hochzeitsburg</div>
-          <div class="burg-opt-badge-hochzeit">💒 Hochzeitspaket →</div>
+          <div class="burg-opt-badge-hochzeit">Hochzeitspaket →</div>
         </label>
         <label class="burg-opt" data-name="Feuerwehrauto" data-price="140" data-icon="🚒">
           <input type="radio" name="Hüpfburg" value="Feuerwehrauto (140 €/Tag)">
@@ -558,7 +630,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     <span class="extra-title">📷 Fotobox dazubuchen?</span>
     <span class="extra-price" id="fotoDazuPriceText">+ ab 199 € · perfekt für unvergessliche Erinnerungen</span>
     <span class="extra-hint" id="fotoDazuHint">Zum Anzeigen antippen</span>
-    <span class="foto-rabatt-hint" id="fotoRabattHint">🎉 Kombi-Bonus: <strong>−5 %</strong> zusätzlich auf die Gesamtsumme!</span>
+    <span class="foto-rabatt-hint" id="fotoRabattHint">Kombi-Bonus: <strong>−5%</strong> zusätzlich auf die Gesamtsumme</span>
   </span>
   <span class="extra-switch"></span>
 </button>
@@ -748,13 +820,22 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
 
       <!-- Rabatt-Hinweis: Anreiz für Kombi-Pakete -->
       <div class="rabatt-hint-card">
-        <div class="rh-icon">💡</div>
-        <div class="rh-text">
-          <div class="rh-title">Mehr dazu = mehr Rabatt</div>
-          <div class="rh-list">
-            <div class="rh-item"><span class="rh-pill rh-pill-5">−5%</span> Burg + Aufbau + Zuckerwatte <em>oder</em> Popcorn</div>
-            <div class="rh-item"><span class="rh-pill rh-pill-10">−10%</span> Burg + Aufbau + Zuckerwatte <em>&</em> Popcorn</div>
-            <div class="rh-item"><span class="rh-pill rh-pill-5">+5%</span> Wenn auch Fotobox dazu</div>
+        <div class="rh-header">
+          <span class="rh-icon">🎁</span>
+          <span class="rh-title">Spar-Tipp: Pakete kombinieren</span>
+        </div>
+        <div class="rh-list">
+          <div class="rh-row">
+            <span class="rh-badge">5%</span>
+            <span class="rh-desc">Burg + Aufbau + Süßes</span>
+          </div>
+          <div class="rh-row rh-row-best">
+            <span class="rh-badge rh-badge-best">10%</span>
+            <span class="rh-desc">Burg + Aufbau + Zuckerwatte &amp; Popcorn</span>
+          </div>
+          <div class="rh-row rh-row-bonus">
+            <span class="rh-bonus">+ 5%</span>
+            <span class="rh-desc">Fotobox dazu (max. 10% gesamt)</span>
           </div>
         </div>
       </div>
@@ -1093,13 +1174,13 @@ function updateOrderSummary(){
   if(hasBurg && aufbauOn){
     if(hasZuckerwatte && hasPopcorn){
       rabattProzent = 10;
-      rabattLabel = '🏷️ All-Inclusive-Paket −10%';
+      rabattLabel = 'All-Inclusive-Paket −10%';
     } else if(hasZuckerwatte){
       rabattProzent = 5;
-      rabattLabel = '🏷️ Süßes Paket −5%';
+      rabattLabel = 'Süßes Paket −5%';
     } else if(hasPopcorn){
       rabattProzent = 5;
-      rabattLabel = '🏷️ Snack-Paket −5%';
+      rabattLabel = 'Snack-Paket −5%';
     }
   }
 
@@ -1107,29 +1188,29 @@ function updateOrderSummary(){
   if(hasFoto && !hasBurg){
     if(hasZuckerwatte && hasPopcorn){
       rabattProzent = 10;
-      rabattLabel = '🏷️ Fotobox + Süßes-Komplett −10%';
+      rabattLabel = 'Fotobox + Süßes-Komplett −10%';
     } else if(hasZuckerwatte){
       rabattProzent = 5;
-      rabattLabel = '🏷️ Fotobox + Süßes −5%';
+      rabattLabel = 'Fotobox + Süßes −5%';
     } else if(hasPopcorn){
       rabattProzent = 5;
-      rabattLabel = '🏷️ Fotobox + Snack −5%';
+      rabattLabel = 'Fotobox + Snack −5%';
     }
   }
 
   // Kombi-Bonus: Burg + Fotobox = zusätzlich +5% (kumulativ obendrauf)
   if(hasBurg && hasFoto){
-    rabattProzent = Math.min(rabattProzent + 5, 15);  // Cap bei 15%
+    rabattProzent = Math.min(rabattProzent + 5, 10);  // Cap bei 10%
     if(rabattLabel){
-      rabattLabel = rabattLabel + ' + 🎉 Kombi-Bonus';
+      rabattLabel = rabattLabel + ' + Kombi-Bonus';
     } else {
-      rabattLabel = '🎉 Kombi-Rabatt Burg + Fotobox −5%';
+      rabattLabel = 'Kombi-Rabatt: Burg + Fotobox −5%';
     }
   }
   var rabattBetrag = 0;
   if(rabattProzent > 0 && total > 0){
     rabattBetrag = Math.round(total * rabattProzent / 100 * 100) / 100;
-    rows.push({label: rabattLabel, val: '−' + rabattBetrag.toFixed(2) + ' €', rabatt: true});
+    rows.push({label: rabattLabel, val: '−' + rabattBetrag.toFixed(2) + ' €', rabatt: true, totalProzent: rabattProzent});
     total = Math.round((total - rabattBetrag) * 100) / 100;
   }
 
@@ -1156,7 +1237,11 @@ function updateOrderSummary(){
   var html = '';
   rows.forEach(function(r){
     var style = r.rabatt ? 'color:#00a651;font-weight:800;' : '';
-    html += '<div class="order-row"><span class="order-label">'+r.label+'</span><span class="order-val" style="'+style+'">'+r.val+'</span></div>';
+    var labelHtml = r.label;
+    if(r.rabatt && r.totalProzent){
+      labelHtml += ' <span class="rabatt-total-badge">Gesamt −'+r.totalProzent+'%</span>';
+    }
+    html += '<div class="order-row '+(r.rabatt?'order-row-rabatt':'')+'"><span class="order-label">'+labelHtml+'</span><span class="order-val" style="'+style+'">'+r.val+'</span></div>';
   });
   html += '<div class="order-row total"><span class="order-total-label">Gesamt (geschätzt)</span><span class="order-total-val">'+total.toFixed(2)+' €*</span></div>';
   orderRows.innerHTML = html;
