@@ -143,13 +143,13 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .order-summary{background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(255,79,163,.06));border:2px solid rgba(168,85,247,.18);border-radius:18px;padding:18px 18px;margin-bottom:16px;display:none;}
 .order-summary.visible{display:block;}
 .order-summary-title{font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:var(--dark);margin-bottom:12px;display:flex;align-items:center;gap:7px;}
-.order-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(168,85,247,.1);font-size:13px;}
+.order-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(168,85,247,.1);font-size:13px;}
 .order-row:last-child{border:none;padding-bottom:0;}
 .order-row.total{padding-top:10px;margin-top:4px;border-top:2px solid rgba(168,85,247,.2);border-bottom:none;}
-.order-label{color:#555;font-weight:600;}
-.order-val{font-family:'Baloo 2',cursive;font-weight:800;color:var(--dark);font-size:13px;}
+.order-label{color:#555;font-weight:600;min-width:0;line-height:1.35;}
+.order-val{font-family:'Baloo 2',cursive;font-weight:800;color:var(--dark);font-size:13px;white-space:nowrap;flex-shrink:0;}
 .order-total-label{font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;color:var(--dark);}
-.order-total-val{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;color:var(--pink);}
+.order-total-val{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;color:var(--pink);white-space:nowrap;flex-shrink:0;}
 .order-note{font-size:10px;color:#bbb;margin-top:8px;text-align:center;}
  
 /* SUBMIT */
@@ -433,7 +433,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 
 /* Gesamt-Rabatt-Badge in der Bestellübersicht */
 .rabatt-total-badge{display:inline-block;background:linear-gradient(135deg,#10b981,#059669);color:white;font-family:'Baloo 2',cursive;font-size:11px;font-weight:900;padding:3px 9px;border-radius:11px;margin-left:6px;white-space:nowrap;letter-spacing:.2px;box-shadow:0 1px 3px rgba(0,217,126,.3);vertical-align:middle;}
-.order-row-rabatt .order-label{display:flex;flex-wrap:wrap;align-items:center;gap:4px;}
+.order-row-rabatt .order-label{display:flex;flex-wrap:wrap;align-items:center;gap:5px;min-width:0;}
 @media(min-width:768px){
   .rabatt-total-badge{font-size:12px;padding:3px 11px;}
 }
