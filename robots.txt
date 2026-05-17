@@ -9,7 +9,7 @@ Disallow: /files/
  
 # Interne Seiten von Indexierung ausschließen
 Disallow: /danke.html
-Disallow: /Bewertung.html
+Disallow: /bewertung.html
 Disallow: /fotorahmen.html
  
 # Tracking-Parameter ignorieren (Facebook Click ID, Google Click ID, UTM)

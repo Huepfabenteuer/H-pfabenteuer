@@ -26,7 +26,10 @@
 <meta name="twitter:image" content="https://i.imgur.com/zIqeBQ9.jpeg"/>
 <meta name="twitter:image:alt" content="Candyburg mieten Kärnten"/>
 <title>Candyburg mieten Kärnten – Bunte Hüpfburg mit Rutsche ab 120€/Tag | Hüpfabenteuer</title>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/></noscript>
 <style>
 :root{--pink:#ff4fa3;--purple:#a855f7;--sky:#00c2ff;--sun:#FFD600;--green:#00d97e;--dark:#0f0b2e;--acc:#ff69b4;--acc2:#c2185b;--shadow:0 8px 32px rgba(0,0,0,.10);}
 html{color-scheme:light only;}*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
@@ -198,7 +201,36 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
   ]
 }
 </script>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1256236772328604');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<!-- Google Tag (gtag.js) - Analytics + Google Ads -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6KYW215PYR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6KYW215PYR');
+  gtag('config', 'AW-17627141841');
+</script>
+<!-- End Google Tag -->
 </head>
+
 <body>
  
 <div class="ph">
@@ -396,7 +428,7 @@ document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
   });
 })();
 </script>
-
+<script>
 document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('hide-init');});
 var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');x.target.classList.remove('hide-init');obs.unobserve(x.target);}})},{threshold:.05,rootMargin:'0px 0px -20px 0px'});
 document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
