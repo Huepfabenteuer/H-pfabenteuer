@@ -152,6 +152,14 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .order-total-val{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;color:var(--pink);white-space:nowrap;flex-shrink:0;}
 .order-note{font-size:10px;color:#bbb;margin-top:8px;text-align:center;}
  
+/* DSGVO CONSENT */
+.dsgvo-consent{margin:16px 4px 14px;display:flex;align-items:flex-start;gap:11px;padding:14px 16px;background:white;border-radius:14px;border:1.5px solid rgba(0,0,0,.06);box-shadow:0 2px 8px rgba(0,0,0,.04);transition:border-color .2s,box-shadow .2s;}
+.dsgvo-consent.error{border-color:var(--err);box-shadow:0 0 0 4px rgba(179,38,30,.08);}
+.dsgvo-consent input[type="checkbox"]{margin-top:2px;width:20px;height:20px;accent-color:var(--purple);flex-shrink:0;cursor:pointer;}
+.dsgvo-consent label{cursor:pointer;font-size:13px;font-weight:600;color:#555;line-height:1.5;font-family:'Nunito',sans-serif;}
+.dsgvo-consent label a{color:var(--purple);font-weight:700;text-decoration:underline;}
+.dsgvo-consent .dsgvo-star{color:var(--pink);}
+ 
 /* SUBMIT */
 .btn-submit{width:100%;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;padding:17px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;border:none;cursor:pointer;box-shadow:0 8px 28px rgba(255,79,163,.4);transition:transform .15s,box-shadow .15s,opacity .15s;display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;}
 .btn-submit:active{transform:scale(.97);}
@@ -757,20 +765,20 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
       <div class="field-row">
         <div class="field">
           <label>Vorname *</label>
-          <input type="text" id="vorname" name="Vorname" placeholder="Max" required>
+          <input type="text" id="vorname" name="Vorname" placeholder="Max" autocomplete="given-name" required>
         </div>
         <div class="field">
           <label>Nachname *</label>
-          <input type="text" name="Nachname" placeholder="Mustermann" required>
+          <input type="text" name="Nachname" placeholder="Mustermann" autocomplete="family-name" required>
         </div>
       </div>
       <div class="field">
         <label>Telefon *</label>
-        <input type="tel" id="telefon" name="Telefon" placeholder="+43 664 …" required>
+        <input type="tel" id="telefon" name="Telefon" placeholder="+43 664 …" autocomplete="tel" inputmode="tel" required>
       </div>
       <div class="field">
-        <label>E-Mail</label>
-        <input type="email" name="E-Mail" placeholder="deine@email.at">
+        <label>E-Mail *</label>
+        <input type="email" name="E-Mail" placeholder="deine@email.at" autocomplete="email" inputmode="email" required>
       </div>
     </div>
  
@@ -799,16 +807,16 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
       <div class="card-sub">Wo soll die Hüpfburg aufgebaut werden?</div>
       <div class="field">
         <label>Straße & Hausnummer *</label>
-        <input type="text" name="Strasse" id="strasseField" placeholder="Musterstraße 1" required>
+        <input type="text" name="Strasse" id="strasseField" placeholder="Musterstraße 1" autocomplete="street-address" required>
       </div>
       <div class="field-row">
         <div class="field">
           <label>PLZ *</label>
-          <input type="text" id="plzField" name="PLZ" placeholder="9346" inputmode="numeric" pattern="\d{4,5}" required>
+          <input type="text" id="plzField" name="PLZ" placeholder="9346" inputmode="numeric" autocomplete="postal-code" pattern="\d{4,5}" required>
         </div>
         <div class="field">
           <label>Ort *</label>
-          <input type="text" id="ortField" name="Ort" placeholder="Glödnitz" required>
+          <input type="text" id="ortField" name="Ort" placeholder="Glödnitz" autocomplete="address-level2" required>
         </div>
       </div>
     </div>
@@ -912,6 +920,14 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
       <div id="orderRows"></div>
       <div class="order-note">* Geschätzter Preis · Lieferung gratis bis 40 km · Endpreis nach Bestätigung</div>
       <div id="anzahlungHinweis" style="display:none;margin-top:10px;padding:10px 14px;border-radius:12px;background:linear-gradient(135deg,rgba(255,214,0,.12),rgba(255,79,163,.08));border:1.5px solid rgba(255,214,0,.4);font-size:12px;font-weight:700;color:#7a5c00;line-height:1.6;"></div>
+    </div>
+ 
+    <!-- DSGVO-Einwilligung -->
+    <div class="dsgvo-consent reveal">
+      <input type="checkbox" id="dsgvoCheck">
+      <label for="dsgvoCheck">
+        Ich habe die <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung der Anfrage zu. <span class="dsgvo-star">*</span>
+      </label>
     </div>
  
     <button type="button" class="btn-submit reveal" id="submitBtn" onclick="submitAnfrage()">
@@ -1615,12 +1631,37 @@ function submitAnfrage(){
   var aufbau   = aufbauOn ? 'Ja (+50 \u20ac)' : 'Nein';
   var extras   = document.querySelector('[name="Extras"]') ? document.querySelector('[name="Extras"]').value : '';
  
-  if(!vorname || !telefon){
-    showMsg('\u26a0\ufe0f Bitte zumindest Vorname und Telefonnummer angeben.', false);
+  // ── Pflichtfelder validieren ──
+  if(!vorname || !nachname){
+    showMsg('\u26a0\ufe0f Bitte Vor- und Nachname angeben.', false);
+    return;
+  }
+  if(!telefon){
+    showMsg('\u26a0\ufe0f Bitte deine Telefonnummer angeben.', false);
+    return;
+  }
+  if(!email || email.indexOf('@') === -1){
+    showMsg('\u26a0\ufe0f Bitte g\u00fcltige E-Mail angeben \u2013 wir senden dir die Best\u00e4tigung per Mail.', false);
     return;
   }
   if(!startDat){
     showMsg('\u26a0\ufe0f Bitte ein Startdatum w\u00e4hlen.', false);
+    return;
+  }
+  if(!strasse || !plz || !ort){
+    showMsg('\u26a0\ufe0f Bitte Lieferadresse vollst\u00e4ndig ausf\u00fcllen (Stra\u00dfe, PLZ, Ort).', false);
+    return;
+  }
+  // DSGVO-Einwilligung
+  var dsgvoCheck = document.getElementById('dsgvoCheck');
+  var dsgvoWrap = dsgvoCheck ? dsgvoCheck.closest('.dsgvo-consent') : null;
+  if(!dsgvoCheck || !dsgvoCheck.checked){
+    showMsg('\u26a0\ufe0f Bitte stimme der Datenschutzerkl\u00e4rung zu, um fortzufahren.', false);
+    if(dsgvoWrap){
+      dsgvoWrap.classList.add('error');
+      dsgvoWrap.scrollIntoView({behavior:'smooth', block:'center'});
+      setTimeout(function(){ dsgvoWrap.classList.remove('error'); }, 3000);
+    }
     return;
   }
   // Modus-spezifische Validierung
