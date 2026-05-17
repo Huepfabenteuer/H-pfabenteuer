@@ -83,7 +83,7 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .card-sub{font-size:12px;color:#999;margin-bottom:16px;}
 .field{margin-bottom:14px;}
 .field label{display:block;font-size:12px;font-weight:800;color:#555;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;}
-.field input,.field select,.field textarea{width:100%;padding:13px 15px;border:2px solid #eee;border-radius:14px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;color:var(--dark);background:white;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none;}
+.field input,.field select,.field textarea{width:100%;padding:13px 15px;border:2px solid #eee;border-radius:14px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:600;color:var(--dark);background:white;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none;}
 .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 4px rgba(168,85,247,.1);}
 .field textarea{resize:vertical;min-height:90px;line-height:1.6;}
 .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;}
@@ -151,6 +151,14 @@ body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e
 .order-total-label{font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;color:var(--dark);}
 .order-total-val{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;color:var(--pink);white-space:nowrap;flex-shrink:0;}
 .order-note{font-size:10px;color:#bbb;margin-top:8px;text-align:center;}
+ 
+/* ─── iOS / MOBILE ZOOM-FIX ─── */
+/* 1) Inputs/Selects haben min. 16px Schrift → Safari iOS zoomt nicht mehr beim Focus rein */
+input,select,textarea{font-size:16px;}
+/* 2) Doppeltipp-Zoom unterdr\u00fccken auf allen Klickfl\u00e4chen */
+button,a,label,.burg-opt,.foto-opt,.modus-btn,.lief-btn,.extra-toggle,.sub-extra-toggle,.foto-dazu-toggle-btn,.btn-submit,.hbg-btn,.hbg-close,.bi,.hbg-link,.hbg-clink,.modus-btn,.dsgvo-consent input,.dsgvo-consent label{touch-action:manipulation;-webkit-tap-highlight-color:rgba(168,85,247,.18);}
+/* 3) Beim Tippen kein hervorgehobener iOS-Standard-Rahmen */
+input,select,textarea,button{-webkit-tap-highlight-color:transparent;}
  
 /* DSGVO CONSENT */
 .dsgvo-consent{margin:16px 4px 14px;display:flex;align-items:flex-start;gap:11px;padding:14px 16px;background:white;border-radius:14px;border:1.5px solid rgba(0,0,0,.06);box-shadow:0 2px 8px rgba(0,0,0,.04);transition:border-color .2s,box-shadow .2s;}
@@ -404,7 +412,7 @@ body[data-modus="foto"] #tage-anzeige{display:none !important;}
 
 /* ═══════ MOBILE-FIRST OPTIMIERUNGEN ═══════ */
 /* Touch-Targets: alle Inputs/Buttons min 44px */
-input[type="text"],input[type="email"],input[type="tel"],input[type="date"],select,textarea{min-height:44px;font-size:15px !important;}
+input[type="text"],input[type="email"],input[type="tel"],input[type="date"],input[type="number"],input[type="search"],input[type="url"],input[type="password"],select,textarea{min-height:44px;font-size:16px !important;}
 button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 
 /* Burg-Auswahl mobile-friendly */
