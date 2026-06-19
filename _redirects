@@ -2,21 +2,18 @@
 # https://docs.netlify.com/routing/redirects/
 
 # ─────────────────────────────────────────────────────────────
-# ROOT-FIX: Force-Rewrite damit index.html ignoriert wird
-# Status 200! = User sieht weiter huepfabenteuer.at (kein URL-Wechsel),
-# bekommt aber den Inhalt von /home.html (indexierbar).
-# Das "!" (Force-Flag) ist ESSENTIELL: ohne ! würde Netlify die
-# noindex-index.html ausspielen, weil sie existiert.
+# ROOT-FIX: Inhalt liegt jetzt direkt auf index.html (Root).
+# Alte /home.html-URL per 301 auf die Root umleiten, damit die
+# bereits aufgebaute Linkkraft & Indexierung an / weitergegeben wird.
+# /index.html ebenfalls auf / (verhindert Duplicate-Content).
 # ─────────────────────────────────────────────────────────────
-/                  /home.html              200!
-/index.html        /home.html              301!
+/home.html         /                       301!
+/index.html        /                       301
 
 # ─────────────────────────────────────────────────────────────
-# CLEAN URLS: /home, /alienburg etc. → .html-Version
-# Sorgt dafür, dass Links ohne .html-Endung trotzdem funktionieren.
+# CLEAN URLS: /alienburg etc. → .html-Version
 # Status 301 = permanenter Redirect (sammelt Linkkraft).
 # ─────────────────────────────────────────────────────────────
-/home              /home.html              301
 /unsere-angebote   /unsere-angebote.html   301
 /alienburg         /alienburg.html         301
 /piratenburg       /piratenburg.html       301
