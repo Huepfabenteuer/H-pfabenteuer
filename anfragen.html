@@ -464,8 +464,111 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 /* Gesamt-Rabatt-Badge in der Bestellübersicht */
 .rabatt-total-badge{display:inline-block;background:linear-gradient(135deg,#10b981,#059669);color:white;font-family:'Baloo 2',cursive;font-size:11px;font-weight:900;padding:3px 9px;border-radius:11px;margin-left:6px;white-space:nowrap;letter-spacing:.2px;box-shadow:0 1px 3px rgba(0,217,126,.3);vertical-align:middle;}
 .order-row-rabatt .order-label{display:flex;flex-wrap:wrap;align-items:center;gap:5px;min-width:0;}
+
+/* Gutscheincode */
+.gutschein-box{margin-top:12px;padding-top:12px;border-top:1.5px dashed rgba(168,85,247,.25);}
+.gutschein-input-row{display:flex;gap:8px;}
+.gutschein-input-row input{flex:1;min-width:0;padding:11px 14px;border:2px solid #eee;border-radius:12px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--dark);text-transform:uppercase;background:white;}
+.gutschein-input-row input:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 4px rgba(168,85,247,.1);}
+.gutschein-btn{padding:11px 18px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+.gutschein-btn:active{transform:scale(.96);}
+.gutschein-active{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(0,217,126,.10);border:1.5px solid rgba(0,217,126,.3);border-radius:12px;padding:10px 14px;font-size:13px;font-weight:800;color:#059669;}
+.gutschein-remove{background:none;border:none;color:#b3261e;font-size:12px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;text-decoration:underline;flex-shrink:0;}
+.gutschein-msg{font-size:11.5px;font-weight:700;margin-top:6px;display:none;}
+.gutschein-msg.err{display:block;color:var(--err);}
+.gutschein-msg.ok{display:block;color:#059669;}
 @media(min-width:768px){
   .rabatt-total-badge{font-size:12px;padding:3px 11px;}
+}
+
+/* ═══════════════════════════════════════════════════════
+   DESIGN-POLISH (rein optisch – keine Funktionsänderung)
+   ═══════════════════════════════════════════════════════ */
+
+/* Einheitliches Schatten- & Rahmensystem: ruhiger, wertiger */
+.card{
+  border:1px solid rgba(15,11,46,.07);
+  border-radius:20px;
+  box-shadow:0 1px 2px rgba(15,11,46,.04),0 10px 30px rgba(15,11,46,.06);
+  padding:20px 18px;
+}
+.card-title{letter-spacing:.1px;}
+.card-sub{color:#8a8a99;}
+
+/* Eingabefelder: feinere Rahmen, sanfter Hover, ruhigerer Fokus */
+.field label{color:#6b6b7d;letter-spacing:.6px;}
+.field input,.field select,.field textarea{
+  border:1.5px solid #e4e3ef;
+  border-radius:13px;
+  transition:border-color .18s,box-shadow .18s,background .18s;
+}
+.field input:hover,.field select:hover,.field textarea:hover{border-color:#cfcce6;}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--purple);
+  box-shadow:0 0 0 3px rgba(168,85,247,.12);
+}
+.stepper{border:1.5px solid #e4e3ef;border-radius:13px;}
+.burg-opt{border:1.5px solid #e7e6f2;}
+.sub-extra-toggle{border-width:1.5px;}
+
+/* Preise überall mit Tabellenziffern – wirkt sofort aufgeräumter */
+.order-val,.order-total-val,.pe-val,.burg-opt-price,.foto-price,
+.burg-banner-price,.rabatt-total-badge{font-variant-numeric:tabular-nums;}
+
+/* Bestellübersicht: klarer Rechnungs-Look statt Farbwolke */
+.order-summary{
+  background:white;
+  border:1px solid rgba(15,11,46,.08);
+  border-radius:18px;
+  padding:20px 18px 16px;
+  box-shadow:0 1px 2px rgba(15,11,46,.04),0 12px 32px rgba(15,11,46,.07);
+}
+.order-summary-title{
+  margin-bottom:6px;
+  padding-bottom:10px;
+  border-bottom:1.5px solid rgba(15,11,46,.06);
+}
+.order-row{padding:9px 0;border-bottom:1px solid rgba(15,11,46,.05);}
+.order-label{color:#4b4b5c;}
+.order-row.total{
+  margin-top:6px;
+  padding-top:13px;
+  border-top:2px solid rgba(15,11,46,.10);
+}
+.order-total-val{letter-spacing:-.3px;}
+.order-note{color:#a3a3b3;letter-spacing:.2px;}
+
+/* Gutschein-Feld an neues Rahmensystem angleichen */
+.gutschein-box{border-top:1px dashed rgba(15,11,46,.14);}
+.gutschein-input-row input{border:1.5px solid #e4e3ef;letter-spacing:.8px;}
+.gutschein-input-row input:hover{border-color:#cfcce6;}
+.gutschein-btn{box-shadow:0 3px 10px rgba(168,85,247,.28);}
+
+/* Preis-Schätzung dezenter */
+.price-est{
+  background:linear-gradient(135deg,rgba(255,79,163,.045),rgba(168,85,247,.055));
+  border:1px solid rgba(168,85,247,.14);
+}
+
+/* DSGVO-Box angleichen */
+.dsgvo-consent{border:1px solid rgba(15,11,46,.07);box-shadow:0 1px 2px rgba(15,11,46,.04);}
+
+/* Absenden-Button: mehr Tiefe, Desktop-Hover, feinere Schrift */
+.btn-submit{
+  letter-spacing:.3px;
+  box-shadow:0 2px 6px rgba(168,85,247,.28),0 10px 26px rgba(255,79,163,.32);
+}
+@media(hover:hover){
+  .btn-submit:hover:not(:disabled){
+    transform:translateY(-1px);
+    box-shadow:0 4px 10px rgba(168,85,247,.32),0 14px 32px rgba(255,79,163,.38);
+  }
+}
+
+/* Desktop-Feinschliff: etwas großzügigere Karten */
+@media(min-width:768px){
+  .card{padding:24px 24px;}
+  .order-summary{padding:24px 24px 18px;}
 }
 </style>
 <!-- Meta Pixel Code -->
@@ -940,6 +1043,18 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     <div class="order-summary reveal" id="orderSummary">
       <div class="order-summary-title">🛒 Deine Auswahl</div>
       <div id="orderRows"></div>
+      <!-- GUTSCHEINCODE -->
+      <div class="gutschein-box">
+        <div class="gutschein-input-row" id="gutscheinInputRow">
+          <input type="text" id="gutscheinInput" placeholder="Gutscheincode" autocomplete="off" autocapitalize="characters" spellcheck="false">
+          <button type="button" class="gutschein-btn" onclick="applyGutschein()">Einlösen</button>
+        </div>
+        <div class="gutschein-active" id="gutscheinActive" style="display:none;">
+          <span id="gutscheinActiveText"></span>
+          <button type="button" class="gutschein-remove" onclick="removeGutschein()">Entfernen</button>
+        </div>
+        <div class="gutschein-msg" id="gutscheinMsg"></div>
+      </div>
       <div class="order-note">* Geschätzter Preis · Lieferung gratis bis 40 km · Endpreis nach Bestätigung</div>
       <div id="anzahlungHinweis" style="display:none;margin-top:10px;padding:10px 14px;border-radius:12px;background:linear-gradient(135deg,rgba(255,214,0,.12),rgba(255,79,163,.08));border:1.5px solid rgba(255,214,0,.4);font-size:12px;font-weight:700;color:#7a5c00;line-height:1.6;"></div>
     </div>
@@ -1200,6 +1315,70 @@ document.getElementById('popcorn-set-btn').addEventListener('click', function(){
 });
  
 // ── Bestellübersicht aktualisieren ──
+// ── GUTSCHEINCODES ──
+// Neue Codes einfach hier ergänzen: 'CODE': { prozent: X, label: 'Anzeige-Name' }
+var GUTSCHEINE = {
+  'INFINEON15': { prozent: 15, label: 'Infineon-Mitarbeiterrabatt' }
+};
+var activeGutschein = null; // { code, prozent, label }
+
+function applyGutschein(silent){
+  var input = document.getElementById('gutscheinInput');
+  var code = (input.value || '').toUpperCase().trim();
+  var msg = document.getElementById('gutscheinMsg');
+  msg.className = 'gutschein-msg';
+  if(!code) return;
+  var g = GUTSCHEINE[code];
+  if(!g){
+    msg.textContent = 'Dieser Code ist leider ungültig.';
+    msg.className = 'gutschein-msg err';
+    return;
+  }
+  activeGutschein = { code: code, prozent: g.prozent, label: g.label };
+  renderGutscheinUI();
+  updateOrderSummary();
+  if(typeof saveDraft === 'function') saveDraft();
+  if(!silent) showToast('Gutschein eingelöst: −' + g.prozent + '% 🎉', 'success');
+}
+
+function removeGutschein(){
+  activeGutschein = null;
+  var input = document.getElementById('gutscheinInput');
+  if(input) input.value = '';
+  renderGutscheinUI();
+  updateOrderSummary();
+  if(typeof saveDraft === 'function') saveDraft();
+}
+
+function renderGutscheinUI(){
+  var row = document.getElementById('gutscheinInputRow');
+  var act = document.getElementById('gutscheinActive');
+  var msg = document.getElementById('gutscheinMsg');
+  if(!row || !act) return;
+  if(activeGutschein){
+    row.style.display = 'none';
+    act.style.display = 'flex';
+    document.getElementById('gutscheinActiveText').textContent = '🎟️ ' + activeGutschein.code + ' · −' + activeGutschein.prozent + '% aktiv';
+    msg.textContent = 'Nicht kombinierbar mit Paket-Rabatten – es gilt automatisch der höhere Rabatt.';
+    msg.className = 'gutschein-msg ok';
+  } else {
+    row.style.display = 'flex';
+    act.style.display = 'none';
+    msg.textContent = '';
+    msg.className = 'gutschein-msg';
+  }
+}
+
+// Enter-Taste im Gutschein-Feld → einlösen (kein Form-Submit)
+document.addEventListener('DOMContentLoaded', function(){
+  var gi = document.getElementById('gutscheinInput');
+  if(gi){
+    gi.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ e.preventDefault(); applyGutschein(); }
+    });
+  }
+});
+
 function updateOrderSummary(){
   var rows = [];
   var total = 0;
@@ -1280,6 +1459,12 @@ function updateOrderSummary(){
       rabattLabel = 'Kombi-Rabatt: Burg + Fotobox −5%';
     }
   }
+  // ── Gutscheincode: ersetzt Auto-/Paket-Rabatte, wenn er höher ist (nicht kombinierbar) ──
+  if(activeGutschein && activeGutschein.prozent > rabattProzent){
+    rabattProzent = activeGutschein.prozent;
+    rabattLabel = '🎟️ ' + activeGutschein.label + ' −' + activeGutschein.prozent + '%';
+  }
+
   var rabattBetrag = 0;
   if(rabattProzent > 0 && total > 0){
     rabattBetrag = Math.round(total * rabattProzent / 100 * 100) / 100;
@@ -1439,6 +1624,15 @@ window.addEventListener('DOMContentLoaded', function(){
       document.getElementById('extras-select').style.pointerEvents = 'none';
       document.getElementById('extras-select').style.opacity = '0.7';
     }
+  }
+
+  // ── Gutschein per URL-Parameter (?code=INFINEON15 oder ?gutschein=INFINEON15) ──
+  var urlCode = params.get('code') || params.get('gutschein');
+  if(urlCode && GUTSCHEINE[urlCode.toUpperCase().trim()]){
+    var gi = document.getElementById('gutscheinInput');
+    if(gi) gi.value = urlCode.toUpperCase().trim();
+    applyGutschein(true);
+    showToast('Dein Mitarbeiter-Rabatt (−' + GUTSCHEINE[urlCode.toUpperCase().trim()].prozent + '%) wurde automatisch aktiviert 🎉', 'success');
   }
 
   // Set min date to today
@@ -1781,6 +1975,7 @@ function submitAnfrage(){
   // FormData für Formcarry zusammenbauen
   var fd = new FormData();
   var subjectLine = 'Neue Anfrage \u2013 ' + (currentModus === 'foto' ? (selectedFoto || 'Fotobox') : (currentModus === 'hochzeit' ? 'Hochzeitspaket' : burgLine)) + ' \u2013 ' + startDat;
+  if(activeGutschein) subjectLine += ' [' + activeGutschein.code + ']';
   fd.append('subject',        subjectLine);
   fd.append('H\u00fcpfburg',  burgLine);
   fd.append('Datum',          datumLine);
@@ -1798,6 +1993,7 @@ function submitAnfrage(){
   if(zuckerwatteSetOn) fd.append('Zuckerwatte-Set', 'Ja – Zuckerwatte-Set (+20 €)');
   if(popcornSetOn)     fd.append('Popcorn-Set',     'Ja – Popcorn-Set (+20 €)');
   if(nachricht) fd.append('Nachricht', nachricht);
+  if(activeGutschein) fd.append('Gutscheincode', activeGutschein.code + ' (' + activeGutschein.label + ', \u2212' + activeGutschein.prozent + '%)');
   // Gesamtpreis und Aufschlüsselung mitsenden
   if(window._gesamtpreis) fd.append('Gesamtpreis (geschätzt)', window._gesamtpreis);
   if(window._preisdetails) fd.append('Preisaufschlüsselung', window._preisdetails);
@@ -1861,7 +2057,8 @@ function saveDraft(){
       zuckerwatteSetOn: !!zuckerwatteSetOn,
       popcornSetOn: !!popcornSetOn,
       extraFoto: document.body.classList.contains('extra-foto'),
-      lieferung: _val('#lieferung-val')
+      lieferung: _val('#lieferung-val'),
+      gutschein: activeGutschein ? activeGutschein.code : ''
     };
     // Nur speichern wenn irgendwas Sinnvolles drin steht
     if(d.vorname || d.nachname || d.telefon || d.email || d.selectedName || d.selectedFoto || d.datumStart || d.strasse || d.plz || d.ort || d.nachricht){
@@ -1942,6 +2139,13 @@ function loadDraft(){
       setLieferung(false);
     }
  
+    // 7. Gutscheincode wiederherstellen
+    if(d.gutschein && GUTSCHEINE[d.gutschein]){
+      var gi = document.getElementById('gutscheinInput');
+      if(gi) gi.value = d.gutschein;
+      applyGutschein(true);
+    }
+
     if(typeof updateOrderSummary === 'function') updateOrderSummary();
     _isRestoring = false;
     return true;
