@@ -5,8 +5,8 @@
 
   <!-- ===== HAUPTSEITEN ===== -->
   <url>
-    <loc>https://huepfabenteuer.at/home.html</loc>
-    <lastmod>2026-05-17</lastmod>
+    <loc>https://huepfabenteuer.at/</loc>
+    <lastmod>2026-08-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -158,9 +158,9 @@
   <!-- ===== FOTOBOX & EXTRAS ===== -->
   <url>
     <loc>https://huepfabenteuer.at/fotobox.html</loc>
-    <lastmod>2026-05-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>2026-08-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
     <image:image>
       <image:loc>https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_8637-high-94tedm.jpg?enable-io=true&amp;enable=upscale&amp;width=1200</image:loc>
       <image:title>Fotobox mit Sofortdruck mieten Kärnten</image:title>
