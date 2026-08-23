@@ -35,6 +35,66 @@
 <!-- PERFORMANCE: Async-load fonts (no render blocking) -->
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
 <noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/></noscript>
+<!-- Schriften für den Fotobox-Bereich -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=JetBrains+Mono:wght@400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+<style>
+/* ── Fotobox-Bereich: eigenes Erscheinungsbild ────────────── */
+.fb-band{
+  background:#0B0B0E;color:#F5F0E6;margin:26px 0 0;padding:44px 18px 40px;
+  position:relative;overflow:hidden;
+}
+.fb-band::before{
+  content:"";position:absolute;top:-45%;left:50%;transform:translateX(-50%);
+  width:min(760px,150%);height:520px;pointer-events:none;
+  background:radial-gradient(ellipse at center,rgba(201,149,74,.18),transparent 66%);
+}
+.fb-in{position:relative;z-index:2;max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:30px;align-items:center;}
+.fb-eyebrow{
+  font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.64rem;letter-spacing:.22em;
+  text-transform:uppercase;color:#C9954A;display:flex;align-items:center;gap:11px;margin-bottom:16px;
+}
+.fb-eyebrow::after{content:"";flex:1;height:1px;background:rgba(245,240,230,.2);}
+.fb-h{
+  font-family:'Bodoni Moda','Didot',serif;font-weight:400;letter-spacing:-.012em;
+  font-size:clamp(1.9rem,7vw,2.9rem);line-height:1.05;color:#F5F0E6;margin-bottom:14px;
+}
+.fb-h em{font-style:italic;color:#E6C08A;}
+.fb-p{font-family:'Nunito',sans-serif;font-size:15px;line-height:1.75;color:#A8A49B;margin-bottom:20px;max-width:52ch;}
+.fb-meta{display:flex;flex-wrap:wrap;gap:8px 22px;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.68rem;color:#726F68;letter-spacing:.06em;margin-bottom:24px;}
+.fb-meta b{color:#A8A49B;font-weight:400;}
+.fb-btns{display:flex;flex-wrap:wrap;gap:10px;}
+.fb-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:14px;padding:13px 22px;
+  border-radius:2px;text-decoration:none;min-height:48px;border:1px solid transparent;
+  transition:background .2s,color .2s,border-color .2s;
+}
+.fb-btn-solid{background:#F5F0E6;color:#16150F;}
+.fb-btn-solid:hover{background:#E6C08A;}
+.fb-btn-ghost{background:transparent;color:#F5F0E6;border-color:rgba(245,240,230,.2);}
+.fb-btn-ghost:hover{border-color:#C9954A;color:#E6C08A;}
+.fb-strip{
+  background:#F5F0E6;padding:11px 11px 0;border-radius:2px;justify-self:center;max-width:260px;width:100%;
+  box-shadow:0 34px 66px -30px rgba(0,0,0,.9);transform:rotate(-1.6deg);
+}
+.fb-strip img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;display:block;background:#E8E1D2;}
+.fb-strip-c{
+  font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.55rem;letter-spacing:.14em;
+  text-transform:uppercase;color:#6B6659;padding:11px 2px 13px;display:flex;justify-content:space-between;gap:10px;
+}
+.fb-pk{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(245,240,230,.14);border:1px solid rgba(245,240,230,.14);margin-top:30px;position:relative;z-index:2;max-width:1000px;margin-left:auto;margin-right:auto;}
+.fb-pk-i{background:#0B0B0E;padding:16px 12px;text-align:center;}
+.fb-pk-n{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:#726F68;margin-bottom:6px;}
+.fb-pk-p{font-family:'Bodoni Moda','Didot',serif;font-size:1.5rem;line-height:1;color:#F5F0E6;}
+@media(min-width:820px){
+  .fb-band{padding:60px 40px 54px;}
+  .fb-in{grid-template-columns:1.3fr .7fr;gap:48px;}
+  .fb-strip{max-width:280px;justify-self:end;}
+  .fb-pk-i{padding:20px;}
+}
+@media(prefers-reduced-motion:reduce){.fb-btn{transition:none;}}
+</style>
 <style>
 :root{
   --pink:#ff4fa3;--purple:#a855f7;--sky:#00c2ff;
@@ -354,7 +414,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5.0",
-      "reviewCount": "13"
+      "reviewCount": "16"
     },
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
@@ -440,7 +500,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   <nav class="hbg-nav">
     <a href="home.html" class="hbg-link" data-page="home"><span class="hbg-link-ic">🏠</span>Home</a>
     <a href="unsere-angebote.html?filter=burg" class="hbg-link" data-page="burg"><span class="hbg-link-ic">🏰</span>Hüpfburgen</a>
-    <a href="unsere-angebote.html?filter=foto" class="hbg-link" data-page="foto"><span class="hbg-link-ic">📷</span>Fotobox</a>
+    <a href="fotobox.html" class="hbg-link" data-page="foto"><span class="hbg-link-ic">📷</span>Fotobox</a>
     <a href="unsere-angebote.html?filter=extra" class="hbg-link" data-page="extra"><span class="hbg-link-ic">🍭</span>Extras</a>
     <a href="kontakt.html" class="hbg-link" data-page="kontakt"><span class="hbg-link-ic">📞</span>Kontakt</a>
   </nav>
@@ -786,76 +846,35 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
  
  
 <!-- FOTOBOX -->
-<div class="sec" id="section-foto">
-  <div class="reveal">
-    <div class="stitle">Fotobox <em>mieten</em></div>
-    <div class="stitle-sub">Mit Sofortdruck · Auf- &amp; Abbau inklusive · Ab 199 € pro Event</div>
-  </div>
-  <div class="burg-list reveal" style="grid-template-columns:1fr;max-width:600px;margin-left:auto;margin-right:auto;">
-    <div class="burg-card" data-cat="foto" onclick="if(!event.target.closest('a,button'))window.location.href='fotobox.html'" style="position:relative;">
-      <div style="position:absolute;top:14px;left:14px;z-index:3;background:linear-gradient(135deg,var(--purple),#6366f1);color:white;font-family:'Baloo 2',cursive;font-size:11px;font-weight:800;padding:5px 12px;border-radius:30px;box-shadow:0 4px 12px rgba(168,85,247,.4);">📷 Fotobox</div>
-      <img class="burg-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_8637-high-94tedm.jpg?enable-io=true&enable=upscale&crop=0.7505%3A1&width=800" alt="Fotobox mieten Kärnten – Sofortdruck für Hochzeit und Geburtstag" loading="lazy" onerror="this.style.display='none'" style="height:280px;">
-      <div class="burg-card-foot" style="border-top:3px solid var(--purple);">
-        <div class="burg-top">
-          <div class="burg-name">Fotobox mit Sofortdruck</div>
-          <div class="burg-price-wrap">
-            <div class="burg-price" style="color:var(--purple);">ab 199€</div>
-            <div class="burg-price-sub">pro Event</div>
-          </div>
-        </div>
-        <p class="burg-desc">Die perfekte Ergänzung für jedes Event! Fotobox mit Sofortdruck – lustige Props, unbegrenzte Fotos und sofortige Ausdrucke für deine Gäste. Ideal für Hochzeiten, Geburtstage & Firmenfeiern.</p>
-        <div class="specs">
-          <span class="spec" style="background:#f5f0ff;color:#6b21a8;">📷 Sofortdruck</span>
-          <span class="spec" style="background:#f5f0ff;color:#6b21a8;">🎭 Props inklusive</span>
-          <span class="spec" style="background:#f5f0ff;color:#6b21a8;">♾️ Unbegrenzte Fotos</span>
-          <span class="spec green">💒 Hochzeit · 🎂 Geburtstag · 🏢 Firmenfeier</span>
-        </div>
-        <div class="aufbau-row" style="background:linear-gradient(135deg,rgba(0,201,126,.10),rgba(0,217,126,.05));border-color:rgba(0,201,126,.28);">
-          <div class="aufbau-label">🔧 Auf- &amp; Abbau</div>
-          <div><div class="aufbau-price" style="color:#059669;">INKLUSIVE</div><div class="aufbau-sub">in allen Paketen enthalten</div></div>
-        </div>
-        <div class="burg-btns">
-          <a href="fotobox.html" class="btn-anfragen" style="background:linear-gradient(135deg,#00c2ff,#a855f7,#ff4fa3);background-size:200% 100%;box-shadow:0 6px 24px rgba(168,85,247,.35);animation:btnShimmer 3s ease-in-out infinite;">📷 Pakete entdecken</a>
-        </div>
+<div id="section-foto">
+<!-- FOTOBOX -->
+<section class="fb-band" id="fotobox" aria-labelledby="fb-title">
+  <div class="fb-in">
+    <div>
+      <div class="fb-eyebrow">Fotobox mit Sofortdruck</div>
+      <h2 class="fb-h" id="fb-title">Der Abend ist vorbei.<br>Die Bilder <em>bleiben.</em></h2>
+      <p class="fb-p">Drei Pakete ab 199 €, 16 Fotorahmen zur Auswahl, unbegrenzte digitale Fotos. Mit Sofortdruck für Hochzeit, Weihnachtsfeier, Firmenfeier und Geburtstag — Lieferung, Auf- und Abbau überall inklusive.</p>
+      <div class="fb-meta">
+        <span><b>3</b> Pakete ab 199 €</span>
+        <span><b>16</b> Fotorahmen zur Auswahl</span>
+        <span><b>40 km</b> Lieferung gratis</span>
+      </div>
+      <div class="fb-btns">
+        <a href="fotobox.html" class="fb-btn fb-btn-solid">Fotobox ansehen</a>
+        <a href="fotobox.html#anfrage" class="fb-btn fb-btn-ghost">Termin anfragen</a>
       </div>
     </div>
+    <figure class="fb-strip">
+      <img src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_8637-high-94tedm.jpg?enable-io=true&enable=upscale&width=800" alt="Fotobox mit Sofortdruck mieten in Kärnten – Hüpfabenteuer" width="800" height="1000" loading="lazy"/>
+      <figcaption class="fb-strip-c"><span>Fotobox Premium</span><span>Kärnten</span></figcaption>
+    </figure>
   </div>
-</div>
- 
- 
-<div class="sec" id="section-extra">
-  <div class="reveal">
-    <div class="stitle">Noch mehr <em>Spaß</em></div>
-    <div class="stitle-sub">Perfekte Ergänzung für dein Event</div>
+  <div class="fb-pk">
+    <a href="fotobox.html#pakete" class="fb-pk-i" style="text-decoration:none;"><div class="fb-pk-n">Digital</div><div class="fb-pk-p">199 €</div></a>
+    <a href="fotobox.html#pakete" class="fb-pk-i" style="text-decoration:none;"><div class="fb-pk-n">Standard</div><div class="fb-pk-p">299 €</div></a>
+    <a href="fotobox.html#pakete" class="fb-pk-i" style="text-decoration:none;"><div class="fb-pk-n">Premium</div><div class="fb-pk-p">349 €</div></a>
   </div>
-  <div class="extras-grid reveal">
-    <a href="zuckerwatte.html" class="extras-card" data-cat="extra">
-      <img class="extras-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_6594-high-8biq12.jpg?enable-io=true&enable=upscale&crop=1.2527%3A1&width=800" alt="Zuckerwatte" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="extras-img-ph" style="display:none;background:linear-gradient(135deg,#ffb3de,#ff69b4);">🍭</div>
-      <div class="extras-card-foot">
-        <div class="ext-name">Zuckerwatte</div>
-        <div class="ext-desc">Der süße Hit!</div>
-        <div class="ext-pr">45€<span class="ext-arr">→</span></div>
-      </div>
-    </a>
-    <a href="popcorn.html" class="extras-card" data-cat="extra">
-      <img class="extras-img" src="https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_7003-standard.jpg" alt="Popcorn" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="extras-img-ph" style="display:none;background:linear-gradient(135deg,#ffd54f,#ff8f00);">🍿</div>
-      <div class="extras-card-foot">
-        <div class="ext-name">Popcorn</div>
-        <div class="ext-desc">Frisch & knusprig</div>
-        <div class="ext-pr">60€<span class="ext-arr">→</span></div>
-      </div>
-    </a>
-    <a href="kontakt.html" class="extras-card" data-cat="extra" style="background:linear-gradient(135deg,#1a0d55,#2a1668);border:none;">
-      <div class="extras-img-ph" style="background:transparent;">❄️</div>
-      <div class="extras-card-foot" style="background:transparent;">
-        <div class="ext-name" style="color:white;">Indoor</div>
-        <div class="ext-desc" style="color:rgba(255,255,255,.75);">Gasthof Hochsteiner</div>
-        <div class="ext-pr" style="color:var(--sky);">Anfragen<span class="ext-arr" style="background:rgba(255,255,255,.15);">→</span></div>
-      </div>
-    </a>
-  </div>
+</section>
 </div>
  
 <!-- PAKETE -->
@@ -957,7 +976,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
 <nav class="bnav" aria-label="Hauptnavigation">
   <a href="home.html" class="bi" data-nav="home" aria-label="Home"><span class="bi-ic">🏠</span><span class="bi-lb">Home</span></a>
   <a href="unsere-angebote.html?filter=burg" class="bi" data-nav="burg" aria-label="Hüpfburgen ansehen"><span class="bi-ic">🏰</span><span class="bi-lb">Hüpfburgen</span></a>
-  <a href="unsere-angebote.html?filter=foto" class="bi" data-nav="foto" aria-label="Fotobox Angebote"><span class="bi-ic">📷</span><span class="bi-lb">Fotobox</span></a>
+  <a href="fotobox.html" class="bi" data-nav="foto" aria-label="Fotobox mieten Kärnten"><span class="bi-ic">📷</span><span class="bi-lb">Fotobox</span></a>
   <a href="unsere-angebote.html?filter=extra" class="bi" data-nav="extra" aria-label="Extras wie Zuckerwatte"><span class="bi-ic">🍭</span><span class="bi-lb">Extras</span></a>
   <a href="kontakt.html" class="bi" data-nav="kontakt" aria-label="Kontakt aufnehmen"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
 </nav>

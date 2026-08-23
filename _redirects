@@ -1,4 +1,25 @@
 # Netlify _redirects für Hüpfabenteuer
+
+# ─────────────────────────────────────────────────────────────
+# WWW → HAUPTDOMAIN
+# www.huepfabenteuer.at liefert dieselben Seiten aus wie die
+# Hauptdomain. Google kennt beide Varianten, dadurch verteilt
+# sich die Linkkraft auf zwei Adressen. Diese Regel führt alles
+# auf huepfabenteuer.at zusammen.
+# ─────────────────────────────────────────────────────────────
+http://www.huepfabenteuer.at/*   https://huepfabenteuer.at/:splat   301!
+https://www.huepfabenteuer.at/*  https://huepfabenteuer.at/:splat   301!
+
+# ─────────────────────────────────────────────────────────────
+# ALTE WEBADOR-URLS
+# Reste aus der Zeit vor dem Umzug, die noch im Google-Index
+# stehen und aktuell ins Leere laufen.
+# ─────────────────────────────────────────────────────────────
+/schlagwoerter     /                       301
+/schlagwoerter/*   /                       301
+/blog              /                       301
+/blog/*            /                       301
+
 # https://docs.netlify.com/routing/redirects/
 
 # ─────────────────────────────────────────────────────────────

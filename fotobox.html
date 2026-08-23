@@ -126,6 +126,10 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,s
 .brand-n{font-family:var(--serif);font-size:1.06rem;color:var(--paper);letter-spacing:.01em;}
 .brand-s{font-family:var(--mono);font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--brass);}
 .top-actions{display:flex;align-items:center;gap:10px;}
+.top-nav{display:none;gap:26px;}
+.top-nav a{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fog-2);}
+.top-nav a:hover,.top-nav a.on{color:var(--brass);}
+@media(min-width:900px){.top-nav{display:flex;}}
 .top-tel{font-family:var(--mono);font-size:.78rem;color:var(--fog);letter-spacing:.04em;}
 .top-tel:hover{color:var(--paper);}
 @media(max-width:720px){.top-tel{display:none;}}
@@ -210,6 +214,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,s
 
 /* ── Abschnitte ───────────────────────────────────────────── */
 section{padding:76px 0;border-bottom:1px solid var(--line);position:relative;z-index:2;}
+section[id],[id]{scroll-margin-top:72px;}
+@media(max-width:520px){section{padding:56px 0;}.sec-head{margin-bottom:32px;}}
 .sec-head{margin-bottom:44px;display:flex;flex-direction:column;gap:18px;}
 .sec-head h2{max-width:20ch;}
 
@@ -424,6 +430,8 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
 .bi span{font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;}
 .bi.on{color:var(--brass);}
 .bi.on::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:26px;height:1px;background:var(--brass);}
+.bi.cta{color:var(--brass);}
+.bi.cta svg{stroke-width:1.7;}
 @media(min-width:900px){body{padding-bottom:0;}.bnav{display:none;}}
 
 /* ── WhatsApp ─────────────────────────────────────────────── */
@@ -437,6 +445,42 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
 .wa:hover{border-color:var(--brass);background:var(--void-2);}
 .wa svg{width:22px;height:22px;fill:var(--paper);}
 @media(min-width:900px){.wa{bottom:26px;}}
+
+/* ── Fotorahmen ───────────────────────────────────────────── */
+.rahmen-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+@media(min-width:640px){.rahmen-grid{grid-template-columns:repeat(4,1fr);gap:16px;}}
+.rahmen{
+  background:var(--paper);padding:8px 8px 0;border:0;border-radius:2px;
+  display:block;width:100%;text-align:left;font:inherit;color:inherit;cursor:zoom-in;
+  transition:transform .2s,box-shadow .2s;
+}
+.rahmen:hover{transform:translateY(-3px);box-shadow:0 18px 36px -20px rgba(0,0,0,.85);}
+.rahmen img{width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;display:block;background:var(--paper-2);}
+.rahmen-c{
+  font-family:var(--mono);font-size:.53rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--paper-mute);padding:8px 2px 10px;line-height:1.6;
+}
+.rahmen-c b{display:block;color:var(--paper-ink);font-weight:500;}
+.rahmen-note{margin-top:22px;padding-top:20px;border-top:1px solid var(--line);color:var(--fog);font-size:.93rem;max-width:62ch;}
+
+/* Großansicht */
+.lb{position:fixed;inset:0;z-index:200;background:rgba(6,6,8,.97);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:24px;}
+.lb.on{display:flex;}
+.lb img{max-width:min(92vw,480px);max-height:78vh;width:auto;height:auto;background:var(--paper);padding:10px;border-radius:2px;}
+.lb-c{position:absolute;bottom:26px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fog);padding:0 20px;}
+.lb-x{
+  position:absolute;top:14px;right:14px;width:46px;height:46px;border-radius:50%;
+  border:1px solid var(--line-2);background:transparent;color:var(--paper);
+  font-size:22px;line-height:1;cursor:pointer;font-family:var(--sans);
+}
+.lb-x:hover{border-color:var(--brass);color:var(--brass-lt);}
+
+/* ── Liefergebiet ─────────────────────────────────────────── */
+.orte{display:flex;flex-wrap:wrap;gap:8px;}
+.ort{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--fog);border:1px solid var(--line-2);border-radius:2px;padding:8px 12px;
+}
 
 /* ── Bewegung ─────────────────────────────────────────────── */
 .rise{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1);}
@@ -456,7 +500,7 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
   "image": "https://primary.jwwb.nl/public/q/o/p/temp-ztflfzkxmyqvypwxycpv/img_8637-high-94tedm.jpg?enable-io=true&enable=upscale&width=1200",
   "brand": {"@type": "Brand", "name": "Hüpfabenteuer Kärnten"},
   "category": "Fotobox Verleih",
-  "aggregateRating": {"@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "14", "bestRating": "5"},
+  "aggregateRating": {"@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "16", "bestRating": "5"},
   "offers": {
     "@type": "AggregateOffer",
     "priceCurrency": "EUR",
@@ -491,7 +535,7 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
     {"@type": "City", "name": "Friesach"},
     {"@type": "State", "name": "Kärnten"}
   ],
-  "aggregateRating": {"@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "14", "bestRating": "5"}
+  "aggregateRating": {"@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "16", "bestRating": "5"}
 }
 </script>
 <script type="application/ld+json">
@@ -501,7 +545,9 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
   "mainEntity": [
     {"@type":"Question","name":"Was kostet es, eine Fotobox in Kärnten zu mieten?","acceptedAnswer":{"@type":"Answer","text":"Es gibt drei Pakete: Digital um 199 €, Standard um 299 € und Premium um 349 €. Lieferung, Auf- und Abbau sind bei allen Paketen inklusive, die ersten 40 Kilometer Anfahrt sind gratis."}},
     {"@type":"Question","name":"Was kostet die Lieferung?","acceptedAnswer":{"@type":"Answer","text":"Die ersten 40 Kilometer sind gratis. Darüber hinaus werden 0,55 € pro Kilometer verrechnet, gerechnet auf vier Fahrten: Lieferung hin und retour, Abholung hin und retour. Die genaue Rechnung steht offen auf jedem Angebot."}},
-    {"@type":"Question","name":"Wie viele Fotos sind inkludiert?","acceptedAnswer":{"@type":"Answer","text":"Digitale Fotos sind bei allen Paketen unbegrenzt. Beim Standard-Paket sind 300 Ausdrucke inkludiert, beim Premium-Paket 500. Beim Digital-Paket gibt es keinen Drucker, alle Fotos gibt es digital auf USB-Stick."}},
+    {"@type":"Question","name":"Wie viele Fotos sind inkludiert?","acceptedAnswer":{"@type":"Answer","text":"Digitale Fotos sind bei allen Paketen unbegrenzt. Bei Standard und Premium sind jeweils 300 Ausdrucke inkludiert. Beim Digital-Paket gibt es keinen Drucker, alle Fotos gibt es digital auf USB-Stick."}},
+    {"@type":"Question","name":"Kann ich die Fotobox auch ohne Hüpfburg mieten?","acceptedAnswer":{"@type":"Answer","text":"Ja. Die Fotobox ist ein eigenständiges Angebot und kann einzeln gemietet werden. Hüpfburgen, Zuckerwatte und Popcorn lassen sich dazubuchen, sind aber keine Voraussetzung."}},
+    {"@type":"Question","name":"Liefert ihr die Fotobox auch nach Klagenfurt und Villach?","acceptedAnswer":{"@type":"Answer","text":"Ja. Wir liefern in ganz Kärnten, unter anderem nach Klagenfurt, Villach, St. Veit an der Glan, Feldkirchen, Friesach, Wolfsberg, Spittal an der Drau und Gurk. Die ersten 40 Kilometer ab Glödnitz sind gratis."}},
     {"@type":"Question","name":"Bekomme ich alle Fotos digital?","acceptedAnswer":{"@type":"Answer","text":"Ja. Alle Aufnahmen werden gespeichert und du bekommst sie nach dem Event auf USB-Stick. Digitale Fotos sind bei jedem Paket unbegrenzt."}},
     {"@type":"Question","name":"Kann ich den Fotorahmen selbst gestalten?","acceptedAnswer":{"@type":"Answer","text":"Beim Premium-Paket wird der Fotorahmen individuell nach deinen Wünschen gestaltet, zum Beispiel mit euren Namen und dem Hochzeitsdatum oder dem Firmenlogo. Beim Standard-Paket wird einer der bestehenden Rahmen verwendet."}},
     {"@type":"Question","name":"Wie viel Platz braucht die Fotobox?","acceptedAnswer":{"@type":"Answer","text":"Rund zwei mal zwei Meter reichen für die Box selbst, etwas mehr, wenn eine Gruppe davor Platz haben soll. Am besten steht sie drinnen oder überdacht, damit Technik und Ausdrucke trocken bleiben."}},
@@ -562,6 +608,12 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
       <span class="brand-n">Hüpfabenteuer</span>
       <span class="brand-s">Fotobox</span>
     </a>
+    <nav class="top-nav" aria-label="Seitenbereiche">
+      <a href="unsere-angebote.html?filter=burg" class="">Hüpfburgen</a>
+      <a href="fotobox.html" class="on">Fotobox</a>
+      <a href="unsere-angebote.html?filter=extra" class="">Extras</a>
+      <a href="kontakt.html" class="">Kontakt</a>
+    </nav>
     <div class="top-actions">
       <a href="tel:+436641852634" class="top-tel" data-track="call">+43 664 185 26 34</a>
       <a href="#anfrage" class="btn btn-solid btn-sm">Termin anfragen</a>
@@ -653,7 +705,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
           <li><b>300 Ausdrucke</b> inkludiert</li>
           <li>Fotorahmen aus unserer Auswahl</li>
         </ul>
-        <a href="fotorahmen.html" class="paket-link">Rahmen ansehen</a>
+        <a href="#rahmen" class="paket-link">Rahmen ansehen</a>
         <button type="button" class="btn btn-solid btn-wide" data-choose="Standard">Standard anfragen</button>
       </article>
 
@@ -669,15 +721,95 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
         <div class="paket-rule"></div>
         <ul class="plist">
           <li>Alles aus <b>Standard</b></li>
-          <li><b>500 Ausdrucke</b> inkludiert</li>
+          <li><b>300 Ausdrucke</b> inkludiert</li>
           <li><b>Individueller Fotorahmen</b> — eure Namen, euer Datum, euer Logo</li>
           <li><b>Accessoire-Set</b> inklusive</li>
         </ul>
-        <a href="fotorahmen.html" class="paket-link">Alle Rahmen ansehen</a>
+        <a href="#rahmen" class="paket-link">Alle Rahmen ansehen</a>
         <button type="button" class="btn btn-solid btn-wide" data-choose="Premium">Premium anfragen</button>
       </article>
 
     </div>
+  </div>
+</section>
+
+<!-- ══════════════ FOTORAHMEN ══════════════ -->
+<section id="rahmen">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Fotorahmen</div>
+      <h2>Der Rahmen macht den Unterschied.</h2>
+      <p class="lede">Jeder Ausdruck bekommt einen Rahmen — als Dreier-Streifen wie beim klassischen Fotoautomaten oder als einzelnes Bild. Bei Standard wählst du aus dieser Auswahl, bei Premium gestalten wir ihn nach deinen Wünschen.</p>
+    </div>
+
+    <div class="rahmen-grid rise">
+      <button type="button" class="rahmen" data-src="rahmen-01.webp" data-cap="Hüpfabenteuer · Dreier-Streifen">
+        <img src="rahmen-01.webp" width="400" height="600" loading="lazy" alt="Fotorahmen Hüpfabenteuer, Dreier-Streifen in Orange und Gelb"/>
+        <div class="rahmen-c"><b>Hüpfabenteuer</b>Dreier-Streifen</div>
+      </button>
+      <button type="button" class="rahmen" data-src="rahmen-02.webp" data-cap="Hüpfabenteuer · Einzelbild">
+        <img src="rahmen-02.webp" width="400" height="600" loading="lazy" alt="Fotorahmen Hüpfabenteuer, Einzelbild in Orange und Gelb"/>
+        <div class="rahmen-c"><b>Hüpfabenteuer</b>Einzelbild</div>
+      </button>
+      <button type="button" class="rahmen" data-src="rahmen-03.webp" data-cap="Rosen Zartrosa · Dreier-Streifen">
+        <img src="rahmen-03.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen mit zartrosa Rosen, Dreier-Streifen"/>
+        <div class="rahmen-c"><b>Rosen Zartrosa</b>Dreier-Streifen</div>
+      </button>
+      <button type="button" class="rahmen" data-src="rahmen-04.webp" data-cap="Rosen Zartrosa · Einzelbild">
+        <img src="rahmen-04.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen mit zartrosa Rosen, Einzelbild mit Namen und Datum"/>
+        <div class="rahmen-c"><b>Rosen Zartrosa</b>Einzelbild</div>
+      </button>
+      <button type="button" class="rahmen" data-src="rahmen-05.webp" data-cap="Rosen & Eukalyptus · Dreier-Streifen">
+        <img src="rahmen-05.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen mit Rosen und Eukalyptus, Dreier-Streifen"/>
+        <div class="rahmen-c"><b>Rosen &amp; Eukalyptus</b>Dreier-Streifen</div>
+      </button>
+      <button type="button" class="rahmen" data-src="rahmen-06.webp" data-cap="Rosen & Eukalyptus · Einzelbild">
+        <img src="rahmen-06.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen mit Rosen und Eukalyptus, Einzelbild mit Namen und Datum"/>
+        <div class="rahmen-c"><b>Rosen &amp; Eukalyptus</b>Einzelbild</div>
+      </button>
+      <button type="button" class="rahmen" data-src="rahmen-07.webp" data-cap="Kirschblüte · Dreier-Streifen">
+        <img src="rahmen-07.webp" width="400" height="600" loading="lazy" alt="Fotorahmen mit rosa Kirschblüten, Dreier-Streifen"/>
+        <div class="rahmen-c"><b>Kirschblüte</b>Dreier-Streifen</div>
+      </button>
+      <button type="button" class="rahmen" data-src="rahmen-08.webp" data-cap="Kirschblüte · Einzelbild">
+        <img src="rahmen-08.webp" width="400" height="600" loading="lazy" alt="Fotorahmen mit rosa Kirschblüten, Einzelbild mit Namen und Datum"/>
+        <div class="rahmen-c"><b>Kirschblüte</b>Einzelbild</div>
+      </button>
+      <button type="button" class="rahmen" data-src="rahmen-09.webp" data-cap="Mohn & Rosen · Dreier-Streifen">
+        <img src="rahmen-09.webp" width="400" height="600" loading="lazy" alt="Fotorahmen mit roten Mohnblumen und Rosen, Dreier-Streifen"/>
+        <div class="rahmen-c"><b>Mohn &amp; Rosen</b>Dreier-Streifen</div>
+      </button>
+      <button type="button" class="rahmen" data-src="rahmen-10.webp" data-cap="Mohn & Rosen · Einzelbild">
+        <img src="rahmen-10.webp" width="400" height="600" loading="lazy" alt="Fotorahmen mit roten Mohnblumen und Rosen, Einzelbild mit Namen und Datum"/>
+        <div class="rahmen-c"><b>Mohn &amp; Rosen</b>Einzelbild</div>
+      </button>
+      <button type="button" class="rahmen" data-src="rahmen-11.webp" data-cap="Weihnachten Tannengrün · Dreier-Streifen">
+        <img src="rahmen-11.webp" width="400" height="600" loading="lazy" alt="Weihnachtlicher Fotorahmen mit Tannengrün und Schneeflocken, Dreier-Streifen"/>
+        <div class="rahmen-c"><b>Weihnachten Tannengrün</b>Dreier-Streifen</div>
+      </button>
+      <button type="button" class="rahmen" data-src="rahmen-12.webp" data-cap="Weihnachten Zimt & Punsch · Einzelbild">
+        <img src="rahmen-12.webp" width="400" height="600" loading="lazy" alt="Weihnachtlicher Fotorahmen mit Zimt und Punsch, Einzelbild"/>
+        <div class="rahmen-c"><b>Weihnachten Zimt &amp; Punsch</b>Einzelbild</div>
+      </button>
+      <button type="button" class="rahmen" data-src="rahmen-13.webp" data-cap="Halloween · Einzelbild">
+        <img src="rahmen-13.webp" width="400" height="600" loading="lazy" alt="Halloween-Fotorahmen mit Kürbissen und Süßigkeiten, Einzelbild"/>
+        <div class="rahmen-c"><b>Halloween</b>Einzelbild</div>
+      </button>
+      <button type="button" class="rahmen" data-src="rahmen-14.webp" data-cap="Halloween · Dreier-Streifen">
+        <img src="rahmen-14.webp" width="400" height="600" loading="lazy" alt="Halloween-Fotorahmen mit Kürbissen und Süßigkeiten, Dreier-Streifen"/>
+        <div class="rahmen-c"><b>Halloween</b>Dreier-Streifen</div>
+      </button>
+      <button type="button" class="rahmen" data-src="rahmen-15.webp" data-cap="Geburtstag · Einzelbild">
+        <img src="rahmen-15.webp" width="400" height="600" loading="lazy" alt="Geburtstags-Fotorahmen mit Luftballons und Torte, Einzelbild"/>
+        <div class="rahmen-c"><b>Geburtstag</b>Einzelbild</div>
+      </button>
+      <button type="button" class="rahmen" data-src="rahmen-16.webp" data-cap="Geburtstag · Dreier-Streifen">
+        <img src="rahmen-16.webp" width="400" height="600" loading="lazy" alt="Geburtstags-Fotorahmen mit Luftballons und Torte, Dreier-Streifen"/>
+        <div class="rahmen-c"><b>Geburtstag</b>Dreier-Streifen</div>
+      </button>
+    </div>
+
+    <p class="rahmen-note rise">Die farbigen Flächen sind die Platzhalter — dort stehen später eure Fotos. Namen und Datum sind Beispiele und werden für euren Anlass ersetzt. Beim Premium-Paket entwerfen wir den Rahmen komplett neu, etwa mit eurem Hochzeitsdatum oder dem Firmenlogo.</p>
   </div>
 </section>
 
@@ -841,6 +973,34 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   </div>
 </section>
 
+<!-- ══════════════ LIEFERGEBIET ══════════════ -->
+<section id="liefergebiet">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Liefergebiet</div>
+      <h2>Fotobox mieten in ganz Kärnten.</h2>
+      <p class="lede">Wir starten in Glödnitz und liefern von dort im ganzen Bundesland. Die ersten 40 Kilometer sind gratis, jeder weitere kostet 0,55 € — gerechnet auf vier Fahrten, weil wir die Box bringen und wieder abholen.</p>
+    </div>
+    <div class="orte rise">
+      <span class="ort">Klagenfurt</span>
+      <span class="ort">Villach</span>
+      <span class="ort">St. Veit an der Glan</span>
+      <span class="ort">Feldkirchen</span>
+      <span class="ort">Friesach</span>
+      <span class="ort">Gurk</span>
+      <span class="ort">Straßburg</span>
+      <span class="ort">Althofen</span>
+      <span class="ort">Wolfsberg</span>
+      <span class="ort">Spittal an der Drau</span>
+      <span class="ort">Velden</span>
+      <span class="ort">Moosburg</span>
+      <span class="ort">Hüttenberg</span>
+      <span class="ort">Weitensfeld</span>
+    </div>
+    <p class="rahmen-note rise">Dein Ort ist nicht dabei? Kein Problem — schreib ihn einfach ins Formular, dann rechne ich dir die Anfahrt aus. Auch weitere Strecken sind machbar.</p>
+  </div>
+</section>
+
 <!-- ══════════════ STIMMEN ══════════════ -->
 <section>
   <div class="wrap">
@@ -869,7 +1029,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
 
     <div class="rating-bar rise">
       <div class="rating-n">5,0</div>
-      <div class="rating-x">14 Bewertungen auf Google<br>Hüpfabenteuer gesamt — Fotobox, Hüpfburgen und Extras</div>
+      <div class="rating-x">16 Bewertungen auf Google<br>Hüpfabenteuer gesamt — Fotobox, Hüpfburgen und Extras</div>
       <a href="https://g.page/r/CUE00P_892NPEAE/review" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Alle Bewertungen ansehen</a>
     </div>
   </div>
@@ -891,7 +1051,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
 
       <details class="faq">
         <summary>Wie viele Ausdrucke sind inkludiert?</summary>
-        <div class="faq-a">Beim Standard-Paket 300 Ausdrucke, beim Premium-Paket 500. Digitale Fotos sind bei allen drei Paketen unbegrenzt. Beim Digital-Paket gibt es keinen Drucker — dafür bekommst du alle Aufnahmen digital auf USB-Stick.</div>
+        <div class="faq-a">Bei Standard und Premium sind jeweils 300 Ausdrucke inkludiert. Digitale Fotos sind bei allen drei Paketen unbegrenzt. Beim Digital-Paket gibt es keinen Drucker — dafür bekommst du alle Aufnahmen digital auf USB-Stick.</div>
       </details>
 
       <details class="faq">
@@ -901,7 +1061,17 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
 
       <details class="faq">
         <summary>Kann ich den Fotorahmen selbst gestalten?</summary>
-        <div class="faq-a">Beim Premium-Paket gestalten wir den Rahmen individuell nach deinen Wünschen — zum Beispiel mit euren Namen und dem Hochzeitsdatum oder mit dem Firmenlogo. Beim Standard-Paket verwenden wir einen der bestehenden Rahmen, die kannst du dir <a href="fotorahmen.html">hier ansehen</a>.</div>
+        <div class="faq-a">Beim Premium-Paket gestalten wir den Rahmen individuell nach deinen Wünschen — zum Beispiel mit euren Namen und dem Hochzeitsdatum oder mit dem Firmenlogo. Beim Standard-Paket verwenden wir einen der bestehenden Rahmen, die kannst du dir <a href="#rahmen">weiter oben ansehen</a>.</div>
+      </details>
+
+      <details class="faq">
+        <summary>Kann ich die Fotobox auch ohne Hüpfburg mieten?</summary>
+        <div class="faq-a">Ja, die Fotobox ist ein eigenständiges Angebot. Hüpfburgen, Zuckerwatte und Popcorn kannst du dazubuchen, musst du aber nicht. Wenn du mehreres nimmst, kommt alles in einer Lieferung.</div>
+      </details>
+
+      <details class="faq">
+        <summary>Liefert ihr auch nach Klagenfurt oder Villach?</summary>
+        <div class="faq-a">Ja, wir liefern in ganz Kärnten — unter anderem nach Klagenfurt, Villach, St. Veit an der Glan, Feldkirchen, Friesach, Wolfsberg, Spittal an der Drau und Gurk. Die ersten 40 Kilometer ab Glödnitz sind gratis, darüber 0,55 € pro Kilometer.</div>
       </details>
 
       <!-- ⚠️ BITTE PRÜFEN: Platzbedarf und Strom sind Annahmen.
@@ -967,7 +1137,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
               <input type="radio" name="Paket" value="Premium – 349 €"/>
               <span class="opt-n">Premium</span>
               <span class="opt-p">349 €</span>
-              <span class="opt-d">500 Ausdrucke</span>
+              <span class="opt-d">Eigener Rahmen</span>
             </label>
           </div>
         </div>
@@ -1092,22 +1262,19 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
 
 <!-- ══════════════ MOBILE NAVIGATION ══════════════ -->
 <nav class="bnav" aria-label="Hauptnavigation">
-  <a href="/" class="bi">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg><span>Start</span>
-  </a>
-  <a href="unsere-angebote.html?filter=burg" class="bi">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l2-2 2 2 2-4 2 4 2-2 2 2 2-2v13z"/></svg><span>Burgen</span>
-  </a>
-  <a href="fotobox.html" class="bi on" aria-current="page">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3.2"/></svg><span>Fotobox</span>
-  </a>
-  <a href="unsere-angebote.html?filter=extra" class="bi">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="9" r="5"/><path d="M12.8 12.8 20 20"/><path d="M17.5 17.5 20 15"/></svg><span>Extras</span>
-  </a>
-  <a href="#anfrage" class="bi">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="m4 6 8 6 8-6"/></svg><span>Anfrage</span>
-  </a>
+  <a href="/" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg><span>Start</span></a>
+  <a href="unsere-angebote.html?filter=burg" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l2-2 2 2 2-4 2 4 2-2 2 2 2-2v13z"/></svg><span>Burgen</span></a>
+  <a href="fotobox.html" class="bi on" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3.2"/></svg><span>Fotobox</span></a>
+  <a href="unsere-angebote.html?filter=extra" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="9" r="5"/><path d="M12.8 12.8 20 20"/><path d="M17.5 17.5 20 15"/></svg><span>Extras</span></a>
+  <a href="kontakt.html" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg><span>Kontakt</span></a>
 </nav>
+
+<!-- Großansicht für die Fotorahmen -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Fotorahmen in Großansicht">
+  <button type="button" class="lb-x" id="lbX" aria-label="Schließen">&times;</button>
+  <img id="lbImg" src="" alt=""/>
+  <div class="lb-c" id="lbC"></div>
+</div>
 
 <a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20interessiere%20mich%20f%C3%BCr%20die%20Fotobox" class="wa" target="_blank" rel="noopener" aria-label="Per WhatsApp Kontakt aufnehmen" data-track="whatsapp">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
@@ -1163,6 +1330,38 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
       if(typeof gtag === 'function'){ gtag('event','select_item',{item_name:'Fotobox '+name}); }
     });
   });
+
+  /* ── Fotorahmen in Großansicht ── */
+  (function(){
+    var lb = document.getElementById('lb');
+    if(!lb) return;
+    var img = document.getElementById('lbImg');
+    var cap = document.getElementById('lbC');
+    var last = null;
+
+    function open(btn){
+      last = btn;
+      img.src = btn.getAttribute('data-src');
+      img.alt = btn.querySelector('img') ? btn.querySelector('img').alt : '';
+      cap.textContent = btn.getAttribute('data-cap');
+      lb.classList.add('on');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('lbX').focus();
+    }
+    function close(){
+      lb.classList.remove('on');
+      document.body.style.overflow = '';
+      img.src = '';
+      if(last) last.focus();
+    }
+
+    document.querySelectorAll('.rahmen').forEach(function(btn){
+      btn.addEventListener('click', function(){ open(btn); });
+    });
+    document.getElementById('lbX').addEventListener('click', close);
+    lb.addEventListener('click', function(e){ if(e.target === lb || e.target === img) close(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && lb.classList.contains('on')) close(); });
+  })();
 
   /* ── Zusammenfassung ── */
   function renderSummary(){
