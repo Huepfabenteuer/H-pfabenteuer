@@ -482,6 +482,43 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
   color:var(--fog);border:1px solid var(--line-2);border-radius:2px;padding:8px 12px;
 }
 
+
+/* ── Fotorahmen nach Paket ────────────────────────────────── */
+[hidden]{display:none !important;}
+.rahmen-gruppe{margin-bottom:44px;}
+.rahmen-gruppe:last-of-type{margin-bottom:0;}
+.rahmen-kopf{margin-bottom:20px;display:flex;flex-direction:column;gap:9px;}
+.rahmen-kopf p{color:var(--fog);font-size:.93rem;max-width:62ch;}
+.rahmen-tier{
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--fog-2);border:1px solid var(--line-2);border-radius:2px;padding:5px 10px;width:fit-content;
+}
+.rahmen-tier.hot{color:#1A1204;background:var(--brass);border-color:var(--brass);}
+
+/* ── Rahmenauswahl im Formular ────────────────────────────── */
+.rpick{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+@media(min-width:560px){.rpick{grid-template-columns:repeat(4,1fr);}}
+@media(min-width:820px){.rpick{grid-template-columns:repeat(6,1fr);}}
+.rp{
+  position:relative;cursor:pointer;border:1px solid rgba(22,21,15,.18);border-radius:2px;
+  padding:5px 5px 0;background:#FFFDF8;display:block;transition:border-color .18s,box-shadow .18s;
+}
+.rp:hover{border-color:rgba(22,21,15,.42);}
+.rp input{position:absolute;opacity:0;pointer-events:none;}
+.rp img{width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;display:block;background:var(--paper-2);}
+.rp span{
+  display:block;font-family:var(--mono);font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--paper-mute);padding:6px 1px 7px;line-height:1.5;
+}
+.rp.on{border-color:var(--brass);box-shadow:inset 0 0 0 2px var(--brass);}
+.rp.on span{color:var(--paper-ink);}
+.rp-eigen{display:flex;flex-direction:column;}
+.rp-eigen .rp-box{
+  aspect-ratio:2/3;border:1px dashed rgba(22,21,15,.3);display:flex;align-items:center;justify-content:center;
+  text-align:center;font-family:var(--serif);font-size:.9rem;line-height:1.25;color:var(--paper-ink);padding:8px;
+}
+.rp.on .rp-box{border-color:var(--brass);border-style:solid;}
+
 /* ── Bewegung ─────────────────────────────────────────────── */
 .rise{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1);}
 .rise.in{opacity:1;transform:none;}
@@ -549,7 +586,7 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
     {"@type":"Question","name":"Kann ich die Fotobox auch ohne Hüpfburg mieten?","acceptedAnswer":{"@type":"Answer","text":"Ja. Die Fotobox ist ein eigenständiges Angebot und kann einzeln gemietet werden. Hüpfburgen, Zuckerwatte und Popcorn lassen sich dazubuchen, sind aber keine Voraussetzung."}},
     {"@type":"Question","name":"Liefert ihr die Fotobox auch nach Klagenfurt und Villach?","acceptedAnswer":{"@type":"Answer","text":"Ja. Wir liefern in ganz Kärnten, unter anderem nach Klagenfurt, Villach, St. Veit an der Glan, Feldkirchen, Friesach, Wolfsberg, Spittal an der Drau und Gurk. Die ersten 40 Kilometer ab Glödnitz sind gratis."}},
     {"@type":"Question","name":"Bekomme ich alle Fotos digital?","acceptedAnswer":{"@type":"Answer","text":"Ja. Alle Aufnahmen werden gespeichert und du bekommst sie nach dem Event auf USB-Stick. Digitale Fotos sind bei jedem Paket unbegrenzt."}},
-    {"@type":"Question","name":"Kann ich den Fotorahmen selbst gestalten?","acceptedAnswer":{"@type":"Answer","text":"Beim Premium-Paket wird der Fotorahmen individuell nach deinen Wünschen gestaltet, zum Beispiel mit euren Namen und dem Hochzeitsdatum oder dem Firmenlogo. Beim Standard-Paket wird einer der bestehenden Rahmen verwendet."}},
+    {"@type":"Question","name":"Kann ich den Fotorahmen selbst aussuchen?","acceptedAnswer":{"@type":"Answer","text":"Beim Standard-Paket drucken wir im Hüpfabenteuer-Design, wahlweise als Dreier-Streifen oder als Einzelbild. Beim Premium-Paket stehen vierzehn Motiv-Rahmen zur freien Auswahl - Hochzeit, Weihnachten, Halloween und Geburtstag - oder wir gestalten einen individuellen Rahmen mit euren Namen, eurem Datum oder dem Firmenlogo."}},
     {"@type":"Question","name":"Wie viel Platz braucht die Fotobox?","acceptedAnswer":{"@type":"Answer","text":"Rund zwei mal zwei Meter reichen für die Box selbst, etwas mehr, wenn eine Gruppe davor Platz haben soll. Am besten steht sie drinnen oder überdacht, damit Technik und Ausdrucke trocken bleiben."}},
     {"@type":"Question","name":"Braucht die Fotobox Strom?","acceptedAnswer":{"@type":"Answer","text":"Eine normale 230-Volt-Steckdose in der Nähe genügt, idealerweise nicht weiter als etwa zehn Meter entfernt. Verlängerungskabel bringen wir mit."}},
     {"@type":"Question","name":"Wie früh soll ich die Fotobox buchen?","acceptedAnswer":{"@type":"Answer","text":"Für Hochzeiten am besten sechs bis zwölf Monate im Voraus, weil die Samstage in der Hauptsaison zuerst weg sind. Für Weihnachtsfeiern reicht meistens Oktober. Kurzfristige Anfragen sind trotzdem immer einen Anruf wert."}},
@@ -703,7 +740,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
           <li>Alles aus <b>Digital</b></li>
           <li><b>Sofortdruck</b> — das Foto liegt nach Sekunden in der Hand</li>
           <li><b>300 Ausdrucke</b> inkludiert</li>
-          <li>Fotorahmen aus unserer Auswahl</li>
+          <li>Fotorahmen im <b>Hüpfabenteuer-Design</b> — als Dreier-Streifen oder Einzelbild</li>
         </ul>
         <a href="#rahmen" class="paket-link">Rahmen ansehen</a>
         <button type="button" class="btn btn-solid btn-wide" data-choose="Standard">Standard anfragen</button>
@@ -722,7 +759,8 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
         <ul class="plist">
           <li>Alles aus <b>Standard</b></li>
           <li><b>300 Ausdrucke</b> inkludiert</li>
-          <li><b>Individueller Fotorahmen</b> — eure Namen, euer Datum, euer Logo</li>
+          <li><b>14 Motiv-Rahmen zur freien Auswahl</b> — Hochzeit, Weihnachten, Halloween, Geburtstag</li>
+          <li><b>Oder individuell gestaltet</b> — eure Namen, euer Datum, euer Logo</li>
           <li><b>Accessoire-Set</b> inklusive</li>
         </ul>
         <a href="#rahmen" class="paket-link">Alle Rahmen ansehen</a>
@@ -739,18 +777,34 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     <div class="sec-head rise">
       <div class="eyebrow">Fotorahmen</div>
       <h2>Der Rahmen macht den Unterschied.</h2>
-      <p class="lede">Jeder Ausdruck bekommt einen Rahmen — als Dreier-Streifen wie beim klassischen Fotoautomaten oder als einzelnes Bild. Bei Standard wählst du aus dieser Auswahl, bei Premium gestalten wir ihn nach deinen Wünschen.</p>
+      <p class="lede">Jeder Ausdruck bekommt einen Rahmen — als Dreier-Streifen wie beim klassischen Fotoautomaten oder als einzelnes Bild. Welche Rahmen zur Wahl stehen, hängt vom Paket ab.</p>
     </div>
 
-    <div class="rahmen-grid rise">
+    <div class="rahmen-gruppe rise">
+      <div class="rahmen-kopf">
+        <div class="rahmen-tier">Standard</div>
+        <h3>Der Hüpfabenteuer-Rahmen</h3>
+        <p>Beim Standard-Paket drucken wir im Hausdesign — du wählst nur, ob es ein Dreier-Streifen oder ein einzelnes Bild werden soll.</p>
+      </div>
+      <div class="rahmen-grid">
       <button type="button" class="rahmen" data-src="rahmen-01.webp" data-cap="Hüpfabenteuer · Dreier-Streifen">
-        <img src="rahmen-01.webp" width="400" height="600" loading="lazy" alt="Fotorahmen Hüpfabenteuer, Dreier-Streifen in Orange und Gelb"/>
+        <img src="rahmen-01.webp" width="400" height="600" loading="lazy" alt="Fotorahmen Hüpfabenteuer in Orange und Gelb, Dreier-Streifen"/>
         <div class="rahmen-c"><b>Hüpfabenteuer</b>Dreier-Streifen</div>
       </button>
       <button type="button" class="rahmen" data-src="rahmen-02.webp" data-cap="Hüpfabenteuer · Einzelbild">
-        <img src="rahmen-02.webp" width="400" height="600" loading="lazy" alt="Fotorahmen Hüpfabenteuer, Einzelbild in Orange und Gelb"/>
+        <img src="rahmen-02.webp" width="400" height="600" loading="lazy" alt="Fotorahmen Hüpfabenteuer in Orange und Gelb, Einzelbild"/>
         <div class="rahmen-c"><b>Hüpfabenteuer</b>Einzelbild</div>
       </button>
+      </div>
+    </div>
+
+    <div class="rahmen-gruppe rise">
+      <div class="rahmen-kopf">
+        <div class="rahmen-tier hot">Premium</div>
+        <h3>Vierzehn Motive zur freien Auswahl</h3>
+        <p>Beim Premium-Paket suchst du dir einen dieser Rahmen aus — oder wir gestalten einen ganz neuen, mit euren Namen, eurem Hochzeitsdatum oder dem Firmenlogo.</p>
+      </div>
+      <div class="rahmen-grid">
       <button type="button" class="rahmen" data-src="rahmen-03.webp" data-cap="Rosen Zartrosa · Dreier-Streifen">
         <img src="rahmen-03.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen mit zartrosa Rosen, Dreier-Streifen"/>
         <div class="rahmen-c"><b>Rosen Zartrosa</b>Dreier-Streifen</div>
@@ -807,9 +861,10 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
         <img src="rahmen-16.webp" width="400" height="600" loading="lazy" alt="Geburtstags-Fotorahmen mit Luftballons und Torte, Dreier-Streifen"/>
         <div class="rahmen-c"><b>Geburtstag</b>Dreier-Streifen</div>
       </button>
+      </div>
     </div>
 
-    <p class="rahmen-note rise">Die farbigen Flächen sind die Platzhalter — dort stehen später eure Fotos. Namen und Datum sind Beispiele und werden für euren Anlass ersetzt. Beim Premium-Paket entwerfen wir den Rahmen komplett neu, etwa mit eurem Hochzeitsdatum oder dem Firmenlogo.</p>
+    <p class="rahmen-note rise">Die farbigen Flächen sind die Platzhalter — dort stehen später eure Fotos. Namen und Datum in den Beispielen werden für euren Anlass ersetzt.</p>
   </div>
 </section>
 
@@ -1061,7 +1116,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
 
       <details class="faq">
         <summary>Kann ich den Fotorahmen selbst gestalten?</summary>
-        <div class="faq-a">Beim Premium-Paket gestalten wir den Rahmen individuell nach deinen Wünschen — zum Beispiel mit euren Namen und dem Hochzeitsdatum oder mit dem Firmenlogo. Beim Standard-Paket verwenden wir einen der bestehenden Rahmen, die kannst du dir <a href="#rahmen">weiter oben ansehen</a>.</div>
+        <div class="faq-a">Beim Standard-Paket drucken wir im Hüpfabenteuer-Design, du wählst nur zwischen Dreier-Streifen und Einzelbild. Beim Premium-Paket suchst du dir einen der vierzehn Motiv-Rahmen aus — Hochzeit, Weihnachten, Halloween oder Geburtstag — oder wir gestalten einen ganz neuen mit euren Namen, eurem Datum oder dem Firmenlogo. Alle Rahmen siehst du <a href="#rahmen">weiter oben</a>, und im Anfrageformular kannst du deinen gleich mit auswählen.</div>
       </details>
 
       <details class="faq">
@@ -1137,9 +1192,102 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
               <input type="radio" name="Paket" value="Premium – 349 €"/>
               <span class="opt-n">Premium</span>
               <span class="opt-p">349 €</span>
-              <span class="opt-d">Eigener Rahmen</span>
+              <span class="opt-d">Rahmen frei wählbar</span>
             </label>
           </div>
+        </div>
+
+        <div class="fset" id="rahmenWahl" hidden>
+          <div class="fset-t">Fotorahmen</div>
+          <p class="hint" id="rahmenHint"></p>
+          <div class="rpick" id="rpick">
+            <label class="rp" data-tier="standard" title="Hüpfabenteuer · Dreier-Streifen">
+              <input type="radio" name="Fotorahmen" value="Hüpfabenteuer · Dreier-Streifen"/>
+              <img src="rahmen-01.webp" width="400" height="600" loading="lazy" alt="Fotorahmen Hüpfabenteuer in Orange und Gelb, Dreier-Streifen"/>
+              <span>Hüpfabenteuer<br>Dreier-Streifen</span>
+            </label>
+            <label class="rp" data-tier="standard" title="Hüpfabenteuer · Einzelbild">
+              <input type="radio" name="Fotorahmen" value="Hüpfabenteuer · Einzelbild"/>
+              <img src="rahmen-02.webp" width="400" height="600" loading="lazy" alt="Fotorahmen Hüpfabenteuer in Orange und Gelb, Einzelbild"/>
+              <span>Hüpfabenteuer<br>Einzelbild</span>
+            </label>
+            <label class="rp" data-tier="premium" title="Rosen Zartrosa · Dreier-Streifen">
+              <input type="radio" name="Fotorahmen" value="Rosen Zartrosa · Dreier-Streifen"/>
+              <img src="rahmen-03.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen mit zartrosa Rosen, Dreier-Streifen"/>
+              <span>Rosen Zartrosa<br>Dreier-Streifen</span>
+            </label>
+            <label class="rp" data-tier="premium" title="Rosen Zartrosa · Einzelbild">
+              <input type="radio" name="Fotorahmen" value="Rosen Zartrosa · Einzelbild"/>
+              <img src="rahmen-04.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen mit zartrosa Rosen, Einzelbild mit Namen und Datum"/>
+              <span>Rosen Zartrosa<br>Einzelbild</span>
+            </label>
+            <label class="rp" data-tier="premium" title="Rosen & Eukalyptus · Dreier-Streifen">
+              <input type="radio" name="Fotorahmen" value="Rosen & Eukalyptus · Dreier-Streifen"/>
+              <img src="rahmen-05.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen mit Rosen und Eukalyptus, Dreier-Streifen"/>
+              <span>Rosen &amp; Eukalyptus<br>Dreier-Streifen</span>
+            </label>
+            <label class="rp" data-tier="premium" title="Rosen & Eukalyptus · Einzelbild">
+              <input type="radio" name="Fotorahmen" value="Rosen & Eukalyptus · Einzelbild"/>
+              <img src="rahmen-06.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen mit Rosen und Eukalyptus, Einzelbild mit Namen und Datum"/>
+              <span>Rosen &amp; Eukalyptus<br>Einzelbild</span>
+            </label>
+            <label class="rp" data-tier="premium" title="Kirschblüte · Dreier-Streifen">
+              <input type="radio" name="Fotorahmen" value="Kirschblüte · Dreier-Streifen"/>
+              <img src="rahmen-07.webp" width="400" height="600" loading="lazy" alt="Fotorahmen mit rosa Kirschblüten, Dreier-Streifen"/>
+              <span>Kirschblüte<br>Dreier-Streifen</span>
+            </label>
+            <label class="rp" data-tier="premium" title="Kirschblüte · Einzelbild">
+              <input type="radio" name="Fotorahmen" value="Kirschblüte · Einzelbild"/>
+              <img src="rahmen-08.webp" width="400" height="600" loading="lazy" alt="Fotorahmen mit rosa Kirschblüten, Einzelbild mit Namen und Datum"/>
+              <span>Kirschblüte<br>Einzelbild</span>
+            </label>
+            <label class="rp" data-tier="premium" title="Mohn & Rosen · Dreier-Streifen">
+              <input type="radio" name="Fotorahmen" value="Mohn & Rosen · Dreier-Streifen"/>
+              <img src="rahmen-09.webp" width="400" height="600" loading="lazy" alt="Fotorahmen mit roten Mohnblumen und Rosen, Dreier-Streifen"/>
+              <span>Mohn &amp; Rosen<br>Dreier-Streifen</span>
+            </label>
+            <label class="rp" data-tier="premium" title="Mohn & Rosen · Einzelbild">
+              <input type="radio" name="Fotorahmen" value="Mohn & Rosen · Einzelbild"/>
+              <img src="rahmen-10.webp" width="400" height="600" loading="lazy" alt="Fotorahmen mit roten Mohnblumen und Rosen, Einzelbild mit Namen und Datum"/>
+              <span>Mohn &amp; Rosen<br>Einzelbild</span>
+            </label>
+            <label class="rp" data-tier="premium" title="Weihnachten Tannengrün · Dreier-Streifen">
+              <input type="radio" name="Fotorahmen" value="Weihnachten Tannengrün · Dreier-Streifen"/>
+              <img src="rahmen-11.webp" width="400" height="600" loading="lazy" alt="Weihnachtlicher Fotorahmen mit Tannengrün und Schneeflocken, Dreier-Streifen"/>
+              <span>Weihnachten Tannengrün<br>Dreier-Streifen</span>
+            </label>
+            <label class="rp" data-tier="premium" title="Weihnachten Zimt & Punsch · Einzelbild">
+              <input type="radio" name="Fotorahmen" value="Weihnachten Zimt & Punsch · Einzelbild"/>
+              <img src="rahmen-12.webp" width="400" height="600" loading="lazy" alt="Weihnachtlicher Fotorahmen mit Zimt und Punsch, Einzelbild"/>
+              <span>Weihnachten Zimt &amp; Punsch<br>Einzelbild</span>
+            </label>
+            <label class="rp" data-tier="premium" title="Halloween · Einzelbild">
+              <input type="radio" name="Fotorahmen" value="Halloween · Einzelbild"/>
+              <img src="rahmen-13.webp" width="400" height="600" loading="lazy" alt="Halloween-Fotorahmen mit Kürbissen und Süßigkeiten, Einzelbild"/>
+              <span>Halloween<br>Einzelbild</span>
+            </label>
+            <label class="rp" data-tier="premium" title="Halloween · Dreier-Streifen">
+              <input type="radio" name="Fotorahmen" value="Halloween · Dreier-Streifen"/>
+              <img src="rahmen-14.webp" width="400" height="600" loading="lazy" alt="Halloween-Fotorahmen mit Kürbissen und Süßigkeiten, Dreier-Streifen"/>
+              <span>Halloween<br>Dreier-Streifen</span>
+            </label>
+            <label class="rp" data-tier="premium" title="Geburtstag · Einzelbild">
+              <input type="radio" name="Fotorahmen" value="Geburtstag · Einzelbild"/>
+              <img src="rahmen-15.webp" width="400" height="600" loading="lazy" alt="Geburtstags-Fotorahmen mit Luftballons und Torte, Einzelbild"/>
+              <span>Geburtstag<br>Einzelbild</span>
+            </label>
+            <label class="rp" data-tier="premium" title="Geburtstag · Dreier-Streifen">
+              <input type="radio" name="Fotorahmen" value="Geburtstag · Dreier-Streifen"/>
+              <img src="rahmen-16.webp" width="400" height="600" loading="lazy" alt="Geburtstags-Fotorahmen mit Luftballons und Torte, Dreier-Streifen"/>
+              <span>Geburtstag<br>Dreier-Streifen</span>
+            </label>
+            <label class="rp rp-eigen" data-tier="premium" title="Individuell gestaltet">
+              <input type="radio" name="Fotorahmen" value="Individuell gestaltet"/>
+              <div class="rp-box">Individuell gestaltet</div>
+              <span>Nach euren Wünschen</span>
+            </label>
+          </div>
+          <p class="hint">Noch unschlüssig? Lass es offen — wir klären den Rahmen gemeinsam, bevor gedruckt wird.</p>
         </div>
 
         <div class="fset">
@@ -1309,8 +1457,58 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     if(radio) radio.checked = true;
     selectedName  = el.getAttribute('data-name');
     selectedPrice = parseInt(el.getAttribute('data-price'), 10);
+    updateRahmen();
     renderSummary();
   }
+
+  /* ── Rahmenauswahl je nach Paket ── */
+  var rahmenWahl = document.getElementById('rahmenWahl');
+  var rahmenHint = document.getElementById('rahmenHint');
+  var rahmen     = document.querySelectorAll('#rpick .rp');
+
+  function rahmenWert(){
+    var r = document.querySelector('#rpick input[name="Fotorahmen"]:checked');
+    return r ? r.value : '';
+  }
+  function rahmenLeeren(){
+    rahmen.forEach(function(el){
+      el.classList.remove('on');
+      el.querySelector('input').checked = false;
+    });
+  }
+  function updateRahmen(){
+    if(!rahmenWahl) return;
+
+    if(selectedName === 'Digital'){
+      rahmenWahl.hidden = true;
+      rahmenLeeren();
+      return;
+    }
+
+    var nurStandard = selectedName === 'Standard';
+    rahmenWahl.hidden = false;
+    rahmenHint.textContent = nurStandard
+      ? 'Beim Standard-Paket drucken wir im Hüpfabenteuer-Design. Wähl aus, ob es ein Dreier-Streifen oder ein einzelnes Bild werden soll.'
+      : 'Beim Premium-Paket kannst du jeden Rahmen nehmen — oder wir gestalten einen ganz neuen für euch.';
+
+    rahmen.forEach(function(el){
+      var erlaubt = !nurStandard || el.getAttribute('data-tier') === 'standard';
+      el.hidden = !erlaubt;
+      if(!erlaubt && el.classList.contains('on')){
+        el.classList.remove('on');
+        el.querySelector('input').checked = false;
+      }
+    });
+  }
+
+  rahmen.forEach(function(el){
+    el.addEventListener('click', function(){
+      rahmen.forEach(function(o){ o.classList.remove('on'); });
+      el.classList.add('on');
+      el.querySelector('input').checked = true;
+      renderSummary();
+    });
+  });
 
   opts.forEach(function(el){
     el.addEventListener('click', function(){ pick(el); });
@@ -1370,8 +1568,14 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     var note = document.getElementById('sumNote');
     if(!selectedName){ box.classList.remove('on'); return; }
 
+    var rahmenZeile = '';
+    var rw = rahmenWert();
+    if(rw){
+      rahmenZeile = '<div class="sum-row"><span>Fotorahmen</span><span>' + rw + '</span></div>';
+    }
     rows.innerHTML =
       '<div class="sum-row"><span>Fotobox ' + selectedName + '</span><span>' + selectedPrice + ' €</span></div>' +
+      rahmenZeile +
       '<div class="sum-row total"><span>Gesamt, geschätzt</span><span class="sum-total">' + selectedPrice + ' €</span></div>';
 
     var anz = selectedPrice >= 300 ? 100 : (selectedPrice >= 220 ? 50 : 30);
@@ -1436,6 +1640,8 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     fd.append('Ort',     ort);
     var anlass = document.getElementById('anlassFeld').value;
     if(anlass) fd.append('Anlass', anlass);
+    var rahmenGewaehlt = rahmenWert();
+    if(rahmenGewaehlt) fd.append('Fotorahmen', rahmenGewaehlt);
     var nachname = val('nachnameFoto');
     fd.append('Name',    vorname + (nachname ? ' ' + nachname : ''));
     fd.append('Telefon', telefon);
