@@ -98,6 +98,14 @@
   .fb-pk-i{padding:20px;}
 }
 @media(prefers-reduced-motion:reduce){.fb-btn{transition:none;}}
+
+/* Fotobox-Banner: Feinschliff für schmale Bildschirme */
+@media(max-width:430px){
+  #fb-banner .fbb-cta{display:none;}
+  #fb-banner .fbb-ic{font-size:34px;}
+  #fb-banner .fbb-t{font-size:18px;}
+}
+
 </style>
 <style>
 :root{
@@ -673,17 +681,17 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
  
  
  
-<!-- NEU BANNER -->
-<a href="unsere-angebote.html" style="text-decoration:none;display:block;margin:8px 16px 0;">
-  <div style="background:linear-gradient(135deg,#cc1a1a,#ff4500);border-radius:18px;padding:14px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 28px rgba(255,69,0,.35);position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 12px);pointer-events:none;"></div>
-    <div style="font-size:42px;flex-shrink:0;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3));">🚒</div>
+<!-- FOTOBOX BANNER -->
+<a href="fotobox.html" id="fb-banner" style="text-decoration:none;display:block;margin:8px 16px 0;">
+  <div style="background:linear-gradient(135deg,#0B0B0E,#1A1A21 55%,#241d10);border:1px solid rgba(201,149,74,.35);border-radius:18px;padding:14px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 28px rgba(0,0,0,.45);position:relative;overflow:hidden;">
+    <div style="position:absolute;top:-70%;left:50%;transform:translateX(-50%);width:420px;height:240px;background:radial-gradient(ellipse at center,rgba(201,149,74,.30),transparent 68%);pointer-events:none;"></div>
+    <div class="fbb-ic" style="font-size:42px;flex-shrink:0;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));position:relative;">📸</div>
     <div style="flex:1;position:relative;">
-      <div style="background:linear-gradient(135deg,#FFD600,#ff9800);color:#1a0d00;font-family:'Baloo 2',cursive;font-size:10px;font-weight:900;padding:2px 9px;border-radius:20px;display:inline-block;margin-bottom:4px;">NEU dabei</div>
-      <div style="font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:white;line-height:1.2;">Feuerwehr-Hüpfburg</div>
-      <div style="font-size:11px;color:rgba(255,255,255,.85);font-weight:600;">Jetzt verfügbar · 140€/Tag · Zum Angebot →</div>
+      <div style="background:linear-gradient(135deg,#C9954A,#E6C08A);color:#1A1204;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:3px 9px;border-radius:20px;display:inline-block;margin-bottom:5px;">Mit Sofortdruck</div>
+      <div class="fbb-t" style="font-family:'Bodoni Moda','Didot',serif;font-size:19px;font-weight:400;color:#F5F0E6;line-height:1.15;">Fotobox mieten</div>
+      <div style="font-family:'Nunito',sans-serif;font-size:11px;color:rgba(245,240,230,.65);font-weight:600;">Ab 199 € · 16 Fotorahmen →</div>
     </div>
-    <div style="background:rgba(255,255,255,.2);border-radius:12px;padding:8px 12px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;color:white;white-space:nowrap;backdrop-filter:blur(6px);">Ansehen →</div>
+    <div class="fbb-cta" style="background:#F5F0E6;border-radius:12px;padding:9px 13px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:#16150F;white-space:nowrap;position:relative;">Ansehen →</div>
   </div>
 </a>
  
