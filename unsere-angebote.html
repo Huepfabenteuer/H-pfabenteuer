@@ -83,6 +83,12 @@
 .fb-pk-i{background:#0B0B0E;padding:16px 12px;text-align:center;}
 .fb-pk-n{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:#726F68;margin-bottom:6px;}
 .fb-pk-p{font-family:'Bodoni Moda','Didot',serif;font-size:1.5rem;line-height:1;color:#F5F0E6;}
+.fb-fotos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px auto 0;position:relative;z-index:2;max-width:1000px;}
+.fb-fotos a{display:block;background:#F5F0E6;padding:5px 5px 0;border-radius:2px;transition:transform .2s;text-decoration:none;}
+.fb-fotos a:hover{transform:translateY(-3px);}
+.fb-fotos img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;display:block;background:#E8E1D2;}
+.fb-fotos span{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;color:#6B6659;padding:5px 1px 6px;line-height:1.4;}
+@media(min-width:820px){.fb-fotos{gap:12px;margin-top:18px;}}
 @media(min-width:820px){
   .fb-band{padding:60px 40px 54px;}
   .fb-in{grid-template-columns:1.3fr .7fr;gap:48px;}
@@ -532,11 +538,49 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
 <div class="filter-wrap">
   <div class="filter-tabs">
     <button class="ftab on" data-filter="all" onclick="filter('all',this)">🎪 Alle</button>
-    <button class="ftab" data-filter="burg" onclick="filter('burg',this)">🏰 Hüpfburgen</button>
     <button class="ftab" data-filter="foto" onclick="filter('foto',this)">📷 Fotobox</button>
+    <button class="ftab" data-filter="burg" onclick="filter('burg',this)">🏰 Hüpfburgen</button>
     <button class="ftab" data-filter="extra" onclick="filter('extra',this)">🍭 Extras</button>
     <button class="ftab" data-filter="paket" onclick="filter('paket',this)">🎁 Pakete</button>
   </div>
+</div>
+ 
+<!-- FOTOBOX -->
+<div id="section-foto">
+<!-- FOTOBOX -->
+<section class="fb-band" id="fotobox" aria-labelledby="fb-title">
+  <div class="fb-in">
+    <div>
+      <div class="fb-eyebrow">Fotobox mit Sofortdruck</div>
+      <h2 class="fb-h" id="fb-title">Der Abend ist vorbei.<br>Die Bilder <em>bleiben.</em></h2>
+      <p class="fb-p">Drei Pakete ab 199 €, 16 Fotorahmen zur Auswahl, unbegrenzte digitale Fotos. Mit Sofortdruck für Hochzeit, Weihnachtsfeier, Firmenfeier und Geburtstag — Auf- und Abbau sind bei jeder Lieferung inklusive.</p>
+      <div class="fb-meta">
+        <span><b>3</b> Pakete ab 199 €</span>
+        <span><b>16</b> Fotorahmen zur Auswahl</span>
+        <span><b>40 km</b> Lieferung gratis</span>
+      </div>
+      <div class="fb-btns">
+        <a href="fotobox.html" class="fb-btn fb-btn-solid">Fotobox ansehen</a>
+        <a href="fotobox.html#anfrage" class="fb-btn fb-btn-ghost">Termin anfragen</a>
+      </div>
+    </div>
+    <figure class="fb-strip">
+      <img src="fotobox-display.webp" alt="Fotobox mit Sofortdruck mieten in Kärnten – Hüpfabenteuer" width="900" height="1200" loading="lazy"/>
+      <figcaption class="fb-strip-c"><span>Fotobox Premium</span><span>Kärnten</span></figcaption>
+    </figure>
+  </div>
+  <div class="fb-pk">
+    <a href="fotobox.html#pakete" class="fb-pk-i" style="text-decoration:none;"><div class="fb-pk-n">Digital</div><div class="fb-pk-p">199 €</div></a>
+    <a href="fotobox.html#pakete" class="fb-pk-i" style="text-decoration:none;"><div class="fb-pk-n">Standard</div><div class="fb-pk-p">299 €</div></a>
+    <a href="fotobox.html#pakete" class="fb-pk-i" style="text-decoration:none;"><div class="fb-pk-n">Premium</div><div class="fb-pk-p">349 €</div></a>
+  </div>
+  <div class="fb-fotos">
+    <a href="fotobox.html#galerie"><img src="fotobox-ausdruck.webp" width="900" height="1200" loading="lazy" alt="Fotostreifen kommt frisch aus dem Drucker der Fotobox"/><span>Sofortdruck</span></a>
+    <a href="fotobox.html#galerie"><img src="fotostreifen-hand.webp" width="900" height="1200" loading="lazy" alt="Frisch gedruckter Fotostreifen im Hüpfabenteuer-Rahmen in der Hand"/><span>In der Hand</span></a>
+    <a href="fotobox.html#galerie"><img src="fotobox-bildschirm.webp" width="900" height="1200" loading="lazy" alt="Bildschirm der Fotobox mit Druckvorschau und Auswahl der Anzahl"/><span>Bildschirm</span></a>
+    <a href="fotobox.html#galerie"><img src="fotobox-raum.webp" width="900" height="1200" loading="lazy" alt="Aufgebaute Fotobox im abgedunkelten Raum mit Licht und Dekoration"/><span>Im Raum</span></a>
+  </div>
+</section>
 </div>
  
 <!-- HÜPFBURGEN -->
@@ -840,38 +884,6 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   </div>
 </div>
  
- 
-<!-- FOTOBOX -->
-<div id="section-foto">
-<!-- FOTOBOX -->
-<section class="fb-band" id="fotobox" aria-labelledby="fb-title">
-  <div class="fb-in">
-    <div>
-      <div class="fb-eyebrow">Fotobox mit Sofortdruck</div>
-      <h2 class="fb-h" id="fb-title">Der Abend ist vorbei.<br>Die Bilder <em>bleiben.</em></h2>
-      <p class="fb-p">Drei Pakete ab 199 €, 16 Fotorahmen zur Auswahl, unbegrenzte digitale Fotos. Mit Sofortdruck für Hochzeit, Weihnachtsfeier, Firmenfeier und Geburtstag — Lieferung, Auf- und Abbau überall inklusive.</p>
-      <div class="fb-meta">
-        <span><b>3</b> Pakete ab 199 €</span>
-        <span><b>16</b> Fotorahmen zur Auswahl</span>
-        <span><b>40 km</b> Lieferung gratis</span>
-      </div>
-      <div class="fb-btns">
-        <a href="fotobox.html" class="fb-btn fb-btn-solid">Fotobox ansehen</a>
-        <a href="fotobox.html#anfrage" class="fb-btn fb-btn-ghost">Termin anfragen</a>
-      </div>
-    </div>
-    <figure class="fb-strip">
-      <img src="fotobox-display.webp" alt="Fotobox mit Sofortdruck mieten in Kärnten – Hüpfabenteuer" width="900" height="1200" loading="lazy"/>
-      <figcaption class="fb-strip-c"><span>Fotobox Premium</span><span>Kärnten</span></figcaption>
-    </figure>
-  </div>
-  <div class="fb-pk">
-    <a href="fotobox.html#pakete" class="fb-pk-i" style="text-decoration:none;"><div class="fb-pk-n">Digital</div><div class="fb-pk-p">199 €</div></a>
-    <a href="fotobox.html#pakete" class="fb-pk-i" style="text-decoration:none;"><div class="fb-pk-n">Standard</div><div class="fb-pk-p">299 €</div></a>
-    <a href="fotobox.html#pakete" class="fb-pk-i" style="text-decoration:none;"><div class="fb-pk-n">Premium</div><div class="fb-pk-p">349 €</div></a>
-  </div>
-</section>
-</div>
  
 <!-- PAKETE -->
 <div class="sec" id="section-paket">
