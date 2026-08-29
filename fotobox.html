@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light"/>
 <meta name="theme-color" content="#0B0B0E"/>
-<meta name="description" content="Fotobox mit Sofortdruck mieten in Kärnten ✓ 3 Pakete ab 199€ ✓ Unbegrenzte digitale Fotos ✓ Lieferung, Auf- &amp; Abbau inklusive ✓ Hochzeit, Weihnachtsfeier, Firmenfeier ✓ 5,0★ Google ✓ Antwort meist in unter 1 Stunde"/>
+<meta name="description" content="Fotobox mit Sofortdruck mieten in Kärnten ✓ 3 Pakete ab 199€ ✓ Unbegrenzte digitale Fotos ✓ Auf- &amp; Abbau bei Lieferung inklusive ✓ Hochzeit, Weihnachtsfeier, Firmenfeier ✓ 5,0★ Google ✓ Antwort meist in unter 1 Stunde"/>
 <meta name="keywords" content="Fotobox mieten Kärnten, Fotobox mit Sofortdruck, Fotobox Hochzeit Kärnten, Fotobox Weihnachtsfeier, Fotobox Geburtstag Kärnten, Fotobox Verleih Kärnten, Fotobox Firmenfeier, Fotobox mieten Klagenfurt, Fotobox mieten Villach, Photobooth mieten Kärnten, Fotobox St. Veit"/>
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
 <meta name="author" content="Hüpfabenteuer Kärnten"/>
@@ -15,7 +15,7 @@
 <link rel="canonical" href="https://huepfabenteuer.at/fotobox.html"/>
 <meta property="og:type" content="product"/>
 <meta property="og:title" content="Fotobox mieten Kärnten – mit Sofortdruck ab 199€"/>
-<meta property="og:description" content="Fotobox mit Sofortdruck ✓ 3 Pakete ab 199€ ✓ Unbegrenzte digitale Fotos ✓ Lieferung &amp; Aufbau inklusive ✓ Hochzeit, Weihnachtsfeier, Firmenfeier!"/>
+<meta property="og:description" content="Fotobox mit Sofortdruck ✓ 3 Pakete ab 199€ ✓ Unbegrenzte digitale Fotos ✓ Auf- &amp; Abbau bei Lieferung inklusive ✓ Hochzeit, Weihnachtsfeier, Firmenfeier!"/>
 <meta property="og:url" content="https://huepfabenteuer.at/fotobox.html"/>
 <meta property="og:image" content="https://huepfabenteuer.at/fotobox-og.jpg"/>
 <meta property="og:image:alt" content="Fotobox mit Sofortdruck mieten Kärnten – Hüpfabenteuer"/>
@@ -23,7 +23,7 @@
 <meta property="og:locale" content="de_AT"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Fotobox mieten Kärnten – mit Sofortdruck ab 199€"/>
-<meta name="twitter:description" content="Fotobox mit Sofortdruck ✓ 3 Pakete ab 199€ ✓ Unbegrenzte digitale Fotos ✓ Lieferung &amp; Aufbau inklusive!"/>
+<meta name="twitter:description" content="Fotobox mit Sofortdruck ✓ 3 Pakete ab 199€ ✓ Unbegrenzte digitale Fotos ✓ Auf- &amp; Abbau bei Lieferung inklusive!"/>
 <meta name="twitter:image" content="https://huepfabenteuer.at/fotobox-og.jpg"/>
 <meta name="twitter:image:alt" content="Fotobox mit Sofortdruck mieten Kärnten"/>
 <title>Fotobox mieten Kärnten – mit Sofortdruck ab 199€ | Hüpfabenteuer</title>
@@ -536,6 +536,20 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
 }
 .foto-c b{display:block;color:var(--paper-ink);font-weight:500;}
 
+
+/* ── Bilderstreifen direkt unter dem Kopf ─────────────────── */
+.quick{border-bottom:1px solid var(--line);padding:22px 0 26px;position:relative;z-index:2;}
+.quick-in{max-width:var(--max);margin:0 auto;padding:0 var(--pad);}
+.quick-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px 20px;margin-bottom:14px;}
+.quick-t{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);}
+.quick-a{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fog-2);}
+.quick-a:hover{color:var(--brass-lt);}
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+@media(min-width:640px){.quick-grid{gap:14px;}}
+.quick-grid .foto span{display:none;}
+.quick-grid .foto img{width:100%;height:100%;aspect-ratio:3/4;object-fit:cover;display:block;}
+@media(min-width:900px){.quick-grid .foto img{aspect-ratio:1/1;}}
+
 /* ── Bewegung ─────────────────────────────────────────────── */
 .rise{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1);}
 .rise.in{opacity:1;transform:none;}
@@ -550,7 +564,7 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "Fotobox mit Sofortdruck mieten – Kärnten",
-  "description": "Fotobox mit Sofortdruck und unbegrenzten digitalen Fotos. Drei Pakete: Digital 199 €, Standard 299 €, Premium 349 €. Lieferung, Auf- und Abbau inklusive. Für Hochzeiten, Weihnachtsfeiern, Firmenfeiern und Geburtstage in ganz Kärnten.",
+  "description": "Fotobox mit Sofortdruck und unbegrenzten digitalen Fotos. Drei Pakete: Digital 199 €, Standard 299 €, Premium 349 €. Auf- und Abbau sind bei Lieferung inklusive. Für Hochzeiten, Weihnachtsfeiern, Firmenfeiern und Geburtstage in ganz Kärnten.",
   "image": "https://huepfabenteuer.at/fotobox-og.jpg",
   "brand": {"@type": "Brand", "name": "Hüpfabenteuer Kärnten"},
   "category": "Fotobox Verleih",
@@ -597,7 +611,7 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type":"Question","name":"Was kostet es, eine Fotobox in Kärnten zu mieten?","acceptedAnswer":{"@type":"Answer","text":"Es gibt drei Pakete: Digital um 199 €, Standard um 299 € und Premium um 349 €. Lieferung, Auf- und Abbau sind bei allen Paketen inklusive, die ersten 40 Kilometer Anfahrt sind gratis."}},
+    {"@type":"Question","name":"Was kostet es, eine Fotobox in Kärnten zu mieten?","acceptedAnswer":{"@type":"Answer","text":"Es gibt drei Pakete: Digital um 199 €, Standard um 299 € und Premium um 349 €. Auf- und Abbau sind bei Lieferung inklusive, die ersten 40 Kilometer Anfahrt sind gratis."}},
     {"@type":"Question","name":"Was kostet die Lieferung?","acceptedAnswer":{"@type":"Answer","text":"Die ersten 40 Kilometer sind gratis. Darüber hinaus werden 0,55 € pro Kilometer verrechnet, gerechnet auf vier Fahrten: Lieferung hin und retour, Abholung hin und retour. Die genaue Rechnung steht offen auf jedem Angebot."}},
     {"@type":"Question","name":"Wie viele Fotos sind inkludiert?","acceptedAnswer":{"@type":"Answer","text":"Digitale Fotos sind bei allen Paketen unbegrenzt. Bei Standard und Premium sind jeweils 300 Ausdrucke inkludiert. Beim Digital-Paket gibt es keinen Drucker, alle Fotos gibt es digital auf USB-Stick."}},
     {"@type":"Question","name":"Kann ich die Fotobox auch ohne Hüpfburg mieten?","acceptedAnswer":{"@type":"Answer","text":"Ja. Die Fotobox ist ein eigenständiges Angebot und kann einzeln gemietet werden. Hüpfburgen, Zuckerwatte und Popcorn lassen sich dazubuchen, sind aber keine Voraussetzung."}},
@@ -711,13 +725,37 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   </div>
 </div>
 
+<!-- ══════════════ BILDER AUF EINEN BLICK ══════════════ -->
+<div class="quick">
+  <div class="quick-in">
+    <div class="quick-top">
+      <div class="quick-t">Aus dem Einsatz</div>
+      <a href="#galerie" class="quick-a">Alle Bilder ansehen →</a>
+    </div>
+    <div class="quick-grid">
+        <button type="button" class="foto" data-src="fotobox-ausdruck.webp" data-cap="Sofortdruck · Der Streifen kommt raus">
+          <img src="fotobox-ausdruck.webp" width="900" height="1200" loading="lazy" alt="Fotostreifen kommt frisch aus dem Drucker der Fotobox"/>
+        </button>
+        <button type="button" class="foto" data-src="fotostreifen-hand.webp" data-cap="In der Hand · Nach Sekunden fertig">
+          <img src="fotostreifen-hand.webp" width="900" height="1200" loading="lazy" alt="Frisch gedruckter Fotostreifen im Hüpfabenteuer-Rahmen in der Hand"/>
+        </button>
+        <button type="button" class="foto" data-src="fotobox-bildschirm.webp" data-cap="Druckauswahl · Anzahl selbst wählen">
+          <img src="fotobox-bildschirm.webp" width="900" height="1200" loading="lazy" alt="Bildschirm der Fotobox mit Druckvorschau und Auswahl der Anzahl"/>
+        </button>
+        <button type="button" class="foto" data-src="fotobox-raum.webp" data-cap="Im Raum · Mit Licht & Deko">
+          <img src="fotobox-raum.webp" width="900" height="1200" loading="lazy" alt="Aufgebaute Fotobox im abgedunkelten Raum mit Licht und Dekoration"/>
+        </button>
+    </div>
+  </div>
+</div>
+
 <!-- ══════════════ PAKETE ══════════════ -->
 <section id="pakete">
   <div class="wrap">
     <div class="sec-head rise">
       <div class="eyebrow">Pakete</div>
       <h2>Drei Größen. Kein Kleingedrucktes.</h2>
-      <p class="lede">Lieferung, Auf- und Abbau sind überall dabei. Der Unterschied liegt beim Drucker und beim Rahmen.</p>
+      <p class="lede">Auf- und Abbau sind bei Lieferung überall dabei. Der Unterschied liegt beim Drucker und beim Rahmen.</p>
     </div>
 
     <div class="pakete rise">
@@ -735,7 +773,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
         <ul class="plist">
           <li><b>Premium Fotobox</b> — betriebsbereit aufgestellt</li>
           <li><b>Unbegrenzt digitale Fotos</b>, alle auf USB-Stick</li>
-          <li>Lieferung, Auf- &amp; Abbau inklusive</li>
+          <li>Auf- &amp; Abbau bei Lieferung inklusive</li>
           <li>Telefonischer Support während des Events</li>
           <li class="dim">Kein Drucker — Fotos gibt es digital</li>
         </ul>
@@ -1010,7 +1048,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
       <div class="li-row">
         <div class="li-n">01</div>
         <div>
-          <div class="li-t">Lieferung, Auf- und Abbau</div>
+          <div class="li-t">Anfahrt, Auf- und Abbau</div>
           <div class="li-d">Die ersten 40 Kilometer sind gratis. Darüber 0,55 € pro Kilometer, gerechnet auf vier Fahrten. Die volle Rechnung steht offen auf deinem Angebot.</div>
         </div>
       </div>
@@ -1195,7 +1233,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
       <div class="form-head">
         <div class="eyebrow">Anfrage</div>
         <h2>Ist dein Termin noch frei?</h2>
-        <p>Unverbindlich. Du bekommst ein fertiges Angebot mit allen Kosten inklusive Lieferung — kein Rückruf-Formular, sondern eine Zahl, mit der du rechnen kannst.</p>
+        <p>Unverbindlich. Du bekommst ein fertiges Angebot mit allen Kosten offen aufgeschlüsselt — kein Rückruf-Formular, sondern eine Zahl, mit der du rechnen kannst.</p>
       </div>
 
       <div class="form-body">
