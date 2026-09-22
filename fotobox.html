@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light"/>
 <meta name="theme-color" content="#0B0B0E"/>
-<meta name="description" content="Fotobox mit Sofortdruck mieten in Kärnten ✓ 3 Pakete ab 199€ ✓ Unbegrenzte digitale Fotos ✓ Auf- &amp; Abbau bei Lieferung inklusive ✓ Hochzeit, Weihnachtsfeier, Firmenfeier ✓ 5,0★ Google ✓ Antwort meist in unter 1 Stunde"/>
+<meta name="description" content="Fotobox mit Sofortdruck mieten in Kärnten ✓ 3 Pakete ab 199€ ✓ Ganzer Abend ohne Stundenlimit ✓ Unbegrenzte digitale Fotos ✓ Auf- &amp; Abbau bei Lieferung inklusive ✓ Hochzeit, Weihnachtsfeier, Firmenfeier ✓ 5,0★ Google ✓ Antwort meist in unter 1 Stunde"/>
 <meta name="keywords" content="Fotobox mieten Kärnten, Fotobox mit Sofortdruck, Fotobox Hochzeit Kärnten, Fotobox Weihnachtsfeier, Fotobox Geburtstag Kärnten, Fotobox Verleih Kärnten, Fotobox Firmenfeier, Fotobox mieten Klagenfurt, Fotobox mieten Villach, Photobooth mieten Kärnten, Fotobox St. Veit"/>
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
 <meta name="author" content="Hüpfabenteuer Kärnten"/>
@@ -15,7 +15,7 @@
 <link rel="canonical" href="https://huepfabenteuer.at/fotobox.html"/>
 <meta property="og:type" content="product"/>
 <meta property="og:title" content="Fotobox mieten Kärnten – mit Sofortdruck ab 199€"/>
-<meta property="og:description" content="Fotobox mit Sofortdruck ✓ 3 Pakete ab 199€ ✓ Unbegrenzte digitale Fotos ✓ Auf- &amp; Abbau bei Lieferung inklusive ✓ Hochzeit, Weihnachtsfeier, Firmenfeier!"/>
+<meta property="og:description" content="Fotobox mit Sofortdruck ✓ 3 Pakete ab 199€ ✓ Ganzer Abend ohne Stundenlimit ✓ Unbegrenzte digitale Fotos ✓ Auf- &amp; Abbau bei Lieferung inklusive ✓ Hochzeit, Weihnachtsfeier, Firmenfeier!"/>
 <meta property="og:url" content="https://huepfabenteuer.at/fotobox.html"/>
 <meta property="og:image" content="https://huepfabenteuer.at/fotobox-og.jpg"/>
 <meta property="og:image:alt" content="Fotobox mit Sofortdruck mieten Kärnten – Hüpfabenteuer"/>
@@ -23,10 +23,10 @@
 <meta property="og:locale" content="de_AT"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Fotobox mieten Kärnten – mit Sofortdruck ab 199€"/>
-<meta name="twitter:description" content="Fotobox mit Sofortdruck ✓ 3 Pakete ab 199€ ✓ Unbegrenzte digitale Fotos ✓ Auf- &amp; Abbau bei Lieferung inklusive!"/>
+<meta name="twitter:description" content="Fotobox mit Sofortdruck ✓ 3 Pakete ab 199€ ✓ Ganzer Abend ohne Stundenlimit ✓ Unbegrenzte digitale Fotos ✓ Auf- &amp; Abbau bei Lieferung inklusive!"/>
 <meta name="twitter:image" content="https://huepfabenteuer.at/fotobox-og.jpg"/>
 <meta name="twitter:image:alt" content="Fotobox mit Sofortdruck mieten Kärnten"/>
-<title>Fotobox mieten Kärnten – mit Sofortdruck ab 199€ | Hüpfabenteuer</title>
+<title>Fotobox mieten Kärnten – Sofortdruck, ganzer Abend ab 199€</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -433,6 +433,26 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
 .bi.cta{color:var(--brass);}
 .bi.cta svg{stroke-width:1.7;}
 @media(min-width:900px){body{padding-bottom:0;}.bnav{display:none;}}
+/* Sticky Anfrage-Leiste (ersetzt am Handy die Seiten-Navi) */
+.cta-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:70;
+  background:rgba(11,11,14,.97);backdrop-filter:blur(16px);border-top:1px solid var(--line);
+  display:flex;align-items:center;gap:10px;padding:9px 14px;
+  padding-bottom:calc(9px + env(safe-area-inset-bottom,0px));
+}
+.cta-main{
+  flex:1;display:flex;align-items:center;justify-content:center;min-height:46px;padding:0 12px;
+  background:var(--brass);color:#16150f;text-decoration:none;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+}
+.cta-ic{
+  flex:0 0 46px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--line);color:var(--fog-2);text-decoration:none;
+}
+.cta-ic svg{width:20px;height:20px;}
+.cta-ic svg[data-stroke]{stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.cta-ic svg[data-fill]{fill:currentColor;}
+@media(min-width:900px){.cta-bar{display:none;}}
 
 /* ── WhatsApp ─────────────────────────────────────────────── */
 .wa{
@@ -445,6 +465,8 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
 .wa:hover{border-color:var(--brass);background:var(--void-2);}
 .wa svg{width:22px;height:22px;fill:var(--paper);}
 @media(min-width:900px){.wa{bottom:26px;}}
+/* Am Handy uebernimmt die Sticky-Leiste unten — der schwebende WhatsApp-Knopf wuerde sie ueberlappen */
+@media(max-width:899px){.wa{display:none;}}
 
 /* ── Fotorahmen ───────────────────────────────────────────── */
 .rahmen-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
@@ -611,6 +633,7 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
+    {"@type":"Question","name":"Wie lange habe ich die Fotobox?","acceptedAnswer":{"@type":"Answer","text":"Den ganzen Abend, ohne Stundenlimit. Wir bauen die Fotobox vor dem Fest auf und holen sie am nächsten Tag wieder ab. Es gibt keine Stundenpakete und keinen Aufpreis, wenn es später wird als geplant."}},
     {"@type":"Question","name":"Was kostet es, eine Fotobox in Kärnten zu mieten?","acceptedAnswer":{"@type":"Answer","text":"Es gibt drei Pakete: Digital um 199 €, Standard um 299 € und Premium um 349 €. Auf- und Abbau sind bei Lieferung inklusive, die ersten 40 Kilometer Anfahrt sind gratis."}},
     {"@type":"Question","name":"Was kostet die Lieferung?","acceptedAnswer":{"@type":"Answer","text":"Die ersten 40 Kilometer sind gratis. Darüber hinaus werden 0,55 € pro Kilometer verrechnet, gerechnet auf vier Fahrten: Lieferung hin und retour, Abholung hin und retour. Die genaue Rechnung steht offen auf jedem Angebot."}},
     {"@type":"Question","name":"Wie viele Fotos sind inkludiert?","acceptedAnswer":{"@type":"Answer","text":"Digitale Fotos sind bei allen Paketen unbegrenzt. Bei Standard und Premium sind jeweils 300 Ausdrucke inkludiert. Beim Digital-Paket gibt es keinen Drucker, alle Fotos gibt es digital auf USB-Stick."}},
@@ -695,7 +718,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     <div>
       <div class="hero-kicker">Fotobox mit Sofortdruck · Kärnten</div>
       <h1>Der Abend ist vorbei.<br>Die Bilder <span class="it">bleiben.</span></h1>
-      <p class="lede">Eine Fotobox, die Gäste zusammenbringt, statt nur herumzustehen. Wir liefern sie, bauen sie auf, holen sie wieder ab — und du bekommst jeden Schnappschuss des Abends, gedruckt und digital.</p>
+      <p class="lede">Eine Fotobox, die Gäste zusammenbringt, statt nur herumzustehen. Wir liefern sie, bauen sie auf, holen sie wieder ab — und du bekommst jeden Schnappschuss des Abends, gedruckt und digital. Den ganzen Abend lang, ohne Stundenzähler.</p>
       <div class="hero-cta">
         <a href="#anfrage" class="btn btn-solid">Termin anfragen</a>
         <a href="#pakete" class="btn btn-ghost">Pakete ansehen</a>
@@ -704,6 +727,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
         <span><b>5,0</b> auf Google</span>
         <span><b>3</b> Pakete ab 199 €</span>
         <span><b>40 km</b> Lieferung gratis</span>
+        <span><b>Ganzer Abend</b> ohne Stundenlimit</span>
       </div>
     </div>
 
@@ -755,7 +779,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     <div class="sec-head rise">
       <div class="eyebrow">Pakete</div>
       <h2>Drei Größen. Kein Kleingedrucktes.</h2>
-      <p class="lede">Auf- und Abbau sind bei Lieferung überall dabei. Der Unterschied liegt beim Drucker und beim Rahmen.</p>
+      <p class="lede">Auf- und Abbau sind bei Lieferung überall dabei, und die Fotobox bleibt den ganzen Abend — wir stellen sie vor dem Fest hin und holen sie am nächsten Tag ab. Keine Stundenpakete, kein Aufpreis, wenn es später wird. Der Unterschied zwischen den Paketen liegt beim Drucker und beim Rahmen.</p>
     </div>
 
     <div class="pakete rise">
@@ -767,11 +791,12 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
         </div>
         <div>
           <div class="paket-price">199<span class="cur">€</span></div>
-          <div class="paket-price-n">Pauschale je Event</div>
+          <div class="paket-price-n">Pauschale je Event · ganzer Abend</div>
         </div>
         <div class="paket-rule"></div>
         <ul class="plist">
           <li><b>Premium Fotobox</b> — betriebsbereit aufgestellt</li>
+          <li><b>Den ganzen Abend</b> — kein Stundenlimit, Abholung am nächsten Tag</li>
           <li><b>Unbegrenzt digitale Fotos</b>, alle auf USB-Stick</li>
           <li>Auf- &amp; Abbau bei Lieferung inklusive</li>
           <li>Telefonischer Support während des Events</li>
@@ -788,7 +813,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
         </div>
         <div>
           <div class="paket-price">299<span class="cur">€</span></div>
-          <div class="paket-price-n">Pauschale je Event</div>
+          <div class="paket-price-n">Pauschale je Event · ganzer Abend</div>
         </div>
         <div class="paket-rule"></div>
         <ul class="plist">
@@ -808,7 +833,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
         </div>
         <div>
           <div class="paket-price">349<span class="cur">€</span></div>
-          <div class="paket-price-n">Pauschale je Event</div>
+          <div class="paket-price-n">Pauschale je Event · ganzer Abend</div>
         </div>
         <div class="paket-rule"></div>
         <ul class="plist">
@@ -1169,6 +1194,11 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
 
     <div class="rise">
       <details class="faq">
+        <summary>Wie lange habe ich die Fotobox?</summary>
+        <div class="faq-a">Den ganzen Abend, ohne Stundenlimit. Wir bauen sie vor dem Fest auf und holen sie am nächsten Tag wieder ab. Es gibt keine Drei- oder Vier-Stunden-Pakete und keinen Aufpreis, wenn es später wird als geplant — die Box läuft, solange gefeiert wird.</div>
+      </details>
+
+      <details class="faq">
         <summary>Was kostet die Lieferung?</summary>
         <div class="faq-a">Die ersten 40 Kilometer sind gratis. Darüber verrechnen wir 0,55 € pro Kilometer, gerechnet auf vier Fahrten — Lieferung hin und retour, Abholung hin und retour. Die komplette Rechnung steht offen auf deinem Angebot, damit du siehst, wie der Betrag zustande kommt.</div>
       </details>
@@ -1233,13 +1263,42 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
       <div class="form-head">
         <div class="eyebrow">Anfrage</div>
         <h2>Ist dein Termin noch frei?</h2>
-        <p>Unverbindlich. Du bekommst ein fertiges Angebot mit allen Kosten offen aufgeschlüsselt — kein Rückruf-Formular, sondern eine Zahl, mit der du rechnen kannst.</p>
+        <p>Unverbindlich, und in einer Minute erledigt. Du bekommst ein fertiges Angebot mit allen Kosten offen aufgeschlüsselt — kein Rückruf-Formular, sondern eine Zahl, mit der du rechnen kannst.</p>
       </div>
 
       <div class="form-body">
 
         <div class="speed">
           <div><b>Antwort noch heute</b>, meistens innerhalb einer Stunde. Wenn es dringend ist, ruf einfach an: <a href="tel:+436641852634" style="color:#8A6A2A;font-weight:700;" data-track="call">+43 664 185 26 34</a></div>
+        </div>
+
+        <div class="fset">
+          <div class="fset-t">Termin &amp; Ort</div>
+          <p class="hint" style="margin:0 0 12px;">Zuerst das Wichtigste: Wir schauen sofort nach, ob dein Datum noch frei ist.</p>
+          <div class="grid2">
+            <div class="f">
+              <label for="datumFoto">Datum</label>
+              <input type="date" name="Datum" id="datumFoto" required/>
+            </div>
+            <div class="f">
+              <label for="anlassFeld">Anlass</label>
+              <select name="Anlass" id="anlassFeld">
+                <option value="">Bitte wählen</option>
+                <option>Hochzeit</option>
+                <option>Weihnachtsfeier</option>
+                <option>Firmenfeier</option>
+                <option>Geburtstag</option>
+                <option>Vereinsfest</option>
+                <option>Taufe / Kommunion</option>
+                <option>Sonstiges</option>
+              </select>
+            </div>
+          </div>
+          <div class="f">
+            <label for="ortFeld">Ort</label>
+            <input type="text" name="Ort" id="ortFeld" placeholder="z. B. Klagenfurt" required autocomplete="address-level2"/>
+          </div>
+          <p class="hint">Die genaue Adresse brauchen wir erst bei der Buchung — für das Angebot reicht der Ort.</p>
         </div>
 
         <div class="fset">
@@ -1262,6 +1321,12 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
               <span class="opt-n">Premium</span>
               <span class="opt-p">349 €</span>
               <span class="opt-d">Rahmen frei wählbar</span>
+            </label>
+            <label class="opt" data-name="Noch offen" data-price="0">
+              <input type="radio" name="Paket" value="Noch offen – bitte beraten"/>
+              <span class="opt-n">Weiß ich noch nicht</span>
+              <span class="opt-p">—</span>
+              <span class="opt-d">Wir schlagen dir was vor</span>
             </label>
           </div>
         </div>
@@ -1359,33 +1424,6 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
           <p class="hint">Noch unschlüssig? Lass es offen — wir klären den Rahmen gemeinsam, bevor gedruckt wird.</p>
         </div>
 
-        <div class="fset">
-          <div class="fset-t">Termin</div>
-          <div class="grid2">
-            <div class="f">
-              <label for="datumFoto">Datum</label>
-              <input type="date" name="Datum" id="datumFoto" required/>
-            </div>
-            <div class="f">
-              <label for="anlassFeld">Anlass</label>
-              <select name="Anlass" id="anlassFeld">
-                <option value="">Bitte wählen</option>
-                <option>Hochzeit</option>
-                <option>Weihnachtsfeier</option>
-                <option>Firmenfeier</option>
-                <option>Geburtstag</option>
-                <option>Vereinsfest</option>
-                <option>Taufe / Kommunion</option>
-                <option>Sonstiges</option>
-              </select>
-            </div>
-          </div>
-          <div class="f">
-            <label for="ortFeld">Ort</label>
-            <input type="text" name="Ort" id="ortFeld" placeholder="z. B. Klagenfurt" required autocomplete="address-level2"/>
-          </div>
-          <p class="hint">Die genaue Adresse brauchen wir erst bei der Buchung — für das Angebot reicht der Ort.</p>
-        </div>
 
         <div class="fset">
           <div class="fset-t">Kontakt</div>
@@ -1402,13 +1440,14 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
           <div class="grid2">
             <div class="f">
               <label for="telefonFoto">Telefon</label>
-              <input type="tel" name="Telefon" id="telefonFoto" placeholder="+43 660 123 456" required inputmode="tel" autocomplete="tel"/>
+              <input type="tel" name="Telefon" id="telefonFoto" placeholder="+43 660 123 456" inputmode="tel" autocomplete="tel"/>
             </div>
             <div class="f">
-              <label for="emailFoto">E-Mail <span style="text-transform:none;letter-spacing:0;">(optional)</span></label>
+              <label for="emailFoto">E-Mail</label>
               <input type="email" name="E-Mail" id="emailFoto" placeholder="maria@beispiel.at" inputmode="email" autocomplete="email"/>
             </div>
           </div>
+          <p class="hint">Telefon oder E-Mail — eines von beiden genügt. Wir antworten auf dem Weg, den du angibst.</p>
           <div class="f">
             <label for="nachrichtFoto">Nachricht <span style="text-transform:none;letter-spacing:0;">(optional)</span></label>
             <textarea name="Nachricht" id="nachrichtFoto" placeholder="z. B. individueller Fotorahmen gewünscht, zusätzlich Zuckerwatte, ungefähre Gästezahl …"></textarea>
@@ -1477,14 +1516,19 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   </div>
 </footer>
 
-<!-- ══════════════ MOBILE NAVIGATION ══════════════ -->
-<nav class="bnav" aria-label="Hauptnavigation">
-  <a href="/" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg><span>Start</span></a>
-  <a href="unsere-angebote.html?filter=burg" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l2-2 2 2 2-4 2 4 2-2 2 2 2-2v13z"/></svg><span>Burgen</span></a>
-  <a href="fotobox.html" class="bi on" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3.2"/></svg><span>Fotobox</span></a>
-  <a href="unsere-angebote.html?filter=extra" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="9" r="5"/><path d="M12.8 12.8 20 20"/><path d="M17.5 17.5 20 15"/></svg><span>Extras</span></a>
-  <a href="kontakt.html" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg><span>Kontakt</span></a>
-</nav>
+<!-- ══════════════ STICKY ANFRAGE-LEISTE ══════════════ -->
+<!-- Ersetzt am Handy bewusst die Seiten-Navi: auf einer Anzeigen-Landingpage
+     soll der Daumen anfragen können, nicht wegnavigieren. Die volle Navigation
+     steht weiterhin oben im Header. -->
+<div class="cta-bar">
+  <a href="#anfrage" class="cta-main">Termin anfragen</a>
+  <a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20interessiere%20mich%20f%C3%BCr%20die%20Fotobox" class="cta-ic" target="_blank" rel="noopener" data-track="whatsapp" aria-label="Per WhatsApp anfragen">
+    <svg viewBox="0 0 24 24" data-fill aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+  </a>
+  <a href="tel:+436641852634" class="cta-ic" data-track="call" aria-label="Anrufen">
+    <svg viewBox="0 0 24 24" data-stroke aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg>
+  </a>
+</div>
 
 <!-- Großansicht für die Fotorahmen -->
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Fotorahmen in Großansicht">
@@ -1562,7 +1606,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   function updateRahmen(){
     if(!rahmenWahl) return;
 
-    if(selectedName === 'Digital'){
+    if(selectedName === 'Digital' || selectedName === 'Noch offen'){
       rahmenWahl.hidden = true;
       rahmenLeeren();
       return;
@@ -1656,6 +1700,13 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     if(rw){
       rahmenZeile = '<div class="sum-row"><span>Fotorahmen</span><span>' + rw + '</span></div>';
     }
+    if(!selectedPrice){
+      rows.innerHTML = '<div class="sum-row"><span>Fotobox</span><span>Paket noch offen</span></div>' + rahmenZeile;
+      note.innerHTML = 'Wir schauen uns dein Fest an und schlagen dir im Angebot das passende Paket vor. Lieferkosten kommen je nach Entfernung dazu — die ersten 40 km sind gratis.';
+      box.classList.add('on');
+      return;
+    }
+
     rows.innerHTML =
       '<div class="sum-row"><span>Fotobox ' + selectedName + '</span><span>' + selectedPrice + ' €</span></div>' +
       rahmenZeile +
@@ -1709,15 +1760,17 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     var ort   = val('ortFeld');
     var vorname = val('vornameFoto');
     var telefon = val('telefonFoto');
+    var email   = val('emailFoto');
 
     if(!paket){
-      say('Bitte wähl zuerst ein Paket aus.', false);
+      say('Bitte wähl ein Paket aus — oder „Weiß ich noch nicht“, dann beraten wir dich.', false);
       document.getElementById('opts').scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'});
       return;
     }
     if(!datum){ say('Bitte trag das Datum deines Events ein.', false); return; }
     if(!ort){ say('Bitte gib den Ort an, damit wir die Lieferung rechnen können.', false); return; }
-    if(!vorname || !telefon){ say('Bitte trag zumindest Vorname und Telefonnummer ein.', false); return; }
+    if(!vorname){ say('Bitte trag zumindest deinen Vornamen ein.', false); return; }
+    if(!telefon && !email){ say('Bitte gib Telefon oder E-Mail an, damit wir dir antworten können.', false); return; }
 
     var btn = this;
     btn.disabled = true;
@@ -1735,9 +1788,8 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     if(rahmenGewaehlt) fd.append('Fotorahmen', rahmenGewaehlt);
     var nachname = val('nachnameFoto');
     fd.append('Name',    vorname + (nachname ? ' ' + nachname : ''));
-    fd.append('Telefon', telefon);
-    var email = val('emailFoto');
-    if(email) fd.append('E-Mail', email);
+    if(telefon) fd.append('Telefon', telefon);
+    if(email)   fd.append('E-Mail', email);
     var nachricht = val('nachrichtFoto');
     if(nachricht) fd.append('Nachricht', nachricht);
     fd.append('Quelle', 'Fotobox-Landingpage');
