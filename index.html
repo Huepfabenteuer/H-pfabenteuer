@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<script src="consent.js"></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light only"/>
 <meta name="description" content="Hüpfburg mieten & Hüpfburgen mieten in Kärnten ✓ 6 Modelle ab 120€/Tag ✓ Hüpfburgverleih mit gratis Lieferung bis 40 km ✓ Fotobox, Zuckerwatte & Popcorn ✓ Hochzeitsburg ✓ 5,0★ Google ✓ Jetzt anfragen: +43 664 185 26 34"/>
@@ -25,8 +26,7 @@
 <title>Hüpfburg mieten Kärnten – Hüpfabenteuer | ab 120€ Gratis Lieferung bis 40km</title>
 
 <!-- PERFORMANCE: Preconnect to external domains -->
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="fonts.css"/>
 <link rel="preconnect" href="https://i.imgur.com"/>
 <link rel="dns-prefetch" href="https://i.imgur.com"/>
 
@@ -34,12 +34,7 @@
 <link rel="preload" as="image" href="alienburg-poster.jpg" fetchpriority="high"/>
 <link rel="preload" as="video" href="alienburg-hero.mp4" type="video/mp4"/>
 
-<!-- PERFORMANCE: Async-load fonts (no render blocking) -->
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
-<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/></noscript>
 <!-- Schriften für den Fotobox-Bereich -->
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=JetBrains+Mono:wght@400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
-<noscript><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
 <style>
 /* ── Fotobox-Bereich: eigenes Erscheinungsbild ────────────── */
 .fb-band{
@@ -89,6 +84,12 @@
 .fb-pk-i{background:#0B0B0E;padding:16px 12px;text-align:center;}
 .fb-pk-n{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:#726F68;margin-bottom:6px;}
 .fb-pk-p{font-family:'Bodoni Moda','Didot',serif;font-size:1.5rem;line-height:1;color:#F5F0E6;}
+.fb-fotos{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px auto 0;position:relative;z-index:2;max-width:1000px;}
+.fb-fotos a{display:block;background:#F5F0E6;padding:5px 5px 0;border-radius:2px;transition:transform .2s;text-decoration:none;}
+.fb-fotos a:hover{transform:translateY(-3px);}
+.fb-fotos img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;display:block;background:#E8E1D2;}
+.fb-fotos span{display:block;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;color:#6B6659;padding:5px 1px 6px;line-height:1.4;}
+@media(min-width:820px){.fb-fotos{gap:12px;margin-top:18px;}}
 @media(min-width:820px){
   .fb-band{padding:60px 40px 54px;}
   .fb-in{grid-template-columns:1.3fr .7fr;gap:48px;}
@@ -481,11 +482,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
       {"@type": "State", "name": "Kärnten"}
     ],
     "priceRange": "€€",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5.0",
-      "reviewCount": "16"
-    },
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
@@ -557,33 +553,6 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
     ]
   }
   </script>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1256236772328604');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6KYW215PYR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-6KYW215PYR');
-  gtag('config', 'AW-17627141841');
-</script>
-<!-- End Google Analytics -->
 </head>
 <body>
  
@@ -765,6 +734,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
         <a href="fotobox.html" class="fb-btn fb-btn-solid">Fotobox ansehen</a>
         <a href="fotobox.html#anfrage" class="fb-btn fb-btn-ghost">Termin anfragen</a>
       </div>
+      <p style="margin:12px 0 0;font-size:13px;color:rgba(245,240,230,.65);">Speziell für: <a href="fotobox-weihnachtsfeier.html" style="color:#E6C08A;">Weihnachtsfeier</a> · <a href="fotobox-hochzeit.html" style="color:#E6C08A;">Hochzeit</a></p>
     </div>
     <figure class="fb-strip">
       <img src="fotobox-display.webp" alt="Fotobox mit Sofortdruck mieten in Kärnten – Hüpfabenteuer" width="900" height="1200" loading="lazy"/>
@@ -775,6 +745,12 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     <a href="fotobox.html#pakete" class="fb-pk-i" style="text-decoration:none;"><div class="fb-pk-n">Digital</div><div class="fb-pk-p">199 €</div></a>
     <a href="fotobox.html#pakete" class="fb-pk-i" style="text-decoration:none;"><div class="fb-pk-n">Standard</div><div class="fb-pk-p">299 €</div></a>
     <a href="fotobox.html#pakete" class="fb-pk-i" style="text-decoration:none;"><div class="fb-pk-n">Premium</div><div class="fb-pk-p">349 €</div></a>
+  </div>
+  <div class="fb-fotos">
+    <a href="fotobox.html#galerie"><img src="fotobox-ausdruck.webp" width="900" height="1200" loading="lazy" alt="Fotostreifen kommt frisch aus dem Drucker der Fotobox"/><span>Sofortdruck</span></a>
+    <a href="fotobox.html#galerie"><img src="fotostreifen-hand.webp" width="900" height="1200" loading="lazy" alt="Frisch gedruckter Fotostreifen im Hüpfabenteuer-Rahmen in der Hand"/><span>In der Hand</span></a>
+    <a href="fotobox.html#galerie"><img src="fotobox-bildschirm.webp" width="900" height="1200" loading="lazy" alt="Bildschirm der Fotobox mit Druckvorschau und Auswahl der Anzahl"/><span>Bildschirm</span></a>
+    <a href="fotobox.html#galerie"><img src="fotobox-raum.webp" width="900" height="1200" loading="lazy" alt="Aufgebaute Fotobox im abgedunkelten Raum mit Licht und Dekoration"/><span>Im Raum</span></a>
   </div>
 </section>
 
@@ -866,6 +842,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   <div class="flinks">
     <a href="impressum.html" class="flink">Impressum</a>
     <a href="datenschutz.html" class="flink">Datenschutz</a>
+    <a href="#" class="flink" onclick="return hbCookies()">Cookies</a>
     <a href="agbs.html" class="flink">AGBs</a>
     <a href="https://wa.me/436641852634" target="_blank" class="flink" style="background:rgba(37,211,102,.2);color:rgba(37,211,102,.9);">💬 WhatsApp</a>
     <a href="https://www.facebook.com/profile.php?id=61578821228766" target="_blank" class="flink" style="background:rgba(24,119,242,.2);color:rgba(100,160,255,.95);">📘 Facebook</a>
@@ -1010,39 +987,6 @@ if(fy) fy.textContent=new Date().getFullYear();
 })();
 </script>
  
-<!-- COOKIE BANNER -->
-<div id="cookie-banner" style="position:fixed;bottom:0;left:0;right:0;z-index:3000;background:rgba(15,11,46,0.97);backdrop-filter:blur(16px);border-top:1.5px solid rgba(255,79,163,0.25);padding:16px 20px;display:flex;flex-direction:column;gap:12px;transform:translateY(100%);transition:transform 0.4s cubic-bezier(.34,1.08,.64,1);">
-  <div style="display:flex;align-items:flex-start;gap:10px;">
-    <span style="font-size:22px;flex-shrink:0;">🍪</span>
-    <div>
-      <div style="font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;color:white;margin-bottom:3px;">Wir verwenden Cookies</div>
-      <div style="font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;">Diese Website verwendet Cookies für Google Ads und Analyse, um dir das beste Erlebnis zu bieten. Weitere Infos in unserer <a href="datenschutz.html" style="color:#ff4fa3;text-decoration:underline;">Datenschutzerklärung</a>.</div>
-    </div>
-  </div>
-  <div style="display:flex;gap:10px;">
-    <button onclick="acceptCookies()" style="flex:1;background:linear-gradient(135deg,#ff4fa3,#a855f7);color:white;border:none;border-radius:50px;padding:11px 16px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;cursor:pointer;">✅ Alle akzeptieren</button>
-    <button onclick="denyCookies()" style="flex:1;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);border:1.5px solid rgba(255,255,255,0.15);border-radius:50px;padding:11px 16px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;cursor:pointer;">Nur notwendige</button>
-  </div>
-</div>
- 
-<script>
-(function(){
-  if(!localStorage.getItem('cookie_consent')){
-    setTimeout(function(){
-      var b=document.getElementById('cookie-banner');
-      b.style.transform='translateY(0)';
-    }, 5500);
-  }
-})();
-function acceptCookies(){
-  localStorage.setItem('cookie_consent','all');
-  document.getElementById('cookie-banner').style.transform='translateY(100%)';
-}
-function denyCookies(){
-  localStorage.setItem('cookie_consent','necessary');
-  document.getElementById('cookie-banner').style.transform='translateY(100%)';
-}
-</script>
 <!-- HAMBURGER MENU SCRIPT -->
 <script>
 function toggleMenu(){

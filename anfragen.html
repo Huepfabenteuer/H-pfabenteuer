@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<script src="consent.js"></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light only"/>
 <title>Hüpfburg anfragen Kärnten – Jetzt Termin sichern | Hüpfabenteuer</title>
@@ -22,21 +23,9 @@
 <meta name="description" content="Hüpfburg mieten in Kärnten – jetzt einfach anfragen! Hüpfburgverleih, Fotobox, Zuckerwatte & mehr. Antwort innerhalb 24h ✓ Gratis Lieferung bis 40 km ✓ ab 120€/Tag"/>
 
 <!-- PERFORMANCE: Preconnect to external domains -->
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="fonts.css"/>
 
-<!-- PERFORMANCE: Async-load fonts (no render blocking) -->
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
-<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/></noscript>
  
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17627141841"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'AW-17627141841');
-</script>
  
 <style>
 :root{--pink:#ff4fa3;--purple:#a855f7;--sky:#00c2ff;--sun:#FFD600;--green:#00d97e;--dark:#0f0b2e;--shadow:0 8px 32px rgba(0,0,0,.10);--ok:#1b8d4b;--err:#b3261e;}
@@ -571,32 +560,6 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
   .order-summary{padding:24px 24px 18px;}
 }
 </style>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1256236772328604');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6KYW215PYR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-6KYW215PYR');
-</script>
-<!-- End Google Analytics -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1098,6 +1061,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   <div class="flinks">
     <a href="impressum.html" class="flink">Impressum</a>
     <a href="datenschutz.html" class="flink">Datenschutz</a>
+    <a href="#" class="flink" onclick="return hbCookies()">Cookies</a>
     <a href="agbs.html" class="flink">AGBs</a>
   </div>
   <div class="fcopy">© 2025–2026 Hüpfabenteuer</div>

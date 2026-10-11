@@ -43,6 +43,8 @@ https://www.huepfabenteuer.at/*  https://huepfabenteuer.at/:splat   301!
 /feuerwehrburg     /feuerwehrburg.html     301
 /hochzeitsburg     /hochzeitsburg.html     301
 /fotobox           /fotobox.html           301
+/fotobox-hochzeit  /fotobox-hochzeit.html  301
+/fotobox-weihnachtsfeier /fotobox-weihnachtsfeier.html 301
 /zuckerwatte       /zuckerwatte.html       301
 /popcorn           /popcorn.html           301
 /anfragen          /anfragen.html          301

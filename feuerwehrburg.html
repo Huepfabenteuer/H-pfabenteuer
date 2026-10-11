@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<script src="consent.js"></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light only"/>
 <meta name="description" content="Feuerwehr-Hüpfburg mieten in Kärnten ✓ 5 × 4,2 × 3,4 m mit Rutsche ✓ 140€/Tag ✓ Gratis Lieferung bis 40 km ✓ NEU – Actionspaß für kleine Retter – Jetzt anfragen!"/>
@@ -26,10 +27,7 @@
 <meta name="twitter:image" content="https://i.imgur.com/IulKevy.jpeg"/>
 <meta name="twitter:image:alt" content="Feuerwehr-Hüpfburg mieten Kärnten"/>
 <title>Feuerwehr-Hüpfburg mieten Kärnten – ab 140€/Tag mit Rutsche | Hüpfabenteuer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
-<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/></noscript>
+<link rel="stylesheet" href="fonts.css"/>
 <style>
 :root{--pink:#ff4fa3;--purple:#a855f7;--sky:#00c2ff;--sun:#FFD600;--green:#00d97e;--dark:#0f0b2e;--fire:#ff4500;--fireDark:#cc1a1a;--shadow:0 8px 32px rgba(0,0,0,.10);}
 html{color-scheme:light only;}*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
@@ -205,33 +203,6 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
 }
 </script>
 
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1256236772328604');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-<!-- Google Tag (gtag.js) - Analytics + Google Ads -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6KYW215PYR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-6KYW215PYR');
-  gtag('config', 'AW-17627141841');
-</script>
-<!-- End Google Tag -->
 </head>
 
 <body>
@@ -358,12 +329,26 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   <a href="tel:+436641852634" class="btn-sec">📞 Direkt anrufen</a>
 </div>
 
+<!-- CROSS-SELL FOTOBOX -->
+<div class="xs-fotobox" style="padding:4px 16px 22px;max-width:960px;margin:0 auto;">
+  <a href="fotobox.html" style="display:flex;gap:14px;align-items:center;background:#0B0B0E;border-radius:16px;padding:14px;text-decoration:none;color:#F5F0E6;box-shadow:0 8px 28px rgba(0,0,0,.18);">
+    <img src="fotostreifen-hand.webp" width="900" height="1200" loading="lazy" alt="Fotostreifen aus der Fotobox mit Sofortdruck" style="width:78px;height:104px;object-fit:cover;border-radius:6px;flex-shrink:0;background:#1A1A21;"/>
+    <span style="display:block;">
+      <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#C9954A;font-weight:700;">Feuerwehrfest oder Familienfeier?</span>
+      <span style="display:block;font-family:'Baloo 2',cursive;font-size:19px;font-weight:800;line-height:1.2;margin:3px 0 4px;">Dazu passt: Fotobox ab 199&nbsp;€</span>
+      <span style="display:block;font-size:13px;line-height:1.5;color:#C9C4B8;">Die Fotobox mit Sofortdruck bringt auch die Erwachsenen zum Lachen. Den ganzen Abend, ohne Stundenlimit, alle Bilder digital dazu. Kommt in derselben Lieferung mit.</span>
+      <span style="display:inline-block;margin-top:7px;font-size:13px;font-weight:800;color:#E6C08A;">Fotobox ansehen →</span>
+    </span>
+  </a>
+</div>
+
 <footer>
   <div class="fl">🏰 Hüpfabenteuer</div>
   <div style="font-size:12px;color:rgba(255,255,255,.55);margin:4px 0;">Schulstraße 3 · 9346 Glödnitz · Kärnten</div>
   <div class="flinks">
     <a href="impressum.html" class="flink">Impressum</a>
     <a href="datenschutz.html" class="flink">Datenschutz</a>
+    <a href="#" class="flink" onclick="return hbCookies()">Cookies</a>
     <a href="agbs.html" class="flink">AGBs</a>
   </div>
   <div class="fcopy">© 2025–2026 Hüpfabenteuer</div>

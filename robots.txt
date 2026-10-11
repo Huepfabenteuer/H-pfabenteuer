@@ -1,24 +1,12 @@
 # robots.txt für https://huepfabenteuer.at
-# Hüpfburgverleih Kärnten
- 
+# Hüpfabenteuer Kärnten – Hüpfburgen, Fotobox, Partyausstattung
+
 User-agent: *
 Allow: /
- 
-# Tote Duplicate-Versionen blockieren (alter files/-Ordner)
-Disallow: /files/
- 
-# Interne Seiten von Indexierung ausschließen
-Disallow: /danke.html
-Disallow: /bewertung.html
-Disallow: /fotorahmen.html
- 
-# Tracking-Parameter ignorieren (Facebook Click ID, Google Click ID, UTM)
-Disallow: /*?fbclid=
-Disallow: /*?gclid=
-Disallow: /*?utm_
- 
-# Crawler-Höflichkeit: kein Hammer-Crawling
-Crawl-delay: 1
- 
-# Sitemap
+
+# danke.html, bewertung.html und fotorahmen.html sind per
+# <meta name="robots" content="noindex"> ausgeschlossen. Sie dürfen
+# hier NICHT gesperrt werden, sonst sieht Google das noindex nie.
+# URLs mit ?gclid= / ?fbclid= / ?utm_ regelt das canonical-Tag.
+
 Sitemap: https://huepfabenteuer.at/sitemap.xml

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<script src="consent.js"></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light only"/>
 <title>Datenschutz – Hüpfabenteuer Kärnten</title>
@@ -14,10 +15,7 @@
 <meta property="og:url" content="https://huepfabenteuer.at/datenschutz.html"/>
 <meta property="og:site_name" content="Hüpfabenteuer Kärnten"/>
 <meta property="og:locale" content="de_AT"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
-<noscript><link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/></noscript>
+<link rel="stylesheet" href="fonts.css"/>
 <style>
 :root{--pink:#ff4fa3;--purple:#a855f7;--dark:#0f0b2e;--shadow:0 8px 32px rgba(0,0,0,.10);}
 html{color-scheme:light only;}*{box-sizing:border-box;margin:0;padding:0;}
@@ -56,33 +54,6 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
 @media(prefers-reduced-motion:reduce){.wa-fab{animation:none;}}
 </style>
 
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1256236772328604');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-<!-- Google Tag (gtag.js) - Analytics + Google Ads -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6KYW215PYR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-6KYW215PYR');
-  gtag('config', 'AW-17627141841');
-</script>
-<!-- End Google Tag -->
 </head>
 
 <body>
@@ -100,17 +71,51 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   
   <div class="card">
     <h2>Datenschutzerklärung</h2>
-    <p>Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen. Wir verarbeiten Ihre Daten daher ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO, TKG 2003).</p>
+    <p>Der Schutz deiner persönlichen Daten ist mir wichtig. Ich verarbeite Daten ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO, DSG, TKG 2021). Hier steht, welche Daten beim Besuch dieser Website und bei einer Anfrage verarbeitet werden.</p><p style="font-size:13px;opacity:.7;">Stand: Oktober 2026</p>
   </div>
   <div class="card">
     <h2>Verantwortlicher</h2>
-    <p><strong>Hüpfabenteuer</strong><br>Schulstraße 3, 9346 Glödnitz<br>
-    📞 <a href="tel:+436641852634" style="color:#a855f7;">+43 664 185 26 34</a></p>
+    <p><strong>Alexander Fodermayer – Hüpfabenteuer</strong><br>Schulstraße 3, 9346 Glödnitz, Österreich<br>📞 <a href="tel:+436641852634" style="color:#a855f7;">+43 664 185 26 34</a><br>✉️ <a href="mailto:info@huepfabenteuer.at" style="color:#a855f7;">info@huepfabenteuer.at</a></p>
   </div>
   <div class="card">
-    <h2>Erhobene Daten</h2>
-    <p>Bei der Nutzung unseres Kontaktformulars werden Ihre Angaben (Name, E-Mail, Telefon, Nachricht) zur Bearbeitung Ihrer Anfrage gespeichert. Eine Weitergabe an Dritte findet nicht statt.</p>
-    <p>Diese Seite befindet sich im Aufbau. Bei Fragen stehen wir gerne telefonisch zur Verfügung.</p>
+    <h2>Hosting</h2>
+    <p>Diese Website wird bei Netlify (Netlify, Inc., USA) gehostet. Beim Aufruf einer Seite werden technisch notwendige Daten wie IP-Adresse, Datum und Uhrzeit, aufgerufene Seite und Browsertyp in Server-Logfiles verarbeitet, um die Website sicher und stabil auszuliefern. Rechtsgrundlage ist das berechtigte Interesse am sicheren Betrieb (Art. 6 Abs. 1 lit. f DSGVO). Die Übermittlung in die USA stützt sich auf das EU-US Data Privacy Framework bzw. auf Standardvertragsklauseln.</p>
+  </div>
+  <div class="card">
+    <h2>Anfrageformulare</h2>
+    <p>Wenn du ein Anfrageformular nutzt, werden deine Angaben (z. B. Name, Telefon, E-Mail, Datum, Ort, gewünschtes Produkt, Nachricht) zur Bearbeitung der Anfrage und zur Erstellung eines Angebots verarbeitet. Die Formulare werden über den Dienst Formcarry (formcarry.com) an mich per E-Mail weitergeleitet; Formcarry verarbeitet die Daten dabei in meinem Auftrag. Rechtsgrundlage ist die Durchführung vorvertraglicher Maßnahmen (Art. 6 Abs. 1 lit. b DSGVO).</p>
+  </div>
+  <div class="card">
+    <h2>Telefon, E-Mail und WhatsApp</h2>
+    <p>Wenn du mich anrufst, mir schreibst oder über WhatsApp kontaktierst, verarbeite ich deine Angaben zur Bearbeitung deiner Anfrage (Art. 6 Abs. 1 lit. b DSGVO). Bei WhatsApp gelten zusätzlich die Datenschutzbestimmungen von WhatsApp (Meta Platforms Ireland Ltd.). Wenn du das nicht möchtest, erreichst du mich jederzeit auch per Telefon oder E-Mail.</p>
+  </div>
+  <div class="card">
+    <h2>Cookies und Einwilligung</h2>
+    <p>Beim ersten Besuch fragt ein Banner, ob du Analyse- und Marketing-Dienste erlaubst. Ohne Zustimmung werden keine Dienste von Google oder Meta geladen und keine Cookies dieser Anbieter gesetzt. Deine Auswahl wird im Speicher deines Browsers (localStorage, Eintrag „hb_consent_v2“) für etwa sechs Monate gespeichert. Diese Speicherung ist technisch notwendig (§ 165 Abs. 3 TKG 2021).</p><p>Du kannst deine Entscheidung jederzeit ändern oder widerrufen: <a href="#" onclick="return hbCookies()" style="color:#a855f7;">Cookie-Einstellungen öffnen</a>.</p>
+  </div>
+  <div class="card">
+    <h2>Google Analytics</h2>
+    <p>Nur mit deiner Einwilligung nutze ich Google Analytics 4 (Google Ireland Ltd., Gordon House, Barrow Street, Dublin 4, Irland), um zu verstehen, wie die Website genutzt wird, z. B. welche Seiten aufgerufen und welche Buttons geklickt werden. Dabei werden Cookies gesetzt und Nutzungsdaten samt gekürzter IP-Adresse an Google übermittelt, auch in die USA. Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 165 Abs. 3 TKG 2021). Die Übermittlung in die USA stützt sich auf das EU-US Data Privacy Framework.</p>
+  </div>
+  <div class="card">
+    <h2>Google Ads Conversion-Tracking und Remarketing</h2>
+    <p>Nur mit deiner Einwilligung nutze ich Google Ads (Google Ireland Ltd.). Damit sehe ich, ob nach einem Klick auf eine Anzeige eine Anfrage, ein Anruf oder eine WhatsApp-Nachricht zustande kommt, und kann Besuchern der Website später passende Anzeigen zeigen. Dabei werden Cookies gesetzt und Daten an Google übermittelt, auch in die USA. Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Die Übermittlung in die USA stützt sich auf das EU-US Data Privacy Framework.</p>
+  </div>
+  <div class="card">
+    <h2>Meta Pixel</h2>
+    <p>Nur mit deiner Einwilligung nutze ich das Meta Pixel (Meta Platforms Ireland Ltd., 4 Grand Canal Square, Dublin 2, Irland). Damit messe ich die Wirkung von Werbung auf Facebook und Instagram und kann Besuchern der Website dort passende Anzeigen zeigen. Dabei werden Cookies gesetzt und Daten an Meta übermittelt, auch in die USA. Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Die Übermittlung in die USA stützt sich auf das EU-US Data Privacy Framework.</p>
+  </div>
+  <div class="card">
+    <h2>Schriften und Bilder</h2>
+    <p>Die Schriften dieser Website liegen auf dem eigenen Server, beim Seitenaufruf wird keine Verbindung zu Google Fonts hergestellt. Einige Produktbilder werden derzeit vom Bilderdienst Imgur (Imgur, Inc., USA) geladen; dabei wird technisch bedingt deine IP-Adresse an Imgur übermittelt (Art. 6 Abs. 1 lit. f DSGVO).</p>
+  </div>
+  <div class="card">
+    <h2>Speicherdauer</h2>
+    <p>Anfragen speichere ich, solange es für die Bearbeitung und eine mögliche Buchung nötig ist. Daten aus Buchungen und Rechnungen bewahre ich wegen der gesetzlichen Aufbewahrungspflicht (§ 132 BAO) sieben Jahre auf. Analyse- und Marketing-Cookies werden je nach Anbieter bis zu 24 Monate gespeichert, sofern du sie nicht vorher löschst.</p>
+  </div>
+  <div class="card">
+    <h2>Deine Rechte</h2>
+    <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Eine erteilte Einwilligung kannst du jederzeit mit Wirkung für die Zukunft widerrufen. Melde dich dazu einfach unter <a href="mailto:info@huepfabenteuer.at" style="color:#a855f7;">info@huepfabenteuer.at</a>.</p><p>Wenn du glaubst, dass die Verarbeitung deiner Daten gegen das Datenschutzrecht verstößt, kannst du dich bei der Österreichischen Datenschutzbehörde beschweren (Barichgasse 40–42, 1030 Wien, <a href="https://www.dsb.gv.at" target="_blank" rel="noopener" style="color:#a855f7;">dsb.gv.at</a>).</p>
   </div>
 
 </div>
@@ -120,6 +125,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
   <div class="flinks">
     <a href="impressum.html" class="flink">Impressum</a>
     <a href="datenschutz.html" class="flink">Datenschutz</a>
+    <a href="#" class="flink" onclick="return hbCookies()">Cookies</a>
     <a href="agbs.html" class="flink">AGBs</a>
   </div>
   <div class="fcopy">© 2025–2026 Hüpfabenteuer</div>

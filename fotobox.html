@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<script src="consent.js"></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light"/>
 <meta name="theme-color" content="#0B0B0E"/>
-<meta name="description" content="Fotobox mit Sofortdruck mieten in Kärnten ✓ 3 Pakete ab 199€ ✓ Ganzer Abend ohne Stundenlimit ✓ Unbegrenzte digitale Fotos ✓ Auf- &amp; Abbau bei Lieferung inklusive ✓ Hochzeit, Weihnachtsfeier, Firmenfeier ✓ 5,0★ Google ✓ Antwort meist in unter 1 Stunde"/>
+<meta name="description" content="Fotobox mit Sofortdruck mieten in Kärnten: ganzer Abend ohne Stundenlimit, Auf- &amp; Abbau inklusive, ab 199 €. Für Hochzeit, Weihnachtsfeier &amp; Firmenfeier."/>
 <meta name="keywords" content="Fotobox mieten Kärnten, Fotobox mit Sofortdruck, Fotobox Hochzeit Kärnten, Fotobox Weihnachtsfeier, Fotobox Geburtstag Kärnten, Fotobox Verleih Kärnten, Fotobox Firmenfeier, Fotobox mieten Klagenfurt, Fotobox mieten Villach, Photobooth mieten Kärnten, Fotobox St. Veit"/>
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
 <meta name="author" content="Hüpfabenteuer Kärnten"/>
@@ -28,9 +29,7 @@
 <meta name="twitter:image:alt" content="Fotobox mit Sofortdruck mieten Kärnten"/>
 <title>Fotobox mieten Kärnten – Sofortdruck, ganzer Abend ab 199€</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=JetBrains+Mono:wght@400;500&family=Karla:wght@400;500;700&display=swap"/>
+<link rel="stylesheet" href="fonts.css"/>
 
 <style>
 /* ═══════════════════════════════════════════════════════════
@@ -590,18 +589,11 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
   "image": "https://huepfabenteuer.at/fotobox-og.jpg",
   "brand": {"@type": "Brand", "name": "Hüpfabenteuer Kärnten"},
   "category": "Fotobox Verleih",
-  "aggregateRating": {"@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "16", "bestRating": "5"},
-  "offers": {
-    "@type": "AggregateOffer",
-    "priceCurrency": "EUR",
-    "lowPrice": "199",
-    "highPrice": "349",
-    "offerCount": "3",
-    "availability": "https://schema.org/InStock",
-    "url": "https://huepfabenteuer.at/fotobox.html",
-    "priceValidUntil": "2027-12-31",
-    "seller": {"@type": "Organization", "name": "Hüpfabenteuer Kärnten", "url": "https://huepfabenteuer.at"}
-  }
+  "offers": [
+    {"@type":"Offer","name":"Fotobox Digital","price":"199","priceCurrency":"EUR","description":"Ganzer Abend, unbegrenzte digitale Fotos, kein Drucker","availability":"https://schema.org/InStock","url":"https://huepfabenteuer.at/fotobox.html#pakete","priceValidUntil":"2027-12-31","seller":{"@type":"Organization","name":"Hüpfabenteuer Kärnten","url":"https://huepfabenteuer.at"}},
+    {"@type":"Offer","name":"Fotobox Standard","price":"299","priceCurrency":"EUR","description":"Ganzer Abend, Sofortdruck, 300 Ausdrucke, Hüpfabenteuer-Rahmen","availability":"https://schema.org/InStock","url":"https://huepfabenteuer.at/fotobox.html#pakete","priceValidUntil":"2027-12-31","seller":{"@type":"Organization","name":"Hüpfabenteuer Kärnten","url":"https://huepfabenteuer.at"}},
+    {"@type":"Offer","name":"Fotobox Premium","price":"349","priceCurrency":"EUR","description":"Ganzer Abend, Sofortdruck, 300 Ausdrucke, 14 Motiv-Rahmen oder individueller Rahmen, Accessoire-Set","availability":"https://schema.org/InStock","url":"https://huepfabenteuer.at/fotobox.html#pakete","priceValidUntil":"2027-12-31","seller":{"@type":"Organization","name":"Hüpfabenteuer Kärnten","url":"https://huepfabenteuer.at"}}
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -624,8 +616,7 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
     {"@type": "City", "name": "Feldkirchen"},
     {"@type": "City", "name": "Friesach"},
     {"@type": "State", "name": "Kärnten"}
-  ],
-  "aggregateRating": {"@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "16", "bestRating": "5"}
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -660,34 +651,7 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
 }
 </script>
 
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1256236772328604');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
 
-<!-- Google Tag (gtag.js) - Analytics + Google Ads -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6KYW215PYR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-6KYW215PYR');
-  gtag('config', 'AW-17627141841');
-</script>
-<!-- End Google Tag -->
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -795,7 +759,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
         </div>
         <div class="paket-rule"></div>
         <ul class="plist">
-          <li><b>Premium Fotobox</b> — betriebsbereit aufgestellt</li>
+          <li><b>Fotobox</b> — betriebsbereit aufgestellt</li>
           <li><b>Den ganzen Abend</b> — kein Stundenlimit, Abholung am nächsten Tag</li>
           <li><b>Unbegrenzt digitale Fotos</b>, alle auf USB-Stick</li>
           <li>Auf- &amp; Abbau bei Lieferung inklusive</li>
@@ -1034,6 +998,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
         <h3>Das ehrlichste Gästebuch, das ihr bekommen könnt</h3>
         <p>Der Rahmen trägt eure Namen und das Datum. Jeder Gast nimmt seinen Streifen mit, ein zweiter wandert ins Buch — und am Ende des Abends habt ihr alles digital. Das sind meistens die Bilder, die der Fotograf nicht macht: die um halb zwei, wenn keiner mehr posiert.</p>
         <p class="small">Samstage in der Hauptsaison sind früh vergeben. Für 2027 lohnt es sich, jetzt anzufragen.</p>
+        <p class="small"><a href="fotobox-hochzeit.html">Alles zur Fotobox für Hochzeiten →</a></p>
       </div>
 
       <div class="anlass" id="weihnachtsfeier">
@@ -1041,6 +1006,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
         <h3>Der Unterschied zwischen Essen gehen und einem Abend</h3>
         <p>Rahmen mit Firmenlogo, ein Ausdruck für jeden Mitarbeiter, alle Bilder danach digital fürs Intranet oder Social Media. Kostet weniger als der Wein und wird länger erwähnt.</p>
         <p class="small">Dezember-Termine vergeben wir ab Oktober. Freitage sind zuerst weg.</p>
+        <p class="small"><a href="fotobox-weihnachtsfeier.html">Alles zur Fotobox für Weihnachtsfeiern →</a></p>
       </div>
 
       <div class="anlass" id="firmenfeier">
@@ -1495,6 +1461,8 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
         <div class="foot-h">Sortiment</div>
         <div class="foot-l">
           <a href="fotobox.html">Fotobox</a>
+          <a href="fotobox-hochzeit.html">Fotobox Hochzeit</a>
+          <a href="fotobox-weihnachtsfeier.html">Fotobox Weihnachtsfeier</a>
           <a href="unsere-angebote.html?filter=burg">Hüpfburgen</a>
           <a href="zuckerwatte.html">Zuckerwatte</a>
           <a href="popcorn.html">Popcorn</a>
@@ -1511,7 +1479,7 @@ src="https://www.facebook.com/tr?id=1256236772328604&ev=PageView&noscript=1"
     </div>
     <div class="foot-btm">
       <span>© 2025–2026 Hüpfabenteuer</span>
-      <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="agbs.html">AGB</a></span>
+      <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="#" onclick="return hbCookies()">Cookies</a> · <a href="agbs.html">AGB</a></span>
     </div>
   </div>
 </footer>
