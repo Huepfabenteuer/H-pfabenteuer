@@ -735,29 +735,31 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 .anf .card{background:#F5F0E5 !important;}
 .anf .card-title{font-family:'Bodoni Moda',Didot,serif !important;font-weight:400 !important;font-size:1.35rem !important;letter-spacing:-.01em;color:#1A1813 !important;}
 .anf .card-sub{color:#6A6356 !important;}
-.anf .modus-btn.active,.anf .burg-opt.selected,.anf .foto-opt.selected,.anf .extra-toggle.selected,.anf .sub-extra-toggle.selected{border-color:#1A1813 !important;background:#FBF8F2 !important;box-shadow:inset 0 0 0 1px #1A1813 !important;}
-.anf .burg-opt.selected .burg-opt-check{background:#1A1813 !important;border-color:#1A1813 !important;}
-.anf .extra-toggle.selected .extra-switch{background:#1A1813 !important;}
-.anf .lief-btn.lief-active{background:#1A1813 !important;color:#F5F0E6 !important;border-color:#1A1813 !important;}
+.anf .modus-btn.active,.anf .burg-opt.selected,.anf .foto-opt.selected,.anf .extra-toggle.selected,.anf .sub-extra-toggle.selected{border-color:#8A6424 !important;background:#FBF8F2 !important;box-shadow:inset 0 0 0 1px #8A6424 !important;}
+.anf .burg-opt.selected .burg-opt-check{background:#8A6424 !important;border-color:#8A6424 !important;}
+.anf .extra-toggle.selected .extra-switch{background:#8A6424 !important;}
+.anf .lief-btn.lief-active{background:#8A6424 !important;color:#fff !important;border-color:#8A6424 !important;}
 .anf input:not([type=radio]):not([type=checkbox]),.anf select,.anf textarea{background:#FBF8F2 !important;border:1px solid rgba(26,24,19,.2) !important;border-radius:2px !important;font-family:'Karla','Helvetica Neue',Arial,sans-serif !important;color:#1A1813 !important;}
-.anf input:focus,.anf select:focus,.anf textarea:focus{border-color:#1A1813 !important;outline:none;box-shadow:0 0 0 2px rgba(26,24,19,.12) !important;}
-.anf .btn-submit{background:#1A1813 !important;color:#F5F0E6 !important;border-radius:2px !important;box-shadow:none !important;font-family:'Karla','Helvetica Neue',Arial,sans-serif !important;font-weight:700 !important;letter-spacing:.02em;}
+.anf input:focus,.anf select:focus,.anf textarea:focus{border-color:#8A6424 !important;outline:none;box-shadow:0 0 0 2px rgba(26,24,19,.12) !important;}
+.anf .btn-submit{background:#8A6424 !important;color:#fff !important;border-radius:6px !important;box-shadow:none !important;font-family:'Karla','Helvetica Neue',Arial,sans-serif !important;font-weight:700 !important;letter-spacing:.02em;}
 .anf .btn-submit:hover{background:#9C722F !important;}
 .anf{padding-bottom:20px;}
 .anf .field-row>*{min-width:0;}
 .anf input,.anf select{min-width:0;max-width:100%;}
-.anf .burg-opt-badge-hochzeit{background:#1A1813 !important;color:#F5F0E6 !important;}
+.anf .burg-opt-badge-hochzeit{background:#8A6424 !important;color:#fff !important;padding:5px 8px !important;font-size:10.5px !important;border-radius:4px !important;white-space:nowrap;}
+@media(max-width:400px){.anf .burg-opt-badge-hochzeit{font-size:0 !important;padding:6px 9px !important;}.anf .burg-opt-badge-hochzeit::after{content:"Paket →";font-size:10.5px;}}
 .anf .modus-selector{max-width:760px;margin-left:auto;margin-right:auto;padding-left:16px !important;padding-right:16px !important;box-sizing:border-box;}
 .anf .burg-banner,.anf .rabatt-banner{width:auto !important;margin-left:16px !important;margin-right:16px !important;}
 @media(min-width:792px){.anf .burg-banner,.anf .rabatt-banner{margin-left:auto !important;margin-right:auto !important;}}
 .anf form{max-width:760px;margin-left:auto !important;margin-right:auto !important;}
 .anf .burg-banner,.anf .rabatt-banner{max-width:728px;}
 .anf .burg-opt-price,.anf .foto-price,.anf .pe-val,.anf .burg-banner-price{color:#8A6424 !important;}
+.anf .burg-opt.selected .burg-opt-icon{background:#8A6424 !important;border-color:#8A6424 !important;color:#fff !important;}
 
 .anf .modus-icon svg{width:26px;height:26px;stroke:#1A1813;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;}
 .anf .modus-btn.active .modus-icon svg{stroke:#8A6424;}
 .anf .burg-opt-icon,.anf .foto-icon,.anf .burg-banner-icon,.anf .rabatt-banner-icon,.anf .rh-icon{display:inline-flex !important;align-items:center;justify-content:center;width:38px !important;height:38px !important;min-width:38px;border-radius:50% !important;border:1px solid rgba(26,24,19,.28) !important;background:transparent !important;font-family:'Bodoni Moda',Didot,serif !important;font-size:1.15rem !important;font-weight:400 !important;color:#1A1813 !important;line-height:1 !important;}
-.anf .burg-opt.selected .burg-opt-icon,.anf .foto-opt.selected .foto-icon{background:#1A1813 !important;color:#F5F0E6 !important;border-color:#1A1813;}
+.anf .burg-opt.selected .burg-opt-icon,.anf .foto-opt.selected .foto-icon{background:#8A6424 !important;color:#fff !important;border-color:#8A6424;}
 .anf .rabatt-banner-icon,.anf .rh-icon{font-family:'Karla',sans-serif !important;font-weight:700 !important;font-size:.95rem !important;color:#1F7A4D !important;border-color:rgba(31,122,77,.4);}
 </style>
 
@@ -805,6 +807,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
     <a href="unsere-angebote.html?filter=extra">Extras<small>Zuckerwatte &amp; Popcorn</small></a>
     <a href="#indoor">Indoor<small>Auch im Winter</small></a>
     <a href="kontakt.html">Kontakt<small>Antwort meist in unter 1 Std</small></a>
+    <a href="partner.html" class="drawer-partner">Partnerprogramm<small>20 % für Empfehlungen</small></a>
   </nav>
   <div class="drawer-c">
     <a href="anfragen.html" class="btn btn-solid btn-wide">Termin anfragen</a>

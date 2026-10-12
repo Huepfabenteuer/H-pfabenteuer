@@ -100,6 +100,62 @@ footer{padding:40px 0 32px;position:relative;z-index:2;border-top:1px solid var(
 .lb-x:hover{border-color:var(--brass);color:var(--brass-lt);}
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}.card{transition:none;}}
+/* ═══ HELL & ÜBERSICHTLICH (Fotobox-Seiten) ═══ */
+:root{--void:#EAE2D2;--void-2:#E0D6C3;--void-3:#D3C7B0;--paper:#1A1813;--paper-2:#E6DECF;--paper-ink:#FAF7F1;--paper-mute:#6B6659;
+  --brass:#9C722F;--brass-lt:#8A6424;--brass-dim:rgba(156,114,47,.35);--fog:#46413A;--fog-2:#6A6356;
+  --line:rgba(26,24,19,.13);--line-2:rgba(26,24,19,.24);--card:#F5F0E5;--cta:#8A6424;--cta-h:#6F501C;}
+.grain{display:none;}
+body{background:var(--void);color:var(--paper);}
+/* Papier-Elemente bleiben hell mit dunkler Schrift */
+.paket,.strip,.gal-f,.formwrap,.rahmen,.foto,.rp,.card{--paper:#FBF8F2;--paper-ink:#1A1813;--paper-2:#E8E1D2;--paper-mute:#6B6659;}
+.paket,.gal-f,.rahmen,.foto,.card{border:1px solid var(--line);}
+.paket{border-radius:10px;}
+.paket.is-featured{box-shadow:0 0 0 2px var(--brass),0 20px 44px -26px rgba(26,24,19,.45);}
+.strip{box-shadow:0 1px 2px rgba(26,24,19,.06),0 24px 50px -24px rgba(26,24,19,.35);}
+.rahmen:hover,.foto:hover{box-shadow:0 14px 30px -18px rgba(26,24,19,.45);}
+.lb{--paper:#F5F0E6;--paper-ink:#16150F;--fog:#A8A49B;--line-2:rgba(245,240,230,.25);}
+.lb img{background:#FBF8F2;}
+/* Schaltflächen */
+.btn{border-radius:6px;}
+.btn-solid,.paket .btn-solid,.formwrap .btn-solid{background:var(--cta);color:#fff;border-color:var(--cta);}
+.btn-solid:hover,.paket .btn-solid:hover,.formwrap .btn-solid:hover{background:var(--cta-h);border-color:var(--cta-h);color:#fff;}
+.btn-ghost{background:rgba(255,255,255,.45);color:var(--paper);border-color:var(--line-2);}
+.btn-ghost:hover{background:#fff;border-color:var(--brass);color:var(--paper);}
+.btn-brass,.btn-brass:hover{background:var(--cta);color:#fff;}
+.paket-tag,.rahmen-tier.hot{color:#fff;}
+/* Kopf, Hero, Leisten */
+.topbar{background:rgba(247,243,235,.95);border-bottom:1px solid var(--line);}
+.top-nav a{font-family:var(--sans);font-size:.92rem;font-weight:700;letter-spacing:0;text-transform:none;color:var(--fog);}
+.hero{background:linear-gradient(180deg,#F7F3EB 0%,#EFE8DB 100%);}
+.hero::before{background:radial-gradient(ellipse at center,rgba(201,149,74,.13),rgba(201,149,74,.04) 42%,transparent 68%);}
+.hero-kicker{border-radius:20px;background:rgba(255,255,255,.5);}
+.hero-meta{font-family:var(--sans);font-size:.88rem;letter-spacing:0;color:var(--fog-2);gap:6px 18px;}
+.hero-meta b{color:var(--paper);font-weight:700;}
+.facts{background:var(--void-2);}
+footer{background:var(--void-2);}
+.foot p,.foot a{color:var(--fog);}
+.foot-h{color:var(--paper);}
+.foot-btm a{color:var(--cta);}
+.bnav{background:rgba(250,247,241,.97);border-top:1px solid var(--line);box-shadow:0 -6px 20px -12px rgba(26,24,19,.25);}
+.bi span{font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:0;text-transform:none;}
+.bi svg{width:21px;height:21px;}
+.bi.on{color:var(--cta);}
+.cta-bar{background:rgba(250,247,241,.97);border-top:1px solid var(--line);box-shadow:0 -6px 20px -12px rgba(26,24,19,.25);}
+.cta-main{background:var(--cta) !important;color:#fff !important;border-radius:6px;font-family:var(--sans) !important;font-size:.9rem !important;letter-spacing:0 !important;text-transform:none !important;font-weight:700;}
+.cta-ic{background:#fff;border-color:var(--line-2) !important;color:var(--paper);border-radius:6px;}
+.wa{background:#fff;border-color:var(--line-2);box-shadow:0 8px 22px -10px rgba(26,24,19,.4);}
+.wa svg{fill:#1F7A4D;}
+/* Klare Preisziffern */
+.paket-price,.opt-p,.sum-total,.fact-v{font-family:var(--sans);font-weight:700;letter-spacing:-.01em;}
+.stimme,.anlass{background:var(--card);}
+/* Handy: Rahmen und Fotos kompakter (3 nebeneinander) statt endlos scrollen */
+@media(max-width:679px){
+  .rahmen-grid,.fotos{grid-template-columns:repeat(3,minmax(0,1fr)) !important;gap:8px !important;}
+  .rahmen,.foto{padding:4px 4px 0;}
+  .rahmen-c,.foto-c{font-size:.5rem;letter-spacing:.04em;padding:5px 1px 6px;line-height:1.4;}
+  .rahmen-gruppe{margin-bottom:34px;}
+  .paket{padding:24px 20px 22px;gap:16px;}
+}
 </style>
 </head>
 <body>
