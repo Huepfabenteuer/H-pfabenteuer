@@ -1,24 +1,25 @@
 # Cache-Optimierung für Hüpfabenteuer
 
-# Bilder, Videos, Fonts, Audio - 1 Jahr Cache (immutable Assets)
+# Bilder & Videos - 7 Tage (ausgetauschte Fotos mit gleichem Namen kommen so spätestens nach einer Woche an)
+# Schriften - 1 Jahr (ändern sich nie)
 /*.jpg
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=604800
 /*.jpeg
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=604800
 /*.png
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=604800
 /*.webp
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=604800
 /*.svg
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=604800
 /*.gif
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=604800
 /*.ico
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=604800
 /*.mp4
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=604800
 /*.webm
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=604800
 /*.woff
   Cache-Control: public, max-age=31536000, immutable
 /*.woff2
@@ -26,15 +27,18 @@
 /*.ttf
   Cache-Control: public, max-age=31536000, immutable
 
-# CSS & JS - 1 Tag (Dateinamen haben keinen Hash, Änderungen sollen ankommen)
+# CSS & JS - jedes Mal kurz nachfragen, ob es eine neue Fassung gibt
+# (die Seiten hängen zusätzlich ?v=Datum an, damit auch Safari sofort aktualisiert)
 /*.css
-  Cache-Control: public, max-age=86400
+  Cache-Control: public, max-age=0, must-revalidate
 /*.js
-  Cache-Control: public, max-age=86400
+  Cache-Control: public, max-age=0, must-revalidate
 
-# HTML-Seiten - kürzerer Cache (damit Updates ankommen)
+# HTML-Seiten - immer die aktuelle Fassung (Safari hat sonst bis zu 1 Stunde die alte gezeigt)
+/
+  Cache-Control: public, max-age=0, must-revalidate
 /*.html
-  Cache-Control: public, max-age=3600, must-revalidate
+  Cache-Control: public, max-age=0, must-revalidate
 
 # Sitemap & Robots - 1 Tag
 /sitemap.xml

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<script src="consent.js"></script>
-<script src="ref.js"></script>
+<script src="consent.js?v=202610122237"></script>
+<script src="ref.js?v=202610122237"></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light"/>
 <meta name="theme-color" content="#0B0B0E"/>
@@ -24,7 +24,7 @@
 <meta name="twitter:description" content="Hüpfburg mieten in Kärnten – einfach anfragen, Antwort innerhalb 24h. Hüpfburgen, Fotobox, Zuckerwatte & mehr."/>
 <meta name="description" content="Hüpfburg mieten in Kärnten – jetzt einfach anfragen! Hüpfburgverleih, Fotobox, Zuckerwatte & mehr. Antwort innerhalb 24h ✓ Gratis Lieferung bis 40 km ✓ ab 120€/Tag"/>
 
-<link rel="stylesheet" href="fonts.css"/>
+<link rel="stylesheet" href="fonts.css?v=202610122237"/>
 <style>
 @keyframes twinkle{0%,100%{opacity:.1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}@keyframes fadeSlide{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}@keyframes wa-pulse{
   0%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,.55);}
@@ -57,7 +57,7 @@
 
 .burg-banner-name{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:18px;font-weight:900;color:var(--dark);}
 
-.burg-banner-sub{font-size:12px;color:#888;font-weight:600;}
+.burg-banner-sub{font-size:12px;color:#5E584C;font-weight:600;}
 
 .burg-banner-price{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:20px;font-weight:900;color:var(--pink);margin-left:auto;flex-shrink:0;}
 
@@ -69,7 +69,7 @@
 
 .card-title{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:16px;font-weight:900;color:var(--dark);margin-bottom:4px;display:flex;align-items:center;gap:7px;}
 
-.card-sub{font-size:12px;color:#999;margin-bottom:16px;}
+.card-sub{font-size:12px;color:#5E584C;margin-bottom:16px;}
 
 .field{margin-bottom:14px;}
 
@@ -119,11 +119,11 @@
 /* PRICE ESTIMATE */
 .price-est{background:linear-gradient(135deg,rgba(156,114,47,.06),rgba(26,24,19,.08));border:1.5px solid rgba(26,24,19,.15);border-radius:3px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
 
-.pe-label{font-size:13px;font-weight:700;color:#666;}
+.pe-label{font-size:13px;font-weight:700;color:#4A453C;}
 
 .pe-val{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:26px;font-weight:900;color:var(--pink);}
 
-.pe-note{font-size:10px;color:#bbb;margin-top:2px;}
+.pe-note{font-size:10px;color:#5E584C;margin-top:2px;}
 
  
 /* EXTRA TOGGLE BUTTON */
@@ -135,7 +135,7 @@
 
 .extra-toggle .extra-price{font-size:13px;font-weight:700;color:var(--purple);}
 
-.extra-toggle .extra-hint{font-size:11px;color:#999;font-weight:600;}
+.extra-toggle .extra-hint{font-size:11px;color:#5E584C;font-weight:600;}
 
 .extra-toggle .extra-switch{position:relative;width:48px;height:28px;background:#D8CFBD;border-radius:99px;flex-shrink:0;transition:background .25s;}
 
@@ -173,7 +173,7 @@ to{opacity:1;transform:translateY(0);}
 
 .sub-extra-toggle .set-price{font-size:12px;font-weight:700;color:var(--purple);}
 
-.sub-extra-desc{font-size:11px;color:#888;margin-top:6px;line-height:1.5;padding:0 2px;}
+.sub-extra-desc{font-size:11px;color:#5E584C;margin-top:6px;line-height:1.5;padding:0 2px;}
 
  
 /* BESTELLÜBERSICHT */
@@ -197,7 +197,7 @@ to{opacity:1;transform:translateY(0);}
 
 .order-total-val{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:22px;font-weight:900;color:var(--pink);white-space:nowrap;flex-shrink:0;}
 
-.order-note{font-size:10px;color:#bbb;margin-top:8px;text-align:center;}
+.order-note{font-size:10px;color:#5E584C;margin-top:8px;text-align:center;}
 
  
 /* ─── iOS / MOBILE ZOOM-FIX ─── */
@@ -322,13 +322,15 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
 
 .modus-label{font-size:13px;font-weight:800;letter-spacing:.2px;}
 
-.modus-sub{font-size:10px;color:#888;font-weight:600;}
+.modus-sub{font-size:10px;color:#5E584C;font-weight:600;}
 
 .modus-btn.active .modus-sub{color:var(--purple);}
 
 
 /* Show/Hide pro Modus */
 body[data-modus="burg"] .nur-foto{display:none !important;}
+
+body[data-modus="foto"] .nur-burg{display:none !important;}
 
 /* hochzeit zeigt beides */
 
@@ -349,7 +351,7 @@ body[data-modus="burg"] .nur-foto{display:none !important;}
 
 .foto-name{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:800;color:#1A1813;}
 
-.foto-sub{font-size:11px;color:#666;font-weight:600;line-height:1.4;}
+.foto-sub{font-size:11px;color:#4A453C;font-weight:600;line-height:1.4;}
 
 .foto-price{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:16px;font-weight:900;color:var(--purple);text-align:right;}
 
@@ -385,11 +387,25 @@ body[data-modus="burg"] .nur-foto{display:none !important;}
 
 
 /* Hochzeit-Modus: nur Hochzeitsburg sichtbar */
-body[data-modus="hochzeit"] .burg-opt[data-name="Alienburg"]{display:none !important;}
+body[data-modus="hochzeit"] .burg-opt[data-name="Alienburg"],
+body[data-modus="hochzeit"] .burg-opt[data-name="Piratenburg"],
+body[data-modus="hochzeit"] .burg-opt[data-name="Ritterburg"],
+body[data-modus="hochzeit"] .burg-opt[data-name="Candyburg"],
+body[data-modus="hochzeit"] .burg-opt[data-name="Feuerwehrauto"]{display:none !important;}
+
+body[data-modus="hochzeit"] .card .card-sub-burg-hide{display:none;}
+
+body[data-modus="hochzeit"] #burgPicker{justify-content:center;}
 
 
 /* Aufbau-Toggle nur bei Burgen / Inklusive-Hinweis nur bei Fotobox */
 body[data-modus="burg"] .aufbau-foto-only{display:none !important;}
+
+body[data-modus="hochzeit"] .aufbau-foto-only{display:none !important;}
+
+body[data-modus="foto"] .aufbau-burg-only{display:none !important;}
+
+body[data-modus="foto"] .aufbau-foto-only{display:flex !important;}
 
 
 /* Fotobox-zusatz-Banner im Burg-Modus */
@@ -428,16 +444,26 @@ body[data-modus="burg"] .aufbau-foto-only{display:none !important;}
 /* Foto-dazu nur im Burg- + Hochzeit-Modus, NICHT im Foto-Modus */
 body[data-modus="burg"] .foto-dazu-wrap{display:block;}
 
+body[data-modus="hochzeit"] .foto-dazu-wrap{display:block;}
+
+body[data-modus="foto"] .foto-dazu-wrap{display:none;}
+
 
 /* Im Burg-Modus: Foto-Card versteckt; mit .extra-foto sichtbar */
 body[data-modus="burg"] .nur-foto{display:none !important;}
 
+body[data-modus="burg"].extra-foto .nur-foto{display:block !important;}
+
 /* Hochzeit: Foto-Card mit .extra-foto sichtbar (analog) */
 body[data-modus="hochzeit"] .nur-foto{display:none !important;}
+
+body[data-modus="hochzeit"].extra-foto .nur-foto{display:block !important;}
 
 
 /* Im Foto-Modus: Datum-Ende verstecken (nur 1 Tag) */
 body[data-modus="foto"] .nur-burg-datum{display:none !important;}
+
+body[data-modus="foto"] #tage-anzeige{display:none !important;}
 
 
 /* Hochzeitsburg im Burg-Modus: Badge rechts (statt Preis) */
@@ -687,7 +713,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 
 .order-total-val{letter-spacing:-.3px;}
 
-.order-note{color:#a3a3b3;letter-spacing:.2px;}
+.order-note{color:#5E584C;letter-spacing:.2px;}
 
 
 /* Gutschein-Feld an neues Rahmensystem angleichen */
@@ -728,7 +754,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
   .order-summary{padding:24px 24px 18px;}}
 
 </style>
-<link rel="stylesheet" href="site.css"/>
+<link rel="stylesheet" href="site.css?v=202610122237"/>
 <style>
 .anf{--pink:#8A6424;--purple:#1A1813;--sky:#46413A;--sun:#9C722F;--dark:#1A1813;--green:#1F7A4D;--shadow:0 1px 2px rgba(26,24,19,.05);}
 .anf .card,.anf .modus-btn,.anf .burg-opt,.anf .foto-opt,.anf .extra-toggle,.anf .sub-extra-toggle,.anf .lief-btn,.anf .order-summary,.anf .gutschein-box,.anf .rabatt-hint-card{border:1px solid rgba(26,24,19,.16) !important;box-shadow:none !important;}
@@ -774,6 +800,8 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
   "isPartOf": {"@type": "WebSite", "name": "Hüpfabenteuer Kärnten", "url": "https://huepfabenteuer.at"}
 }
 </script>
+<style>body[data-modus="hochzeit"] .nur-foto{display:block !important;}body[data-modus="hochzeit"] .foto-dazu-wrap{display:none !important;}.anf .foto-opt.tier-premium{background:#FBF8F2 !important;border:1px solid #9C722F !important;box-shadow:inset 0 0 0 1px rgba(156,114,47,.35) !important;}.anf .foto-opt.tier-premium .foto-name{color:#1A1813 !important;}.anf .foto-opt.tier-premium .foto-sub{color:#8A6424 !important;}.anf .foto-opt.tier-premium .foto-feat{color:#46413A !important;}.anf .foto-opt.tier-premium .foto-icon{background:#8A6424 !important;color:#fff !important;}.anf .foto-opt.tier-premium .foto-feats,.anf .foto-opt.tier-premium .foto-feats-plus{border-top-color:rgba(156,114,47,.3) !important;}.anf .foto-opt.tier-premium.selected{box-shadow:inset 0 0 0 2px #8A6424 !important;}</style>
+<style>.anf .rabatt-banner .rabatt-banner-icon{color:#fff !important;border-color:rgba(255,255,255,.55) !important;}.anf .modus-sub,.anf .burg-banner-sub,.anf .sub-extra-desc,.anf .extra-hint,.anf .pe-note,.anf .order-note{color:#5E584C !important;}.anf .foto-feats-plus-title{color:#7A5518 !important;}.anf .foto-rabatt-hint,.anf .foto-rabatt-hint strong{color:#1A6B42 !important;}</style>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -976,7 +1004,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
           <div class="foto-head">
             <div class="foto-icon">S</div>
             <div class="foto-info">
-              <div class="foto-name">Standard <span style="font-size:10px;color:var(--pink);background:rgba(156,114,47,.12);padding:2px 7px;border-radius:3px;font-weight:800;margin-left:4px;">BELIEBT</span></div>
+              <div class="foto-name">Standard</div>
               <div class="foto-sub">Für tolle Partys</div>
             </div>
             <div class="foto-price">299 €</div>
@@ -1002,7 +1030,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
           <div class="foto-head">
             <div class="foto-icon">P</div>
             <div class="foto-info">
-              <div class="foto-name">Premium</div>
+              <div class="foto-name">Premium <span style="font-size:10px;color:#fff;background:#7A5518;padding:2px 7px;border-radius:3px;font-weight:800;margin-left:4px;letter-spacing:.04em;white-space:nowrap;display:inline-block;vertical-align:2px;">BELIEBTESTES PAKET</span></div>
               <div class="foto-sub">Alle Highlights inkl.</div>
             </div>
             <div class="foto-price">349 €</div>
@@ -1021,7 +1049,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
             <div class="foto-feats-plus-title">Mehr als Standard</div>
             <div class="foto-feat">Personalisierter Fotorahmen</div>
             <div class="foto-feat">Requisiten &amp; Spiele inklusive</div>
-            <div class="foto-feat">Unbegrenzte Drucke</div>
+            <div class="foto-feat">14 Motiv-Rahmen zur Auswahl</div>
           </div>
         </label>
 
@@ -1097,7 +1125,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
         </button>
       </div>
       <input type="hidden" name="Lieferung" id="lieferung-val" value="Ja">
-      <div id="lief-hinweis" style="margin-top:10px;font-size:12px;font-weight:700;color:#1b6e8d;padding:6px 12px;background:rgba(26,24,19,.08);border-radius:3px;border:1px solid rgba(26,24,19,.2);">
+      <div id="lief-hinweis" style="margin-top:10px;font-size:12px;font-weight:700;color:#1A5A73;padding:6px 12px;background:rgba(26,24,19,.08);border-radius:3px;border:1px solid rgba(26,24,19,.2);">
         Gratis bis 40 km ab Glödnitz · darüber 0,55 €/km
       </div>
     </div>
@@ -1160,7 +1188,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
           <span class="extra-switch"></span>
         </button>
         <input type="hidden" name="Auf- und Abbau" id="aufbau-val" value="Nein">
-        <div id="aufbau-paket-hint" style="display:none;margin-top:6px;font-size:12px;font-weight:700;color:#1b8d4b;padding:6px 12px;background:rgba(27,141,75,.08);border-radius:3px;border:1px solid rgba(27,141,75,.2);">✓ Im Paket enthalten – kann nicht entfernt werden</div>
+        <div id="aufbau-paket-hint" style="display:none;margin-top:6px;font-size:12px;font-weight:700;color:#1A6B42;padding:6px 12px;background:rgba(27,141,75,.08);border-radius:3px;border:1px solid rgba(27,141,75,.2);">✓ Im Paket enthalten – kann nicht entfernt werden</div>
       </div>
 
       <!-- Fotobox-INKLUSIVE-Hinweis (nur im Foto-Modus) -->
@@ -1180,7 +1208,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
           <option value="Popcorn (+60€)">Popcorn (+60€)</option>
           <option value="Zuckerwatte + Popcorn (+100€)">Zuckerwatte + Popcorn (+100€)</option>
         </select>
-        <div id="extras-paket-hint" style="display:none;margin-top:6px;font-size:12px;font-weight:700;color:#1b8d4b;padding:6px 12px;background:rgba(27,141,75,.08);border-radius:3px;border:1px solid rgba(27,141,75,.2);">✓ Im Paket enthalten – kann nicht entfernt werden</div>
+        <div id="extras-paket-hint" style="display:none;margin-top:6px;font-size:12px;font-weight:700;color:#1A6B42;padding:6px 12px;background:rgba(27,141,75,.08);border-radius:3px;border:1px solid rgba(27,141,75,.2);">✓ Im Paket enthalten – kann nicht entfernt werden</div>
       </div>
  
       <!-- SUB-EXTRA: Zuckerwatte-Set -->
@@ -1249,7 +1277,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
  
     <p id="form-msg" class="form-msg" aria-live="polite"></p>
  
-    <p style="text-align:center;font-size:11px;color:#bbb;margin-top:14px;line-height:1.7;">
+    <p style="text-align:center;font-size:11px;color:#5E584C;margin-top:14px;line-height:1.7;">
       Oder ruf uns direkt an: <a href="tel:+436641852634" style="color:var(--purple);font-weight:700;">+43 664 185 26 34</a><br>
       Wir melden uns innerhalb von 24 Stunden.
     </p>
@@ -1265,7 +1293,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
     <div style="background:#F5F0E5;padding:9px 14px;border-radius:3px;font-size:12px;color:#1A1813;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Karla','Helvetica Neue',Arial,sans-serif;">220 – 299 €</strong> → <span style="color:#8A6424;font-weight:900;">50 €</span></div>
     <div style="background:#F5F0E5;padding:9px 14px;border-radius:3px;font-size:12px;color:#1A1813;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Karla','Helvetica Neue',Arial,sans-serif;">ab 300 €</strong> → <span style="color:#8A6424;font-weight:900;">100 €</span></div>
   </div>
-  <div style="font-size:11px;color:#666;margin-top:12px;">Restbetrag bezahlbar am Veranstaltungstag</div>
+  <div style="font-size:11px;color:#4A453C;margin-top:12px;">Restbetrag bezahlbar am Veranstaltungstag</div>
 </div>
 
 
@@ -1706,7 +1734,7 @@ function updateOrderSummary(){
 
   var html = '';
   rows.forEach(function(r){
-    var style = r.rabatt ? 'color:#00a651;font-weight:800;' : '';
+    var style = r.rabatt ? 'color:#1A6B42;font-weight:800;' : '';
     var labelHtml = r.label;
     if(r.rabatt && r.totalProzent){
       labelHtml += ' <span class="rabatt-total-badge">Gesamt −'+r.totalProzent+'%</span>';
@@ -1770,8 +1798,8 @@ window.addEventListener('DOMContentLoaded', function(){
     if(pk){
       // Paket-Hinweis Banner einblenden
       var banner = document.createElement('div');
-      banner.style.cssText = 'margin:12px 16px 0;background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(255,79,163,.06));border:1.5px solid rgba(168,85,247,.2);border-radius:16px;padding:14px 18px;display:flex;align-items:center;gap:12px;';
-      banner.innerHTML = '<span style="font-size:32px;">'+pk.icon+'</span><div><div style="font-family:\'Baloo 2\',cursive;font-size:16px;font-weight:900;color:#0f0b2e;">'+pk.name+'</div><div style="font-size:12px;color:#888;font-weight:600;">'+pk.desc+'</div></div>';
+      banner.id = 'paketBanner'; banner.style.cssText = 'margin:0 16px 14px;background:#FBF8F2;border:1px solid rgba(26,24,19,.16);border-left:3px solid #8A6424;border-radius:6px;padding:12px 16px;display:flex;align-items:center;gap:12px;';
+      banner.innerHTML = '<span id="paketIcon" style="width:38px;height:38px;flex:0 0 38px;border-radius:50%;background:#8A6424;color:#fff;display:flex;align-items:center;justify-content:center;font-family:\'Bodoni Moda\',Didot,serif;font-size:18px;">'+pk.icon+'</span><div><div id="paketName" style="font-family:\'Karla\',sans-serif;font-size:16px;font-weight:700;color:#1A1813;">'+pk.name+'</div><div id="paketDesc" style="font-size:13px;color:#6A6356;">'+pk.desc+'</div><div style="font-size:12px;color:#6A6356;margin-top:2px;">Burg, Fotobox und Extras kannst du unten frei dazu wählen.</div></div>';
       var burgBanner = document.getElementById('burgBanner');
       burgBanner.parentNode.insertBefore(banner, burgBanner);
     }
@@ -1810,6 +1838,18 @@ window.addEventListener('DOMContentLoaded', function(){
     paketInput.type = 'hidden';
     paketInput.name = 'Paket';
     paketInput.value = pk ? pk.name : paket;
+    // Paket folgt der tatsächlichen Auswahl, wenn Extras geändert werden
+    var _exSel = document.getElementById('extras-select');
+    if(_exSel && pk){
+      _exSel.addEventListener('change', function(){
+        var v = _exSel.value || '', z = v.indexOf('Zuckerwatte') !== -1, pc = v.indexOf('Popcorn') !== -1;
+        var key = (z && pc) ? 'allin' : z ? 'sweet' : pc ? 'snack' : 'komfort';
+        var n = paketNamen[key];
+        paketInput.value = n.name;
+        var en = document.getElementById('paketName'), ed = document.getElementById('paketDesc'), ei = document.getElementById('paketIcon');
+        if(en) en.textContent = n.name; if(ed) ed.textContent = n.desc; if(ei) ei.textContent = n.icon;
+      });
+    }
     document.getElementById('anfrage-form').appendChild(paketInput);
 
     updateOrderSummary();
@@ -1832,9 +1872,7 @@ window.addEventListener('DOMContentLoaded', function(){
       if(extrasHint) extrasHint.style.display = 'block';
       var lockedVal = paket === 'allin' ? 'Zuckerwatte + Popcorn (+100€)' :
                       paket === 'sweet' ? 'Zuckerwatte (+45€)' : 'Popcorn (+60€)';
-      document.getElementById('extras-select').addEventListener('mousedown', function(e){ e.preventDefault(); }, true);
-      document.getElementById('extras-select').style.pointerEvents = 'none';
-      document.getElementById('extras-select').style.opacity = '0.7';
+      if(extrasHint) extrasHint.textContent = '✓ Im Paket enthalten – du kannst Extras ändern oder dazunehmen, das Paket passt sich an.';
     }
   }
 
@@ -1854,6 +1892,7 @@ window.addEventListener('DOMContentLoaded', function(){
  
 
 // ── MODUS-SELECTOR LOGIC ──
+var modusState = { burg: null, foto: null, hochzeit: null };
 var currentModus = 'burg';
 var selectedFoto = null;
 var selectedFotoPrice = 0;
@@ -1952,11 +1991,7 @@ if(fotoDazuBanner){
 
 // ── STATE-MANAGEMENT pro Modus ──
 // Erfasst pro Modus: Datum, Auswahl, Aufbau, Extras, Sets, Foto-extras, Foto-Paket
-var modusState = {
-  burg: null,
-  foto: null,
-  hochzeit: null
-};
+modusState = modusState || { burg: null, foto: null, hochzeit: null };
 
 function captureState(){
   return {
@@ -2198,7 +2233,9 @@ function submitAnfrage(){
   if(selectedFoto){
     fd.append('Fotobox-Paket', selectedFoto + ' (' + selectedFotoPrice + ' \u20ac)');
   }
-  fd.append('Anfrage-Typ', currentModus === 'foto' ? 'Nur Fotobox' : (currentModus === 'hochzeit' ? 'Hochzeitspaket (H\u00fcpfburg + Fotobox)' : 'H\u00fcpfburg'));
+  fd.append('Anfrage-Typ', currentModus === 'foto' ? 'Nur Fotobox' : (currentModus === 'hochzeit' ? 'Hochzeitspaket (H\u00fcpfburg + Fotobox)' : (selectedFoto ? 'H\u00fcpfburg + Fotobox' : 'H\u00fcpfburg')));
+  var _pkF = document.querySelector('#anfrage-form input[name="Paket"]');
+  if(_pkF && _pkF.value && currentModus !== 'foto') fd.append('Paket', _pkF.value);
   fd.append('Auf- und Abbau', aufbau);
   fd.append('Lieferung',      document.getElementById('lieferung-val').value);
   if(extras && extras !== 'Keine Extras') fd.append('Extras', extras);
@@ -2282,7 +2319,7 @@ function saveDraft(){
 function loadDraft(){
   // URL-Parameter haben Vorrang (Paket-Links, Burg-Preselection aus Werbung)
   var p = new URLSearchParams(window.location.search);
-  if(p.get('paket') || p.get('burg') || p.get('modus')) return false;
+  if(p.get('paket') || p.get('burg') || p.get('modus') || p.get('extra')) return false;
   try {
     var raw = localStorage.getItem(DRAFT_KEY);
     if(!raw) return false;
@@ -2477,6 +2514,18 @@ document.querySelectorAll('[data-track]').forEach(function(el){
   if(!fab) return;
   if(!hero || !('IntersectionObserver' in window)){ fab.classList.add('zeigen'); return; }
   new IntersectionObserver(function(e){ fab.classList.toggle('zeigen', !e[0].isIntersecting); }).observe(hero);
+})();
+</script>
+<script>
+(function(){
+  function go(){
+    var x=''; try{ x=(new URLSearchParams(location.search).get('extra')||'').toLowerCase(); }catch(e){}
+    var map={zuckerwatte:'Zuckerwatte (+45€)',popcorn:'Popcorn (+60€)',kombi:'Zuckerwatte + Popcorn (+100€)'};
+    var sel=document.getElementById('extras-select');
+    if(!map[x]||!sel) return;
+    sel.value=map[x]; sel.dispatchEvent(new Event('change'));
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',function(){ setTimeout(go,0); }); else go();
 })();
 </script>
 </body>
