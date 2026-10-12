@@ -2,6 +2,7 @@
 <html lang="de">
 <head>
 <script src="consent.js"></script>
+<script src="ref.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="robots" content="noindex, nofollow"/>
@@ -139,6 +140,7 @@ textarea:focus{border-color:rgba(255,214,0,.4);}
 
 /* Main content */
 .main-content{}
+.star-btn{color:#C9954A;font-family:Arial,sans-serif;}
 </style>
 
 </head>
@@ -156,20 +158,20 @@ textarea:focus{border-color:rgba(255,214,0,.4);}
     <div class="logo">H</div>
     <div class="brand">Hüpfabenteuer · Kärnten</div>
     <h1 class="title">Wie war dein <em>Erlebnis?</em></h1>
-    <p class="subtitle">Deine Meinung ist uns wichtig!<br>Bewerte uns in nur 5 Sekunden. 🙏</p>
+    <p class="subtitle">Deine Meinung ist uns wichtig!<br>Bewerte uns in nur 5 Sekunden. </p>
 
     <div class="stars-wrap" id="starsWrap">
-      <button class="star-btn" data-val="1" onclick="setRating(1)" aria-label="1 Stern">⭐</button>
-      <button class="star-btn" data-val="2" onclick="setRating(2)" aria-label="2 Sterne">⭐</button>
-      <button class="star-btn" data-val="3" onclick="setRating(3)" aria-label="3 Sterne">⭐</button>
-      <button class="star-btn" data-val="4" onclick="setRating(4)" aria-label="4 Sterne">⭐</button>
-      <button class="star-btn" data-val="5" onclick="setRating(5)" aria-label="5 Sterne">⭐</button>
+      <button class="star-btn" data-val="1" onclick="setRating(1)" aria-label="1 Stern">★</button>
+      <button class="star-btn" data-val="2" onclick="setRating(2)" aria-label="2 Sterne">★</button>
+      <button class="star-btn" data-val="3" onclick="setRating(3)" aria-label="3 Sterne">★</button>
+      <button class="star-btn" data-val="4" onclick="setRating(4)" aria-label="4 Sterne">★</button>
+      <button class="star-btn" data-val="5" onclick="setRating(5)" aria-label="5 Sterne">★</button>
     </div>
 
     <div class="rating-label" id="ratingLabel">Tippe auf einen Stern</div>
 
     <div class="feedback-wrap" id="feedbackWrap">
-      <div class="feedback-label">Was können wir besser machen? 💬</div>
+      <div class="feedback-label">Was können wir besser machen? </div>
       <textarea id="feedbackText" placeholder="Dein Feedback hilft uns, besser zu werden..." rows="4"></textarea>
     </div>
 
@@ -179,7 +181,7 @@ textarea:focus{border-color:rgba(255,214,0,.4);}
   </div>
 
   <div class="thankyou" id="thankyouScreen">
-    <span class="thankyou-ic" id="thankyouIc">🎉</span>
+    <span class="thankyou-ic" id="thankyouIc">✓</span>
     <div class="thankyou-title" id="thankyouTitle">Danke für deine Bewertung!</div>
     <p class="thankyou-sub" id="thankyouSub">Du wirst gleich zu Google weitergeleitet...</p>
   </div>
@@ -189,7 +191,7 @@ textarea:focus{border-color:rgba(255,214,0,.4);}
 var currentRating = 0;
 var GOOGLE_REVIEW_URL = 'https://g.page/r/CUE00P_892NPEAE/review';
 
-var labels = ['', 'Schade 😔', 'Könnte besser sein 😐', 'War okay 🙂', 'Hat uns gefallen! 😊', 'Absolut top! 🤩'];
+var labels = ['', 'Schade ', 'Könnte besser sein ', 'War okay ', 'Hat uns gefallen! ', 'Absolut top! '];
 
 function setRating(val){
   currentRating = val;
@@ -208,7 +210,7 @@ function setRating(val){
     btn.innerHTML = 'Feedback senden →';
   } else {
     fw.classList.remove('show');
-    btn.innerHTML = val === 5 ? '⭐ Google Bewertung schreiben →' : 'Weiter zu Google →';
+    btn.innerHTML = val === 5 ? 'Google Bewertung schreiben →' : 'Weiter zu Google →';
   }
 }
 
@@ -225,16 +227,16 @@ function submitRating(){
   ty.classList.add('show');
 
   if(currentRating >= 4){
-    ic.textContent = '🌟';
+    ic.textContent = '★';
     title.textContent = 'Vielen Dank!';
     sub.textContent = 'Du wirst in 2 Sekunden zu Google weitergeleitet...';
     setTimeout(function(){
       window.location.href = GOOGLE_REVIEW_URL;
     }, 2000);
   } else {
-    ic.textContent = '🙏';
+    ic.textContent = '✓';
     title.textContent = 'Danke für dein Feedback!';
-    sub.textContent = 'Wir nehmen deine Rückmeldung ernst und arbeiten daran, noch besser zu werden. Bis zum nächsten Mal! 😊';
+    sub.textContent = 'Wir nehmen deine Rückmeldung ernst und arbeiten daran, noch besser zu werden. Bis zum nächsten Mal! ';
 
     // Send feedback via Formcarry to info@huepfabenteuer.at
     var msg = document.getElementById('feedbackText').value;

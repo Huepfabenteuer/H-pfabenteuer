@@ -2,9 +2,11 @@
 <html lang="de">
 <head>
 <script src="consent.js"></script>
+<script src="ref.js"></script>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta name="color-scheme" content="light only"/>
+<meta name="color-scheme" content="light"/>
+<meta name="theme-color" content="#0B0B0E"/>
 <meta name="description" content="Abbauanleitung für die Alienburg Hüpfburg – Schritt für Schritt erklärt von Hüpfabenteuer Kärnten."/>
 <title>Alienburg Abbauanleitung | Hüpfabenteuer Kärnten</title>
 <link rel="canonical" href="https://huepfabenteuer.at/alienanleitung.html"/>
@@ -21,119 +23,122 @@
 <meta property="og:locale" content="de_AT"/>
 <link rel="stylesheet" href="fonts.css"/>
 <style>
-:root{
-  --pink:#ff4fa3;--purple:#a855f7;--sky:#00c2ff;
-  --sun:#FFD600;--green:#00d97e;--dark:#0f0b2e;
-  --r:20px;--shadow:0 8px 32px rgba(0,0,0,.10);
-}
-html{color-scheme:light only;}
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e !important;overflow-x:hidden;padding-bottom:86px;-webkit-text-size-adjust:100%;}
- 
-@media(prefers-color-scheme:dark){
-  html,body{background:#f0f2f8 !important;color:#0f0b2e !important;}
-  .card{background:white !important;color:#0f0b2e !important;}
-}
- 
-/* ── BOTTOM NAV ── */
-.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,9,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
-.bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.5);transition:color .25s;position:relative;min-height:44px;}
-.bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,var(--pink),var(--purple));transition:width .3s cubic-bezier(.34,1.56,.64,1);}
-.bi.on{color:white;}
-.bi.on::after{width:36px;}
-.bi:active{transform:scale(.9);}
-.bi-ic{font-size:21px;transition:transform .25s cubic-bezier(.34,1.56,.64,1);}
-.bi.on .bi-ic{transform:scale(1.22) translateY(-2px);}
-.bi-lb{font-family:'Baloo 2',cursive;font-size:10px;font-weight:700;}
- 
-/* ── HERO HEADER ── */
-.ph{background:linear-gradient(155deg,#0d0929 0%,#1a0d55 40%,#2a1668 70%,#1e0d4a 100%);padding:20px 18px 60px;position:relative;overflow:hidden;}
-.ph-bg div{position:absolute;border-radius:50%;pointer-events:none;}
-.ph-bg .b1{width:300px;height:300px;top:-100px;right:-60px;background:radial-gradient(circle,rgba(255,79,163,.16),transparent 65%);}
-.ph-bg .b2{width:220px;height:220px;bottom:-50px;left:-50px;background:radial-gradient(circle,rgba(0,194,255,.12),transparent 65%);}
-.stars{position:absolute;inset:0;pointer-events:none;}
-.star{position:absolute;border-radius:50%;background:white;animation:twinkle ease-in-out infinite;}
-@keyframes twinkle{0%,100%{opacity:.1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
-.ph-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;position:relative;z-index:2;}
-.ph-back{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);color:white;padding:8px 15px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;backdrop-filter:blur(8px);}
-.ph-call{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);color:white;padding:8px 15px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;backdrop-filter:blur(8px);}
-.ph-title{font-family:'Baloo 2',cursive;font-size:28px;font-weight:900;color:white;line-height:1.05;margin-bottom:6px;position:relative;z-index:2;}
-.ph-title em{color:var(--sun);font-style:normal;text-shadow:0 0 24px rgba(255,214,0,.35);}
-.ph-sub{color:rgba(255,255,255,.82);font-size:13px;font-weight:600;position:relative;z-index:2;margin-bottom:16px;}
-.ph-chips{display:flex;flex-wrap:wrap;gap:7px;position:relative;z-index:2;}
-.ph-chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:white;font-size:12px;font-weight:700;padding:5px 12px;border-radius:30px;}
-.wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
- 
-/* ── CONTENT ── */
-.sec{padding:24px 16px 8px;}
-.tag{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,rgba(255,79,163,.1),rgba(168,85,247,.12));color:var(--pink);font-family:'Baloo 2',cursive;font-size:11px;font-weight:800;padding:3px 11px;border-radius:30px;margin-bottom:7px;text-transform:uppercase;letter-spacing:.7px;}
-.stitle{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;line-height:1.1;margin-bottom:4px;color:#0f0b2e;}
-.stitle em{color:var(--pink);font-style:normal;}
-.stitle-sub{font-size:12px;color:#888;font-weight:600;margin-bottom:14px;}
- 
-/* ── STEP CARDS ── */
-.steps-list{display:flex;flex-direction:column;gap:12px;margin-top:4px;}
-.step-card{background:white;border-radius:18px;padding:16px 18px;box-shadow:var(--shadow);border:1.5px solid rgba(0,0,0,.04);display:flex;gap:14px;align-items:flex-start;}
-.step-num{flex-shrink:0;width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:white;box-shadow:0 4px 12px rgba(255,79,163,.35);}
-.step-body{flex:1;}
-.step-title{font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;color:#0f0b2e;margin-bottom:4px;}
-.step-desc{font-size:13px;color:#555;line-height:1.65;}
-.step-img{width:100%;border-radius:12px;margin-top:10px;object-fit:cover;max-height:200px;}
- 
-/* ── TIP BOX ── */
-.tip-box{background:linear-gradient(135deg,rgba(0,201,126,.07),rgba(0,194,255,.07));border:1.5px solid rgba(0,201,126,.18);border-radius:16px;padding:14px 16px;margin:16px 0 8px;display:flex;gap:12px;align-items:flex-start;}
-.tip-icon{font-size:22px;flex-shrink:0;}
-.tip-text{font-size:13px;color:#0a5c3a;line-height:1.6;font-weight:600;}
-.tip-text strong{font-family:'Baloo 2',cursive;font-size:14px;display:block;margin-bottom:2px;}
- 
-/* ── CTA ── */
-.cta{background:linear-gradient(135deg,#c0187a,var(--pink) 40%,var(--purple));margin:20px 16px 8px;border-radius:22px;padding:26px 20px;text-align:center;position:relative;overflow:hidden;box-shadow:0 16px 48px rgba(255,79,163,.3);}
-.cta::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px,transparent 1px,transparent 14px);}
-.cta-em{font-size:38px;display:block;margin-bottom:6px;animation:bounce 2s ease-in-out infinite;}
-@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-.cta-ttl{font-family:'Baloo 2',cursive;font-size:21px;font-weight:900;color:white;margin-bottom:6px;position:relative;}
-.cta-sub{color:rgba(255,255,255,.9);font-size:12px;margin-bottom:16px;position:relative;line-height:1.6;}
-.cb-main{display:flex;align-items:center;justify-content:center;gap:7px;background:white;color:var(--pink);padding:14px;border-radius:15px;font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.12);position:relative;}
- 
-/* ── FOOTER ── */
-footer{background:var(--dark);padding:26px 20px 18px;text-align:center;position:relative;}
-footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);}
-.fl{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:white;margin-bottom:4px;}
-.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:10px 0;}
-.flink{color:rgba(255,255,255,.62);text-decoration:none;font-size:11px;padding:4px 10px;background:rgba(255,255,255,.09);border-radius:20px;}
-.fcopy{font-size:11px;color:rgba(255,255,255,.42);margin-top:10px;}
- 
-/* ── REVEAL ── */
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease;}
-.reveal.visible{opacity:1;transform:translateY(0);}
- 
-/* ── DESKTOP ── */
-@media(min-width:768px){
-  .ph{padding:32px 48px 80px;}
-  .ph-title{font-size:42px;}
-  .ph-sub{font-size:15px;}
-  .ph-bg .b1{width:500px;height:500px;}
-  .ph-bg .b2{width:380px;height:380px;}
-  .ph::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,6,35,.45) 0%,rgba(10,6,35,.2) 60%,transparent 100%);pointer-events:none;z-index:1;}
-  .ph-topbar,.ph-title,.ph-sub,.ph-chips{position:relative;z-index:2;}
-  .steps-list{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  .sec{padding:32px 48px 12px;}
-  footer{padding:32px 48px 24px;}
-}
-
-/* ── WHATSAPP-FAB (Sticky Floating Action Button) ── */
-.wa-fab{position:fixed;bottom:88px;right:16px;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,.55);z-index:1500;text-decoration:none;transition:transform .2s;animation:wa-pulse 2.4s infinite;}
-.wa-fab:hover{transform:scale(1.07);}
-.wa-fab:active{transform:scale(.94);}
-.wa-fab svg{width:30px;height:30px;}
-@keyframes wa-pulse{
+@keyframes twinkle{0%,100%{opacity:.1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}@keyframes wa-pulse{
   0%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,.55);}
   70%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 16px rgba(37,211,102,0);}
   100%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,0);}
 }
-@media(max-width:600px){.wa-fab{bottom:84px;right:14px;width:54px;height:54px;}.wa-fab svg{width:28px;height:28px;}}
-@media(prefers-reduced-motion:reduce){.wa-fab{animation:none;}}
+
+:root{
+  --pink:#8A6424;--purple:#1A1813;--sky:#46413A;
+  --sun:#9C722F;--green:#1F7A4D;--dark:#1A1813;
+  --r:20px;--shadow:0 8px 32px rgba(0,0,0,.10);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+@media(prefers-color-scheme:dark){
+  .card{background:#F5F0E5 !important;color:#1A1813 !important;}}
+
+ 
+/* ── BOTTOM NAV ── */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,9,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
+
+ 
+/* ── HERO HEADER ── */
+.ph{background:linear-gradient(155deg,#0d0929 0%,#1a0d55 40%,#2a1668 70%,#1e0d4a 100%);padding:20px 18px 60px;position:relative;overflow:hidden;}
+0%,100%{opacity:.1;transform:scale(1);}
+50%{opacity:.5;transform:scale(1.4);}
+
+.wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
+
+ 
+/* ── CONTENT ── */
+.sec{padding:24px 16px 8px;}
+
+.tag{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,rgba(156,114,47,.1),rgba(26,24,19,.12));color:var(--pink);font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:800;padding:3px 11px;border-radius:3px;margin-bottom:7px;text-transform:uppercase;letter-spacing:.7px;}
+
+.stitle{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:22px;font-weight:900;line-height:1.1;margin-bottom:4px;color:#1A1813;}
+
+.stitle em{color:var(--pink);font-style:normal;}
+
+.stitle-sub{font-size:12px;color:#888;font-weight:600;margin-bottom:14px;}
+
+ 
+/* ── STEP CARDS ── */
+.steps-list{display:flex;flex-direction:column;gap:12px;margin-top:4px;}
+
+.step-card{background:#F5F0E5;border-radius:3px;padding:16px 18px;box-shadow:var(--shadow);border:1.5px solid rgba(0,0,0,.04);display:flex;gap:14px;align-items:flex-start;}
+
+.step-num{flex-shrink:0;width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--purple));display:flex;align-items:center;justify-content:center;font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:16px;font-weight:900;color:white;box-shadow:0 4px 12px rgba(156,114,47,.35);}
+
+.step-body{flex:1;}
+
+.step-title{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:16px;font-weight:800;color:#1A1813;margin-bottom:4px;}
+
+.step-desc{font-size:13px;color:#555;line-height:1.65;}
+
+.step-img{width:100%;border-radius:3px;margin-top:10px;object-fit:cover;max-height:200px;}
+
+ 
+/* ── TIP BOX ── */
+.tip-box{background:linear-gradient(135deg,rgba(31,122,77,.07),rgba(26,24,19,.07));border:1.5px solid rgba(31,122,77,.18);border-radius:3px;padding:14px 16px;margin:16px 0 8px;display:flex;gap:12px;align-items:flex-start;}
+
+.tip-icon{font-size:22px;flex-shrink:0;}
+
+.tip-text{font-size:13px;color:#0a5c3a;line-height:1.6;font-weight:600;}
+
+.tip-text strong{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:14px;display:block;margin-bottom:2px;}
+
+ 
+/* ── CTA ── */
+.cta{background:linear-gradient(135deg,#1A1813,var(--pink) 40%,var(--purple));margin:20px 16px 8px;border-radius:3px;padding:26px 20px;text-align:center;position:relative;overflow:hidden;box-shadow:0 16px 48px rgba(156,114,47,.3);}
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-8px);}
+
+ 
+/* ── FOOTER ── */
+footer{background:var(--dark);padding:26px 20px 18px;text-align:center;position:relative;}
+
+ 
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease;}
+
+.reveal.visible{opacity:1;transform:translateY(0);}
+@media(min-width:768px){
+  .steps-list{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+
+  .sec{padding:32px 48px 12px;}}
+
+
+/* ── WHATSAPP-FAB (Sticky Floating Action Button) ── */
+.wa-fab{position:fixed;bottom:88px;right:16px;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,.55);z-index:1500;text-decoration:none;transition:transform .2s;animation:wa-pulse 2.4s infinite;}
+
+  0%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,.55);}
+
+  70%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 16px rgba(37,211,102,0);}
+
+  100%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,0);}
+
+
+</style>
+<link rel="stylesheet" href="site.css"/>
+<style>
+.lt.old .content,.lt.old .sec{max-width:820px;margin:0 auto;padding:0 var(--pad);}
+.lt.old .card,.lt.old .step-card,.lt.old .tip-box{background:#F5F0E5 !important;border:1px solid rgba(26,24,19,.16) !important;border-radius:2px !important;box-shadow:none !important;color:#1A1813;}
+.lt.old .card{margin-bottom:14px;}
+.lt.old .card-title,.lt.old .stitle,.lt.old .card h2{font-family:'Bodoni Moda',Didot,serif !important;font-weight:400 !important;color:#1A1813 !important;letter-spacing:-.01em;}
+.lt.old .card-title{font-size:1.3rem !important;display:flex;align-items:center;gap:12px;}
+.lt.old .card h2{font-size:1.3rem !important;margin-bottom:8px;}
+.lt.old .stitle{font-size:clamp(1.7rem,5vw,2.4rem) !important;line-height:1.1;}
+.lt.old .stitle em,.lt.old .card-title em{color:#8A6424 !important;font-style:italic;}
+.lt.old .card-num,.lt.old .step-num{background:#1A1813 !important;color:#F5F0E6 !important;border-radius:50% !important;box-shadow:none !important;font-family:'Karla',sans-serif !important;}
+.lt.old p,.lt.old .card-body,.lt.old .row-val,.lt.old .step-desc,.lt.old li{color:#46413A;}
+.lt.old .row-label,.lt.old .tag{font-family:'JetBrains Mono',monospace !important;font-size:.62rem !important;letter-spacing:.14em;text-transform:uppercase;color:#6A6356 !important;background:none !important;border:none !important;padding-left:0 !important;}
+.lt.old a:not(.btn){color:#8A6424;}
+.lt.old .step-title{font-weight:700;color:#1A1813;}
+.lt.old img{border-radius:2px;}
+.lt.old .tip-icon{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;min-width:30px;border-radius:50%;border:1px solid rgba(26,24,19,.3);font-family:'Bodoni Moda',serif;font-size:1rem;color:#1A1813;}
+.lt.old .reveal{opacity:1 !important;transform:none !important;}
 </style>
 <script type="application/ld+json">
 {
@@ -148,35 +153,67 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
 </script>
 
 </head>
-
 <body>
- 
-<!-- HERO -->
-<div class="ph">
-  <div class="ph-bg"><div class="b1"></div><div class="b2"></div></div>
-  <div class="stars" id="stars"></div>
-  <div class="ph-topbar">
-    <a href="unsere-angebote.html" class="ph-back">← Zurück</a>
-    <a href="tel:+43660123456" class="ph-call">📞 Anrufen</a>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="/" class="brand"><span class="brand-n">Hüpfabenteuer</span><span class="brand-s">Kärnten</span></a>
+    <nav class="top-nav" aria-label="Seitenbereiche">
+      <a href="unsere-angebote.html?filter=burg">Hüpfburgen</a>
+      <a href="fotobox.html">Fotobox</a>
+      <a href="unsere-angebote.html?filter=extra">Extras</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <div class="top-actions">
+      <a href="tel:+436641852634" class="top-tel" data-track="call">+43 664 185 26 34</a>
+      <a href="anfragen.html" class="btn btn-solid btn-sm">Anfragen</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
   </div>
-  <h1 class="ph-title">👾 <em>Alienburg</em><br>Abbauanleitung</h1>
-  <p class="ph-sub">Schritt für Schritt – sicher & einfach einrollen</p>
-  <div class="ph-chips">
-    <span class="ph-chip">🕐 ca. 10–15 Min.</span>
-    <span class="ph-chip">👤 2 Personen empfohlen</span>
-    <span class="ph-chip">📦 Passt in den Transportsack</span>
+</header>
+
+<div class="drawer-bg" id="drawerBg"></div>
+<aside class="drawer" id="drawer" aria-label="Menü" aria-hidden="true">
+  <div class="drawer-top">
+    <span class="brand"><span class="brand-n">Hüpfabenteuer</span><span class="brand-s">Kärnten</span></span>
+    <button type="button" class="menu-btn" id="menuClose" aria-label="Menü schließen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
   </div>
-  <svg class="wave" viewBox="0 0 1440 40" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0 40 C360 0 1080 0 1440 40 L1440 40 L0 40 Z" fill="#f0f2f8"/></svg>
+  <nav>
+    <a href="unsere-angebote.html?filter=burg">Hüpfburgen<small>6 Modelle ab 120 €</small></a>
+    <a href="fotobox.html">Fotobox<small>Mit Sofortdruck ab 199 €</small></a>
+    <a href="unsere-angebote.html?filter=extra">Extras<small>Zuckerwatte &amp; Popcorn</small></a>
+    <a href="#indoor">Indoor<small>Auch im Winter</small></a>
+    <a href="kontakt.html">Kontakt<small>Antwort meist in unter 1 Std</small></a>
+  </nav>
+  <div class="drawer-c">
+    <a href="anfragen.html" class="btn btn-solid btn-wide">Termin anfragen</a>
+    <a href="tel:+436641852634" class="btn btn-ghost btn-wide" data-track="call"><svg class="ic ic-ph" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg> +43 664 185 26 34</a>
+    <a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20h%C3%A4tte%20eine%20Anfrage" target="_blank" rel="noopener" class="btn btn-ghost btn-wide" data-track="whatsapp"><svg class="ic ic-wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg> WhatsApp schreiben</a>
+  </div>
+</aside>
+
+<div class="hero slim">
+  <div class="hero-in">
+    <a href="alienburg.html" class="back">← Zurück zur Burg</a>
+    <div class="hero-kicker">Anleitung · Alienburg</div>
+    <h1>Alienburg <span class="it">abbauen.</span></h1>
+    <p class="lede" style="margin-top:18px;">Schritt für Schritt – sicher & einfach einrollen</p>
+    <div class="hero-meta" style="margin-top:22px;"><span><b>ca. 10–15 Min.</b></span><span><b>2 Personen empfohlen</b></span><span><b>Passt in den Transportsack</b></span></div>
+  </div>
 </div>
- 
+<div id="stars" hidden></div><div id="particles" hidden></div>
+
+<div class="lt old">
+<section style="padding:40px 0 56px;">
 <!-- STEPS -->
 <div class="sec">
-  <div class="tag">📋 Anleitung</div>
+  <div class="tag">Anleitung</div>
   <div class="stitle">So wird die <em>Alienburg</em> abgebaut</div>
   <p class="stitle-sub">Bitte alle Schritte der Reihe nach befolgen</p>
  
   <div class="tip-box reveal">
-    <div class="tip-icon">💡</div>
+    <div class="tip-icon">i</div>
     <div class="tip-text">
       <strong>Tipp vor dem Start</strong>
       Am besten zu zweit arbeiten – das geht schneller und schont die Hüpfburg. Stellt sicher, dass keine Kinder mehr drin sind!
@@ -247,7 +284,7 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   </div>
  
   <div class="tip-box reveal" style="margin-top:16px;">
-    <div class="tip-icon">✅</div>
+    <div class="tip-icon">✓</div>
     <div class="tip-text">
       <strong>Fertig!</strong>
       Perfekt verpackt und bereit zur Abholung bzw. Rückgabe. Bei Fragen erreichst du uns jederzeit telefonisch!
@@ -255,36 +292,67 @@ footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;back
   </div>
 </div>
  
-<!-- CTA -->
-<div class="cta reveal">
-  <span class="cta-em">🏰</span>
-  <div class="cta-ttl">Nochmal mieten?</div>
-  <p class="cta-sub">Die Alienburg macht jede Party unvergesslich –<br>jetzt einfach & schnell anfragen!</p>
-  <a href="anfragen.html?burg=alienburg" class="cb-main">🚀 Jetzt anfragen</a>
+<div class="closing" style="margin-top:44px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px;">
+  <div class="eyebrow center">Nochmal mieten?</div>
+  <h2 style="font-family:'Bodoni Moda',serif;font-weight:400;font-size:2rem;color:#1A1813;">Gleich den nächsten Termin sichern.</h2>
+  <div class="btns" style="justify-content:center;"><a href="anfragen.html?burg=alienburg" class="btn btn-solid">Jetzt anfragen</a><a href="tel:+436641852634" class="btn btn-ghost" data-track="call">Anrufen</a></div>
 </div>
  
 <!-- FOOTER -->
+
+</section>
+</div>
+
 <footer>
-  <div class="fl">🎪 Hüpfabenteuer Kärnten</div>
-  <div class="flinks">
-    <a href="index.html" class="flink">Home</a>
-    <a href="unsere-angebote.html" class="flink">Angebote</a>
-    <a href="anfragen.html" class="flink">Anfragen</a>
-    <a href="kontakt.html" class="flink">Kontakt</a>
-    <a href="impressum.html" class="flink">Impressum</a>
-    <a href="datenschutz.html" class="flink">Datenschutz</a>
-    <a href="#" class="flink" onclick="return hbCookies()">Cookies</a>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="foot-b">Hüpfabenteuer</div>
+        <p>Fotoboxen, Hüpfburgen und Partyausstattung für ganz Kärnten.<br>Schulstraße 3, 9346 Glödnitz</p>
+      </div>
+      <div>
+        <div class="foot-h">Sortiment</div>
+        <div class="foot-l">
+          <a href="fotobox.html">Fotobox</a>
+          <a href="fotobox-weihnachtsfeier.html">Fotobox Weihnachtsfeier</a>
+          <a href="fotobox-hochzeit.html">Fotobox Hochzeit</a>
+          <a href="unsere-angebote.html?filter=burg">Hüpfburgen</a>
+          <a href="zuckerwatte.html">Zuckerwatte</a>
+          <a href="popcorn.html">Popcorn</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-h">Kontakt</div>
+        <div class="foot-l">
+          <a href="tel:+436641852634" data-track="call">+43 664 185 26 34</a>
+          <a href="mailto:info@huepfabenteuer.at">info@huepfabenteuer.at</a>
+          <a href="kontakt.html">Kontaktseite</a>
+          <a href="partner.html">Partnerprogramm</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-btm">
+      <span>© 2025–2026 Hüpfabenteuer</span>
+      <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="#" onclick="return hbCookies()">Cookies</a> · <a href="agbs.html">AGB</a></span>
+    </div>
   </div>
-  <div class="fcopy">© 2025 Hüpfabenteuer Kärnten</div>
 </footer>
+
+<nav class="bnav" aria-label="Hauptnavigation">
+  <a href="/" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg><span>Start</span></a>
+  <a href="unsere-angebote.html?filter=burg" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l2-2 2 2 2-4 2 4 2-2 2 2 2-2v13z"/><path d="M10 20v-4h4v4"/></svg><span>Burgen</span></a>
+  <a href="fotobox.html" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3.2"/></svg><span>Fotobox</span></a>
+  <a href="unsere-angebote.html?filter=extra" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="9" width="16" height="11" rx="1"/><path d="M3 9h18M12 9v11"/><path d="M12 9c-1.5-3-5-3.5-5-1.2C7 9 9.5 9 12 9zm0 0c1.5-3 5-3.5 5-1.2C17 9 14.5 9 12 9z"/></svg><span>Extras</span></a>
+  <a href="kontakt.html" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg><span>Kontakt</span></a>
+</nav>
+
+<a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20h%C3%A4tte%20eine%20Frage" class="wa" target="_blank" rel="noopener" aria-label="Per WhatsApp Kontakt aufnehmen" data-track="whatsapp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+</a>
+
  
 <!-- BOTTOM NAV -->
-<nav class="bnav">
-  <a href="index.html" class="bi"><span class="bi-ic">🏠</span><span class="bi-lb">Home</span></a>
-  <a href="unsere-angebote.html" class="bi on"><span class="bi-ic">🏰</span><span class="bi-lb">Angebote</span></a>
-  <a href="anfragen.html" class="bi"><span class="bi-ic">📋</span><span class="bi-lb">Anfragen</span></a>
-  <a href="kontakt.html" class="bi"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
-</nav>
+
  
 <script>
 // Stars
@@ -303,9 +371,57 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
-<!-- WhatsApp-FAB -->
-<a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20interessiere%20mich%20f%C3%BCr%20eine%20H%C3%BCpfburg-Miete" class="wa-fab" target="_blank" rel="noopener" aria-label="Per WhatsApp Kontakt aufnehmen" title="WhatsApp">
-  <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
-</a>
+
+
+
+
+<script>
+
+/* Anruf- und WhatsApp-Klicks als Conversion messen */
+document.querySelectorAll('[data-track]').forEach(function(el){
+  el.addEventListener('click', function(){
+    var kind = el.getAttribute('data-track');
+    if(typeof gtag === 'function'){
+      gtag('event', kind === 'call' ? 'click_anruf' : 'click_whatsapp',
+           {event_category:'Kontakt', value: kind === 'call' ? 25 : 20, currency:'EUR'});
+    }
+    if(typeof fbq === 'function'){ fbq('track','Contact',{content_name:kind}); }
+  });
+});
+/* Einblenden beim Scrollen */
+(function(){
+  var els = document.querySelectorAll('.rise');
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)){
+    els.forEach(function(el){ el.classList.add('in'); }); return;
+  }
+  var obs = new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+  },{threshold:.08, rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(el){ obs.observe(el); });
+})();
+
+/* Menü am Handy */
+(function(){
+  var html=document.documentElement, btn=document.getElementById('menuBtn'), cls=document.getElementById('menuClose'),
+      bg=document.getElementById('drawerBg'), dr=document.getElementById('drawer');
+  function setOpen(o){
+    html.classList.toggle('menu-open',o); btn.setAttribute('aria-expanded',o); dr.setAttribute('aria-hidden',!o);
+    document.body.style.overflow=o?'hidden':'';
+    if(o) cls.focus(); else btn.focus();
+  }
+  btn.addEventListener('click',function(){ setOpen(true); });
+  cls.addEventListener('click',function(){ setOpen(false); });
+  bg.addEventListener('click',function(){ setOpen(false); });
+  dr.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ setOpen(false); }); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && html.classList.contains('menu-open')) setOpen(false); });
+})();
+/* WhatsApp-Knopf erst nach dem Hero einblenden */
+(function(){
+  var fab=document.querySelector('.wa'), hero=document.querySelector('.hero');
+  if(!fab) return;
+  if(!hero || !('IntersectionObserver' in window)){ fab.classList.add('zeigen'); return; }
+  new IntersectionObserver(function(e){ fab.classList.toggle('zeigen', !e[0].isIntersecting); }).observe(hero);
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<script src="consent.js"></script>
+<script src="ref.js"></script>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="color-scheme" content="light"/>
+<meta name="theme-color" content="#0B0B0E"/>
+<title>Partnerprogramm – 20 % Provision | Hüpfabenteuer Kärnten</title>
+<meta name="description" content="Für Wedding Planner, Hochzeitslocations, Fotografen und Eventagenturen in Kärnten: Fotobox, Hochzeitsburg und Hüpfburgen empfehlen und 20 % Provision auf jede vermittelte Buchung erhalten."/>
+<meta name="robots" content="noindex, follow"/>
+<link rel="canonical" href="https://huepfabenteuer.at/partner.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Partnerprogramm Hüpfabenteuer – 20 % Provision"/>
+<meta property="og:description" content="Ihr empfehlt, wir liefern: Fotobox, Hochzeitsburg und Hüpfburgen für eure Paare und Kunden in ganz Kärnten. 20 % Provision auf jede Buchung."/>
+<meta property="og:url" content="https://huepfabenteuer.at/partner.html"/>
+<meta property="og:image" content="https://huepfabenteuer.at/fotobox-og.jpg"/>
+<meta property="og:locale" content="de_AT"/>
+<link rel="stylesheet" href="fonts.css"/>
+<link rel="stylesheet" href="site.css"/>
+<style>
+.calc{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+@media(min-width:760px){.calc{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:1000px){.calc{grid-template-columns:repeat(4,1fr);}}
+.calc div{background:var(--void);padding:24px 22px;display:flex;flex-direction:column;gap:6px;}
+.calc .k{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fog-2);}
+.calc .w{font-size:.92rem;color:var(--fog);}
+.calc .p{font-family:var(--serif);font-size:2.1rem;line-height:1;color:var(--brass-lt);margin-top:6px;}
+.calc .p small{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--fog-2);display:block;margin-top:6px;}
+.why{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+@media(min-width:680px){.why{grid-template-columns:1fr 1fr;}}
+@media(min-width:1000px){.why{grid-template-columns:repeat(3,1fr);}}
+.why div{background:#F5F0E5;padding:24px 22px;display:flex;flex-direction:column;gap:10px;}
+.why b{font-weight:700;font-size:1rem;}
+.why p{color:var(--fog);font-size:.92rem;}
+.why .ico{width:24px;height:24px;color:var(--brass);}
+.steps{display:grid;grid-template-columns:1fr;gap:0;counter-reset:s;}
+@media(min-width:760px){.steps{grid-template-columns:1fr 1fr;column-gap:56px;}}
+.steps div{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:22px 0;border-bottom:1px solid var(--line);}
+.steps .ibadge{width:44px;height:44px;}
+.steps b{display:block;margin-bottom:4px;}
+.steps p{color:var(--fog);font-size:.93rem;}
+.greet{display:none;font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brass-lt);margin-bottom:14px;}
+.greet.on{display:block;}
+.pform .f select{appearance:auto;}
+.ok-box{display:none;background:#F5F0E5;border:1px solid var(--line-2);border-left:3px solid #1F9A5E;padding:22px;}
+.ok-box.on{display:block;}
+.rahmen-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+@media(min-width:760px){.rahmen-row{grid-template-columns:repeat(8,1fr);}}
+.rahmen-row img{width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;background:var(--paper-2);box-shadow:0 10px 24px -14px rgba(0,0,0,.6);}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="/" class="brand"><span class="brand-n">Hüpfabenteuer</span><span class="brand-s">Kärnten</span></a>
+    <nav class="top-nav" aria-label="Seitenbereiche">
+      <a href="unsere-angebote.html?filter=burg">Hüpfburgen</a>
+      <a href="fotobox.html">Fotobox</a>
+      <a href="unsere-angebote.html?filter=extra">Extras</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <div class="top-actions">
+      <a href="tel:+436641852634" class="top-tel" data-track="call">+43 664 185 26 34</a>
+      <a href="anfragen.html" class="btn btn-solid btn-sm">Anfragen</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer-bg" id="drawerBg"></div>
+<aside class="drawer" id="drawer" aria-label="Menü" aria-hidden="true">
+  <div class="drawer-top">
+    <span class="brand"><span class="brand-n">Hüpfabenteuer</span><span class="brand-s">Kärnten</span></span>
+    <button type="button" class="menu-btn" id="menuClose" aria-label="Menü schließen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <nav>
+    <a href="unsere-angebote.html?filter=burg">Hüpfburgen<small>6 Modelle ab 120 €</small></a>
+    <a href="fotobox.html">Fotobox<small>Mit Sofortdruck ab 199 €</small></a>
+    <a href="unsere-angebote.html?filter=extra">Extras<small>Zuckerwatte &amp; Popcorn</small></a>
+    <a href="#indoor">Indoor<small>Auch im Winter</small></a>
+    <a href="kontakt.html">Kontakt<small>Antwort meist in unter 1 Std</small></a>
+  </nav>
+  <div class="drawer-c">
+    <a href="anfragen.html" class="btn btn-solid btn-wide">Termin anfragen</a>
+    <a href="tel:+436641852634" class="btn btn-ghost btn-wide" data-track="call"><svg class="ic ic-ph" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg> +43 664 185 26 34</a>
+    <a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20h%C3%A4tte%20eine%20Anfrage" target="_blank" rel="noopener" class="btn btn-ghost btn-wide" data-track="whatsapp"><svg class="ic ic-wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg> WhatsApp schreiben</a>
+  </div>
+</aside>
+
+<div class="hero slim with-gal">
+  <div class="hero-in">
+    <div>
+      <div class="greet" id="greet"></div>
+      <div class="hero-kicker">Partnerprogramm · Hochzeit &amp; Events</div>
+      <h1>Ihr empfehlt. <span class="it">Wir liefern.</span></h1>
+      <p class="lede">Für Wedding Planner, Hochzeitslocations, Fotografen, DJs und Eventagenturen in Kärnten: Empfehlt Fotobox, Hochzeitsburg und Hüpfburgen an eure Paare und Kunden – ihr bekommt <b style="color:var(--paper);">20&nbsp;% vom Mietpreis</b> jeder vermittelten Buchung.</p>
+      <div class="hero-cta">
+        <a href="#anmelden" class="btn btn-solid">Partner werden</a>
+        <a href="#ablauf" class="btn btn-ghost">So funktioniert's</a>
+      </div>
+      <div class="quick">
+        <a href="tel:+436641852634" data-track="call"><svg class="ic ic-ph" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg>Anrufen</a>
+        <a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20interessiere%20mich%20f%C3%BCr%20das%20Partnerprogramm" target="_blank" rel="noopener" data-track="whatsapp"><svg class="ic ic-wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>WhatsApp</a>
+      </div>
+      <div class="hero-meta"><span><b>20 %</b> Provision</span><span><b>80+</b> Feste ausgestattet</span><span><b>5,0</b> auf Google</span><span><b>&lt; 1 Std</b> bis zum Angebot</span></div>
+    </div>
+    <div class="gal "><div class="gal-track"><img src="fotobox-raum.webp" alt="Fotobox mit Sofortdruck aufgebaut im Saal" width="800" height="600" loading="eager" decoding="async"/><img src="fotostreifen-hand.webp" alt="Fotostreifen aus der Fotobox in der Hand" width="800" height="600" loading="lazy" decoding="async"/><img src="https://i.imgur.com/nrIyuLj.jpeg" alt="Hochzeitsburg in Weiß aufgebaut" width="800" height="600" loading="lazy" decoding="async"/><img src="fotobox-ausdruck.webp" alt="Sofortdruck der Fotobox" width="800" height="600" loading="lazy" decoding="async"/></div><button type="button" class="gal-arrow prev" aria-label="Vorheriges Bild">‹</button><button type="button" class="gal-arrow next" aria-label="Nächstes Bild">›</button><div class="gal-foot"><span>Hüpfabenteuer</span><div class="gal-dots"></div><span>Kärnten</span></div></div>
+  </div>
+</div>
+
+<div class="lt">
+<div class="facts">
+  <div class="facts-in">
+    <div class="fact"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><circle cx="7.5" cy="7.5" r="2.3"/><circle cx="16.5" cy="16.5" r="2.3"/></svg><div class="fact-v">20<span class="u"> %</span></div><div class="fact-l">vom Mietpreis</div></div>
+    <div class="fact"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><div class="fact-v">80+</div><div class="fact-l">Feste ausgestattet</div></div>
+    <div class="fact"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><div class="fact-v">5,0</div><div class="fact-l">16 Google-Bewertungen</div></div>
+    <div class="fact"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><div class="fact-v">&lt; 1<span class="u"> Std</span></div><div class="fact-l">Bis zum Angebot</div></div>
+  </div>
+</div>
+
+<!-- ══════════════ ABLAUF ══════════════ -->
+<section id="ablauf">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">So funktioniert's</div>
+      <h2>Vier Schritte. Ihr habt keine Arbeit damit.</h2>
+    </div>
+    <div class="steps rise">
+      <div><span class="ibadge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l4-4 3 1 3-2 4 1 4 4"/><path d="M7 7l-4 4 6 6c.8.8 2 .8 2.8 0l5.7-5.7"/><path d="M10 14l2 2M12.5 11.5l2 2"/></svg></span><span><b>1. Partner werden</b><p>Kurz das Formular unten ausfüllen. Ihr bekommt euren persönlichen Empfehlungslink und Partnercode, meistens noch am selben Tag.</p></span></div>
+      <div><span class="ibadge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></span><span><b>2. Empfehlen</b><p>Gebt den Link an eure Paare oder Kunden weiter – per Mail, in eurer Mappe oder auf eurer Website. Alternativ nennt der Kunde einfach euren Namen bei der Anfrage.</p></span></div>
+      <div><span class="ibadge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5h11v10H3zM14 10h4l3 3.5v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg></span><span><b>3. Wir übernehmen alles</b><p>Angebot, Lieferung, Aufbau, Einweisung und Abholung. Euer Kunde hat einen Ansprechpartner, ihr müsst euch um nichts kümmern.</p></span></div>
+      <div><span class="ibadge"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 6.5A6.5 6.5 0 1 0 17 17.5"/><path d="M4.5 10.5h9M4.5 13.5h9"/></svg></span><span><b>4. Provision erhalten</b><p>20 % vom Mietpreis (ohne Lieferkosten) per Überweisung, sobald das Fest stattgefunden hat und bezahlt ist – mit einer Abrechnung für eure Unterlagen.</p></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ RECHENBEISPIELE ══════════════ -->
+<section class="fbx dk">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Rechenbeispiele</div>
+      <h2>Was eine Empfehlung bringt.</h2>
+      <p class="lede">20 % vom Mietpreis, ohne Lieferkosten. Keine Mindestmenge, keine Kosten für euch.</p>
+    </div>
+    <div class="calc rise">
+      <div><span class="k">Hochzeit</span><span class="w">Fotobox Premium · 349 €</span><span class="p">69,80 €<small>eure Provision</small></span></div>
+      <div><span class="k">Hochzeit</span><span class="w">Fotobox Premium + Hochzeitsburg · 569 €</span><span class="p">113,80 €<small>eure Provision</small></span></div>
+      <div><span class="k">Weihnachtsfeier</span><span class="w">Fotobox Standard · 299 €</span><span class="p">59,80 €<small>eure Provision</small></span></div>
+      <div><span class="k">Kinderfest</span><span class="w">Alienburg 2 Tage · 270 €</span><span class="p">54,00 €<small>eure Provision</small></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ANGEBOT ══════════════ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Was eure Kunden bekommen</div>
+      <h2>Alles, was ein Fest besonders macht.</h2>
+    </div>
+    <div class="cards rise">
+      <a href="fotobox-hochzeit.html" class="pcard">
+        <div class="pcard-img"><img src="fotobox-raum.webp" alt="Fotobox mit Sofortdruck" width="900" height="1200" loading="lazy" style="height:100%;"/><span class="pcard-tag">Beliebt bei Hochzeiten</span></div>
+        <div class="pcard-body"><div class="pcard-top"><div class="pcard-n">Fotobox mit Sofortdruck</div><div class="pcard-p">199 €<span class="u">ab / Abend</span></div></div>
+        <p class="pcard-d">Den ganzen Abend ohne Stundenlimit, Rahmen mit Namen und Datum, 300 Ausdrucke und alle Bilder digital. Auf- und Abbau inklusive.</p><span class="more">Details ansehen →</span></div>
+      </a>
+      <a href="hochzeitsburg.html" class="pcard">
+        <div class="pcard-img"><img src="https://i.imgur.com/nrIyuLj.jpeg" alt="Hochzeitsburg in Weiß" width="600" height="400" loading="lazy" style="height:100%;"/></div>
+        <div class="pcard-body"><div class="pcard-top"><div class="pcard-n">Hochzeitsburg</div><div class="pcard-p">220 €<span class="u">pro Tag</span></div></div>
+        <p class="pcard-d">Weiß und elegant, inklusive romantischer Dekoration. Lieferung und Aufbau inklusive – die Kinder sind beschäftigt, das Paar hat Ruhe.</p><span class="more">Details ansehen →</span></div>
+      </a>
+      <a href="unsere-angebote.html" class="pcard">
+        <div class="pcard-img"><img src="https://i.imgur.com/xNdofDm.jpeg" alt="Hüpfburg Alienburg" width="600" height="400" loading="lazy" style="height:100%;"/></div>
+        <div class="pcard-body"><div class="pcard-top"><div class="pcard-n">Hüpfburgen &amp; Extras</div><div class="pcard-p">120 €<span class="u">ab / Tag</span></div></div>
+        <p class="pcard-d">Sechs Hüpfburgen, drei davon auch indoor, dazu Zuckerwatte und Popcorn. Für Feste, Firmenfeiern und Vereine.</p><span class="more">Alle Angebote →</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ WARUM ══════════════ -->
+<section class="alt">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Warum mit uns</div>
+      <h2>Ihr empfehlt nur, wo ihr euch sicher seid.</h2>
+      <p class="lede">Eure Empfehlung fällt auf euch zurück. Deshalb das, worauf ihr euch verlassen könnt:</p>
+    </div>
+    <div class="why rise">
+      <div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><b>Antwort meist in unter einer Stunde</b><p>Jede Anfrage bekommt ein fixes Angebot mit allen Kosten – kein Rückruf-Formular, keine versteckten Posten.</p></div>
+      <div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="1.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></svg><b>Ganzer Abend, kein Stundenzähler</b><p>Die Fotobox steht vor dem Fest bereit und wird am nächsten Tag abgeholt. Kein Aufpreis, wenn es später wird.</p></div>
+      <div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 19 6v6c0 4.2-3 7.3-7 8.5-4-1.2-7-4.3-7-8.5V6z"/><path d="M9 12l2 2 4-4"/></svg><b>Sicherheitsgeprüft</b><p>Alle Hüpfburgen mit Sachverständigen-Gutachten 2026. Gebläse, Sicherheitsnetz und Einweisung sind immer dabei.</p></div>
+      <div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l4-4 3 1 3-2 4 1 4 4"/><path d="M7 7l-4 4 6 6c.8.8 2 .8 2.8 0l5.7-5.7"/><path d="M10 14l2 2M12.5 11.5l2 2"/></svg><b>Ein Ansprechpartner</b><p>Von der Anfrage bis zum Abbau redet euer Kunde mit derselben Person. Kein Callcenter, keine Agentur.</p></div>
+      <div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.5h11v10H3zM14 10h4l3 3.5v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg><b>Ganz Kärnten</b><p>Wir liefern von Glödnitz aus ins ganze Land – Klagenfurt, Villach, Wörthersee, Ossiacher See und alles dazwischen.</p></div>
+      <div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h8l4 4V20.5H6z"/><path d="M14 3.5v4h4M9 12h6M9 15.5h6"/></svg><b>Sauber abgerechnet</b><p>Schriftliches Angebot, Rechnung, klare Anzahlung. Und für euch eine nachvollziehbare Provisionsabrechnung.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ BEWERTUNGEN ══════════════ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Bewertungen</div>
+      <h2>Was unsere Kunden schreiben.</h2>
+    </div>
+    <div class="stimmen rise">
+      <div class="stimme"><div class="st-s">★★★★★</div><blockquote class="st-q">„Absolut Klasse. Super Hüpfburgen, die Kinder hatten zum Geburtstag viel Spaß. Ein Highlight war auch die Zuckerwatte.“</blockquote><div class="st-a"><b>Sandra Dovjak</b>Google Local Guide</div></div>
+      <div class="stimme"><div class="st-s">★★★★★</div><blockquote class="st-q">„Wir sind begeistert! Anfrage schnell &amp; professionell beantwortet, Termin sofort zugesagt. Hüpfburg bringt nicht nur Kinderaugen zum Strahlen.“</blockquote><div class="st-a"><b>Stefanie Nussbaumer</b>Google Rezension</div></div>
+      <div class="stimme"><div class="st-s">★★★★★</div><blockquote class="st-q">„Danke für den tollen Service! Viel Spaß mit der Hüpfburg und die Zuckerwatte war der Hit bei Groß und Klein.“</blockquote><div class="st-a"><b>Melanie Moser</b>Google Rezension</div></div>
+      <div class="stimme"><div class="st-s">★★★★★</div><blockquote class="st-q">„Alles bestens! Sehr netter Kontakt. Die Hüpfburgen sind spitze!“</blockquote><div class="st-a"><b>Petra Glanzer</b>Google Rezension</div></div>
+    </div>
+    
+    <div class="rating-bar rise">
+      <div class="rating-n">5,0</div>
+      <div class="rating-x">16 Bewertungen auf Google, alle mit fünf Sternen<br>Über 80 Feste in Kärnten ausgestattet</div>
+      <a href="https://g.page/r/CUE00P_892NPEAE/review" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Alle Bewertungen ansehen</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ RAHMEN ══════════════ -->
+<section class="alt">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Hochzeitsrahmen</div>
+      <h2>Ausdrucke, die man aufhebt.</h2>
+      <p class="lede">Beim Premium-Paket wählt das Paar einen Rahmen mit Namen und Datum – oder wir gestalten einen eigenen. Auf Wunsch auch mit eurem Logo als Planer oder Location.</p>
+    </div>
+    <div class="rahmen-row rise">
+      <img src="rahmen-03.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen Beispiel 3"/><img src="rahmen-04.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen Beispiel 4"/><img src="rahmen-05.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen Beispiel 5"/><img src="rahmen-06.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen Beispiel 6"/><img src="rahmen-07.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen Beispiel 7"/><img src="rahmen-08.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen Beispiel 8"/><img src="rahmen-09.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen Beispiel 9"/><img src="rahmen-10.webp" width="400" height="600" loading="lazy" alt="Hochzeits-Fotorahmen Beispiel 10"/>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FAQ ══════════════ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Fragen</div>
+      <h2>Was Partner wissen wollen.</h2>
+    </div>
+    <div class="rise">
+      <details class="faq"><summary>Wie wird die Provision berechnet?</summary><div class="faq-a">20 % vom Mietpreis der vermittelten Buchung, ohne Lieferkosten. Bei einer Fotobox Premium um 349 € sind das 69,80 €, bei Fotobox Premium plus Hochzeitsburg 113,80 €.</div></details>
+      <details class="faq"><summary>Wann wird ausbezahlt?</summary><div class="faq-a">Sobald das Fest stattgefunden hat und vom Kunden bezahlt ist, per Überweisung. Ihr bekommt dazu eine Abrechnung mit allen vermittelten Buchungen.</div></details>
+      <details class="faq"><summary>Wie wird eine Buchung mir zugeordnet?</summary><div class="faq-a">Über euren persönlichen Empfehlungslink: Fragt der Kunde darüber an, steht euer Partnercode automatisch in der Anfrage. Nennt der Kunde bei einer Anfrage per Telefon oder WhatsApp euren Namen, wird die Buchung ebenfalls euch zugeordnet.</div></details>
+      <details class="faq"><summary>Gibt es Kosten oder eine Mindestmenge?</summary><div class="faq-a">Nein. Die Partnerschaft kostet nichts, und es gibt keine Mindestanzahl an Empfehlungen. Ihr empfehlt, wenn es passt.</div></details>
+      <details class="faq"><summary>Was ist, wenn beim Fest etwas nicht passt?</summary><div class="faq-a">Dann kümmern wir uns darum – nicht ihr. Während des Fests bin ich telefonisch erreichbar, und euer Kunde hat von Anfang an einen direkten Ansprechpartner.</div></details>
+      <details class="faq"><summary>Können wir das auch für unsere eigenen Events nutzen?</summary><div class="faq-a">Ja. Wenn ihr als Location oder Agentur selbst bucht, schreibt uns – dann machen wir euch ein eigenes Angebot.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ANMELDUNG ══════════════ -->
+<section id="anmelden" class="alt">
+  <div class="wrap">
+    <form class="formwrap pform rise" id="pForm" accept-charset="UTF-8" novalidate>
+      <input type="text" name="company" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true"/>
+      <div class="form-head">
+        <div class="eyebrow">Partner werden</div>
+        <h2>In einer Minute dabei.</h2>
+        <p>Unverbindlich und kostenlos. Ihr bekommt euren persönlichen Empfehlungslink und die Konditionen schriftlich per E-Mail.</p>
+      </div>
+      <div class="form-body">
+        <div class="fset">
+          <div class="grid2">
+            <div class="f"><label for="pName">Name</label><input type="text" id="pName" placeholder="Maria Muster" autocomplete="name" required/></div>
+            <div class="f"><label for="pFirma">Firma / Location</label><input type="text" id="pFirma" placeholder="z. B. Hochzeitsplanung Muster" autocomplete="organization"/></div>
+          </div>
+          <div class="grid2">
+            <div class="f"><label for="pArt">Ich bin</label>
+              <select id="pArt"><option value="">Bitte wählen</option><option>Wedding Planner</option><option>Hochzeits- / Eventlocation</option><option>Fotograf:in / Videograf:in</option><option>DJ / Musik</option><option>Event- / Firmenagentur</option><option>Sonstiges</option></select></div>
+            <div class="f"><label for="pOrt">Region / Ort</label><input type="text" id="pOrt" placeholder="z. B. Wörthersee" autocomplete="address-level2"/></div>
+          </div>
+          <div class="grid2">
+            <div class="f"><label for="pMail">E-Mail</label><input type="email" id="pMail" placeholder="name@beispiel.at" inputmode="email" autocomplete="email" required/></div>
+            <div class="f"><label for="pTel">Telefon <span style="text-transform:none;letter-spacing:0;">(optional)</span></label><input type="tel" id="pTel" placeholder="+43 660 123 456" inputmode="tel" autocomplete="tel"/></div>
+          </div>
+          <div class="f"><label for="pMsg">Nachricht <span style="text-transform:none;letter-spacing:0;">(optional)</span></label><textarea id="pMsg" placeholder="z. B. wie viele Hochzeiten ihr im Jahr begleitet"></textarea></div>
+        </div>
+        <button type="button" class="btn btn-brass btn-wide" id="pSend" style="min-height:54px;font-size:.95rem;">Partner werden</button>
+        <div class="msg" id="pOut" role="status"></div>
+        <div class="ok-box" id="pOk"><b>Danke – die Anmeldung ist da.</b><p style="margin-top:6px;">Ich melde mich in Kürze mit eurem persönlichen Empfehlungslink und den Konditionen. Bei Fragen: <a href="tel:+436641852634">+43 664 185 26 34</a></p></div>
+        <p class="hint">Mit dem Absenden stimmst du zu, dass wir deine Angaben zur Bearbeitung der Partneranfrage verwenden. Details in der <a href="datenschutz.html" style="color:#8A6A2A;">Datenschutzerklärung</a>.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="plain">
+  <div class="wrap closing rise">
+    <div class="eyebrow center">Lieber persönlich?</div>
+    <h2>Ruf an oder schreib mir.</h2>
+    <p class="lede">Alexander Fodermayer · Hüpfabenteuer · Schulstraße 3, 9346 Glödnitz</p>
+    <div class="btns" style="justify-content:center;">
+      <a href="tel:+436641852634" class="btn btn-solid" data-track="call"><svg class="ic ic-ph" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg> +43 664 185 26 34</a>
+      <a href="mailto:info@huepfabenteuer.at?subject=Partnerprogramm" class="btn btn-ghost">info@huepfabenteuer.at</a>
+    </div>
+  </div>
+</section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="foot-b">Hüpfabenteuer</div>
+        <p>Fotoboxen, Hüpfburgen und Partyausstattung für ganz Kärnten.<br>Schulstraße 3, 9346 Glödnitz</p>
+      </div>
+      <div>
+        <div class="foot-h">Sortiment</div>
+        <div class="foot-l">
+          <a href="fotobox.html">Fotobox</a>
+          <a href="fotobox-weihnachtsfeier.html">Fotobox Weihnachtsfeier</a>
+          <a href="fotobox-hochzeit.html">Fotobox Hochzeit</a>
+          <a href="unsere-angebote.html?filter=burg">Hüpfburgen</a>
+          <a href="zuckerwatte.html">Zuckerwatte</a>
+          <a href="popcorn.html">Popcorn</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-h">Kontakt</div>
+        <div class="foot-l">
+          <a href="tel:+436641852634" data-track="call">+43 664 185 26 34</a>
+          <a href="mailto:info@huepfabenteuer.at">info@huepfabenteuer.at</a>
+          <a href="kontakt.html">Kontaktseite</a>
+          <a href="partner.html">Partnerprogramm</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-btm">
+      <span>© 2025–2026 Hüpfabenteuer</span>
+      <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="#" onclick="return hbCookies()">Cookies</a> · <a href="agbs.html">AGB</a></span>
+    </div>
+  </div>
+</footer>
+
+<nav class="bnav" aria-label="Hauptnavigation">
+  <a href="/" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg><span>Start</span></a>
+  <a href="unsere-angebote.html?filter=burg" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l2-2 2 2 2-4 2 4 2-2 2 2 2-2v13z"/><path d="M10 20v-4h4v4"/></svg><span>Burgen</span></a>
+  <a href="fotobox.html" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3.2"/></svg><span>Fotobox</span></a>
+  <a href="unsere-angebote.html?filter=extra" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="9" width="16" height="11" rx="1"/><path d="M3 9h18M12 9v11"/><path d="M12 9c-1.5-3-5-3.5-5-1.2C7 9 9.5 9 12 9zm0 0c1.5-3 5-3.5 5-1.2C17 9 14.5 9 12 9z"/></svg><span>Extras</span></a>
+  <a href="kontakt.html" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg><span>Kontakt</span></a>
+</nav>
+
+<a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20h%C3%A4tte%20eine%20Frage" class="wa" target="_blank" rel="noopener" aria-label="Per WhatsApp Kontakt aufnehmen" data-track="whatsapp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+</a>
+
+<script>
+
+/* Anruf- und WhatsApp-Klicks als Conversion messen */
+document.querySelectorAll('[data-track]').forEach(function(el){
+  el.addEventListener('click', function(){
+    var kind = el.getAttribute('data-track');
+    if(typeof gtag === 'function'){
+      gtag('event', kind === 'call' ? 'click_anruf' : 'click_whatsapp',
+           {event_category:'Kontakt', value: kind === 'call' ? 25 : 20, currency:'EUR'});
+    }
+    if(typeof fbq === 'function'){ fbq('track','Contact',{content_name:kind}); }
+  });
+});
+/* Einblenden beim Scrollen */
+(function(){
+  var els = document.querySelectorAll('.rise');
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)){
+    els.forEach(function(el){ el.classList.add('in'); }); return;
+  }
+  var obs = new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+  },{threshold:.08, rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(el){ obs.observe(el); });
+})();
+
+/* Menü am Handy */
+(function(){
+  var html=document.documentElement, btn=document.getElementById('menuBtn'), cls=document.getElementById('menuClose'),
+      bg=document.getElementById('drawerBg'), dr=document.getElementById('drawer');
+  function setOpen(o){
+    html.classList.toggle('menu-open',o); btn.setAttribute('aria-expanded',o); dr.setAttribute('aria-hidden',!o);
+    document.body.style.overflow=o?'hidden':'';
+    if(o) cls.focus(); else btn.focus();
+  }
+  btn.addEventListener('click',function(){ setOpen(true); });
+  cls.addEventListener('click',function(){ setOpen(false); });
+  bg.addEventListener('click',function(){ setOpen(false); });
+  dr.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ setOpen(false); }); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && html.classList.contains('menu-open')) setOpen(false); });
+})();
+/* WhatsApp-Knopf erst nach dem Hero einblenden */
+(function(){
+  var fab=document.querySelector('.wa'), hero=document.querySelector('.hero');
+  if(!fab) return;
+  if(!hero || !('IntersectionObserver' in window)){ fab.classList.add('zeigen'); return; }
+  new IntersectionObserver(function(e){ fab.classList.toggle('zeigen', !e[0].isIntersecting); }).observe(hero);
+})();
+</script>
+<script>
+/* Bildergalerien: Punkte, Pfeile, Großansicht */
+(function(){
+  var lb=document.createElement('div'); lb.className='lbx'; lb.setAttribute('role','dialog'); lb.setAttribute('aria-modal','true');
+  lb.innerHTML='<button class="x" aria-label="Schließen">✕</button><button class="p" aria-label="Vorheriges Bild">‹</button><img alt=""/><button class="n" aria-label="Nächstes Bild">›</button><div class="c"></div>';
+  document.body.appendChild(lb);
+  var lbImg=lb.querySelector('img'), lbC=lb.querySelector('.c'), list=[], idx=0;
+  function show(){ lbImg.src=list[idx].src; lbImg.alt=list[idx].alt||''; lbC.textContent=(idx+1)+' / '+list.length; }
+  function open(l,i){ list=l; idx=i; show(); lb.classList.add('on'); document.body.style.overflow='hidden'; }
+  function close(){ lb.classList.remove('on'); document.body.style.overflow=''; lbImg.src=''; }
+  lb.querySelector('.x').onclick=close;
+  lb.querySelector('.p').onclick=function(){ idx=(idx-1+list.length)%list.length; show(); };
+  lb.querySelector('.n').onclick=function(){ idx=(idx+1)%list.length; show(); };
+  lb.addEventListener('click',function(e){ if(e.target===lb) close(); });
+  document.addEventListener('keydown',function(e){ if(!lb.classList.contains('on')) return;
+    if(e.key==='Escape') close(); if(e.key==='ArrowLeft') lb.querySelector('.p').click(); if(e.key==='ArrowRight') lb.querySelector('.n').click(); });
+
+  document.querySelectorAll('.gal').forEach(function(g){
+    var tr=g.querySelector('.gal-track'), items=[].slice.call(tr.children), dots=g.querySelector('.gal-dots');
+    if(dots && items.length>1){
+      items.forEach(function(_,i){ var b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label','Bild '+(i+1));
+        b.onclick=function(e){ e.preventDefault(); e.stopPropagation(); tr.scrollTo({left:i*tr.clientWidth,behavior:'smooth'}); }; dots.appendChild(b); });
+    }
+    function cur(){ return Math.round(tr.scrollLeft/Math.max(1,tr.clientWidth)); }
+    function upd(){ var c=cur(); if(dots) [].forEach.call(dots.children,function(d,i){ d.classList.toggle('on',i===c); });
+      items.forEach(function(el,i){ if(el.tagName==='VIDEO'){ if(i===c){ el.play && el.play().catch(function(){}); } else { el.pause && el.pause(); } } }); }
+    tr.addEventListener('scroll',function(){ clearTimeout(tr._t); tr._t=setTimeout(upd,60); },{passive:true});
+    upd();
+    var p=g.querySelector('.gal-arrow.prev'), n=g.querySelector('.gal-arrow.next');
+    if(items.length<2){ if(p) p.remove(); if(n) n.remove(); }
+    if(p) p.onclick=function(e){ e.preventDefault(); e.stopPropagation(); var c=cur(); tr.scrollTo({left:((c-1+items.length)%items.length)*tr.clientWidth,behavior:'smooth'}); };
+    if(n) n.onclick=function(e){ e.preventDefault(); e.stopPropagation(); var c=cur(); tr.scrollTo({left:((c+1)%items.length)*tr.clientWidth,behavior:'smooth'}); };
+    var imgs=items.filter(function(el){ return el.tagName==='IMG'; });
+    imgs.forEach(function(im,i){ im.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); open(imgs,i); }); });
+  });
+})();
+</script>
+<script>
+/* Persönliche Begrüßung: partner.html?n=Name (aus der E-Mail) */
+(function(){
+  try{
+    var q=new URLSearchParams(location.search), n=(q.get('n')||'').trim().slice(0,60);
+    if(n){ var g=document.getElementById('greet'); g.textContent='Für '+n; g.classList.add('on');
+      var f=document.getElementById('pFirma'); if(f && !f.value) f.value=n; }
+  }catch(e){}
+})();
+/* Partner-Anmeldung über Formcarry */
+(function(){
+  var ENDPOINT='https://formcarry.com/s/a0drkd2yAwf';
+  var btn=document.getElementById('pSend'), out=document.getElementById('pOut');
+  function v(id){ var e=document.getElementById(id); return e?e.value.trim():''; }
+  function say(t,ok){ out.textContent=t; out.className='msg '+(ok?'ok':'err'); }
+  btn.addEventListener('click',function(){
+    var name=v('pName'), mail=v('pMail');
+    if(!name){ say('Bitte trag deinen Namen ein.',false); return; }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ say('Bitte gib eine gültige E-Mail-Adresse an.',false); return; }
+    btn.disabled=true; btn.textContent='Wird gesendet …'; say('Wird gesendet …',true);
+    var fd=new FormData();
+    fd.append('subject','Neue Partner-Anmeldung – '+(v('pFirma')||name));
+    fd.append('Name',name); fd.append('Firma',v('pFirma')); fd.append('Art',v('pArt')); fd.append('Region',v('pOrt'));
+    fd.append('E-Mail',mail); if(v('pTel')) fd.append('Telefon',v('pTel')); if(v('pMsg')) fd.append('Nachricht',v('pMsg'));
+    try{ var q=new URLSearchParams(location.search); if(q.get('p')) fd.append('Kontakt-Kennung',q.get('p')); }catch(e){}
+    fd.append('Quelle','Partner-Seite');
+    fetch(ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:fd})
+      .then(function(r){ return r.json().then(function(d){ return {ok:r.ok,data:d}; }); })
+      .then(function(r){
+        if(r.ok){
+          say('',true); out.className='msg';
+          document.getElementById('pOk').classList.add('on');
+          btn.style.display='none';
+          if(typeof gtag==='function') gtag('event','partner_anmeldung',{event_category:'Partner'});
+        } else {
+          say(((r.data&&r.data.message)||'Senden fehlgeschlagen.')+' Ruf bitte an: +43 664 185 26 34',false);
+          btn.disabled=false; btn.textContent='Partner werden';
+        }
+      })
+      .catch(function(){ say('Verbindung fehlgeschlagen. Ruf bitte an: +43 664 185 26 34',false); btn.disabled=false; btn.textContent='Partner werden'; });
+  });
+})();
+</script>
+</body>
+</html>

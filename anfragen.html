@@ -2,8 +2,10 @@
 <html lang="de">
 <head>
 <script src="consent.js"></script>
+<script src="ref.js"></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta name="color-scheme" content="light only"/>
+<meta name="color-scheme" content="light"/>
+<meta name="theme-color" content="#0B0B0E"/>
 <title>Hüpfburg anfragen Kärnten – Jetzt Termin sichern | Hüpfabenteuer</title>
 <link rel="canonical" href="https://huepfabenteuer.at/anfragen.html"/>
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"/>
@@ -22,453 +24,596 @@
 <meta name="twitter:description" content="Hüpfburg mieten in Kärnten – einfach anfragen, Antwort innerhalb 24h. Hüpfburgen, Fotobox, Zuckerwatte & mehr."/>
 <meta name="description" content="Hüpfburg mieten in Kärnten – jetzt einfach anfragen! Hüpfburgverleih, Fotobox, Zuckerwatte & mehr. Antwort innerhalb 24h ✓ Gratis Lieferung bis 40 km ✓ ab 120€/Tag"/>
 
-<!-- PERFORMANCE: Preconnect to external domains -->
 <link rel="stylesheet" href="fonts.css"/>
-
- 
- 
 <style>
-:root{--pink:#ff4fa3;--purple:#a855f7;--sky:#00c2ff;--sun:#FFD600;--green:#00d97e;--dark:#0f0b2e;--shadow:0 8px 32px rgba(0,0,0,.10);--ok:#1b8d4b;--err:#b3261e;}
-html{color-scheme:light only;}
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e !important;overflow-x:hidden;padding-bottom:86px;-webkit-text-size-adjust:100%;}
-@media(prefers-color-scheme:dark){html,body{background:#f0f2f8 !important;color:#0f0b2e !important;}.card{background:white !important;}}
- 
-/* BOTTOM NAV */
-.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(10,22,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
-.bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.5);transition:color .25s;position:relative;min-height:44px;}
-.bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,#00c2ff,#378ADD);transition:width .3s cubic-bezier(.34,1.56,.64,1);}
-.bi.on{color:white;}.bi.on::after{width:36px;}.bi:active{transform:scale(.9);}
-.bi-ic{font-size:21px;}.bi.on .bi-ic{transform:scale(1.22) translateY(-2px);}.bi-lb{font-family:'Baloo 2',cursive;font-size:10px;font-weight:700;}
- 
-/* HERO */
-.ph{padding-top:72px !important;background:linear-gradient(155deg,#0d0929 0%,#1a0d55 40%,#2a1668 70%,#1e0d4a 100%);padding:20px 18px 60px;position:relative;overflow:hidden;}
-.ph-bg div{position:absolute;border-radius:50%;pointer-events:none;}
-.ph-bg .b1{width:300px;height:300px;top:-100px;right:-60px;background:radial-gradient(circle,rgba(255,79,163,.16),transparent 65%);}
-.ph-bg .b2{width:220px;height:220px;bottom:-50px;left:-50px;background:radial-gradient(circle,rgba(0,194,255,.12),transparent 65%);}
-.stars{position:absolute;inset:0;pointer-events:none;}
-.star{position:absolute;border-radius:50%;background:white;animation:twinkle ease-in-out infinite;}
-@keyframes twinkle{0%,100%{opacity:.1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
-.ph-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;position:relative;z-index:2;}
-.ph-back{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);color:white;padding:8px 15px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;backdrop-filter:blur(8px);}
-.ph-call{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);color:white;padding:8px 15px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;backdrop-filter:blur(8px);}
-.ph-title{font-family:'Baloo 2',cursive;font-size:28px;font-weight:900;color:white;line-height:1.05;margin-bottom:6px;position:relative;z-index:2;}
-.ph-title em{color:var(--sun);font-style:normal;}
-.ph-sub{color:rgba(255,255,255,.82);font-size:13px;font-weight:600;position:relative;z-index:2;margin-bottom:16px;}
-.wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
- 
-/* SELECTED BURG BANNER */
-.burg-banner{margin:20px 16px 0;background:white;border-radius:20px;padding:16px 18px;box-shadow:var(--shadow);border-left:4px solid var(--pink);display:flex;align-items:center;gap:14px;}
-.burg-banner-icon{font-size:40px;flex-shrink:0;}
-.burg-banner-name{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:var(--dark);}
-.burg-banner-sub{font-size:12px;color:#888;font-weight:600;}
-.burg-banner-price{font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:var(--pink);margin-left:auto;flex-shrink:0;}
- 
-/* FORM */
-.form-section{padding:20px 16px;}
-.card{background:white;border-radius:22px;padding:22px 20px;box-shadow:var(--shadow);margin-bottom:16px;border:1.5px solid rgba(0,0,0,.04);}
-.card-title{font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:var(--dark);margin-bottom:4px;display:flex;align-items:center;gap:7px;}
-.card-sub{font-size:12px;color:#999;margin-bottom:16px;}
-.field{margin-bottom:14px;}
-.field label{display:block;font-size:12px;font-weight:800;color:#555;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;}
-.field input,.field select,.field textarea{width:100%;padding:13px 15px;border:2px solid #eee;border-radius:14px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:600;color:var(--dark);background:white;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none;}
-.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 4px rgba(168,85,247,.1);}
-.field textarea{resize:vertical;min-height:90px;line-height:1.6;}
-.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
- 
-/* BURG PICKER */
-.burg-picker{display:flex;flex-direction:column;gap:10px;}
-.burg-opt{display:flex;align-items:center;gap:12px;padding:13px 15px;border:2px solid #eee;border-radius:16px;cursor:pointer;transition:all .2s;background:white;}
-.burg-opt.selected{border-color:var(--purple);background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(255,79,163,.06));}
-.burg-opt-icon{font-size:26px;flex-shrink:0;}
-.burg-opt-name{font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;color:var(--dark);}
-.burg-opt-price{font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;color:var(--pink);margin-left:auto;}
-.burg-opt input[type=radio]{display:none;}
-.burg-opt-check{width:22px;height:22px;border-radius:50%;border:2px solid #ddd;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
-.burg-opt.selected .burg-opt-check{background:var(--purple);border-color:var(--purple);color:white;font-size:12px;}
- 
-/* DAYS STEPPER */
-.stepper{display:flex;align-items:center;gap:0;border:2px solid #eee;border-radius:14px;overflow:hidden;}
-.step-btn{width:50px;height:50px;background:white;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;font-family:'Baloo 2',cursive;font-weight:900;color:var(--purple);}
-.step-btn:active{background:#f5f0ff;}
-.step-val{flex:1;text-align:center;font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:var(--dark);}
- 
-/* PRICE ESTIMATE */
-.price-est{background:linear-gradient(135deg,rgba(255,79,163,.06),rgba(168,85,247,.08));border:1.5px solid rgba(168,85,247,.15);border-radius:16px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
-.pe-label{font-size:13px;font-weight:700;color:#666;}
-.pe-val{font-family:'Baloo 2',cursive;font-size:26px;font-weight:900;color:var(--pink);}
-.pe-note{font-size:10px;color:#bbb;margin-top:2px;}
- 
-/* EXTRA TOGGLE BUTTON */
-.extra-toggle{width:100%;padding:16px 18px;border:1.5px solid #e0e0ec;border-radius:14px;background:white;cursor:pointer;text-align:left;display:flex;gap:14px;align-items:center;transition:all .25s cubic-bezier(.34,1.2,.64,1);margin-bottom:4px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
-.extra-toggle .extra-copy{display:flex;flex-direction:column;gap:3px;flex:1;}
-.extra-toggle .extra-title{font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;color:var(--dark);}
-.extra-toggle .extra-price{font-size:13px;font-weight:700;color:var(--purple);}
-.extra-toggle .extra-hint{font-size:11px;color:#999;font-weight:600;}
-.extra-toggle .extra-switch{position:relative;width:48px;height:28px;background:#e0e0ec;border-radius:99px;flex-shrink:0;transition:background .25s;}
-.extra-toggle .extra-switch::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;background:white;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.18);transition:transform .28s cubic-bezier(.34,1.4,.64,1);}
-.extra-toggle:hover{border-color:var(--purple);background:#fbf9ff;transform:translateY(-1px);box-shadow:0 4px 14px rgba(168,85,247,.1);}
-.extra-toggle.selected{background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(255,79,163,.04));border-color:var(--purple);box-shadow:0 4px 14px rgba(168,85,247,.15);}
-.extra-toggle.selected .extra-title{color:var(--purple);}
-.extra-toggle.selected .extra-switch{background:var(--purple);}
-.extra-toggle.selected .extra-switch::after{transform:translateX(20px);}
- 
-/* SUB-EXTRAS PANEL */
-.sub-extra-panel{display:none;margin-top:8px;margin-bottom:8px;background:linear-gradient(135deg,rgba(255,214,0,.06),rgba(255,79,163,.06));border:1.5px solid rgba(255,214,0,.3);border-radius:14px;padding:14px 16px;animation:fadeSlide .25s ease;}
-.sub-extra-panel.open{display:block;}
-@keyframes fadeSlide{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}
-.sub-extra-title{font-family:'Baloo 2',cursive;font-size:13px;font-weight:900;color:var(--dark);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
-.sub-extra-toggle{width:100%;padding:13px 15px;border:2px dashed rgba(168,85,247,.3);border-radius:12px;background:white;cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;transition:.2s;margin-bottom:0;}
-.sub-extra-toggle:hover{background:#f8f4ff;border-color:var(--purple);}
-.sub-extra-toggle.selected{background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(255,79,163,.06));border-color:var(--purple);border-style:solid;}
-.sub-extra-toggle .set-name{font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;color:var(--dark);}
-.sub-extra-toggle.selected .set-name{color:var(--purple);}
-.sub-extra-toggle .set-price{font-size:12px;font-weight:700;color:var(--purple);}
-.sub-extra-desc{font-size:11px;color:#888;margin-top:6px;line-height:1.5;padding:0 2px;}
- 
-/* BESTELLÜBERSICHT */
-.order-summary{background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(255,79,163,.06));border:2px solid rgba(168,85,247,.18);border-radius:18px;padding:18px 18px;margin-bottom:16px;display:none;}
-.order-summary.visible{display:block;}
-.order-summary-title{font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:var(--dark);margin-bottom:12px;display:flex;align-items:center;gap:7px;}
-.order-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(168,85,247,.1);font-size:13px;}
-.order-row:last-child{border:none;padding-bottom:0;}
-.order-row.total{padding-top:10px;margin-top:4px;border-top:2px solid rgba(168,85,247,.2);border-bottom:none;}
-.order-label{color:#555;font-weight:600;min-width:0;line-height:1.35;}
-.order-val{font-family:'Baloo 2',cursive;font-weight:800;color:var(--dark);font-size:13px;white-space:nowrap;flex-shrink:0;}
-.order-total-label{font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;color:var(--dark);}
-.order-total-val{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;color:var(--pink);white-space:nowrap;flex-shrink:0;}
-.order-note{font-size:10px;color:#bbb;margin-top:8px;text-align:center;}
- 
-/* ─── iOS / MOBILE ZOOM-FIX ─── */
-/* 1) Inputs/Selects haben min. 16px Schrift → Safari iOS zoomt nicht mehr beim Focus rein */
-input,select,textarea{font-size:16px;}
-/* 2) Doppeltipp-Zoom unterdr\u00fccken auf allen Klickfl\u00e4chen */
-button,a,label,.burg-opt,.foto-opt,.modus-btn,.lief-btn,.extra-toggle,.sub-extra-toggle,.foto-dazu-toggle-btn,.btn-submit,.hbg-btn,.hbg-close,.bi,.hbg-link,.hbg-clink,.modus-btn,.dsgvo-consent input,.dsgvo-consent label{touch-action:manipulation;-webkit-tap-highlight-color:rgba(168,85,247,.18);}
-/* 3) Beim Tippen kein hervorgehobener iOS-Standard-Rahmen */
-input,select,textarea,button{-webkit-tap-highlight-color:transparent;}
- 
-/* DSGVO CONSENT */
-.dsgvo-consent{margin:16px 4px 14px;display:flex;align-items:flex-start;gap:11px;padding:14px 16px;background:white;border-radius:14px;border:1.5px solid rgba(0,0,0,.06);box-shadow:0 2px 8px rgba(0,0,0,.04);transition:border-color .2s,box-shadow .2s;}
-.dsgvo-consent.error{border-color:var(--err);box-shadow:0 0 0 4px rgba(179,38,30,.08);}
-.dsgvo-consent input[type="checkbox"]{margin-top:2px;width:20px;height:20px;accent-color:var(--purple);flex-shrink:0;cursor:pointer;}
-.dsgvo-consent label{cursor:pointer;font-size:13px;font-weight:600;color:#555;line-height:1.5;font-family:'Nunito',sans-serif;}
-.dsgvo-consent label a{color:var(--purple);font-weight:700;text-decoration:underline;}
-.dsgvo-consent .dsgvo-star{color:var(--pink);}
- 
-/* FIELD ERROR HIGHLIGHT */
-.field-error input,.field-error select,.field-error textarea{border-color:var(--err) !important;box-shadow:0 0 0 4px rgba(179,38,30,.10) !important;animation:shake .42s ease;}
-.card.field-error{border-color:rgba(179,38,30,.4) !important;box-shadow:0 0 0 3px rgba(179,38,30,.10) !important;animation:shake .42s ease;}
-@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}
- 
-/* TOAST */
-.toast-container{position:fixed;top:74px;left:50%;transform:translateX(-50%);z-index:2000;display:flex;flex-direction:column;gap:8px;pointer-events:none;width:calc(100% - 28px);max-width:380px;}
-.toast{background:rgba(15,11,46,.95);color:white;padding:12px 16px;border-radius:14px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;box-shadow:0 8px 28px rgba(0,0,0,.32);backdrop-filter:blur(12px);display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(-14px);transition:opacity .25s,transform .28s cubic-bezier(.34,1.3,.64,1);pointer-events:auto;border:1px solid rgba(255,255,255,.1);}
-.toast.show{opacity:1;transform:translateY(0);}
-.toast-icon{font-size:18px;flex-shrink:0;line-height:1;}
-.toast-text{flex:1;line-height:1.35;}
-.toast-info{border-left:3px solid var(--purple);}
-.toast-success{border-left:3px solid var(--green);}
- 
-/* SUBMIT */
-.btn-submit{width:100%;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;padding:17px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;border:none;cursor:pointer;box-shadow:0 8px 28px rgba(255,79,163,.4);transition:transform .15s,box-shadow .15s,opacity .15s;display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;}
-.btn-submit:active{transform:scale(.97);}
-.btn-submit:disabled{opacity:.6;cursor:not-allowed;}
- 
-/* FORM STATUS MESSAGE */
-.form-msg{margin-top:14px;font-weight:700;text-align:center;font-size:15px;padding:12px 16px;border-radius:12px;display:none;}
-.form-msg.ok{display:block;color:var(--ok);background:rgba(27,141,75,.08);border:1.5px solid rgba(27,141,75,.2);}
-.form-msg.err{display:block;color:var(--err);background:rgba(179,38,30,.06);border:1.5px solid rgba(179,38,30,.18);}
- 
-/* FOOTER */
-footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
-.fl{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:white;margin-bottom:4px;}
-.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:10px 0;}
-.flink{color:rgba(255,255,255,.62);text-decoration:none;font-size:11px;padding:4px 10px;background:rgba(255,255,255,.09);border-radius:20px;}
-.fcopy{font-size:11px;color:rgba(255,255,255,.42);margin-top:10px;}
- 
-/* REVEAL */
-.reveal{opacity:1;transform:translateY(0);transition:opacity .5s ease,transform .5s ease;}
-.reveal.hide-init{opacity:0;transform:translateY(18px);}
-.reveal.visible{opacity:1;transform:translateY(0);}
- 
-@media(min-width:768px){
-  body{padding-bottom:0;}
-  .ph{padding:32px 60px 80px;}
-  .form-section{padding:28px 60px;max-width:720px;margin:0 auto;}
-  footer{padding:32px 60px 24px;}
-}
-
-/* ── STICKY TOPBAR ── */
-.topbar-sticky{display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:997;padding:10px 18px;background:rgba(10,22,40,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 2px 20px rgba(0,0,0,.25);}
-.ts-logo{display:flex;align-items:center;gap:8px;}
-.ts-logo-mark{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#FFD600,#ff9800);display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:white;box-shadow:0 4px 14px rgba(255,185,0,.45);flex-shrink:0;}
-.ts-logo-text{display:flex;flex-direction:column;gap:0;line-height:1;}
-.ts-logo-main{font-family:'Baloo 2',cursive;font-size:17px;font-weight:900;color:white;letter-spacing:-0.3px;}
-.ts-logo-accent{color:#FFD600;text-shadow:0 0 16px rgba(255,214,0,.35);}
-.ts-logo-sub{font-family:'Nunito',sans-serif;font-size:9px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:1.5px;text-transform:uppercase;}
-.hbg-btn{width:42px;height:42px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;backdrop-filter:blur(8px);transition:background .2s,transform .15s;flex-shrink:0;}
-.hbg-btn:active{transform:scale(.93);}
-.hbg-btn span{display:block;width:18px;height:2px;background:white;border-radius:2px;transition:transform .3s ease,opacity .3s ease;}
-.hbg-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-.hbg-btn.open span:nth-child(2){opacity:0;}
-.hbg-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-.hbg-overlay{position:fixed;inset:0;z-index:1998;background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;}
-.hbg-overlay.open{background:rgba(0,0,0,.45);pointer-events:all;}
-.hbg-drawer{position:fixed;top:0;right:0;bottom:0;z-index:1999;width:260px;background:rgba(8,18,32,.98);backdrop-filter:blur(24px);border-left:1px solid rgba(255,255,255,.1);transform:translateX(100%);transition:transform .35s cubic-bezier(.34,1.08,.64,1);display:flex;flex-direction:column;padding:24px 20px 32px;box-shadow:-8px 0 40px rgba(0,0,0,.4);}
-.hbg-drawer.open{transform:translateX(0);}
-.hbg-drawer-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;}
-.hbg-drawer-logo{font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:white;}
-.hbg-drawer-logo span{color:#FFD600;}
-.hbg-close{width:34px;height:34px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:white;font-size:18px;line-height:1;transition:background .2s;}
-.hbg-close:active{background:rgba(255,255,255,.2);}
-.hbg-nav{display:flex;flex-direction:column;gap:6px;flex:1;}
-.hbg-link{display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:14px;text-decoration:none;color:rgba(255,255,255,.75);font-family:'Baloo 2',cursive;font-size:15px;font-weight:700;transition:background .2s,color .2s;}
-.hbg-link:active{background:rgba(255,255,255,.08);}
-.hbg-link.active{background:linear-gradient(135deg,rgba(21,61,107,.6),rgba(14,42,74,.6));color:white;border:1px solid rgba(0,194,255,.25);}
-.hbg-link-ic{font-size:20px;width:28px;text-align:center;flex-shrink:0;}
-.hbg-divider{height:1px;background:rgba(255,255,255,.08);margin:10px 0;}
-.hbg-contact{display:flex;flex-direction:column;gap:8px;margin-top:4px;}
-.hbg-clink{display:flex;align-items:center;justify-content:center;gap:7px;padding:12px;border-radius:13px;font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;text-decoration:none;transition:transform .15s;}
-.hbg-clink:active{transform:scale(.97);}
-.hbg-clink.phone{background:rgba(21,61,107,.7);border:1.5px solid rgba(0,194,255,.25);color:white;}
-.hbg-clink.wa{background:linear-gradient(135deg,#25d366,#128c7e);color:white;}
-.lief-btn{flex:1;padding:12px 10px;border-radius:14px;border:2px solid #d0d8e8;background:#f0f4fa;color:#555;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;text-align:center;}
-.lief-btn.lief-active{background:linear-gradient(135deg,#0e2a4a,#153d6b);border-color:rgba(0,194,255,.4);color:white;}
-
-/* ── WHATSAPP-FAB (Sticky Floating Action Button) ── */
-.wa-fab{position:fixed;bottom:88px;right:16px;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,.55);z-index:1500;text-decoration:none;transition:transform .2s;animation:wa-pulse 2.4s infinite;}
-.wa-fab:hover{transform:scale(1.07);}
-.wa-fab:active{transform:scale(.94);}
-.wa-fab svg{width:30px;height:30px;}
-@keyframes wa-pulse{
+@keyframes twinkle{0%,100%{opacity:.1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}@keyframes fadeSlide{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:translateY(0);}}@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}}@keyframes wa-pulse{
   0%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,.55);}
   70%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 16px rgba(37,211,102,0);}
   100%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,0);}
 }
-@media(max-width:600px){.wa-fab{bottom:84px;right:14px;width:54px;height:54px;}.wa-fab svg{width:28px;height:28px;}}
-@media(prefers-reduced-motion:reduce){.wa-fab{animation:none;}}
+
+:root{--pink:#8A6424;--purple:#1A1813;--sky:#46413A;--sun:#9C722F;--green:#1F7A4D;--dark:#1A1813;--shadow:0 8px 32px rgba(0,0,0,.10);--ok:#1b8d4b;--err:#b3261e;}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+@media(prefers-color-scheme:dark){.card{background:#F5F0E5 !important;}}
+
+ 
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(10,22,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
+
+ 
+/* HERO */
+.ph{padding-top:72px !important;background:linear-gradient(155deg,#0d0929 0%,#1a0d55 40%,#2a1668 70%,#1e0d4a 100%);padding:20px 18px 60px;position:relative;overflow:hidden;}
+0%,100%{opacity:.1;transform:scale(1);}
+50%{opacity:.5;transform:scale(1.4);}
+
+.wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
+
+ 
+/* SELECTED BURG BANNER */
+.burg-banner{margin:20px 16px 0;background:#F5F0E5;border-radius:3px;padding:16px 18px;box-shadow:var(--shadow);border-left:4px solid var(--pink);display:flex;align-items:center;gap:14px;}
+
+.burg-banner-icon{font-size:40px;flex-shrink:0;}
+
+.burg-banner-name{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:18px;font-weight:900;color:var(--dark);}
+
+.burg-banner-sub{font-size:12px;color:#888;font-weight:600;}
+
+.burg-banner-price{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:20px;font-weight:900;color:var(--pink);margin-left:auto;flex-shrink:0;}
+
+ 
+/* FORM */
+.form-section{padding:20px 16px;}
+
+.card{background:#F5F0E5;border-radius:3px;padding:22px 20px;box-shadow:var(--shadow);margin-bottom:16px;border:1.5px solid rgba(0,0,0,.04);}
+
+.card-title{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:16px;font-weight:900;color:var(--dark);margin-bottom:4px;display:flex;align-items:center;gap:7px;}
+
+.card-sub{font-size:12px;color:#999;margin-bottom:16px;}
+
+.field{margin-bottom:14px;}
+
+.field label{display:block;font-size:12px;font-weight:800;color:#555;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;}
+
+.field input,.field select,.field textarea{width:100%;padding:13px 15px;border:2px solid #eee;border-radius:3px;font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:16px;font-weight:600;color:var(--dark);background:#F5F0E5;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none;}
+
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 4px rgba(26,24,19,.1);}
+
+.field textarea{resize:vertical;min-height:90px;line-height:1.6;}
+
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;}
+
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+ 
+/* BURG PICKER */
+.burg-picker{display:flex;flex-direction:column;gap:10px;}
+
+.burg-opt{display:flex;align-items:center;gap:12px;padding:13px 15px;border:2px solid #eee;border-radius:3px;cursor:pointer;transition:all .2s;background:#F5F0E5;}
+
+.burg-opt.selected{border-color:var(--purple);background:linear-gradient(135deg,rgba(26,24,19,.06),rgba(156,114,47,.06));}
+
+.burg-opt-icon{font-size:26px;flex-shrink:0;}
+
+.burg-opt-name{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:14px;font-weight:800;color:var(--dark);}
+
+.burg-opt-price{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:14px;font-weight:800;color:var(--pink);margin-left:auto;}
+
+.burg-opt input[type=radio]{display:none;}
+
+.burg-opt-check{width:22px;height:22px;border-radius:50%;border:2px solid #ddd;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+
+.burg-opt.selected .burg-opt-check{background:var(--purple);border-color:var(--purple);color:white;font-size:12px;}
+
+ 
+/* DAYS STEPPER */
+.stepper{display:flex;align-items:center;gap:0;border:2px solid #eee;border-radius:3px;overflow:hidden;}
+
+.step-btn{width:50px;height:50px;background:#F5F0E5;border:none;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-weight:900;color:var(--purple);}
+
+.step-btn:active{background:#EFE8DA;}
+
+.step-val{flex:1;text-align:center;font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:20px;font-weight:900;color:var(--dark);}
+
+ 
+/* PRICE ESTIMATE */
+.price-est{background:linear-gradient(135deg,rgba(156,114,47,.06),rgba(26,24,19,.08));border:1.5px solid rgba(26,24,19,.15);border-radius:3px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
+
+.pe-label{font-size:13px;font-weight:700;color:#666;}
+
+.pe-val{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:26px;font-weight:900;color:var(--pink);}
+
+.pe-note{font-size:10px;color:#bbb;margin-top:2px;}
+
+ 
+/* EXTRA TOGGLE BUTTON */
+.extra-toggle{width:100%;padding:16px 18px;border:1.5px solid #D8CFBD;border-radius:3px;background:#F5F0E5;cursor:pointer;text-align:left;display:flex;gap:14px;align-items:center;transition:all .25s cubic-bezier(.34,1.2,.64,1);margin-bottom:4px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+
+.extra-toggle .extra-copy{display:flex;flex-direction:column;gap:3px;flex:1;}
+
+.extra-toggle .extra-title{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:800;color:var(--dark);}
+
+.extra-toggle .extra-price{font-size:13px;font-weight:700;color:var(--purple);}
+
+.extra-toggle .extra-hint{font-size:11px;color:#999;font-weight:600;}
+
+.extra-toggle .extra-switch{position:relative;width:48px;height:28px;background:#D8CFBD;border-radius:99px;flex-shrink:0;transition:background .25s;}
+
+.extra-toggle .extra-switch::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;background:#F5F0E5;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.18);transition:transform .28s cubic-bezier(.34,1.4,.64,1);}
+
+.extra-toggle:hover{border-color:var(--purple);background:#F7F2E8;transform:translateY(-1px);box-shadow:0 4px 14px rgba(26,24,19,.1);}
+
+.extra-toggle.selected{background:linear-gradient(135deg,rgba(26,24,19,.06),rgba(156,114,47,.04));border-color:var(--purple);box-shadow:0 4px 14px rgba(26,24,19,.15);}
+
+.extra-toggle.selected .extra-title{color:var(--purple);}
+
+.extra-toggle.selected .extra-switch{background:var(--purple);}
+
+.extra-toggle.selected .extra-switch::after{transform:translateX(20px);}
+
+ 
+/* SUB-EXTRAS PANEL */
+.sub-extra-panel{display:none;margin-top:8px;margin-bottom:8px;background:linear-gradient(135deg,rgba(156,114,47,.06),rgba(156,114,47,.06));border:1.5px solid rgba(156,114,47,.3);border-radius:3px;padding:14px 16px;animation:fadeSlide .25s ease;}
+
+.sub-extra-panel.open{display:block;}
+from{opacity:0;transform:translateY(-6px);}
+to{opacity:1;transform:translateY(0);}
+
+.sub-extra-title{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:13px;font-weight:900;color:var(--dark);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+
+.sub-extra-toggle{width:100%;padding:13px 15px;border:2px dashed rgba(26,24,19,.3);border-radius:3px;background:#F5F0E5;cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;transition:.2s;margin-bottom:0;}
+
+.sub-extra-toggle:hover{background:#F3EDE1;border-color:var(--purple);}
+
+.sub-extra-toggle.selected{background:linear-gradient(135deg,rgba(26,24,19,.08),rgba(156,114,47,.06));border-color:var(--purple);border-style:solid;}
+
+.sub-extra-toggle .set-name{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:13px;font-weight:800;color:var(--dark);}
+
+.sub-extra-toggle.selected .set-name{color:var(--purple);}
+
+.sub-extra-toggle .set-price{font-size:12px;font-weight:700;color:var(--purple);}
+
+.sub-extra-desc{font-size:11px;color:#888;margin-top:6px;line-height:1.5;padding:0 2px;}
+
+ 
+/* BESTELLÜBERSICHT */
+.order-summary{background:linear-gradient(135deg,rgba(26,24,19,.06),rgba(156,114,47,.06));border:2px solid rgba(26,24,19,.18);border-radius:3px;padding:18px 18px;margin-bottom:16px;display:none;}
+
+.order-summary.visible{display:block;}
+
+.order-summary-title{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:16px;font-weight:900;color:var(--dark);margin-bottom:12px;display:flex;align-items:center;gap:7px;}
+
+.order-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid rgba(26,24,19,.1);font-size:13px;}
+
+.order-row:last-child{border:none;padding-bottom:0;}
+
+.order-row.total{padding-top:10px;margin-top:4px;border-top:2px solid rgba(26,24,19,.2);border-bottom:none;}
+
+.order-label{color:#555;font-weight:600;min-width:0;line-height:1.35;}
+
+.order-val{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-weight:800;color:var(--dark);font-size:13px;white-space:nowrap;flex-shrink:0;}
+
+.order-total-label{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:900;color:var(--dark);}
+
+.order-total-val{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:22px;font-weight:900;color:var(--pink);white-space:nowrap;flex-shrink:0;}
+
+.order-note{font-size:10px;color:#bbb;margin-top:8px;text-align:center;}
+
+ 
+/* ─── iOS / MOBILE ZOOM-FIX ─── */
+/* 1) Inputs/Selects haben min. 16px Schrift → Safari iOS zoomt nicht mehr beim Focus rein */
+input,select,textarea{font-size:16px;}
+
+/* 2) Doppeltipp-Zoom unterdr\u00fccken auf allen Klickfl\u00e4chen */
+button,a,label,.burg-opt,.foto-opt,.modus-btn,.lief-btn,.extra-toggle,.sub-extra-toggle,.foto-dazu-toggle-btn,.btn-submit,.modus-btn,.dsgvo-consent input,.dsgvo-consent label{touch-action:manipulation;-webkit-tap-highlight-color:rgba(26,24,19,.18);}
+
+/* 3) Beim Tippen kein hervorgehobener iOS-Standard-Rahmen */
+input,select,textarea,button{-webkit-tap-highlight-color:transparent;}
+
+ 
+/* DSGVO CONSENT */
+.dsgvo-consent{margin:16px 4px 14px;display:flex;align-items:flex-start;gap:11px;padding:14px 16px;background:#F5F0E5;border-radius:3px;border:1.5px solid rgba(0,0,0,.06);box-shadow:0 2px 8px rgba(0,0,0,.04);transition:border-color .2s,box-shadow .2s;}
+
+.dsgvo-consent.error{border-color:var(--err);box-shadow:0 0 0 4px rgba(179,38,30,.08);}
+
+.dsgvo-consent input[type="checkbox"]{margin-top:2px;width:20px;height:20px;accent-color:var(--purple);flex-shrink:0;cursor:pointer;}
+
+.dsgvo-consent label{cursor:pointer;font-size:13px;font-weight:600;color:#555;line-height:1.5;font-family:'Karla','Helvetica Neue',Arial,sans-serif;}
+
+.dsgvo-consent label a{color:var(--purple);font-weight:700;text-decoration:underline;}
+
+.dsgvo-consent .dsgvo-star{color:var(--pink);}
+
+ 
+/* FIELD ERROR HIGHLIGHT */
+.field-error input,.field-error select,.field-error textarea{border-color:var(--err) !important;box-shadow:0 0 0 4px rgba(179,38,30,.10) !important;animation:shake .42s ease;}
+
+.card.field-error{border-color:rgba(179,38,30,.4) !important;box-shadow:0 0 0 3px rgba(179,38,30,.10) !important;animation:shake .42s ease;}
+0%,100%{transform:translateX(0);}
+25%{transform:translateX(-5px);}
+75%{transform:translateX(5px);}
+
+ 
+/* TOAST */
+.toast-container{position:fixed;top:74px;left:50%;transform:translateX(-50%);z-index:2000;display:flex;flex-direction:column;gap:8px;pointer-events:none;width:calc(100% - 28px);max-width:380px;}
+
+.toast{background:rgba(26,24,19,.95);color:white;padding:12px 16px;border-radius:3px;font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:13px;font-weight:700;box-shadow:0 8px 28px rgba(0,0,0,.32);backdrop-filter:blur(12px);display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(-14px);transition:opacity .25s,transform .28s cubic-bezier(.34,1.3,.64,1);pointer-events:auto;border:1px solid rgba(255,255,255,.1);}
+
+.toast.show{opacity:1;transform:translateY(0);}
+
+.toast-icon{font-size:18px;flex-shrink:0;line-height:1;}
+
+.toast-text{flex:1;line-height:1.35;}
+
+.toast-info{border-left:3px solid var(--purple);}
+
+.toast-success{border-left:3px solid var(--green);}
+
+ 
+/* SUBMIT */
+.btn-submit{width:100%;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;padding:17px;border-radius:3px;font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:18px;font-weight:800;border:none;cursor:pointer;box-shadow:0 8px 28px rgba(156,114,47,.4);transition:transform .15s,box-shadow .15s,opacity .15s;display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;}
+
+.btn-submit:active{transform:scale(.97);}
+
+.btn-submit:disabled{opacity:.6;cursor:not-allowed;}
+
+ 
+/* FORM STATUS MESSAGE */
+.form-msg{margin-top:14px;font-weight:700;text-align:center;font-size:15px;padding:12px 16px;border-radius:3px;display:none;}
+
+.form-msg.ok{display:block;color:var(--ok);background:rgba(27,141,75,.08);border:1.5px solid rgba(27,141,75,.2);}
+
+.form-msg.err{display:block;color:var(--err);background:rgba(179,38,30,.06);border:1.5px solid rgba(179,38,30,.18);}
+
+ 
+/* FOOTER */
+footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
+
+ 
+/* REVEAL */
+.reveal{opacity:1;transform:translateY(0);transition:opacity .5s ease,transform .5s ease;}
+
+.reveal.hide-init{opacity:0;transform:translateY(18px);}
+
+.reveal.visible{opacity:1;transform:translateY(0);}
+@media(min-width:768px){
+  .form-section{padding:28px 60px;max-width:720px;margin:0 auto;}}
+
+
+/* ── STICKY TOPBAR ── */
+.topbar-sticky{display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:997;padding:10px 18px;background:rgba(10,22,40,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 2px 20px rgba(0,0,0,.25);}
+
+.lief-btn{flex:1;padding:12px 10px;border-radius:3px;border:2px solid #d0d8e8;background:#f0f4fa;color:#555;font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;text-align:center;}
+
+.lief-btn.lief-active{background:linear-gradient(135deg,#1A1813,#2A2620);border-color:rgba(26,24,19,.4);color:white;}
+
+
+/* ── WHATSAPP-FAB (Sticky Floating Action Button) ── */
+.wa-fab{position:fixed;bottom:88px;right:16px;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,.55);z-index:1500;text-decoration:none;transition:transform .2s;animation:wa-pulse 2.4s infinite;}
+
+  0%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,.55);}
+
+  70%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 16px rgba(37,211,102,0);}
+
+  100%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,0);}
+
+
 
 /* ── MODUS-SELECTOR ── */
 .modus-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 16px 18px;max-width:680px;margin-left:auto;margin-right:auto;}
-.modus-btn{background:white;border:2px solid #e2e5ee;border-radius:14px;padding:14px 8px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:all .2s;color:#0f0b2e;font-family:'Baloo 2',cursive;box-shadow:0 2px 8px rgba(15,11,46,.05);}
-.modus-btn:hover{border-color:#cbd2e0;box-shadow:0 4px 14px rgba(15,11,46,.08);transform:translateY(-1px);}
+
+.modus-btn{background:#F5F0E5;border:2px solid #e2e5ee;border-radius:3px;padding:14px 8px 12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:all .2s;color:#1A1813;font-family:'Karla','Helvetica Neue',Arial,sans-serif;box-shadow:0 2px 8px rgba(26,24,19,.05);}
+
+.modus-btn:hover{border-color:#cbd2e0;box-shadow:0 4px 14px rgba(26,24,19,.08);transform:translateY(-1px);}
+
 .modus-btn:active{transform:scale(.97);}
-.modus-btn.active{border-color:var(--purple);background:linear-gradient(135deg,rgba(168,85,247,.10),rgba(255,79,163,.06));box-shadow:0 6px 18px rgba(168,85,247,.25);transform:translateY(-1px);}
+
+.modus-btn.active{border-color:var(--purple);background:linear-gradient(135deg,rgba(26,24,19,.10),rgba(156,114,47,.06));box-shadow:0 6px 18px rgba(26,24,19,.25);transform:translateY(-1px);}
 @media(min-width:768px){
   .modus-selector{gap:14px;padding:0 24px;}
+
   .modus-btn{padding:18px 12px 16px;}
+
   .modus-icon{font-size:28px !important;}
-  .modus-label{font-size:14px !important;}
-}
+
+  .modus-label{font-size:14px !important;}}
+
 .modus-icon{font-size:24px;line-height:1;}
+
 .modus-label{font-size:13px;font-weight:800;letter-spacing:.2px;}
+
 .modus-sub{font-size:10px;color:#888;font-weight:600;}
+
 .modus-btn.active .modus-sub{color:var(--purple);}
+
 
 /* Show/Hide pro Modus */
 body[data-modus="burg"] .nur-foto{display:none !important;}
-body[data-modus="foto"] .nur-burg{display:none !important;}
+
 /* hochzeit zeigt beides */
 
 /* ── FOTOBOX-PICKER ── */
 .foto-picker{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
-.foto-opt{background:white;border:1.5px solid rgba(0,0,0,.08);border-radius:14px;padding:14px 16px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px;position:relative;}
+
+.foto-opt{background:#F5F0E5;border:1.5px solid rgba(0,0,0,.08);border-radius:3px;padding:14px 16px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px;position:relative;}
+
 .foto-opt:active{transform:scale(.99);}
+
 .foto-opt input[type="radio"]{position:absolute;opacity:0;pointer-events:none;}
-.foto-opt.selected{border-color:var(--purple);background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(255,79,163,.03));box-shadow:0 4px 16px rgba(168,85,247,.18);}
-.foto-icon{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,rgba(168,85,247,.12),rgba(99,102,241,.08));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+
+.foto-opt.selected{border-color:var(--purple);background:linear-gradient(135deg,rgba(26,24,19,.06),rgba(156,114,47,.03));box-shadow:0 4px 16px rgba(26,24,19,.18);}
+
+.foto-icon{width:42px;height:42px;border-radius:3px;background:linear-gradient(135deg,rgba(26,24,19,.12),rgba(99,102,241,.08));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+
 .foto-info{flex:1;}
-.foto-name{font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;color:#0f0b2e;}
+
+.foto-name{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:800;color:#1A1813;}
+
 .foto-sub{font-size:11px;color:#666;font-weight:600;line-height:1.4;}
-.foto-price{font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:var(--purple);text-align:right;}
-.foto-opt.tier-premium{background:linear-gradient(135deg,#1c0c00,#3d1f00);border-color:rgba(255,185,0,.35);}
+
+.foto-price{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:16px;font-weight:900;color:var(--purple);text-align:right;}
+
+.foto-opt.tier-premium{background:linear-gradient(135deg,#1c0c00,#3d1f00);border-color:rgba(156,114,47,.35);}
+
 .foto-opt.tier-premium .foto-name{color:white;}
+
 .foto-opt.tier-premium .foto-sub{color:rgba(255,215,0,.7);}
-.foto-opt.tier-premium .foto-price{color:#FFD600;}
+
+.foto-opt.tier-premium .foto-price{color:#9C722F;}
+
 .foto-opt.tier-premium .foto-icon{background:linear-gradient(135deg,rgba(255,215,0,.2),rgba(255,165,0,.1));}
-.foto-opt.tier-premium.selected{border-color:#FFD600;box-shadow:0 6px 22px rgba(255,185,0,.3);}
+
+.foto-opt.tier-premium.selected{border-color:#9C722F;box-shadow:0 6px 22px rgba(156,114,47,.3);}
+
 
 /* Features pro Foto-Paket */
 .foto-opt{flex-direction:column;align-items:stretch;gap:0;padding:14px 14px 12px;}
+
 .foto-head{display:flex;align-items:center;gap:12px;}
+
 .foto-feats{display:flex;flex-direction:column;gap:4px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,0,0,.06);}
+
 .foto-feat{font-size:11.5px;color:#555;font-weight:500;display:flex;align-items:flex-start;gap:7px;line-height:1.4;}
+
 .foto-feat::before{content:"✓";color:var(--purple);font-weight:900;flex-shrink:0;font-size:13px;line-height:1.3;}
+
 .foto-opt.tier-premium .foto-feats{border-top-color:rgba(255,215,0,.18);}
+
 .foto-opt.tier-premium .foto-feat{color:rgba(255,255,255,.82);}
-.foto-opt.tier-premium .foto-feat::before{content:"★";color:#FFD600;}
+
+.foto-opt.tier-premium .foto-feat::before{content:"★";color:#9C722F;}
+
 
 /* Hochzeit-Modus: nur Hochzeitsburg sichtbar */
-body[data-modus="hochzeit"] .burg-opt[data-name="Alienburg"],
-body[data-modus="hochzeit"] .burg-opt[data-name="Piratenburg"],
-body[data-modus="hochzeit"] .burg-opt[data-name="Ritterburg"],
-body[data-modus="hochzeit"] .burg-opt[data-name="Candyburg"],
-body[data-modus="hochzeit"] .burg-opt[data-name="Feuerwehrauto"]{display:none !important;}
-body[data-modus="hochzeit"] .card .card-sub-burg-hide{display:none;}
-body[data-modus="hochzeit"] #burgPicker{justify-content:center;}
+body[data-modus="hochzeit"] .burg-opt[data-name="Alienburg"]{display:none !important;}
+
 
 /* Aufbau-Toggle nur bei Burgen / Inklusive-Hinweis nur bei Fotobox */
 body[data-modus="burg"] .aufbau-foto-only{display:none !important;}
-body[data-modus="hochzeit"] .aufbau-foto-only{display:none !important;}
-body[data-modus="foto"] .aufbau-burg-only{display:none !important;}
-body[data-modus="foto"] .aufbau-foto-only{display:flex !important;}
+
 
 /* Fotobox-zusatz-Banner im Burg-Modus */
 
-.foto-dazu-toggle{font-family:'Baloo 2',cursive;font-size:12px;font-weight:800;color:var(--purple);flex-shrink:0;}
+.foto-dazu-toggle{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:800;color:var(--purple);flex-shrink:0;}
+
 
 
 
 /* "Mehr als..."-Marker bei Foto-Paketen */
-.foto-feats-plus{margin-top:8px;padding-top:8px;border-top:1px dashed rgba(168,85,247,.25);}
-.foto-feats-plus-title{font-family:'Baloo 2',cursive;font-size:10px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;display:flex;align-items:center;gap:5px;}
+.foto-feats-plus{margin-top:8px;padding-top:8px;border-top:1px dashed rgba(26,24,19,.25);}
+
+.foto-feats-plus-title{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:10px;font-weight:800;color:var(--purple);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;display:flex;align-items:center;gap:5px;}
+
 .foto-feats-plus .foto-feat{font-weight:600;}
+
 .foto-feats-plus .foto-feat::before{content:"★";color:var(--pink);}
+
 .foto-opt.tier-premium .foto-feats-plus{border-top-color:rgba(255,215,0,.3);}
-.foto-opt.tier-premium .foto-feats-plus-title{color:#FFD600;}
-.foto-opt.tier-premium .foto-feats-plus .foto-feat::before{content:"★";color:#FFD600;}
+
+.foto-opt.tier-premium .foto-feats-plus-title{color:#9C722F;}
+
+.foto-opt.tier-premium .foto-feats-plus .foto-feat::before{content:"★";color:#9C722F;}
+
 
 /* Foto-dazubuchen-Toggle (im Burg- + Hochzeit-Modus) */
 .foto-dazu-wrap{margin:0 16px;}
+
 .foto-dazu-toggle-btn .extra-title{display:flex;align-items:center;gap:4px;}
-.foto-rabatt-hint{display:none;margin-top:6px;font-size:11.5px;font-weight:700;color:#059669;background:rgba(0,217,126,.10);padding:5px 11px;border-radius:10px;border:1px solid rgba(0,217,126,.22);align-self:flex-start;}
+
+.foto-rabatt-hint{display:none;margin-top:6px;font-size:11.5px;font-weight:700;color:#1F7A4D;background:rgba(31,122,77,.10);padding:5px 11px;border-radius:3px;border:1px solid rgba(31,122,77,.22);align-self:flex-start;}
+
 .foto-dazu-toggle-btn.selected .foto-rabatt-hint{display:inline-block;}
+
 
 /* Foto-dazu nur im Burg- + Hochzeit-Modus, NICHT im Foto-Modus */
 body[data-modus="burg"] .foto-dazu-wrap{display:block;}
-body[data-modus="hochzeit"] .foto-dazu-wrap{display:block;}
-body[data-modus="foto"] .foto-dazu-wrap{display:none;}
+
 
 /* Im Burg-Modus: Foto-Card versteckt; mit .extra-foto sichtbar */
 body[data-modus="burg"] .nur-foto{display:none !important;}
-body[data-modus="burg"].extra-foto .nur-foto{display:block !important;}
+
 /* Hochzeit: Foto-Card mit .extra-foto sichtbar (analog) */
 body[data-modus="hochzeit"] .nur-foto{display:none !important;}
-body[data-modus="hochzeit"].extra-foto .nur-foto{display:block !important;}
+
 
 /* Im Foto-Modus: Datum-Ende verstecken (nur 1 Tag) */
 body[data-modus="foto"] .nur-burg-datum{display:none !important;}
-body[data-modus="foto"] #tage-anzeige{display:none !important;}
+
 
 /* Hochzeitsburg im Burg-Modus: Badge rechts (statt Preis) */
 .burg-opt-badge-hochzeit{
   background:linear-gradient(135deg,#FFD700,#FFA500);
   color:#5a3500;
-  font-family:'Baloo 2',cursive;
+  font-family:'Karla','Helvetica Neue',Arial,sans-serif;
   font-size:10px;
   font-weight:900;
   padding:5px 10px;
-  border-radius:14px;
+  border-radius:3px;
   letter-spacing:.3px;
   margin-left:auto;
   box-shadow:0 2px 6px rgba(255,165,0,.25);
   white-space:nowrap;
 }
 
+
 /* Rabatt-Banner (oben, wenn Rabatt aktiv) – mobile-first */
-.rabatt-banner{margin:0 16px 8px;background:linear-gradient(135deg,#10b981,#059669);border-radius:12px;padding:11px 14px;display:flex;align-items:center;gap:10px;font-family:'Baloo 2',cursive;box-shadow:0 4px 12px rgba(0,217,126,.25);}
+.rabatt-banner{margin:0 16px 8px;background:linear-gradient(135deg,#1F7A4D,#1F7A4D);border-radius:3px;padding:11px 14px;display:flex;align-items:center;gap:10px;font-family:'Karla','Helvetica Neue',Arial,sans-serif;box-shadow:0 4px 12px rgba(31,122,77,.25);}
+
 .rabatt-banner-icon{font-size:20px;line-height:1;flex-shrink:0;}
+
 .rabatt-banner-content{flex:1;line-height:1.25;color:white;}
+
 .rabatt-banner-text{font-size:13px;font-weight:700;}
+
 .rabatt-banner-text strong{font-size:17px;font-weight:900;margin-left:3px;}
+
 .rabatt-banner-label{font-size:10.5px;opacity:.9;font-weight:600;margin-top:1px;}
 @media(min-width:768px){
   .rabatt-banner{max-width:680px;margin-left:auto;margin-right:auto;padding:13px 16px;}
+
   .rabatt-banner-text{font-size:14px;}
-  .rabatt-banner-text strong{font-size:19px;}
-}
+
+  .rabatt-banner-text strong{font-size:19px;}}
+
 
 /* Rabatt-Hinweis-Card in Extras (mobile-first) */
-.rabatt-hint-card{margin:12px 0 16px;background:linear-gradient(135deg,#f0fdf4,#faf5ff);border:1.5px solid rgba(0,201,126,.25);border-radius:14px;padding:12px 14px;font-family:'Baloo 2',cursive;}
-.rh-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px dashed rgba(0,201,126,.25);}
+.rabatt-hint-card{margin:12px 0 16px;background:linear-gradient(135deg,#f0fdf4,#faf5ff);border:1.5px solid rgba(31,122,77,.25);border-radius:3px;padding:12px 14px;font-family:'Karla','Helvetica Neue',Arial,sans-serif;}
+
+.rh-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px dashed rgba(31,122,77,.25);}
+
 .rh-icon{font-size:20px;line-height:1;}
-.rh-title{font-size:14px;font-weight:800;color:#047857;letter-spacing:.2px;}
+
+.rh-title{font-size:14px;font-weight:800;color:#1A5E3C;letter-spacing:.2px;}
+
 .rh-list{display:flex;flex-direction:column;gap:8px;}
+
 .rh-row{display:flex;align-items:center;gap:11px;padding:6px 0;}
-.rh-row-best{padding:8px 10px;background:rgba(0,217,126,.10);border-radius:10px;}
-.rh-row-bonus{padding:6px 10px;background:rgba(168,85,247,.08);border-radius:10px;border:1px dashed rgba(168,85,247,.2);}
-.rh-badge{font-size:14px;font-weight:900;color:#047857;background:white;padding:6px 12px;border-radius:20px;border:1.5px solid rgba(0,217,126,.35);min-width:46px;text-align:center;flex-shrink:0;}
-.rh-badge-best{background:linear-gradient(135deg,#00d97e,#059669);color:white;border-color:#059669;box-shadow:0 2px 6px rgba(0,217,126,.3);}
-.rh-bonus{font-size:13px;font-weight:900;color:var(--purple);background:white;padding:6px 12px;border-radius:20px;border:1.5px solid rgba(168,85,247,.35);flex-shrink:0;white-space:nowrap;}
+
+.rh-row-best{padding:8px 10px;background:rgba(31,122,77,.10);border-radius:3px;}
+
+.rh-row-bonus{padding:6px 10px;background:rgba(26,24,19,.08);border-radius:3px;border:1px dashed rgba(26,24,19,.2);}
+
+.rh-badge{font-size:14px;font-weight:900;color:#1A5E3C;background:#F5F0E5;padding:6px 12px;border-radius:3px;border:1.5px solid rgba(31,122,77,.35);min-width:46px;text-align:center;flex-shrink:0;}
+
+.rh-badge-best{background:linear-gradient(135deg,#1F7A4D,#1F7A4D);color:white;border-color:#1F7A4D;box-shadow:0 2px 6px rgba(31,122,77,.3);}
+
+.rh-bonus{font-size:13px;font-weight:900;color:var(--purple);background:#F5F0E5;padding:6px 12px;border-radius:3px;border:1.5px solid rgba(26,24,19,.35);flex-shrink:0;white-space:nowrap;}
+
 .rh-desc{font-size:13px;color:#1f2937;font-weight:600;line-height:1.3;flex:1;}
 @media(min-width:768px){
   .rh-title{font-size:15px;}
+
   .rh-desc{font-size:14px;}
-  .rh-badge,.rh-bonus{font-size:15px;}
-}
+
+  .rh-badge,.rh-bonus{font-size:15px;}}
+
 
 /* ═══════ MOBILE-FIRST OPTIMIERUNGEN ═══════ */
 /* Touch-Targets: alle Inputs/Buttons min 44px */
 input[type="text"],input[type="email"],input[type="tel"],input[type="date"],input[type="number"],input[type="search"],input[type="url"],input[type="password"],select,textarea{min-height:44px;font-size:16px !important;}
+
 button:not(.modus-btn):not(.tab-btn){min-height:44px;}
+
 
 /* Burg-Auswahl mobile-friendly */
 .burg-opt{min-height:54px;padding:14px 14px;gap:13px;}
+
 .burg-opt-name{font-size:15px;}
+
 .burg-opt-price{font-size:14px;}
+
 .burg-opt-badge-hochzeit{font-size:11px;padding:6px 11px;}
+
 
 /* Foto-Karten kompakter auf Mobile */
 .foto-opt{padding:14px 14px 13px;}
+
 .foto-name{font-size:15px;}
+
 .foto-sub{font-size:12px;}
+
 .foto-price{font-size:17px;}
+
 .foto-feat{font-size:12.5px;}
+
 
 /* Modus-Selector größer auf Mobile */
 .modus-btn{padding:14px 8px 12px;min-height:74px;}
+
 .modus-icon{font-size:24px;}
+
 .modus-label{font-size:13.5px;}
+
 .modus-sub{font-size:10.5px;}
+
 
 /* Extras-Toggle Touch-friendly */
 .extra-toggle{min-height:60px;padding:13px 15px;}
+
 .extra-title{font-size:14.5px;}
+
 .extra-price{font-size:13px;}
+
 .extra-hint{font-size:11.5px;}
+
 
 /* Cards general padding */
 .card{padding:16px 14px;}
+
 .card-title{font-size:15px;}
+
 .card-sub{font-size:12.5px;}
+
 
 /* Rabatt-Hinweis-Card lesbarer */
 .rh-desc{font-size:13px;line-height:1.35;}
+
 .rh-badge,.rh-bonus{font-size:14px;padding:7px 13px;min-width:50px;}
+
 
 /* Order Summary lesbar */
 #orderSummary{font-size:13.5px;}
 
+
 /* Submit-Button echt klickbar */
 #submitBtn{min-height:56px;font-size:16px;}
-
-/* Modus-Selector: kein Hover-Lift auf Touch */
 @media(hover:none){
-  .modus-btn:hover{transform:none;box-shadow:0 2px 8px rgba(15,11,46,.05);}
-  .modus-btn:active{transform:scale(.97);}
-}
+  .modus-btn:hover{transform:none;box-shadow:0 2px 8px rgba(26,24,19,.05);}
+
+  .modus-btn:active{transform:scale(.97);}}
+
 
 /* Gesamt-Rabatt-Badge in der Bestellübersicht */
-.rabatt-total-badge{display:inline-block;background:linear-gradient(135deg,#10b981,#059669);color:white;font-family:'Baloo 2',cursive;font-size:11px;font-weight:900;padding:3px 9px;border-radius:11px;margin-left:6px;white-space:nowrap;letter-spacing:.2px;box-shadow:0 1px 3px rgba(0,217,126,.3);vertical-align:middle;}
+.rabatt-total-badge{display:inline-block;background:linear-gradient(135deg,#1F7A4D,#1F7A4D);color:white;font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:900;padding:3px 9px;border-radius:3px;margin-left:6px;white-space:nowrap;letter-spacing:.2px;box-shadow:0 1px 3px rgba(31,122,77,.3);vertical-align:middle;}
+
 .order-row-rabatt .order-label{display:flex;flex-wrap:wrap;align-items:center;gap:5px;min-width:0;}
 
+
 /* Gutscheincode */
-.gutschein-box{margin-top:12px;padding-top:12px;border-top:1.5px dashed rgba(168,85,247,.25);}
+.gutschein-box{margin-top:12px;padding-top:12px;border-top:1.5px dashed rgba(26,24,19,.25);}
+
 .gutschein-input-row{display:flex;gap:8px;}
-.gutschein-input-row input{flex:1;min-width:0;padding:11px 14px;border:2px solid #eee;border-radius:12px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--dark);text-transform:uppercase;background:white;}
-.gutschein-input-row input:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 4px rgba(168,85,247,.1);}
-.gutschein-btn{padding:11px 18px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+
+.gutschein-input-row input{flex:1;min-width:0;padding:11px 14px;border:2px solid #eee;border-radius:3px;font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:14px;font-weight:700;color:var(--dark);text-transform:uppercase;background:#F5F0E5;}
+
+.gutschein-input-row input:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 4px rgba(26,24,19,.1);}
+
+.gutschein-btn{padding:11px 18px;border:none;border-radius:3px;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;}
+
 .gutschein-btn:active{transform:scale(.96);}
-.gutschein-active{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(0,217,126,.10);border:1.5px solid rgba(0,217,126,.3);border-radius:12px;padding:10px 14px;font-size:13px;font-weight:800;color:#059669;}
-.gutschein-remove{background:none;border:none;color:#b3261e;font-size:12px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;text-decoration:underline;flex-shrink:0;}
+
+.gutschein-active{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(31,122,77,.10);border:1.5px solid rgba(31,122,77,.3);border-radius:3px;padding:10px 14px;font-size:13px;font-weight:800;color:#1F7A4D;}
+
+.gutschein-remove{background:none;border:none;color:#b3261e;font-size:12px;font-weight:800;cursor:pointer;font-family:'Karla','Helvetica Neue',Arial,sans-serif;text-decoration:underline;flex-shrink:0;}
+
 .gutschein-msg{font-size:11.5px;font-weight:700;margin-top:6px;display:none;}
+
 .gutschein-msg.err{display:block;color:var(--err);}
-.gutschein-msg.ok{display:block;color:#059669;}
+
+.gutschein-msg.ok{display:block;color:#1F7A4D;}
 @media(min-width:768px){
-  .rabatt-total-badge{font-size:12px;padding:3px 11px;}
-}
+  .rabatt-total-badge{font-size:12px;padding:3px 11px;}}
+
 
 /* ═══════════════════════════════════════════════════════
    DESIGN-POLISH (rein optisch – keine Funktionsänderung)
@@ -476,90 +621,148 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 
 /* Einheitliches Schatten- & Rahmensystem: ruhiger, wertiger */
 .card{
-  border:1px solid rgba(15,11,46,.07);
-  border-radius:20px;
-  box-shadow:0 1px 2px rgba(15,11,46,.04),0 10px 30px rgba(15,11,46,.06);
+  border:1px solid rgba(26,24,19,.07);
+  border-radius:3px;
+  box-shadow:0 1px 2px rgba(26,24,19,.04),0 10px 30px rgba(26,24,19,.06);
   padding:20px 18px;
 }
+
 .card-title{letter-spacing:.1px;}
+
 .card-sub{color:#8a8a99;}
+
 
 /* Eingabefelder: feinere Rahmen, sanfter Hover, ruhigerer Fokus */
 .field label{color:#6b6b7d;letter-spacing:.6px;}
+
 .field input,.field select,.field textarea{
-  border:1.5px solid #e4e3ef;
-  border-radius:13px;
+  border:1.5px solid #D8CFBD;
+  border-radius:3px;
   transition:border-color .18s,box-shadow .18s,background .18s;
 }
-.field input:hover,.field select:hover,.field textarea:hover{border-color:#cfcce6;}
+
+.field input:hover,.field select:hover,.field textarea:hover{border-color:#CBBFA8;}
+
 .field input:focus,.field select:focus,.field textarea:focus{
   border-color:var(--purple);
-  box-shadow:0 0 0 3px rgba(168,85,247,.12);
+  box-shadow:0 0 0 3px rgba(26,24,19,.12);
 }
-.stepper{border:1.5px solid #e4e3ef;border-radius:13px;}
+
+.stepper{border:1.5px solid #D8CFBD;border-radius:3px;}
+
 .burg-opt{border:1.5px solid #e7e6f2;}
+
 .sub-extra-toggle{border-width:1.5px;}
+
 
 /* Preise überall mit Tabellenziffern – wirkt sofort aufgeräumter */
 .order-val,.order-total-val,.pe-val,.burg-opt-price,.foto-price,
 .burg-banner-price,.rabatt-total-badge{font-variant-numeric:tabular-nums;}
 
+
 /* Bestellübersicht: klarer Rechnungs-Look statt Farbwolke */
 .order-summary{
-  background:white;
-  border:1px solid rgba(15,11,46,.08);
-  border-radius:18px;
+  background:#F5F0E5;
+  border:1px solid rgba(26,24,19,.08);
+  border-radius:3px;
   padding:20px 18px 16px;
-  box-shadow:0 1px 2px rgba(15,11,46,.04),0 12px 32px rgba(15,11,46,.07);
+  box-shadow:0 1px 2px rgba(26,24,19,.04),0 12px 32px rgba(26,24,19,.07);
 }
+
 .order-summary-title{
   margin-bottom:6px;
   padding-bottom:10px;
-  border-bottom:1.5px solid rgba(15,11,46,.06);
+  border-bottom:1.5px solid rgba(26,24,19,.06);
 }
-.order-row{padding:9px 0;border-bottom:1px solid rgba(15,11,46,.05);}
+
+.order-row{padding:9px 0;border-bottom:1px solid rgba(26,24,19,.05);}
+
 .order-label{color:#4b4b5c;}
+
 .order-row.total{
   margin-top:6px;
   padding-top:13px;
-  border-top:2px solid rgba(15,11,46,.10);
+  border-top:2px solid rgba(26,24,19,.10);
 }
+
 .order-total-val{letter-spacing:-.3px;}
+
 .order-note{color:#a3a3b3;letter-spacing:.2px;}
 
+
 /* Gutschein-Feld an neues Rahmensystem angleichen */
-.gutschein-box{border-top:1px dashed rgba(15,11,46,.14);}
-.gutschein-input-row input{border:1.5px solid #e4e3ef;letter-spacing:.8px;}
-.gutschein-input-row input:hover{border-color:#cfcce6;}
-.gutschein-btn{box-shadow:0 3px 10px rgba(168,85,247,.28);}
+.gutschein-box{border-top:1px dashed rgba(26,24,19,.14);}
+
+.gutschein-input-row input{border:1.5px solid #D8CFBD;letter-spacing:.8px;}
+
+.gutschein-input-row input:hover{border-color:#CBBFA8;}
+
+.gutschein-btn{box-shadow:0 3px 10px rgba(26,24,19,.28);}
+
 
 /* Preis-Schätzung dezenter */
 .price-est{
-  background:linear-gradient(135deg,rgba(255,79,163,.045),rgba(168,85,247,.055));
-  border:1px solid rgba(168,85,247,.14);
+  background:linear-gradient(135deg,rgba(156,114,47,.045),rgba(26,24,19,.055));
+  border:1px solid rgba(26,24,19,.14);
 }
 
+
 /* DSGVO-Box angleichen */
-.dsgvo-consent{border:1px solid rgba(15,11,46,.07);box-shadow:0 1px 2px rgba(15,11,46,.04);}
+.dsgvo-consent{border:1px solid rgba(26,24,19,.07);box-shadow:0 1px 2px rgba(26,24,19,.04);}
+
 
 /* Absenden-Button: mehr Tiefe, Desktop-Hover, feinere Schrift */
 .btn-submit{
   letter-spacing:.3px;
-  box-shadow:0 2px 6px rgba(168,85,247,.28),0 10px 26px rgba(255,79,163,.32);
+  box-shadow:0 2px 6px rgba(26,24,19,.28),0 10px 26px rgba(156,114,47,.32);
 }
 @media(hover:hover){
   .btn-submit:hover:not(:disabled){
     transform:translateY(-1px);
-    box-shadow:0 4px 10px rgba(168,85,247,.32),0 14px 32px rgba(255,79,163,.38);
-  }
-}
+    box-shadow:0 4px 10px rgba(26,24,19,.32),0 14px 32px rgba(156,114,47,.38);
+  }}
 
-/* Desktop-Feinschliff: etwas großzügigere Karten */
 @media(min-width:768px){
   .card{padding:24px 24px;}
-  .order-summary{padding:24px 24px 18px;}
-}
+
+  .order-summary{padding:24px 24px 18px;}}
+
 </style>
+<link rel="stylesheet" href="site.css"/>
+<style>
+.anf{--pink:#8A6424;--purple:#1A1813;--sky:#46413A;--sun:#9C722F;--dark:#1A1813;--green:#1F7A4D;--shadow:0 1px 2px rgba(26,24,19,.05);}
+.anf .card,.anf .modus-btn,.anf .burg-opt,.anf .foto-opt,.anf .extra-toggle,.anf .sub-extra-toggle,.anf .lief-btn,.anf .order-summary,.anf .gutschein-box,.anf .rabatt-hint-card{border:1px solid rgba(26,24,19,.16) !important;box-shadow:none !important;}
+.anf .card{background:#F5F0E5 !important;}
+.anf .card-title{font-family:'Bodoni Moda',Didot,serif !important;font-weight:400 !important;font-size:1.35rem !important;letter-spacing:-.01em;color:#1A1813 !important;}
+.anf .card-sub{color:#6A6356 !important;}
+.anf .modus-btn.active,.anf .burg-opt.selected,.anf .foto-opt.selected,.anf .extra-toggle.selected,.anf .sub-extra-toggle.selected{border-color:#1A1813 !important;background:#FBF8F2 !important;box-shadow:inset 0 0 0 1px #1A1813 !important;}
+.anf .burg-opt.selected .burg-opt-check{background:#1A1813 !important;border-color:#1A1813 !important;}
+.anf .extra-toggle.selected .extra-switch{background:#1A1813 !important;}
+.anf .lief-btn.lief-active{background:#1A1813 !important;color:#F5F0E6 !important;border-color:#1A1813 !important;}
+.anf input:not([type=radio]):not([type=checkbox]),.anf select,.anf textarea{background:#FBF8F2 !important;border:1px solid rgba(26,24,19,.2) !important;border-radius:2px !important;font-family:'Karla','Helvetica Neue',Arial,sans-serif !important;color:#1A1813 !important;}
+.anf input:focus,.anf select:focus,.anf textarea:focus{border-color:#1A1813 !important;outline:none;box-shadow:0 0 0 2px rgba(26,24,19,.12) !important;}
+.anf .btn-submit{background:#1A1813 !important;color:#F5F0E6 !important;border-radius:2px !important;box-shadow:none !important;font-family:'Karla','Helvetica Neue',Arial,sans-serif !important;font-weight:700 !important;letter-spacing:.02em;}
+.anf .btn-submit:hover{background:#9C722F !important;}
+.anf{padding-bottom:20px;}
+.anf .field-row>*{min-width:0;}
+.anf input,.anf select{min-width:0;max-width:100%;}
+.anf .burg-opt-badge-hochzeit{background:#1A1813 !important;color:#F5F0E6 !important;}
+.anf .modus-selector{max-width:760px;margin-left:auto;margin-right:auto;padding-left:16px !important;padding-right:16px !important;box-sizing:border-box;}
+.anf .burg-banner,.anf .rabatt-banner{width:auto !important;margin-left:16px !important;margin-right:16px !important;}
+@media(min-width:792px){.anf .burg-banner,.anf .rabatt-banner{margin-left:auto !important;margin-right:auto !important;}}
+.anf form{max-width:760px;margin-left:auto !important;margin-right:auto !important;}
+.anf .burg-banner,.anf .rabatt-banner{max-width:728px;}
+.anf .burg-opt-price,.anf .foto-price,.anf .pe-val,.anf .burg-banner-price{color:#8A6424 !important;}
+
+.anf .modus-icon svg{width:26px;height:26px;stroke:#1A1813;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;}
+.anf .modus-btn.active .modus-icon svg{stroke:#8A6424;}
+.anf .burg-opt-icon,.anf .foto-icon,.anf .burg-banner-icon,.anf .rabatt-banner-icon,.anf .rh-icon{display:inline-flex !important;align-items:center;justify-content:center;width:38px !important;height:38px !important;min-width:38px;border-radius:50% !important;border:1px solid rgba(26,24,19,.28) !important;background:transparent !important;font-family:'Bodoni Moda',Didot,serif !important;font-size:1.15rem !important;font-weight:400 !important;color:#1A1813 !important;line-height:1 !important;}
+.anf .burg-opt.selected .burg-opt-icon,.anf .foto-opt.selected .foto-icon{background:#1A1813 !important;color:#F5F0E6 !important;border-color:#1A1813;}
+.anf .rabatt-banner-icon,.anf .rh-icon{font-family:'Karla',sans-serif !important;font-weight:700 !important;font-size:.95rem !important;color:#1F7A4D !important;border-color:rgba(31,122,77,.4);}
+</style>
+
+ 
+ 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -571,68 +774,75 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 </script>
 </head>
 <body>
-<!-- STICKY TOPBAR -->
-<div class="topbar-sticky">
-  <a href="home.html" class="ts-logo" style="text-decoration:none;">
-    <div class="ts-logo-mark">H</div>
-    <div class="ts-logo-text">
-      <span class="ts-logo-main">Hüpf<span class="ts-logo-accent">abenteuer</span></span>
-      <span class="ts-logo-sub">Kärnten</span>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="/" class="brand"><span class="brand-n">Hüpfabenteuer</span><span class="brand-s">Kärnten</span></a>
+    <nav class="top-nav" aria-label="Seitenbereiche">
+      <a href="unsere-angebote.html?filter=burg">Hüpfburgen</a>
+      <a href="fotobox.html">Fotobox</a>
+      <a href="unsere-angebote.html?filter=extra">Extras</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <div class="top-actions">
+      <a href="tel:+436641852634" class="top-tel" data-track="call">+43 664 185 26 34</a>
+      <a href="anfragen.html" class="btn btn-solid btn-sm">Anfragen</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
-  </a>
-  <button class="hbg-btn" id="hbgBtn" onclick="toggleMenu()" aria-label="Menü öffnen">
-    <span></span><span></span><span></span>
-  </button>
-</div>
-<!-- OVERLAY -->
-<div class="hbg-overlay" id="hbgOverlay" onclick="closeMenu()"></div>
-<!-- DRAWER -->
-<div class="hbg-drawer" id="hbgDrawer">
-  <div class="hbg-drawer-top">
-    <div class="hbg-drawer-logo">Hüpf<span>abenteuer</span></div>
-    <div class="hbg-close" onclick="closeMenu()">✕</div>
   </div>
-  <nav class="hbg-nav">
-    <a href="home.html" class="hbg-link" data-page="home"><span class="hbg-link-ic">🏠</span>Home</a>
-    <a href="unsere-angebote.html?filter=burg" class="hbg-link" data-page="burg"><span class="hbg-link-ic">🏰</span>Hüpfburgen</a>
-    <a href="unsere-angebote.html?filter=foto" class="hbg-link" data-page="foto"><span class="hbg-link-ic">📷</span>Fotobox</a>
-    <a href="unsere-angebote.html?filter=extra" class="hbg-link" data-page="extra"><span class="hbg-link-ic">🍭</span>Extras</a>
-    <a href="kontakt.html" class="hbg-link" data-page="kontakt"><span class="hbg-link-ic">📞</span>Kontakt</a>
+</header>
+
+<div class="drawer-bg" id="drawerBg"></div>
+<aside class="drawer" id="drawer" aria-label="Menü" aria-hidden="true">
+  <div class="drawer-top">
+    <span class="brand"><span class="brand-n">Hüpfabenteuer</span><span class="brand-s">Kärnten</span></span>
+    <button type="button" class="menu-btn" id="menuClose" aria-label="Menü schließen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <nav>
+    <a href="unsere-angebote.html?filter=burg">Hüpfburgen<small>6 Modelle ab 120 €</small></a>
+    <a href="fotobox.html">Fotobox<small>Mit Sofortdruck ab 199 €</small></a>
+    <a href="unsere-angebote.html?filter=extra">Extras<small>Zuckerwatte &amp; Popcorn</small></a>
+    <a href="#indoor">Indoor<small>Auch im Winter</small></a>
+    <a href="kontakt.html">Kontakt<small>Antwort meist in unter 1 Std</small></a>
   </nav>
-  <div class="hbg-divider"></div>
-  <div class="hbg-contact">
-    <a href="tel:+436641852634" class="hbg-clink phone">📞 +43 664 185 26 34</a>
-    <a href="https://wa.me/436641852634" target="_blank" class="hbg-clink wa">💬 WhatsApp schreiben</a>
+  <div class="drawer-c">
+    <a href="anfragen.html" class="btn btn-solid btn-wide">Termin anfragen</a>
+    <a href="tel:+436641852634" class="btn btn-ghost btn-wide" data-track="call"><svg class="ic ic-ph" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg> +43 664 185 26 34</a>
+    <a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20h%C3%A4tte%20eine%20Anfrage" target="_blank" rel="noopener" class="btn btn-ghost btn-wide" data-track="whatsapp"><svg class="ic ic-wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg> WhatsApp schreiben</a>
+  </div>
+</aside>
+
+<div class="hero slim">
+  <div class="hero-in">
+    <div class="hero-kicker">Anfrage · unverbindlich</div>
+    <h1>Jetzt <span class="it">anfragen.</span></h1>
+    <p class="lede" style="margin-top:20px;">Schnell und einfach: Wähl aus, was du brauchst, und schick die Anfrage ab. Wir melden uns innerhalb von 24 Stunden mit einem fixen Angebot – meistens deutlich schneller.</p>
+    <div class="quick" style="margin:26px 0 0;max-width:420px;">
+      <a href="tel:+436641852634" data-track="call"><svg class="ic ic-ph" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg>Lieber anrufen</a>
+      <a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20h%C3%A4tte%20eine%20Anfrage" target="_blank" rel="noopener" data-track="whatsapp"><svg class="ic ic-wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>WhatsApp</a>
+    </div>
+    <div class="hero-meta" style="margin-top:22px;"><span><b>5,0</b> auf Google</span><span><b>16</b> Bewertungen</span><span><b>80+</b> Feste ausgestattet</span></div>
   </div>
 </div>
+<div id="stars" hidden></div><div id="particles" hidden></div>
 
- 
-<!-- HERO -->
-<div class="ph">
-  <div class="stars" id="stars"></div>
-  <div class="ph-bg"><div class="b1"></div><div class="b2"></div></div>
-  <h1 class="ph-title">Jetzt <em>Anfragen</em></h1>
-  <p class="ph-sub">Schnell & einfach – wir melden uns innerhalb 24 Stunden!</p>
-  <svg class="wave" viewBox="0 0 390 60" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 30C60 10 120 50 195 28C270 6 330 46 390 26V60H0Z" fill="#f0f2f8"/>
-  </svg>
-</div>
- 
-
+<div class="lt anf">
+<section style="padding:36px 0 40px;">
 <!-- MODUS-SELECTOR -->
 <div class="modus-selector reveal">
   <button type="button" class="modus-btn active" data-modus="burg">
-    <span class="modus-icon">🏰</span>
+    <span class="modus-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l2-2 2 2 2-4 2 4 2-2 2 2 2-2v13z"/><path d="M10 20v-4h4v4"/></svg></span>
     <span class="modus-label">Hüpfburg</span>
     <span class="modus-sub">ab 120 €</span>
   </button>
   <button type="button" class="modus-btn" data-modus="foto">
-    <span class="modus-icon">📷</span>
+    <span class="modus-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3.2"/></svg></span>
     <span class="modus-label">Fotobox</span>
     <span class="modus-sub">ab 199 €</span>
   </button>
   <button type="button" class="modus-btn" data-modus="hochzeit">
-    <span class="modus-icon">💒</span>
+    <span class="modus-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="14" r="5"/><circle cx="15" cy="14" r="5"/><path d="M10 5l2-2 2 2"/></svg></span>
     <span class="modus-label">Hochzeit</span>
     <span class="modus-sub">Burg + Foto</span>
   </button>
@@ -640,7 +850,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 
 <!-- RABATT-BANNER (wird sichtbar wenn Rabatt aktiv) -->
 <div class="rabatt-banner reveal" id="rabattBanner" style="display:none;">
-  <span class="rabatt-banner-icon">🎉</span>
+  <span class="rabatt-banner-icon">%</span>
   <div class="rabatt-banner-content">
     <div class="rabatt-banner-text">Rabatt aktiv: <strong id="rabattBannerProzent">−5%</strong></div>
     <div class="rabatt-banner-label" id="rabattBannerLabel"></div>
@@ -650,7 +860,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 
 <!-- SELECTED BURG BANNER -->
 <div class="burg-banner reveal" id="burgBanner" style="display:none;">
-  <div class="burg-banner-icon" id="bannerIcon">🏰</div>
+  <div class="burg-banner-icon" id="bannerIcon">H</div>
   <div>
     <div class="burg-banner-name" id="bannerName">Hüpfburg</div>
     <div class="burg-banner-sub">Ausgewählt</div>
@@ -670,48 +880,48 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
     <div class="card reveal nur-burg">
       <div class="card-title">Hüpfburg wählen</div>
       <div class="card-sub card-sub-burg-hide">Welche Burg darf es sein?</div>
-      <div class="card-sub" style="display:none;color:#FFD600;font-weight:700;" id="hochzeit-burg-hint">Hochzeitsburg ist im Paket fix enthalten</div>
+      <div class="card-sub" style="display:none;color:#9C722F;font-weight:700;" id="hochzeit-burg-hint">Hochzeitsburg ist im Paket fix enthalten</div>
       <div class="burg-picker" id="burgPicker">
-        <label class="burg-opt" data-name="Alienburg" data-price="180" data-icon="🛸">
+        <label class="burg-opt" data-name="Alienburg" data-price="180" data-icon="A">
           <input type="radio" name="Hüpfburg" value="Alienburg (180 €/Tag)">
           <div class="burg-opt-check"></div>
-          <div class="burg-opt-icon">🛸</div>
+          <div class="burg-opt-icon">A</div>
           <div class="burg-opt-name">Alienburg</div>
           <div class="burg-opt-price">180 €/Tag</div>
         </label>
-        <label class="burg-opt" data-name="Piratenburg" data-price="140" data-icon="🏴‍☠️">
+        <label class="burg-opt" data-name="Piratenburg" data-price="140" data-icon="P">
           <input type="radio" name="Hüpfburg" value="Piratenburg (140 €/Tag)">
           <div class="burg-opt-check"></div>
-          <div class="burg-opt-icon">🏴‍☠️</div>
+          <div class="burg-opt-icon">P</div>
           <div class="burg-opt-name">Piratenburg</div>
           <div class="burg-opt-price">140 €/Tag</div>
         </label>
-        <label class="burg-opt" data-name="Ritterburg" data-price="140" data-icon="⚔️">
+        <label class="burg-opt" data-name="Ritterburg" data-price="140" data-icon="R">
           <input type="radio" name="Hüpfburg" value="Ritterburg (140 €/Tag)">
           <div class="burg-opt-check"></div>
-          <div class="burg-opt-icon">⚔️</div>
+          <div class="burg-opt-icon">R</div>
           <div class="burg-opt-name">Ritterburg</div>
           <div class="burg-opt-price">140 €/Tag</div>
         </label>
-        <label class="burg-opt" data-name="Candyburg" data-price="120" data-icon="🍭">
+        <label class="burg-opt" data-name="Candyburg" data-price="120" data-icon="C">
           <input type="radio" name="Hüpfburg" value="Candyburg (120 €/Tag)">
           <div class="burg-opt-check"></div>
-          <div class="burg-opt-icon">🍭</div>
+          <div class="burg-opt-icon">C</div>
           <div class="burg-opt-name">Candyburg</div>
           <div class="burg-opt-price">120 €/Tag</div>
         </label>
-        <label class="burg-opt" data-name="Hochzeitsburg" data-price="220" data-icon="💒">
+        <label class="burg-opt" data-name="Hochzeitsburg" data-price="220" data-icon="H">
           <input type="radio" name="Hüpfburg" value="Hochzeitsburg (220 €/Tag · inkl. Dekoration)">
           <div class="burg-opt-check"></div>
-          <div class="burg-opt-icon">💒</div>
+          <div class="burg-opt-icon">H</div>
           <div class="burg-opt-name">Hochzeitsburg</div>
           <div class="burg-opt-badge-hochzeit">Hochzeitspaket →</div>
         </label>
-        <label class="burg-opt" data-name="Feuerwehrauto" data-price="140" data-icon="🚒">
+        <label class="burg-opt" data-name="Feuerwehrauto" data-price="140" data-icon="F">
           <input type="radio" name="Hüpfburg" value="Feuerwehrauto (140 €/Tag)">
           <div class="burg-opt-check"></div>
-          <div class="burg-opt-icon">🚒</div>
-          <div class="burg-opt-name">Feuerwehrauto <span style="background:linear-gradient(135deg,#ff4500,#cc1a1a);color:white;font-size:9px;padding:2px 7px;border-radius:20px;margin-left:4px;">NEU</span></div>
+          <div class="burg-opt-icon">F</div>
+          <div class="burg-opt-name">Feuerwehrauto <span style="background:linear-gradient(135deg,#9C722F,#8A6424);color:white;font-size:9px;padding:2px 7px;border-radius:3px;margin-left:4px;">NEU</span></div>
           <div class="burg-opt-price">140 €/Tag</div>
         </label>
       </div>
@@ -723,7 +933,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 <div class="foto-dazu-wrap">
 <button type="button" class="extra-toggle foto-dazu-toggle-btn" id="fotoDazuBanner">
   <span class="extra-copy">
-    <span class="extra-title">📷 Fotobox dazubuchen?</span>
+    <span class="extra-title">Fotobox dazubuchen?</span>
     <span class="extra-price" id="fotoDazuPriceText">+ ab 199 € · perfekt für unvergessliche Erinnerungen</span>
     <span class="extra-hint" id="fotoDazuHint">Zum Anzeigen antippen</span>
     <span class="foto-rabatt-hint" id="fotoRabattHint">Kombi-Bonus: <strong>−5%</strong> zusätzlich auf die Gesamtsumme</span>
@@ -734,14 +944,14 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 
     <!-- FOTOBOX PAKET (nur-foto, wird je nach Modus angezeigt) -->
     <div class="card reveal nur-foto">
-      <div class="card-title">📷 Fotobox-Paket wählen</div>
+      <div class="card-title">Fotobox-Paket wählen</div>
       <div class="card-sub">Welches Paket darf es sein? Auf- &amp; Abbau ist immer inklusive.</div>
       <div class="foto-picker" id="fotoPicker">
 
         <label class="foto-opt" data-name="Fotobox Digital" data-price="199">
           <input type="radio" name="Fotobox-Paket" value="Digital – 199 €">
           <div class="foto-head">
-            <div class="foto-icon">📱</div>
+            <div class="foto-icon">D</div>
             <div class="foto-info">
               <div class="foto-name">Digital</div>
               <div class="foto-sub">Einfach starten</div>
@@ -761,9 +971,9 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
         <label class="foto-opt" data-name="Fotobox Standard" data-price="299">
           <input type="radio" name="Fotobox-Paket" value="Standard – 299 €">
           <div class="foto-head">
-            <div class="foto-icon">🖨️</div>
+            <div class="foto-icon">S</div>
             <div class="foto-info">
-              <div class="foto-name">Standard <span style="font-size:10px;color:var(--pink);background:rgba(255,79,163,.12);padding:2px 7px;border-radius:10px;font-weight:800;margin-left:4px;">BELIEBT</span></div>
+              <div class="foto-name">Standard <span style="font-size:10px;color:var(--pink);background:rgba(156,114,47,.12);padding:2px 7px;border-radius:3px;font-weight:800;margin-left:4px;">BELIEBT</span></div>
               <div class="foto-sub">Für tolle Partys</div>
             </div>
             <div class="foto-price">299 €</div>
@@ -777,7 +987,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
             <div class="foto-feat">Telefonischer Support</div>
           </div>
           <div class="foto-feats-plus">
-            <div class="foto-feats-plus-title">✨ Mehr als Digital</div>
+            <div class="foto-feats-plus-title">Mehr als Digital</div>
             <div class="foto-feat">1× Drucker mit Sofortdruck</div>
             <div class="foto-feat">300 Fotos inkludiert</div>
             <div class="foto-feat">1 vorgegebener Fotorahmen</div>
@@ -787,7 +997,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
         <label class="foto-opt tier-premium" data-name="Fotobox Premium" data-price="349">
           <input type="radio" name="Fotobox-Paket" value="Premium – 349 €">
           <div class="foto-head">
-            <div class="foto-icon">⭐</div>
+            <div class="foto-icon">P</div>
             <div class="foto-info">
               <div class="foto-name">Premium</div>
               <div class="foto-sub">Alle Highlights inkl.</div>
@@ -805,7 +1015,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
             <div class="foto-feat">Telefonischer Support</div>
           </div>
           <div class="foto-feats-plus">
-            <div class="foto-feats-plus-title">⭐ Mehr als Standard</div>
+            <div class="foto-feats-plus-title">Mehr als Standard</div>
             <div class="foto-feat">Personalisierter Fotorahmen</div>
             <div class="foto-feat">Requisiten &amp; Spiele inklusive</div>
             <div class="foto-feat">Unbegrenzte Drucke</div>
@@ -817,7 +1027,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 
     <!-- DATUM & DAUER -->
     <div class="card reveal">
-      <div class="card-title">📅 Datum & Dauer</div>
+      <div class="card-title">Datum & Dauer</div>
       <div class="card-sub">Wann soll die Burg aufgebaut werden?</div>
       <div class="field-row">
         <div class="field">
@@ -831,7 +1041,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
       </div>
       <div class="field" id="tage-anzeige" style="display:none;">
         <label>Anzahl Tage</label>
-        <div style="padding:13px 15px;border:2px solid #eee;border-radius:14px;font-family:'Baloo 2',cursive;font-size:16px;font-weight:800;color:var(--dark);background:#f9f9f9;">
+        <div style="padding:13px 15px;border:2px solid #eee;border-radius:3px;font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:16px;font-weight:800;color:var(--dark);background:#f9f9f9;">
           <span id="daysVal">1</span> Tag<span id="tagePlural"></span>
         </div>
       </div>
@@ -848,7 +1058,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
  
     <!-- KONTAKTDATEN -->
     <div class="card reveal">
-      <div class="card-title">👤 Deine Daten</div>
+      <div class="card-title">Deine Daten</div>
       <div class="card-sub">Wie können wir dich erreichen?</div>
       <div class="field-row">
         <div class="field">
@@ -884,14 +1094,14 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
         </button>
       </div>
       <input type="hidden" name="Lieferung" id="lieferung-val" value="Ja">
-      <div id="lief-hinweis" style="margin-top:10px;font-size:12px;font-weight:700;color:#1b6e8d;padding:6px 12px;background:rgba(0,194,255,.08);border-radius:10px;border:1px solid rgba(0,194,255,.2);">
-        📍 Gratis bis 40 km ab Glödnitz · darüber 0,55 €/km
+      <div id="lief-hinweis" style="margin-top:10px;font-size:12px;font-weight:700;color:#1b6e8d;padding:6px 12px;background:rgba(26,24,19,.08);border-radius:3px;border:1px solid rgba(26,24,19,.2);">
+        Gratis bis 40 km ab Glödnitz · darüber 0,55 €/km
       </div>
     </div>
 
     <!-- LIEFERADRESSE -->
     <div class="card reveal" id="adresse-card">
-      <div class="card-title">📍 Lieferadresse</div>
+      <div class="card-title">Lieferadresse</div>
       <div class="card-sub">Wo soll die Hüpfburg aufgebaut werden?</div>
       <div class="field">
         <label>Straße & Hausnummer *</label>
@@ -911,13 +1121,13 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
  
     <!-- EXTRAS -->
     <div class="card reveal">
-      <div class="card-title">🍭 Extras & Wünsche</div>
+      <div class="card-title">Extras & Wünsche</div>
       <div class="card-sub">Möchtest du noch etwas dazubuchen?</div>
 
       <!-- Rabatt-Hinweis: Anreiz für Kombi-Pakete -->
       <div class="rabatt-hint-card">
         <div class="rh-header">
-          <span class="rh-icon">🎁</span>
+          <span class="rh-icon">%</span>
           <span class="rh-title">Spar-Tipp: Pakete kombinieren</span>
         </div>
         <div class="rh-list">
@@ -947,13 +1157,13 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
           <span class="extra-switch"></span>
         </button>
         <input type="hidden" name="Auf- und Abbau" id="aufbau-val" value="Nein">
-        <div id="aufbau-paket-hint" style="display:none;margin-top:6px;font-size:12px;font-weight:700;color:#1b8d4b;padding:6px 12px;background:rgba(27,141,75,.08);border-radius:10px;border:1px solid rgba(27,141,75,.2);">✅ Im Paket enthalten – kann nicht entfernt werden</div>
+        <div id="aufbau-paket-hint" style="display:none;margin-top:6px;font-size:12px;font-weight:700;color:#1b8d4b;padding:6px 12px;background:rgba(27,141,75,.08);border-radius:3px;border:1px solid rgba(27,141,75,.2);">✓ Im Paket enthalten – kann nicht entfernt werden</div>
       </div>
 
       <!-- Fotobox-INKLUSIVE-Hinweis (nur im Foto-Modus) -->
-      <div class="aufbau-foto-only" style="display:none;background:linear-gradient(135deg,rgba(0,201,126,.10),rgba(0,217,126,.05));border:1.5px solid rgba(0,201,126,.28);border-radius:14px;padding:11px 15px;display:flex;align-items:center;gap:10px;">
-        <span style="font-size:20px;flex-shrink:0;">✅</span>
-        <div style="flex:1;font-family:'Baloo 2',cursive;color:#0a6b3e;">
+      <div class="aufbau-foto-only" style="display:none;background:linear-gradient(135deg,rgba(31,122,77,.10),rgba(31,122,77,.05));border:1.5px solid rgba(31,122,77,.28);border-radius:3px;padding:11px 15px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:18px;flex-shrink:0;">✓</span>
+        <div style="flex:1;font-family:'Karla','Helvetica Neue',Arial,sans-serif;color:#0a6b3e;">
           <div style="font-size:13px;font-weight:800;line-height:1.2;">Auf- &amp; Abbau INKLUSIVE</div>
           <div style="font-size:11px;font-weight:600;opacity:.85;margin-top:2px;">Bei der Fotobox ist alles dabei – kein Aufschlag</div>
         </div>
@@ -963,21 +1173,21 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
         <label>Süße Extras (optional)</label>
         <select name="Extras" id="extras-select">
           <option value="Keine Extras">Keine Extras</option>
-          <option value="Zuckerwatte (+45€)">🍭 Zuckerwatte (+45€)</option>
-          <option value="Popcorn (+60€)">🍿 Popcorn (+60€)</option>
-          <option value="Zuckerwatte + Popcorn (+100€)">🍭🍿 Zuckerwatte + Popcorn (+100€)</option>
+          <option value="Zuckerwatte (+45€)">Zuckerwatte (+45€)</option>
+          <option value="Popcorn (+60€)">Popcorn (+60€)</option>
+          <option value="Zuckerwatte + Popcorn (+100€)">Zuckerwatte + Popcorn (+100€)</option>
         </select>
-        <div id="extras-paket-hint" style="display:none;margin-top:6px;font-size:12px;font-weight:700;color:#1b8d4b;padding:6px 12px;background:rgba(27,141,75,.08);border-radius:10px;border:1px solid rgba(27,141,75,.2);">✅ Im Paket enthalten – kann nicht entfernt werden</div>
+        <div id="extras-paket-hint" style="display:none;margin-top:6px;font-size:12px;font-weight:700;color:#1b8d4b;padding:6px 12px;background:rgba(27,141,75,.08);border-radius:3px;border:1px solid rgba(27,141,75,.2);">✓ Im Paket enthalten – kann nicht entfernt werden</div>
       </div>
  
       <!-- SUB-EXTRA: Zuckerwatte-Set -->
       <div class="sub-extra-panel" id="zuckerwatte-panel">
-        <div class="sub-extra-title">🍭 Zuckerwatte-Set dazunehmen?</div>
+        <div class="sub-extra-title">Zuckerwatte-Set dazunehmen?</div>
         <button type="button" class="sub-extra-toggle" id="zuckerwatte-set-btn">
           <div>
             <div class="set-name">Zuckerwatte-Set +20 €</div>
           </div>
-          <div class="set-price">👉 Aktivieren</div>
+          <div class="set-price">Aktivieren</div>
         </button>
         <div class="sub-extra-desc">Enthält: Geschmackssorten Erdbeere, Vanille, Kirsche, Bubblegum &amp; Apfel</div>
         <input type="hidden" name="Zuckerwatte-Set" id="zuckerwatte-set-val" value="Nein">
@@ -985,12 +1195,12 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
  
       <!-- SUB-EXTRA: Popcorn-Set -->
       <div class="sub-extra-panel" id="popcorn-panel">
-        <div class="sub-extra-title">🍿 Popcorn-Set dazunehmen?</div>
+        <div class="sub-extra-title">Popcorn-Set dazunehmen?</div>
         <button type="button" class="sub-extra-toggle" id="popcorn-set-btn">
           <div>
             <div class="set-name">Popcorn-Set +20 €</div>
           </div>
-          <div class="set-price">👉 Aktivieren</div>
+          <div class="set-price">Aktivieren</div>
         </button>
         <div class="sub-extra-desc">Enthält: 1 kg Popcornmais &amp; Popcornöl</div>
         <input type="hidden" name="Popcorn-Set" id="popcorn-set-val" value="Nein">
@@ -1004,7 +1214,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
  
     <!-- BESTELLÜBERSICHT -->
     <div class="order-summary reveal" id="orderSummary">
-      <div class="order-summary-title">🛒 Deine Auswahl</div>
+      <div class="order-summary-title">Deine Auswahl</div>
       <div id="orderRows"></div>
       <!-- GUTSCHEINCODE -->
       <div class="gutschein-box">
@@ -1019,7 +1229,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
         <div class="gutschein-msg" id="gutscheinMsg"></div>
       </div>
       <div class="order-note">* Geschätzter Preis · Lieferung gratis bis 40 km · Endpreis nach Bestätigung</div>
-      <div id="anzahlungHinweis" style="display:none;margin-top:10px;padding:10px 14px;border-radius:12px;background:linear-gradient(135deg,rgba(255,214,0,.12),rgba(255,79,163,.08));border:1.5px solid rgba(255,214,0,.4);font-size:12px;font-weight:700;color:#7a5c00;line-height:1.6;"></div>
+      <div id="anzahlungHinweis" style="display:none;margin-top:10px;padding:10px 14px;border-radius:3px;background:linear-gradient(135deg,rgba(156,114,47,.12),rgba(156,114,47,.08));border:1.5px solid rgba(156,114,47,.4);font-size:12px;font-weight:700;color:#7a5c00;line-height:1.6;"></div>
     </div>
  
     <!-- DSGVO-Einwilligung -->
@@ -1031,7 +1241,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
     </div>
  
     <button type="button" class="btn-submit reveal" id="submitBtn" onclick="submitAnfrage()">
-      🚀 Anfrage absenden
+      Anfrage absenden
     </button>
  
     <p id="form-msg" class="form-msg" aria-live="polite"></p>
@@ -1045,35 +1255,69 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 </form>
  
 <!-- ANZAHLUNG INFO -->
-<div style="background:linear-gradient(135deg,rgba(168,85,247,.06),rgba(0,194,255,.06));border-top:1.5px solid rgba(168,85,247,.18);padding:20px 18px 22px;text-align:center;">
-  <div style="font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;color:#0f0b2e;margin-bottom:10px;">Anzahlung zur Terminreservierung</div>
+<div style="background:linear-gradient(135deg,rgba(26,24,19,.06),rgba(26,24,19,.06));border-top:1.5px solid rgba(26,24,19,.18);padding:20px 18px 22px;text-align:center;">
+  <div style="font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:14px;font-weight:800;color:#1A1813;margin-bottom:10px;">Anzahlung zur Terminreservierung</div>
   <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:480px;margin:0 auto;">
-    <div style="background:white;padding:9px 14px;border-radius:12px;font-size:12px;color:#0f0b2e;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Baloo 2',cursive;">bis 219 €</strong> → <span style="color:#ff4fa3;font-weight:900;">30 €</span></div>
-    <div style="background:white;padding:9px 14px;border-radius:12px;font-size:12px;color:#0f0b2e;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Baloo 2',cursive;">220 – 299 €</strong> → <span style="color:#ff4fa3;font-weight:900;">50 €</span></div>
-    <div style="background:white;padding:9px 14px;border-radius:12px;font-size:12px;color:#0f0b2e;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Baloo 2',cursive;">ab 300 €</strong> → <span style="color:#ff4fa3;font-weight:900;">100 €</span></div>
+    <div style="background:#F5F0E5;padding:9px 14px;border-radius:3px;font-size:12px;color:#1A1813;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Karla','Helvetica Neue',Arial,sans-serif;">bis 219 €</strong> → <span style="color:#8A6424;font-weight:900;">30 €</span></div>
+    <div style="background:#F5F0E5;padding:9px 14px;border-radius:3px;font-size:12px;color:#1A1813;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Karla','Helvetica Neue',Arial,sans-serif;">220 – 299 €</strong> → <span style="color:#8A6424;font-weight:900;">50 €</span></div>
+    <div style="background:#F5F0E5;padding:9px 14px;border-radius:3px;font-size:12px;color:#1A1813;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Karla','Helvetica Neue',Arial,sans-serif;">ab 300 €</strong> → <span style="color:#8A6424;font-weight:900;">100 €</span></div>
   </div>
   <div style="font-size:11px;color:#666;margin-top:12px;">Restbetrag bezahlbar am Veranstaltungstag</div>
 </div>
 
+
+</section>
+</div>
+
 <footer>
-  <div class="fl">Hüpfabenteuer</div>
-  <div style="font-size:12px;color:rgba(255,255,255,.55);margin:4px 0;">Schulstraße 3 · 9346 Glödnitz · Kärnten</div>
-  <div class="flinks">
-    <a href="impressum.html" class="flink">Impressum</a>
-    <a href="datenschutz.html" class="flink">Datenschutz</a>
-    <a href="#" class="flink" onclick="return hbCookies()">Cookies</a>
-    <a href="agbs.html" class="flink">AGBs</a>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="foot-b">Hüpfabenteuer</div>
+        <p>Fotoboxen, Hüpfburgen und Partyausstattung für ganz Kärnten.<br>Schulstraße 3, 9346 Glödnitz</p>
+      </div>
+      <div>
+        <div class="foot-h">Sortiment</div>
+        <div class="foot-l">
+          <a href="fotobox.html">Fotobox</a>
+          <a href="fotobox-weihnachtsfeier.html">Fotobox Weihnachtsfeier</a>
+          <a href="fotobox-hochzeit.html">Fotobox Hochzeit</a>
+          <a href="unsere-angebote.html?filter=burg">Hüpfburgen</a>
+          <a href="zuckerwatte.html">Zuckerwatte</a>
+          <a href="popcorn.html">Popcorn</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-h">Kontakt</div>
+        <div class="foot-l">
+          <a href="tel:+436641852634" data-track="call">+43 664 185 26 34</a>
+          <a href="mailto:info@huepfabenteuer.at">info@huepfabenteuer.at</a>
+          <a href="kontakt.html">Kontaktseite</a>
+          <a href="partner.html">Partnerprogramm</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-btm">
+      <span>© 2025–2026 Hüpfabenteuer</span>
+      <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="#" onclick="return hbCookies()">Cookies</a> · <a href="agbs.html">AGB</a></span>
+    </div>
   </div>
-  <div class="fcopy">© 2025–2026 Hüpfabenteuer</div>
 </footer>
- 
-<nav class="bnav">
-  <a href="home.html" class="bi"><span class="bi-ic">🏠</span><span class="bi-lb">Home</span></a>
-  <a href="unsere-angebote.html?filter=burg" class="bi"><span class="bi-ic">🏰</span><span class="bi-lb">Hüpfburgen</span></a>
-  <a href="unsere-angebote.html?filter=foto" class="bi"><span class="bi-ic">📷</span><span class="bi-lb">Fotobox</span></a>
-  <a href="unsere-angebote.html?filter=extra" class="bi"><span class="bi-ic">🍭</span><span class="bi-lb">Extras</span></a>
-  <a href="kontakt.html" class="bi"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
+
+<nav class="bnav" aria-label="Hauptnavigation">
+  <a href="/" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg><span>Start</span></a>
+  <a href="unsere-angebote.html?filter=burg" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l2-2 2 2 2-4 2 4 2-2 2 2 2-2v13z"/><path d="M10 20v-4h4v4"/></svg><span>Burgen</span></a>
+  <a href="fotobox.html" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3.2"/></svg><span>Fotobox</span></a>
+  <a href="unsere-angebote.html?filter=extra" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="9" width="16" height="11" rx="1"/><path d="M3 9h18M12 9v11"/><path d="M12 9c-1.5-3-5-3.5-5-1.2C7 9 9.5 9 12 9zm0 0c1.5-3 5-3.5 5-1.2C17 9 14.5 9 12 9z"/></svg><span>Extras</span></a>
+  <a href="kontakt.html" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg><span>Kontakt</span></a>
 </nav>
+
+<a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20h%C3%A4tte%20eine%20Frage" class="wa" target="_blank" rel="noopener" aria-label="Per WhatsApp Kontakt aufnehmen" data-track="whatsapp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+</a>
+
+ 
+
  
 <script>
 var days = 1;
@@ -1091,7 +1335,7 @@ function showToast(msg, type){
   }
   var t = document.createElement('div');
   t.className = 'toast toast-' + type;
-  var icon = type === 'success' ? '✅' : type === 'info' ? '💡' : 'ℹ️';
+  var icon = type === 'success' ? '✓' : type === 'info' ? 'i' : 'i';
   t.innerHTML = '<span class="toast-icon">' + icon + '</span><span class="toast-text">' + msg + '</span>';
   _toastContainer.appendChild(t);
   requestAnimationFrame(function(){ t.classList.add('show'); });
@@ -1248,13 +1492,13 @@ document.getElementById('extras-select').addEventListener('change', function(){
   if(!showZucker && zuckerwatteSetOn){
     zuckerwatteSetOn = false;
     document.getElementById('zuckerwatte-set-btn').classList.remove('selected');
-    document.getElementById('zuckerwatte-set-btn').querySelector('.set-price').textContent = '👉 Aktivieren';
+    document.getElementById('zuckerwatte-set-btn').querySelector('.set-price').textContent = 'Aktivieren';
     document.getElementById('zuckerwatte-set-val').value = 'Nein';
   }
   if(!showPopcorn && popcornSetOn){
     popcornSetOn = false;
     document.getElementById('popcorn-set-btn').classList.remove('selected');
-    document.getElementById('popcorn-set-btn').querySelector('.set-price').textContent = '👉 Aktivieren';
+    document.getElementById('popcorn-set-btn').querySelector('.set-price').textContent = 'Aktivieren';
     document.getElementById('popcorn-set-val').value = 'Nein';
   }
   updateOrderSummary();
@@ -1264,7 +1508,7 @@ document.getElementById('extras-select').addEventListener('change', function(){
 document.getElementById('zuckerwatte-set-btn').addEventListener('click', function(){
   zuckerwatteSetOn = !zuckerwatteSetOn;
   this.classList.toggle('selected', zuckerwatteSetOn);
-  this.querySelector('.set-price').textContent = zuckerwatteSetOn ? '✅ Aktiviert' : '👉 Aktivieren';
+  this.querySelector('.set-price').textContent = zuckerwatteSetOn ? '✓ Aktiviert' : 'Aktivieren';
   document.getElementById('zuckerwatte-set-val').value = zuckerwatteSetOn ? 'Ja – Zuckerwatte-Set (+20 €)' : 'Nein';
   updateOrderSummary();
 });
@@ -1273,7 +1517,7 @@ document.getElementById('zuckerwatte-set-btn').addEventListener('click', functio
 document.getElementById('popcorn-set-btn').addEventListener('click', function(){
   popcornSetOn = !popcornSetOn;
   this.classList.toggle('selected', popcornSetOn);
-  this.querySelector('.set-price').textContent = popcornSetOn ? '✅ Aktiviert' : '👉 Aktivieren';
+  this.querySelector('.set-price').textContent = popcornSetOn ? '✓ Aktiviert' : 'Aktivieren';
   document.getElementById('popcorn-set-val').value = popcornSetOn ? 'Ja – Popcorn-Set (+20 €)' : 'Nein';
   updateOrderSummary();
 });
@@ -1303,7 +1547,7 @@ function applyGutschein(silent){
   renderGutscheinUI();
   updateOrderSummary();
   if(typeof saveDraft === 'function') saveDraft();
-  if(!silent) showToast('Gutschein eingelöst: −' + g.prozent + '% 🎉', 'success');
+  if(!silent) showToast('Gutschein eingelöst: −' + g.prozent + '% ', 'success');
 }
 
 function removeGutschein(){
@@ -1323,7 +1567,7 @@ function renderGutscheinUI(){
   if(activeGutschein){
     row.style.display = 'none';
     act.style.display = 'flex';
-    document.getElementById('gutscheinActiveText').textContent = '🎟️ ' + activeGutschein.code + ' · −' + activeGutschein.prozent + '% aktiv';
+    document.getElementById('gutscheinActiveText').textContent = '' + activeGutschein.code + ' · −' + activeGutschein.prozent + '% aktiv';
     msg.textContent = 'Nicht kombinierbar mit Paket-Rabatten – es gilt automatisch der höhere Rabatt.';
     msg.className = 'gutschein-msg ok';
   } else {
@@ -1353,14 +1597,14 @@ function updateOrderSummary(){
   // Hüpfburg (nur in burg/hochzeit Modus)
   if(selectedName && currentModus !== 'foto'){
     var burgPreis = selectedPrice > 0 ? (days === 1 ? selectedPrice : selectedPrice + (days-1)*(selectedPrice*0.5)) : 0;
-    var burgLabel = (selectedName === 'Hochzeitsburg' ? '💒' : '🏰') + ' ' + selectedName + (selectedName === 'Hochzeitsburg' ? ' (inkl. Deko)' : '');
+    var burgLabel = (selectedName === 'Hochzeitsburg' ? '' : '') + ' ' + selectedName + (selectedName === 'Hochzeitsburg' ? ' (inkl. Deko)' : '');
     rows.push({label: burgLabel, val: burgPreis > 0 ? Math.round(burgPreis) + ' €' : 'Auf Anfrage'});
     if(burgPreis > 0) total += Math.round(burgPreis);
   }
 
   // Fotobox (alle Modi wenn ausgewählt)
   if(selectedFoto){
-    rows.push({label: '📷 ' + selectedFoto, val: selectedFotoPrice + ' €'});
+    rows.push({label: '' + selectedFoto, val: selectedFotoPrice + ' €'});
     total += selectedFotoPrice;
   }
 
@@ -1371,13 +1615,13 @@ function updateOrderSummary(){
   var extrasVal = document.getElementById('extras-select').value;
   if(extrasVal && extrasVal !== 'Keine Extras'){
     var extrasPreis = extrasVal.indexOf('Zuckerwatte + Popcorn') !== -1 ? 100 : extrasVal.indexOf('Zuckerwatte') !== -1 ? 45 : 60;
-    rows.push({label: extrasVal.indexOf('Zuckerwatte + Popcorn') !== -1 ? '🍭🍿 Zuckerwatte + Popcorn' : extrasVal.indexOf('Zuckerwatte') !== -1 ? '🍭 Zuckerwatte' : '🍿 Popcorn', val:'+' + extrasPreis + ' €'});
+    rows.push({label: extrasVal.indexOf('Zuckerwatte + Popcorn') !== -1 ? 'Zuckerwatte + Popcorn' : extrasVal.indexOf('Zuckerwatte') !== -1 ? 'Zuckerwatte' : 'Popcorn', val:'+' + extrasPreis + ' €'});
     total += extrasPreis;
   }
 
   // Sets
-  if(zuckerwatteSetOn){ rows.push({label:'🍭 Zuckerwatte-Set', val:'+20 €'}); total += 20; }
-  if(popcornSetOn){ rows.push({label:'🍿 Popcorn-Set', val:'+20 €'}); total += 20; }
+  if(zuckerwatteSetOn){ rows.push({label:'Zuckerwatte-Set', val:'+20 €'}); total += 20; }
+  if(popcornSetOn){ rows.push({label:'Popcorn-Set', val:'+20 €'}); total += 20; }
 
   // ── Rabatt berechnen (Auto-Detection basierend auf der tatsächlichen Auswahl) ──
   var rabattProzent = 0;
@@ -1427,7 +1671,7 @@ function updateOrderSummary(){
   // ── Gutscheincode: ersetzt Auto-/Paket-Rabatte, wenn er höher ist (nicht kombinierbar) ──
   if(activeGutschein && activeGutschein.prozent > rabattProzent){
     rabattProzent = activeGutschein.prozent;
-    rabattLabel = '🎟️ ' + activeGutschein.label + ' −' + activeGutschein.prozent + '%';
+    rabattLabel = '' + activeGutschein.label + ' −' + activeGutschein.prozent + '%';
   }
 
   var rabattBetrag = 0;
@@ -1478,13 +1722,13 @@ function updateOrderSummary(){
   if(hinweis){
     if(total >= 300){
       hinweis.style.display = 'block';
-      hinweis.innerHTML = '💳 Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 100 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird am Veranstaltungstag bezahlt.';
+      hinweis.innerHTML = 'Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 100 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird am Veranstaltungstag bezahlt.';
     } else if(total >= 220){
       hinweis.style.display = 'block';
-      hinweis.innerHTML = '💳 Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 50 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird am Veranstaltungstag bezahlt.';
+      hinweis.innerHTML = 'Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 50 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird am Veranstaltungstag bezahlt.';
     } else if(total > 0){
       hinweis.style.display = 'block';
-      hinweis.innerHTML = '💳 Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 30 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird am Veranstaltungstag bezahlt.';
+      hinweis.innerHTML = 'Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 30 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird am Veranstaltungstag bezahlt.';
     } else {
       hinweis.style.display = 'none';
     }
@@ -1514,10 +1758,10 @@ window.addEventListener('DOMContentLoaded', function(){
   if(paket){
     // Paket-Banner anzeigen
     var paketNamen = {
-      'komfort': { name: 'Komfort-Paket', desc: 'Hüpfburg + Auf- & Abbau', icon: '🔧' },
-      'sweet':   { name: 'Süßes Paket',   desc: 'Hüpfburg + Auf&Abbau + Zuckerwatte (-5%)', icon: '🍭' },
-      'snack':   { name: 'Snack-Paket',   desc: 'Hüpfburg + Popcornmaschine', icon: '🍿' },
-      'allin':   { name: 'All-Inclusive', desc: 'Hüpfburg + Auf&Abbau + Zuckerwatte + Popcorn (-10%)', icon: '🎉' }
+      'komfort': { name: 'Komfort-Paket', desc: 'Hüpfburg + Auf- & Abbau', icon: 'K' },
+      'sweet':   { name: 'Süßes Paket',   desc: 'Hüpfburg + Auf&Abbau + Zuckerwatte (-5%)', icon: 'S' },
+      'snack':   { name: 'Snack-Paket',   desc: 'Hüpfburg + Popcornmaschine', icon: 'S' },
+      'allin':   { name: 'All-Inclusive', desc: 'Hüpfburg + Auf&Abbau + Zuckerwatte + Popcorn (-10%)', icon: 'A' }
     };
     var pk = paketNamen[paket.toLowerCase()];
     if(pk){
@@ -1597,7 +1841,7 @@ window.addEventListener('DOMContentLoaded', function(){
     var gi = document.getElementById('gutscheinInput');
     if(gi) gi.value = urlCode.toUpperCase().trim();
     applyGutschein(true);
-    showToast('Dein Mitarbeiter-Rabatt (−' + GUTSCHEINE[urlCode.toUpperCase().trim()].prozent + '%) wurde automatisch aktiviert 🎉', 'success');
+    showToast('Dein Mitarbeiter-Rabatt (−' + GUTSCHEINE[urlCode.toUpperCase().trim()].prozent + '%) wurde automatisch aktiviert ', 'success');
   }
 
   // Set min date to today
@@ -2180,9 +2424,57 @@ function setLieferung(ja){
   }
 }
 </script>
-<!-- WhatsApp-FAB -->
-<a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20interessiere%20mich%20f%C3%BCr%20eine%20H%C3%BCpfburg-Miete" class="wa-fab" target="_blank" rel="noopener" aria-label="Per WhatsApp Kontakt aufnehmen" title="WhatsApp">
-  <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
-</a>
+
+
+
+
+<script>
+
+/* Anruf- und WhatsApp-Klicks als Conversion messen */
+document.querySelectorAll('[data-track]').forEach(function(el){
+  el.addEventListener('click', function(){
+    var kind = el.getAttribute('data-track');
+    if(typeof gtag === 'function'){
+      gtag('event', kind === 'call' ? 'click_anruf' : 'click_whatsapp',
+           {event_category:'Kontakt', value: kind === 'call' ? 25 : 20, currency:'EUR'});
+    }
+    if(typeof fbq === 'function'){ fbq('track','Contact',{content_name:kind}); }
+  });
+});
+/* Einblenden beim Scrollen */
+(function(){
+  var els = document.querySelectorAll('.rise');
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)){
+    els.forEach(function(el){ el.classList.add('in'); }); return;
+  }
+  var obs = new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+  },{threshold:.08, rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(el){ obs.observe(el); });
+})();
+
+/* Menü am Handy */
+(function(){
+  var html=document.documentElement, btn=document.getElementById('menuBtn'), cls=document.getElementById('menuClose'),
+      bg=document.getElementById('drawerBg'), dr=document.getElementById('drawer');
+  function setOpen(o){
+    html.classList.toggle('menu-open',o); btn.setAttribute('aria-expanded',o); dr.setAttribute('aria-hidden',!o);
+    document.body.style.overflow=o?'hidden':'';
+    if(o) cls.focus(); else btn.focus();
+  }
+  btn.addEventListener('click',function(){ setOpen(true); });
+  cls.addEventListener('click',function(){ setOpen(false); });
+  bg.addEventListener('click',function(){ setOpen(false); });
+  dr.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ setOpen(false); }); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && html.classList.contains('menu-open')) setOpen(false); });
+})();
+/* WhatsApp-Knopf erst nach dem Hero einblenden */
+(function(){
+  var fab=document.querySelector('.wa'), hero=document.querySelector('.hero');
+  if(!fab) return;
+  if(!hero || !('IntersectionObserver' in window)){ fab.classList.add('zeigen'); return; }
+  new IntersectionObserver(function(e){ fab.classList.toggle('zeigen', !e[0].isIntersecting); }).observe(hero);
+})();
+</script>
 </body>
 </html>

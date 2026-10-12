@@ -2,8 +2,10 @@
 <html lang="de">
 <head>
 <script src="consent.js"></script>
+<script src="ref.js"></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta name="color-scheme" content="light only"/>
+<meta name="color-scheme" content="light"/>
+<meta name="theme-color" content="#0B0B0E"/>
 <meta name="description" content="Feuerwehr-Hüpfburg mieten in Kärnten ✓ 5 × 4,2 × 3,4 m mit Rutsche ✓ 140€/Tag ✓ Gratis Lieferung bis 40 km ✓ NEU – Actionspaß für kleine Retter – Jetzt anfragen!"/>
 <meta name="keywords" content="Feuerwehr Hüpfburg mieten, Feuerwehrauto Hüpfburg, Feuerwehr Hüpfburg Kärnten, Hüpfburg mieten Kärnten, Hüpfburg mit Rutsche, Hüpfburg Kindergeburtstag Kärnten, Hüpfburgverleih Kärnten, neue Hüpfburg Kärnten"/>
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
@@ -28,109 +30,7 @@
 <meta name="twitter:image:alt" content="Feuerwehr-Hüpfburg mieten Kärnten"/>
 <title>Feuerwehr-Hüpfburg mieten Kärnten – ab 140€/Tag mit Rutsche | Hüpfabenteuer</title>
 <link rel="stylesheet" href="fonts.css"/>
-<style>
-:root{--pink:#ff4fa3;--purple:#a855f7;--sky:#00c2ff;--sun:#FFD600;--green:#00d97e;--dark:#0f0b2e;--fire:#ff4500;--fireDark:#cc1a1a;--shadow:0 8px 32px rgba(0,0,0,.10);}
-html{color-scheme:light only;}*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
-body{font-family:'Nunito',sans-serif;background:#f0f2f8 !important;color:#0f0b2e !important;overflow-x:hidden;padding-bottom:86px;-webkit-text-size-adjust:100%;}
-@media(prefers-color-scheme:dark){html,body{background:#f0f2f8 !important;color:#0f0b2e !important;}.card{background:white !important;}}
-
-.bnav{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,9,40,.97);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.1);display:flex;height:70px;padding-bottom:env(safe-area-inset-bottom,0);box-shadow:0 -8px 32px rgba(0,0,0,.32);}
-.bi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:rgba(255,255,255,.5);transition:color .25s;position:relative;min-height:44px;}
-.bi::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;border-radius:0 0 5px 5px;background:linear-gradient(90deg,var(--pink),var(--purple));transition:width .3s cubic-bezier(.34,1.56,.64,1);}
-.bi.on{color:white;}.bi.on::after{width:36px;}.bi:active{transform:scale(.9);}
-.bi-ic{font-size:21px;}.bi.on .bi-ic{transform:scale(1.22) translateY(-2px);}.bi-lb{font-family:'Baloo 2',cursive;font-size:10px;font-weight:700;}
-
-/* HERO */
-.ph{background:linear-gradient(155deg,#3a0000 0%,#7a0a0a 40%,#cc1a1a 70%,#8b0000 100%);padding:20px 18px 70px;position:relative;overflow:hidden;}
-.ph-bg div{position:absolute;border-radius:50%;pointer-events:none;}
-.ph-bg .b1{width:320px;height:320px;top:-100px;right:-60px;background:radial-gradient(circle,rgba(255,69,0,.25),transparent 65%);}
-.ph-bg .b2{width:240px;height:240px;bottom:-50px;left:-50px;background:radial-gradient(circle,rgba(255,214,0,.15),transparent 65%);}
-.stars{position:absolute;inset:0;pointer-events:none;}
-.star{position:absolute;border-radius:50%;background:white;animation:twinkle ease-in-out infinite;}
-@keyframes twinkle{0%,100%{opacity:.1;transform:scale(1);}50%{opacity:.5;transform:scale(1.4);}}
-.ph-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;position:relative;z-index:2;}
-.ph-back{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);color:white;padding:8px 15px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;backdrop-filter:blur(8px);}
-.ph-call{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.28);color:white;padding:8px 15px;border-radius:50px;font-family:'Baloo 2',cursive;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:5px;backdrop-filter:blur(8px);}
-.new-badge{position:relative;z-index:2;display:inline-flex;align-items:center;gap:6px;background:var(--sun);color:#1a0900;font-family:'Baloo 2',cursive;font-size:11px;font-weight:900;padding:5px 14px;border-radius:30px;margin-bottom:10px;box-shadow:0 4px 16px rgba(255,214,0,.4);animation:badgePulse 2s ease-in-out infinite;}
-@keyframes badgePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
-.ph-icon{font-size:80px;display:block;text-align:center;margin:10px 0;animation:heroFloat 3s ease-in-out infinite;filter:drop-shadow(0 8px 24px rgba(0,0,0,.4));position:relative;z-index:2;}
-@keyframes heroFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
-.ph-title{font-family:'Baloo 2',cursive;font-size:30px;font-weight:900;color:white;line-height:1.05;margin-bottom:6px;position:relative;z-index:2;}
-.ph-title em{color:var(--sun);font-style:normal;}
-.ph-sub{color:rgba(255,255,255,.85);font-size:13px;font-weight:600;position:relative;z-index:2;margin-bottom:16px;}
-.ph-chips{display:flex;flex-wrap:wrap;gap:7px;position:relative;z-index:2;}
-.ph-chip{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);color:white;font-size:12px;font-weight:700;padding:5px 12px;border-radius:30px;}
-.wave{position:absolute;bottom:-2px;left:-1px;right:-1px;width:calc(100% + 2px);display:block;}
-
-/* PRICE STRIP */
-.price-strip{margin:20px 16px 0;background:white;border-radius:22px;padding:18px 20px;box-shadow:var(--shadow);display:flex;align-items:center;gap:16px;border-left:4px solid var(--fire);}
-.ps-price{font-family:'Baloo 2',cursive;font-size:36px;font-weight:900;color:var(--fire);line-height:1;}
-.ps-sub{font-size:11px;color:#bbb;font-weight:600;}
-.ps-divider{width:1px;background:#eee;align-self:stretch;}
-.ps-info{flex:1;}
-.ps-line{font-size:12px;font-weight:700;color:#555;display:flex;align-items:center;gap:6px;margin-bottom:4px;}
-.ps-line:last-child{margin:0;}
-
-/* SECTIONS */
-.sec{padding:20px 16px 6px;}
-.card{background:white;border-radius:22px;padding:20px;box-shadow:var(--shadow);margin-bottom:14px;border:1.5px solid rgba(0,0,0,.04);}
-.card-title{font-family:'Baloo 2',cursive;font-size:17px;font-weight:900;color:var(--dark);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
-
-/* SPECS */
-.specs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.spec-card{background:#fff5f0;border:1.5px solid rgba(255,69,0,.12);border-radius:16px;padding:14px;text-align:center;}
-.spec-ic{font-size:28px;margin-bottom:5px;}
-.spec-val{font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;color:var(--dark);}
-.spec-lbl{font-size:11px;color:#999;font-weight:600;}
-
-/* FEATURES */
-.feat-list{display:flex;flex-direction:column;gap:0;}
-.feat{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #f5f5f5;font-size:13px;color:#444;line-height:1.6;}
-.feat:last-child{border:none;}
-.feat-ic{font-size:20px;flex-shrink:0;margin-top:1px;}
-
-/* PRICING TABLE */
-.price-table{border-radius:16px;overflow:hidden;border:1.5px solid rgba(255,69,0,.15);}
-.pt-row{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid rgba(255,69,0,.08);}
-.pt-row:last-child{border:none;}
-.pt-row.header{background:linear-gradient(135deg,var(--fire),var(--fireDark));color:white;}
-.pt-day{font-family:'Baloo 2',cursive;font-size:14px;font-weight:800;}
-.pt-price{font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:var(--fire);}
-.pt-row.header .pt-price{color:white;}
-.pt-note{font-size:11px;color:#bbb;}
-
-/* CTA BUTTONS */
-.btns-wrap{padding:0 16px 20px;}
-.btn-main{display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,var(--fire),var(--fireDark));color:white;padding:16px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:18px;font-weight:800;text-decoration:none;box-shadow:0 8px 28px rgba(255,69,0,.4);margin-bottom:10px;min-height:56px;transition:transform .15s;}
-.btn-main:active{transform:scale(.97);}
-.btn-sec{display:flex;align-items:center;justify-content:center;gap:7px;background:white;border:2px solid rgba(255,69,0,.2);color:var(--fire);padding:14px;border-radius:16px;font-family:'Baloo 2',cursive;font-size:15px;font-weight:800;text-decoration:none;min-height:50px;transition:transform .15s;}
-.btn-sec:active{transform:scale(.97);}
-
-footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
-.fl{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:white;margin-bottom:4px;}
-.flinks{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin:10px 0;}
-.flink{color:rgba(255,255,255,.62);text-decoration:none;font-size:11px;padding:4px 10px;background:rgba(255,255,255,.09);border-radius:20px;}
-.fcopy{font-size:11px;color:rgba(255,255,255,.42);margin-top:10px;}
-
-.reveal{opacity:1;transform:translateY(0);transition:opacity .5s ease,transform .5s ease;}
-.reveal.hide-init{opacity:0;transform:translateY(18px);}
-.reveal.visible{opacity:1;transform:translateY(0);}
-
-@media(min-width:768px){body{padding-bottom:0;}.bnav{display:none;}.ph{padding:36px 60px 90px;}.sec{padding:28px 60px 10px;max-width:960px;margin:0 auto;}.btns-wrap{padding:0 60px 24px;max-width:960px;margin:0 auto;}footer{padding:32px 60px 24px;}.specs-grid{grid-template-columns:repeat(4,1fr);}}
-
-/* ── WHATSAPP-FAB (Sticky Floating Action Button) ── */
-.wa-fab{position:fixed;bottom:88px;right:16px;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,.55);z-index:1500;text-decoration:none;transition:transform .2s;animation:wa-pulse 2.4s infinite;}
-.wa-fab:hover{transform:scale(1.07);}
-.wa-fab:active{transform:scale(.94);}
-.wa-fab svg{width:30px;height:30px;}
-@keyframes wa-pulse{
-  0%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,.55);}
-  70%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 16px rgba(37,211,102,0);}
-  100%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,0);}
-}
-@media(max-width:600px){.wa-fab{bottom:84px;right:14px;width:54px;height:54px;}.wa-fab svg{width:28px;height:28px;}}
-@media(prefers-reduced-motion:reduce){.wa-fab{animation:none;}}
-</style>
+<link rel="stylesheet" href="site.css"/>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -204,173 +104,269 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
 </script>
 
 </head>
-
 <body>
+<div class="grain" aria-hidden="true"></div>
 
-<div class="ph">
-  <div class="stars" id="stars"></div>
-  <div class="ph-bg"><div class="b1"></div><div class="b2"></div></div>
-  <div class="ph-topbar">
-    <a href="unsere-angebote.html" class="ph-back">← Angebote</a>
-    <a href="tel:+436641852634" class="ph-call">📞 Anrufen</a>
-  </div>
-  <div class="new-badge">⏳ Bald verfügbar – jetzt vormerken!</div>
-  <span class="ph-icon">🚒</span>
-  <h1 class="ph-title">Feuerwehr-Hüpfburg<br><em>mieten in Kärnten</em></h1>
-  <p class="ph-sub">Actionreicher Spaß für kleine Retter – mit Rutsche!</p>
-  <div class="ph-chips">
-    <span class="ph-chip">📏 5 × 4,2 × 3,4 m</span>
-    <span class="ph-chip">🛝 Mit Rutsche</span>
-    <span class="ph-chip">👦 bis 10 Kinder</span>
-    <span class="ph-chip">🚚 Lieferung inkl.</span>
-  </div>
-  <svg class="wave" viewBox="0 0 390 60" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 30C60 10 120 50 195 28C270 6 330 46 390 26V60H0Z" fill="#f0f2f8"/>
-  </svg>
-</div>
-
-<!-- PRICE STRIP -->
-<div class="price-strip reveal">
-  <div>
-    <div class="ps-price">140€</div>
-    <div class="ps-sub">pro Tag</div>
-  </div>
-  <div class="ps-divider"></div>
-  <div class="ps-info">
-    <div class="ps-line">✅ Kostenlos im 40 km Umkreis</div>
-  </div>
-</div>
-
-<!-- COMING SOON BANNER -->
-<div style="margin:20px 16px 0;background:linear-gradient(135deg,rgba(255,69,0,.1),rgba(204,26,26,.08));border:2px solid rgba(255,69,0,.25);border-radius:22px;padding:20px;text-align:center;">
-  <div style="font-size:36px;margin-bottom:8px;">⏳</div>
-  <div style="font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:#cc1a1a;margin-bottom:6px;">Bald bei uns verfügbar!</div>
-  <p style="font-size:13px;color:#666;line-height:1.6;margin-bottom:0;">Unsere Feuerwehr-Hüpfburg kommt bald! Trag dich jetzt ein und wir melden uns sobald sie verfügbar ist.</p>
-</div>
-
-  <!-- SPECS -->
-  <div class="card reveal">
-    <div class="card-title">📐 Technische Daten</div>
-    <div class="specs-grid">
-      <div class="spec-card">
-        <div class="spec-ic">📏</div>
-        <div class="spec-val">5 × 4,2 m</div>
-        <div class="spec-lbl">Grundfläche</div>
-      </div>
-      <div class="spec-card">
-        <div class="spec-ic">📐</div>
-        <div class="spec-val">3,4 m</div>
-        <div class="spec-lbl">Höhe</div>
-      </div>
-      <div class="spec-card">
-        <div class="spec-ic">👦</div>
-        <div class="spec-val">bis 10</div>
-        <div class="spec-lbl">Kinder gleichzeitig</div>
-      </div>
-      <div class="spec-card">
-        <div class="spec-ic">🛝</div>
-        <div class="spec-val">Ja</div>
-        <div class="spec-lbl">Mit Rutsche</div>
-      </div>
+<header class="topbar">
+  <div class="topbar-in">
+    <a href="/" class="brand"><span class="brand-n">Hüpfabenteuer</span><span class="brand-s">Kärnten</span></a>
+    <nav class="top-nav" aria-label="Seitenbereiche">
+      <a href="unsere-angebote.html?filter=burg" class="on">Hüpfburgen</a>
+      <a href="fotobox.html">Fotobox</a>
+      <a href="unsere-angebote.html?filter=extra">Extras</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <div class="top-actions">
+      <a href="tel:+436641852634" class="top-tel" data-track="call">+43 664 185 26 34</a>
+      <a href="anfragen.html" class="btn btn-solid btn-sm">Anfragen</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
+</header>
 
-  <!-- FEATURES -->
-  <div class="card reveal">
-    <div class="card-title">🚒 Was ist dabei?</div>
-    <div class="feat-list">
-      <div class="feat"><div class="feat-ic">🚒</div><div><strong>Cooles Feuerwehr-Design</strong> – Kinder lieben es! Tolles Feuerwehrauto-Motiv für kleine Retter und Brandbekämpfer.</div></div>
-      <div class="feat"><div class="feat-ic">🛝</div><div><strong>Integrierte Rutsche</strong> – Doppelter Spaß: hüpfen und rutschen. Stundenlange Beschäftigung garantiert.</div></div>
-      <div class="feat"><div class="feat-ic">🔌</div><div><strong>Stromversorgung</strong> – Steckdose in der Nähe genügt (ca. 10 m). Wir bringen das Gebläse mit.</div></div>
-      <div class="feat"><div class="feat-ic">🛡️</div><div><strong>Sicher & geprüft</strong> – Alle Hüpfburgen werden regelmäßig geprüft und entsprechen den Sicherheitsstandards.</div></div>
-      <div class="feat"><div class="feat-ic">🌤️</div><div><strong>Für drinnen & draußen</strong> – Geeignet für Gärten, Wiesen, Hallen und Veranstaltungsräume.</div></div>
-    </div>
+<div class="drawer-bg" id="drawerBg"></div>
+<aside class="drawer" id="drawer" aria-label="Menü" aria-hidden="true">
+  <div class="drawer-top">
+    <span class="brand"><span class="brand-n">Hüpfabenteuer</span><span class="brand-s">Kärnten</span></span>
+    <button type="button" class="menu-btn" id="menuClose" aria-label="Menü schließen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
   </div>
-
-  <!-- PREISTABELLE -->
-  <div class="card reveal">
-    <div class="card-title">💰 Preise</div>
-    <div class="price-table">
-      <div class="pt-row header">
-        <div class="pt-day">Mietdauer</div>
-        <div class="pt-price">Preis</div>
-      </div>
-      <div class="pt-row">
-        <div><div class="pt-day">1 Tag</div><div class="pt-note">Standardmiete</div></div>
-        <div class="pt-price">140 €</div>
-      </div>
-      <div class="pt-row">
-        <div><div class="pt-day">2 Tage</div><div class="pt-note">+70€ pro Zusatztag</div></div>
-        <div class="pt-price">210 €</div>
-      </div>
-      <div class="pt-row">
-        <div><div class="pt-day">3 Tage</div><div class="pt-note">Perfekt für Events</div></div>
-        <div class="pt-price">280 €</div>
-      </div>
-    </div>
-    <p style="font-size:11px;color:#bbb;margin-top:10px;text-align:center;line-height:1.6;">Lieferung kostenlos im 40 km Umkreis von Glödnitz. Jeder weitere km +0,55 €.</p>
+  <nav>
+    <a href="unsere-angebote.html?filter=burg">Hüpfburgen<small>6 Modelle ab 120 €</small></a>
+    <a href="fotobox.html">Fotobox<small>Mit Sofortdruck ab 199 €</small></a>
+    <a href="unsere-angebote.html?filter=extra">Extras<small>Zuckerwatte &amp; Popcorn</small></a>
+    <a href="#indoor">Indoor<small>Auch im Winter</small></a>
+    <a href="kontakt.html">Kontakt<small>Antwort meist in unter 1 Std</small></a>
+  </nav>
+  <div class="drawer-c">
+    <a href="anfragen.html" class="btn btn-solid btn-wide">Termin anfragen</a>
+    <a href="tel:+436641852634" class="btn btn-ghost btn-wide" data-track="call"><svg class="ic ic-ph" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg> +43 664 185 26 34</a>
+    <a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20h%C3%A4tte%20eine%20Anfrage" target="_blank" rel="noopener" class="btn btn-ghost btn-wide" data-track="whatsapp"><svg class="ic ic-wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg> WhatsApp schreiben</a>
   </div>
+</aside>
 
-  <!-- IDEAL FÜR -->
-  <div class="card reveal">
-    <div class="card-title">🎉 Ideal für</div>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;">
-      <span style="background:#fff5f0;border:1.5px solid rgba(255,69,0,.15);color:var(--fire);font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;padding:7px 14px;border-radius:30px;">🎂 Kindergeburtstage</span>
-      <span style="background:#fff5f0;border:1.5px solid rgba(255,69,0,.15);color:var(--fire);font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;padding:7px 14px;border-radius:30px;">🎪 Vereinsfeste</span>
-      <span style="background:#fff5f0;border:1.5px solid rgba(255,69,0,.15);color:var(--fire);font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;padding:7px 14px;border-radius:30px;">🏘️ Dorffeste</span>
-      <span style="background:#fff5f0;border:1.5px solid rgba(255,69,0,.15);color:var(--fire);font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;padding:7px 14px;border-radius:30px;">🏫 Schulveranstaltungen</span>
-      <span style="background:#fff5f0;border:1.5px solid rgba(255,69,0,.15);color:var(--fire);font-family:'Baloo 2',cursive;font-size:13px;font-weight:800;padding:7px 14px;border-radius:30px;">🌳 Gartenpartys</span>
+<div class="hero slim with-gal">
+  <div class="hero-in">
+    <div>
+      <a href="unsere-angebote.html?filter=burg" class="back">← Alle Hüpfburgen</a>
+      <div class="hero-kicker">Neu · Hüpfburg</div>
+      <h1>Feuerwehrburg <span class="it">mieten in Kärnten.</span></h1>
+      <p class="lede">Actionreicher Spaß für kleine Retter – mit Rutsche!</p>
+      <div class="hero-cta">
+        <a href="anfragen.html?burg=Feuerwehrauto" class="btn btn-solid">Jetzt anfragen</a>
+        <a href="#preise" class="btn btn-ghost">Preise ansehen</a>
+      </div>
+      <div class="quick">
+        <a href="tel:+436641852634" data-track="call"><svg class="ic ic-ph" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg>Anrufen</a>
+        <a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20h%C3%A4tte%20eine%20Anfrage" target="_blank" rel="noopener" data-track="whatsapp"><svg class="ic ic-wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>WhatsApp</a>
+      </div>
+      <div class="hero-meta"><span><b>ab 140 €</b> pro Tag</span><span><b>5 × 4,2 m</b> Fläche</span><span><b>3,4 m</b> hoch</span><span><b>Indoor</b> möglich</span></div>
     </div>
+    <div class="gal "><div class="gal-track"><img src="https://i.imgur.com/IulKevy.jpeg" alt="Feuerwehr-Hüpfburg mieten Kärnten – mit Rutsche" width="800" height="600" loading="eager" decoding="async"/><img src="https://i.imgur.com/qRqbWjb.jpeg" alt="Feuerwehr-Hüpfburg mieten Kärnten – Detail" width="800" height="600" loading="lazy" decoding="async"/><img src="https://i.imgur.com/DN91TXi.jpeg" alt="Feuerwehr-Hüpfburg mieten Kärnten – Im Einsatz" width="800" height="600" loading="lazy" decoding="async"/><img src="https://i.imgur.com/81ujD6h.jpeg" alt="Feuerwehr-Hüpfburg mieten Kärnten – Aufgebaut" width="800" height="600" loading="lazy" decoding="async"/></div><button type="button" class="gal-arrow prev" aria-label="Vorheriges Bild">‹</button><button type="button" class="gal-arrow next" aria-label="Nächstes Bild">›</button><div class="gal-foot"><span>Feuerwehrburg</span><div class="gal-dots"></div><span>Kärnten</span></div></div>
   </div>
-
-<!-- CTA BUTTONS -->
-<div class="btns-wrap reveal">
-  <a href="kontakt.html?vormerken=feuerwehr" class="btn-main">🚒 Jetzt vormerken lassen!</a>
-  <a href="tel:+436641852634" class="btn-sec">📞 Direkt anrufen</a>
 </div>
 
-<!-- CROSS-SELL FOTOBOX -->
-<div class="xs-fotobox" style="padding:4px 16px 22px;max-width:960px;margin:0 auto;">
-  <a href="fotobox.html" style="display:flex;gap:14px;align-items:center;background:#0B0B0E;border-radius:16px;padding:14px;text-decoration:none;color:#F5F0E6;box-shadow:0 8px 28px rgba(0,0,0,.18);">
-    <img src="fotostreifen-hand.webp" width="900" height="1200" loading="lazy" alt="Fotostreifen aus der Fotobox mit Sofortdruck" style="width:78px;height:104px;object-fit:cover;border-radius:6px;flex-shrink:0;background:#1A1A21;"/>
-    <span style="display:block;">
-      <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#C9954A;font-weight:700;">Feuerwehrfest oder Familienfeier?</span>
-      <span style="display:block;font-family:'Baloo 2',cursive;font-size:19px;font-weight:800;line-height:1.2;margin:3px 0 4px;">Dazu passt: Fotobox ab 199&nbsp;€</span>
-      <span style="display:block;font-size:13px;line-height:1.5;color:#C9C4B8;">Die Fotobox mit Sofortdruck bringt auch die Erwachsenen zum Lachen. Den ganzen Abend, ohne Stundenlimit, alle Bilder digital dazu. Kommt in derselben Lieferung mit.</span>
-      <span style="display:inline-block;margin-top:7px;font-size:13px;font-weight:800;color:#E6C08A;">Fotobox ansehen →</span>
-    </span>
-  </a>
+<div class="lt">
+<section id="preise">
+  <div class="wrap two-col">
+    <div class="rise">
+      <div class="sec-head" style="margin-bottom:24px;">
+        <div class="eyebrow">Preise</div>
+        <h2>Fair und fix.</h2>
+      </div>
+      <div class="ptab"><div class="ptab-row main"><div><div class="ptab-d">1 Tag</div><div class="ptab-n">Standardmiete</div></div><div class="ptab-p">140 €</div></div><div class="ptab-row"><div><div class="ptab-d">2 Tage</div><div class="ptab-n">+70€ pro Zusatztag</div></div><div class="ptab-p">210 €</div></div><div class="ptab-row"><div><div class="ptab-d">3 Tage</div><div class="ptab-n">Perfekt für Events</div></div><div class="ptab-p">280 €</div></div></div>
+      <p class="ptab-note">Auf- und Abbau übernehmen wir auf Wunsch für 50 €. Die ersten 40 Kilometer sind gratis, darüber 0,55 € pro Kilometer, gerechnet auf vier Fahrten — hin und retour beim Liefern und beim Abholen.</p>
+    </div>
+    <div class="rise">
+      <div class="sec-head" style="margin-bottom:24px;">
+        <div class="eyebrow">Technische Daten</div>
+        <h2>Das Wichtigste auf einen Blick.</h2>
+      </div>
+      <div class="specs4"><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="6" width="17" height="12" rx="1"/><path d="M7 9.5l-1.5 2.5L7 14.5M17 9.5l1.5 2.5-1.5 2.5M5.5 12h13"/></svg><b>5 × 4,2 m</b><span>Grundfläche</span></div><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5v17M8.5 7 12 3.5 15.5 7M8.5 17 12 20.5 15.5 17"/></svg><b>3,4 m</b><span>Höhe</span></div><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="2.5"/><circle cx="16.5" cy="9" r="2"/><path d="M4.5 20v-3.5A4.5 4.5 0 0 1 9 12a4.5 4.5 0 0 1 4.5 4.5V20M13.5 14.5a3.5 3.5 0 0 1 6.5 1.8V20"/></svg><b>bis 10</b><span>Kinder gleichzeitig</span></div><div><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4c2.5 0 4-2 5-4l3-7c.6-1.4 1.8-2 3-2h1"/><path d="M4 20V9h4v6"/></svg><b>Ja</b><span>Mit Rutsche</span></div></div>
+      <div class="eyebrow" style="margin:28px 0 14px;">Ideal für</div>
+      <div class="chips"><span class="chip">Kindergeburtstage</span><span class="chip">Vereinsfeste</span><span class="chip">Dorffeste</span><span class="chip">Schulveranstaltungen</span><span class="chip">Gartenpartys</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="eyebrow">Was ist dabei</div>
+      <h2>Über die Feuerwehrburg.</h2>
+    </div>
+    <div class="two-col">
+      <div class="feats rise" style="grid-template-columns:1fr;"><div><b>Cooles Feuerwehr-Design</b><p>Kinder lieben es! Tolles Feuerwehrauto-Motiv für kleine Retter und Brandbekämpfer.</p></div><div><b>Integrierte Rutsche</b><p>Doppelter Spaß: hüpfen und rutschen. Stundenlange Beschäftigung garantiert.</p></div><div><b>Stromversorgung</b><p>Steckdose in der Nähe genügt (ca. 10 m). Wir bringen das Gebläse mit.</p></div><div><b>Sicher &amp; geprüft</b><p>Alle Hüpfburgen werden regelmäßig geprüft und entsprechen den Sicherheitsstandards.</p></div><div><b>Für drinnen &amp; draußen</b><p>Geeignet für Gärten, Wiesen, Hallen und Veranstaltungsräume.</p></div></div>
+      <div class="prose rise"><p>Die Feuerwehr-Hüpfburg mit Rutsche ist actionreicher Spaß für kleine Retter. Das tolle Feuerwehrauto-Design begeistert bei Geburtstagen und Festen, und mit 3,4 m Höhe passt sie auch in viele Säle und Turnhallen.</p><p>Gebläse, Sicherheitsnetz und Einweisung sind immer dabei. Alle Hüpfburgen sind sicherheitsgeprüft (Sachverständigen-Gutachten 2026).</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="indoor-note rise">
+      <div class="eyebrow">Indoor &amp; Winter</div>
+      <h3 style="margin-top:12px;">Auch drinnen buchbar.</h3>
+      <p>Zu kalt oder zu nass? Die Feuerwehrburg geht auch drinnen – zum Beispiel beim Gasthof Hochsteiner mit Kinoecke, Beamer und warmer Küche, oder in eurem eigenen Saal oder Turnsaal.</p>
+      <p>Dafür muss die Decke höher als <b>3,4 m</b> sein, und der Boden braucht <b>5 × 4,2 m</b> Platz. Schick uns einfach die Maße, wir sagen dir sofort, ob es passt.</p>
+      <a href="/#indoor" class="all-link" style="margin-top:6px;">Mehr zu Indoor-Buchungen →</a>
+    </div>
+  </div>
+</section>
+<section class="plain">
+  <div class="wrap closing rise">
+    <div class="eyebrow center">Termin frei?</div>
+    <h2>Die Feuerwehrburg für dein Fest.</h2>
+    <p class="lede">Schreib uns Datum und Ort – du bekommst ein fixes Angebot mit allen Kosten, meistens innerhalb einer Stunde.</p>
+    <div class="btns" style="justify-content:center;">
+      <a href="anfragen.html?burg=Feuerwehrauto" class="btn btn-solid">Jetzt anfragen</a>
+      <a href="tel:+436641852634" class="btn btn-ghost" data-track="call"><svg class="ic ic-ph" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg> Anrufen</a>
+      
+    </div>
+    <div class="trust-line"><span><b>★ 5,0</b> auf Google</span><span><b>16</b> Bewertungen</span><span><b>80+</b> Feste in Kärnten</span></div>
+  </div>
+</section>
+
+<section class="fbx dk xs-sec">
+  <div class="wrap">
+    <a href="fotobox.html" class="xs">
+      <img src="fotostreifen-hand.webp" width="900" height="1200" loading="lazy" alt="Fotostreifen aus der Fotobox mit Sofortdruck"/>
+      <div><div class="k">Feuerwehrfest oder Familienfeier?</div><h3>Dazu passt: Fotobox ab 199&nbsp;€</h3><p>Die Fotobox mit Sofortdruck bringt auch die Erwachsenen zum Lachen. Den ganzen Abend, ohne Stundenlimit, alle Bilder digital dazu. Kommt in derselben Lieferung mit.</p><span class="l" style="font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass-lt);">Fotobox ansehen →</span></div>
+    </a>
+  </div>
+</section>
 </div>
 
 <footer>
-  <div class="fl">🏰 Hüpfabenteuer</div>
-  <div style="font-size:12px;color:rgba(255,255,255,.55);margin:4px 0;">Schulstraße 3 · 9346 Glödnitz · Kärnten</div>
-  <div class="flinks">
-    <a href="impressum.html" class="flink">Impressum</a>
-    <a href="datenschutz.html" class="flink">Datenschutz</a>
-    <a href="#" class="flink" onclick="return hbCookies()">Cookies</a>
-    <a href="agbs.html" class="flink">AGBs</a>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="foot-b">Hüpfabenteuer</div>
+        <p>Fotoboxen, Hüpfburgen und Partyausstattung für ganz Kärnten.<br>Schulstraße 3, 9346 Glödnitz</p>
+      </div>
+      <div>
+        <div class="foot-h">Sortiment</div>
+        <div class="foot-l">
+          <a href="fotobox.html">Fotobox</a>
+          <a href="fotobox-weihnachtsfeier.html">Fotobox Weihnachtsfeier</a>
+          <a href="fotobox-hochzeit.html">Fotobox Hochzeit</a>
+          <a href="unsere-angebote.html?filter=burg">Hüpfburgen</a>
+          <a href="zuckerwatte.html">Zuckerwatte</a>
+          <a href="popcorn.html">Popcorn</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-h">Kontakt</div>
+        <div class="foot-l">
+          <a href="tel:+436641852634" data-track="call">+43 664 185 26 34</a>
+          <a href="mailto:info@huepfabenteuer.at">info@huepfabenteuer.at</a>
+          <a href="kontakt.html">Kontaktseite</a>
+          <a href="partner.html">Partnerprogramm</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-btm">
+      <span>© 2025–2026 Hüpfabenteuer</span>
+      <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a> · <a href="#" onclick="return hbCookies()">Cookies</a> · <a href="agbs.html">AGB</a></span>
+    </div>
   </div>
-  <div class="fcopy">© 2025–2026 Hüpfabenteuer</div>
 </footer>
 
-<nav class="bnav">
-  <a href="home.html" class="bi"><span class="bi-ic">🏠</span><span class="bi-lb">Home</span></a>
-  <a href="unsere-angebote.html?filter=burg" class="bi on"><span class="bi-ic">🏰</span><span class="bi-lb">Hüpfburgen</span></a>
-  <a href="unsere-angebote.html?filter=foto" class="bi"><span class="bi-ic">📷</span><span class="bi-lb">Fotobox</span></a>
-  <a href="unsere-angebote.html?filter=extra" class="bi"><span class="bi-ic">🍭</span><span class="bi-lb">Extras</span></a>
-  <a href="kontakt.html" class="bi"><span class="bi-ic">📞</span><span class="bi-lb">Kontakt</span></a>
+<nav class="bnav" aria-label="Hauptnavigation">
+  <a href="/" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg><span>Start</span></a>
+  <a href="unsere-angebote.html?filter=burg" class="bi on" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l2-2 2 2 2-4 2 4 2-2 2 2 2-2v13z"/><path d="M10 20v-4h4v4"/></svg><span>Burgen</span></a>
+  <a href="fotobox.html" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3.2"/></svg><span>Fotobox</span></a>
+  <a href="unsere-angebote.html?filter=extra" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="9" width="16" height="11" rx="1"/><path d="M3 9h18M12 9v11"/><path d="M12 9c-1.5-3-5-3.5-5-1.2C7 9 9.5 9 12 9zm0 0c1.5-3 5-3.5 5-1.2C17 9 14.5 9 12 9z"/></svg><span>Extras</span></a>
+  <a href="kontakt.html" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg><span>Kontakt</span></a>
 </nav>
 
-<script>
-(function(){var sc=document.getElementById('stars');for(var i=0;i<20;i++){var s=document.createElement('div');s.className='star';var sz=Math.random()*2+1;s.style.cssText='width:'+sz+'px;height:'+sz+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;animation-duration:'+(Math.random()*3+2)+'s;animation-delay:'+(Math.random()*4)+'s;';sc.appendChild(s);}})();
-document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('hide-init');});
-var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');x.target.classList.remove('hide-init');obs.unobserve(x.target);}});},{threshold:.05,rootMargin:'0px 0px -20px 0px'});
-document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
-</script>
-<!-- WhatsApp-FAB -->
-<a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20interessiere%20mich%20f%C3%BCr%20eine%20H%C3%BCpfburg-Miete" class="wa-fab" target="_blank" rel="noopener" aria-label="Per WhatsApp Kontakt aufnehmen" title="WhatsApp">
-  <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+<a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20h%C3%A4tte%20eine%20Frage" class="wa" target="_blank" rel="noopener" aria-label="Per WhatsApp Kontakt aufnehmen" data-track="whatsapp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
 </a>
+
+<script>
+
+/* Anruf- und WhatsApp-Klicks als Conversion messen */
+document.querySelectorAll('[data-track]').forEach(function(el){
+  el.addEventListener('click', function(){
+    var kind = el.getAttribute('data-track');
+    if(typeof gtag === 'function'){
+      gtag('event', kind === 'call' ? 'click_anruf' : 'click_whatsapp',
+           {event_category:'Kontakt', value: kind === 'call' ? 25 : 20, currency:'EUR'});
+    }
+    if(typeof fbq === 'function'){ fbq('track','Contact',{content_name:kind}); }
+  });
+});
+/* Einblenden beim Scrollen */
+(function(){
+  var els = document.querySelectorAll('.rise');
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)){
+    els.forEach(function(el){ el.classList.add('in'); }); return;
+  }
+  var obs = new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+  },{threshold:.08, rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(el){ obs.observe(el); });
+})();
+
+/* Menü am Handy */
+(function(){
+  var html=document.documentElement, btn=document.getElementById('menuBtn'), cls=document.getElementById('menuClose'),
+      bg=document.getElementById('drawerBg'), dr=document.getElementById('drawer');
+  function setOpen(o){
+    html.classList.toggle('menu-open',o); btn.setAttribute('aria-expanded',o); dr.setAttribute('aria-hidden',!o);
+    document.body.style.overflow=o?'hidden':'';
+    if(o) cls.focus(); else btn.focus();
+  }
+  btn.addEventListener('click',function(){ setOpen(true); });
+  cls.addEventListener('click',function(){ setOpen(false); });
+  bg.addEventListener('click',function(){ setOpen(false); });
+  dr.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ setOpen(false); }); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && html.classList.contains('menu-open')) setOpen(false); });
+})();
+/* WhatsApp-Knopf erst nach dem Hero einblenden */
+(function(){
+  var fab=document.querySelector('.wa'), hero=document.querySelector('.hero');
+  if(!fab) return;
+  if(!hero || !('IntersectionObserver' in window)){ fab.classList.add('zeigen'); return; }
+  new IntersectionObserver(function(e){ fab.classList.toggle('zeigen', !e[0].isIntersecting); }).observe(hero);
+})();
+</script>
+<script>
+/* Bildergalerien: Punkte, Pfeile, Großansicht */
+(function(){
+  var lb=document.createElement('div'); lb.className='lbx'; lb.setAttribute('role','dialog'); lb.setAttribute('aria-modal','true');
+  lb.innerHTML='<button class="x" aria-label="Schließen">✕</button><button class="p" aria-label="Vorheriges Bild">‹</button><img alt=""/><button class="n" aria-label="Nächstes Bild">›</button><div class="c"></div>';
+  document.body.appendChild(lb);
+  var lbImg=lb.querySelector('img'), lbC=lb.querySelector('.c'), list=[], idx=0;
+  function show(){ lbImg.src=list[idx].src; lbImg.alt=list[idx].alt||''; lbC.textContent=(idx+1)+' / '+list.length; }
+  function open(l,i){ list=l; idx=i; show(); lb.classList.add('on'); document.body.style.overflow='hidden'; }
+  function close(){ lb.classList.remove('on'); document.body.style.overflow=''; lbImg.src=''; }
+  lb.querySelector('.x').onclick=close;
+  lb.querySelector('.p').onclick=function(){ idx=(idx-1+list.length)%list.length; show(); };
+  lb.querySelector('.n').onclick=function(){ idx=(idx+1)%list.length; show(); };
+  lb.addEventListener('click',function(e){ if(e.target===lb) close(); });
+  document.addEventListener('keydown',function(e){ if(!lb.classList.contains('on')) return;
+    if(e.key==='Escape') close(); if(e.key==='ArrowLeft') lb.querySelector('.p').click(); if(e.key==='ArrowRight') lb.querySelector('.n').click(); });
+
+  document.querySelectorAll('.gal').forEach(function(g){
+    var tr=g.querySelector('.gal-track'), items=[].slice.call(tr.children), dots=g.querySelector('.gal-dots');
+    if(dots && items.length>1){
+      items.forEach(function(_,i){ var b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label','Bild '+(i+1));
+        b.onclick=function(e){ e.preventDefault(); e.stopPropagation(); tr.scrollTo({left:i*tr.clientWidth,behavior:'smooth'}); }; dots.appendChild(b); });
+    }
+    function cur(){ return Math.round(tr.scrollLeft/Math.max(1,tr.clientWidth)); }
+    function upd(){ var c=cur(); if(dots) [].forEach.call(dots.children,function(d,i){ d.classList.toggle('on',i===c); });
+      items.forEach(function(el,i){ if(el.tagName==='VIDEO'){ if(i===c){ el.play && el.play().catch(function(){}); } else { el.pause && el.pause(); } } }); }
+    tr.addEventListener('scroll',function(){ clearTimeout(tr._t); tr._t=setTimeout(upd,60); },{passive:true});
+    upd();
+    var p=g.querySelector('.gal-arrow.prev'), n=g.querySelector('.gal-arrow.next');
+    if(items.length<2){ if(p) p.remove(); if(n) n.remove(); }
+    if(p) p.onclick=function(e){ e.preventDefault(); e.stopPropagation(); var c=cur(); tr.scrollTo({left:((c-1+items.length)%items.length)*tr.clientWidth,behavior:'smooth'}); };
+    if(n) n.onclick=function(e){ e.preventDefault(); e.stopPropagation(); var c=cur(); tr.scrollTo({left:((c+1)%items.length)*tr.clientWidth,behavior:'smooth'}); };
+    var imgs=items.filter(function(el){ return el.tagName==='IMG'; });
+    imgs.forEach(function(im,i){ im.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); open(imgs,i); }); });
+  });
+})();
+</script>
 </body>
 </html>
