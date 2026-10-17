@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<script src="consent.js?v=202610171603"></script>
-<script src="ref.js?v=202610171603"></script>
+<script src="consent.js?v=202610171625"></script>
+<script src="ref.js?v=202610171625"></script>
+<script src="nav.js?v=202610171625" defer></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light"/>
 <meta name="theme-color" content="#0B0B0E"/>
@@ -25,8 +26,8 @@
 <meta name="twitter:description" content="Alienburg, Ritterburg, Feuerwehrauto & mehr ✓ Fotobox mit Sofortdruck ✓ Gratis Lieferung bis 40km ✓ 5,0★ Google ✓ Jetzt anfragen!"/>
 <title>Hüpfburg mieten Kärnten – Alle Angebote & Preise | Hüpfabenteuer Verleih</title>
 
-<link rel="stylesheet" href="fonts.css?v=202610171603"/>
-<link rel="stylesheet" href="site.css?v=202610171603"/>
+<link rel="stylesheet" href="fonts.css?v=202610171625"/>
+<link rel="stylesheet" href="site.css?v=202610171625"/>
 <link rel="preconnect" href="https://i.imgur.com"/>
 <link rel="dns-prefetch" href="https://i.imgur.com"/>
 
@@ -166,10 +167,11 @@
 </section>
 
 <!-- ══════════════ FOTOBOX ══════════════ -->
-<section class="fbx dk" id="section-foto" data-sec="foto">
+<section class="fbx dk" id="section-foto" data-sec="foto" data-nav="Fotobox">
   <div class="wrap">
     <div class="fbx-grid">
       <div class="sec-head" style="margin-bottom:0;">
+        <a href="fotobox.html" class="fbx-hero" aria-label="Zur Fotobox"><img src="fotobox-raum.webp" width="900" height="1200" alt="Aufgebaute Fotobox mit Licht im Raum" loading="lazy"/><img src="fotostreifen-props.webp" width="900" height="1200" alt="Fotostreifen aus der Fotobox mit Accessoires" loading="lazy"/></a>
         <div class="fbx-badge">Für Weihnachtsfeier &amp; Hochzeit</div>
         <div class="eyebrow">Fotobox mit Sofortdruck</div>
         <h2>Der Abend ist vorbei. Die Bilder <span class="it">bleiben.</span></h2>
@@ -214,7 +216,7 @@
 </section>
 
 <!-- ══════════════ HÜPFBURGEN ══════════════ -->
-<section id="section-burg" data-sec="burg">
+<section id="section-burg" data-sec="burg" data-nav="Burgen">
   <div class="wrap">
     <div class="sec-head rise">
       <div class="eyebrow">Hüpfburgen</div>
@@ -293,7 +295,7 @@
 </section>
 
 <!-- ══════════════ EXTRAS ══════════════ -->
-<section class="alt" id="section-extra" data-sec="extra">
+<section class="alt" id="section-extra" data-sec="extra" data-nav="Extras">
   <div class="wrap">
     <div class="sec-head rise">
       <div class="eyebrow">Extras</div>
@@ -308,7 +310,7 @@
 </section>
 
 <!-- ══════════════ PAKETE ══════════════ -->
-<section id="section-paket" data-sec="paket">
+<section id="section-paket" data-sec="paket" data-nav="Burgen">
   <div class="wrap">
     <div class="sec-head rise">
       <div class="eyebrow">Kombi-Pakete</div>
@@ -487,6 +489,7 @@ document.querySelectorAll('[data-track]').forEach(function(el){
     tabs.forEach(function(t){ var on=t.dataset.filter===cat; t.classList.toggle('on',on); t.setAttribute('aria-selected',on); });
     secs.forEach(function(s){ var k=s.dataset.sec; s.hidden = k==='ov' ? cat!=='all' : !(cat==='all' || k==='always' || k===cat); });
     setNav(cat);
+    try{ window.dispatchEvent(new CustomEvent('hbfilter',{detail:navMap[cat]||''})); }catch(e){}
     if(scroll){ var w=document.querySelector('.ftabs-wrap'); window.scrollTo({top:w.getBoundingClientRect().top+window.scrollY-60,behavior:'smooth'}); }
     try{ var u=new URL(location.href); if(cat==='all') u.searchParams.delete('filter'); else u.searchParams.set('filter',cat); history.replaceState(null,'',u); }catch(e){}
   }

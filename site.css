@@ -931,3 +931,10 @@ h1,h2{font-weight:500;}
 .fp-more{margin-top:4px;}
 .fp-panel[hidden],.pw-panel[hidden]{display:none !important;}
 .fp-hint{font-size:.9rem;font-weight:700;color:var(--paper);margin:4px 0 -4px;}
+
+/* Fotobox-Block: Foto gleich oben (Handy) */
+.fbx-hero{display:grid;grid-template-columns:3fr 2fr;gap:6px;height:230px;border-radius:10px;overflow:hidden;margin-bottom:4px;box-shadow:0 14px 30px -18px rgba(26,24,19,.5);}
+.fbx-hero img{width:100%;height:100%;object-fit:cover;display:block;}
+.fbx-hero img:first-child{object-position:center 32%;}
+.fbx-hero img:last-child{object-position:center 40%;}
+@media(min-width:900px){.fbx-hero{display:none;}}

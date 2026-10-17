@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<script src="consent.js?v=202610171603"></script>
-<script src="ref.js?v=202610171603"></script>
+<script src="consent.js?v=202610171625"></script>
+<script src="ref.js?v=202610171625"></script>
+<script src="nav.js?v=202610171625" defer></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light"/>
 <meta name="theme-color" content="#0B0B0E"/>
@@ -29,7 +30,7 @@
 <meta name="twitter:image:alt" content="Fotobox mit Sofortdruck mieten Kärnten"/>
 <title>Fotobox Hochzeit mieten Kärnten – Rahmen mit euren Namen, ab 199 €</title>
 
-<link rel="stylesheet" href="fonts.css?v=202610171603"/>
+<link rel="stylesheet" href="fonts.css?v=202610171625"/>
 
 <style>
 /* ═══════════════════════════════════════════════════════════
@@ -626,6 +627,42 @@ footer{background:var(--void-2);}
 /* Klare Preisziffern */
 .paket-price,.opt-p,.sum-total,.fact-v{font-family:var(--sans);font-weight:700;letter-spacing:-.01em;}
 .stimme,.anlass{background:var(--card);}
+/* ── Gleiche Kopfleiste und Leiste unten wie auf allen Seiten ── */
+.menu-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid var(--line-2);background:#fff;border-radius:6px;cursor:pointer;color:var(--paper);}
+.menu-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;}
+@media(min-width:900px){.menu-btn{display:none;}}
+@media(max-width:899px){.top-actions .btn{display:none;}}
+.drawer-bg{position:fixed;inset:0;background:rgba(26,24,19,.35);z-index:90;opacity:0;pointer-events:none;transition:opacity .25s;}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(86vw,340px);background:#F7F3EB;border-left:1px solid var(--line);z-index:91;transform:translateX(100%);transition:transform .3s cubic-bezier(.2,.9,.3,1);display:flex;flex-direction:column;padding:20px 24px 28px;overflow-y:auto;}
+.menu-open .drawer{transform:none;}
+.menu-open .drawer-bg{opacity:1;pointer-events:auto;}
+.drawer-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px;}
+.drawer nav{display:flex;flex-direction:column;}
+.drawer nav a{font-family:var(--serif);font-size:1.3rem;color:var(--paper);padding:12px 0;border-bottom:1px solid var(--line);}
+.drawer nav a small{display:block;font-family:var(--sans);font-size:.8rem;color:var(--fog-2);margin-top:3px;}
+.drawer nav a.drawer-partner{font-family:var(--sans);font-size:.95rem;font-weight:700;color:var(--fog);border-bottom:none;padding-top:16px;}
+.drawer nav a.drawer-partner small{display:inline;margin-left:6px;font-weight:400;}
+.drawer-c{margin-top:auto;padding-top:26px;display:flex;flex-direction:column;gap:10px;}
+.btn-wide{width:100%;}
+.ic{width:18px;height:18px;flex-shrink:0;}.ic-ph{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round;}.ic-wa{fill:currentColor;}
+.bi.on::before{height:2px;width:30px;background:var(--cta);}
+/* "Termin anfragen" schwebt über der Leiste unten */
+@media(max-width:899px){
+  body{padding-bottom:142px;}
+  .cta-bar{bottom:calc(64px + env(safe-area-inset-bottom,0px));left:12px;right:12px;padding:0 0 10px;background:transparent !important;border:none !important;box-shadow:none !important;
+    backdrop-filter:none;z-index:69;transition:transform .25s,opacity .25s;}
+  .cta-bar.weg{transform:translateY(30px);opacity:0;pointer-events:none;}
+  .cta-main{min-height:50px;border-radius:999px;box-shadow:0 10px 24px -10px rgba(26,24,19,.55);}
+  .cta-ic{flex:0 0 50px;width:50px;height:50px;border-radius:50% !important;background:#fff;box-shadow:0 10px 24px -12px rgba(26,24,19,.5);}
+  .cta-bar ~ .wa,.cta-bar + .lb + .wa{display:none !important;}
+}
+/* ── Handy: Foto der Fotobox gleich oben ── */
+@media(max-width:899px){
+  .hero-in{padding-top:22px !important;}
+  .hero .strip{order:-1;max-width:100%;width:100%;padding:8px 8px 0;transform:rotate(-.6deg);margin-bottom:6px;}
+  .hero .strip img,.hero .strip .strip-img{aspect-ratio:16/11;object-position:center 30%;}
+  .hero .strip-cap{padding:8px 2px 10px;}
+}
 /* ── Paketwahl: antippen, Details darunter, Anfrage gleich im Anschluss ── */
 #pakete{padding-bottom:28px;border-bottom:none;}
 #pakete .sec-head{margin-bottom:22px;}
@@ -842,22 +879,41 @@ h1,h2{font-weight:500;}
 <!-- ══════════════ KOPFLEISTE ══════════════ -->
 <header class="topbar">
   <div class="topbar-in">
-    <a href="/" class="brand">
-      <span class="brand-n">Hüpfabenteuer</span>
-      <span class="brand-s">Fotobox</span>
-    </a>
+    <a href="/" class="brand"><span class="brand-n">Hüpfabenteuer</span><span class="brand-s">Kärnten</span></a>
     <nav class="top-nav" aria-label="Seitenbereiche">
-      <a href="unsere-angebote.html?filter=burg" class="">Hüpfburgen</a>
+      <a href="unsere-angebote.html?filter=burg">Hüpfburgen</a>
       <a href="fotobox.html" class="on">Fotobox</a>
-      <a href="unsere-angebote.html?filter=extra" class="">Extras</a>
-      <a href="kontakt.html" class="">Kontakt</a>
+      <a href="unsere-angebote.html?filter=extra">Extras</a>
+      <a href="kontakt.html">Kontakt</a>
     </nav>
     <div class="top-actions">
       <a href="tel:+436641852634" class="top-tel" data-track="call">+43 664 185 26 34</a>
       <a href="#anfrage" class="btn btn-solid btn-sm">Termin anfragen</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
 </header>
+
+<div class="drawer-bg" id="drawerBg"></div>
+<aside class="drawer" id="drawer" aria-label="Menü" aria-hidden="true">
+  <div class="drawer-top">
+    <span class="brand"><span class="brand-n">Hüpfabenteuer</span><span class="brand-s">Kärnten</span></span>
+    <button type="button" class="menu-btn" id="menuClose" aria-label="Menü schließen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <nav>
+    <a href="unsere-angebote.html?filter=burg">Hüpfburgen<small>6 Modelle ab 120 €</small></a>
+    <a href="fotobox.html">Fotobox<small>Mit Sofortdruck ab 199 €</small></a>
+    <a href="unsere-angebote.html?filter=extra">Extras<small>Zuckerwatte &amp; Popcorn</small></a>
+    <a href="#indoor">Indoor<small>Auch im Winter</small></a>
+    <a href="kontakt.html">Kontakt<small>Antwort meist in unter 1 Std</small></a>
+    <a href="partner.html" class="drawer-partner">Partnerprogramm<small>20 % für Empfehlungen</small></a>
+  </nav>
+  <div class="drawer-c">
+    <a href="#anfrage" class="btn btn-solid btn-wide">Fotobox anfragen</a>
+    <a href="tel:+436641852634" class="btn btn-ghost btn-wide" data-track="call"><svg class="ic ic-ph" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg> +43 664 185 26 34</a>
+    <a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20h%C3%A4tte%20eine%20Anfrage" target="_blank" rel="noopener" class="btn btn-ghost btn-wide" data-track="whatsapp"><svg class="ic ic-wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg> WhatsApp schreiben</a>
+  </div>
+</aside>
 
 <!-- ══════════════ HERO ══════════════ -->
 <div class="hero">
@@ -1603,9 +1659,14 @@ document.addEventListener('DOMContentLoaded',function(){
 </footer>
 
 <!-- ══════════════ STICKY ANFRAGE-LEISTE ══════════════ -->
-<!-- Ersetzt am Handy bewusst die Seiten-Navi: auf einer Anzeigen-Landingpage
-     soll der Daumen anfragen können, nicht wegnavigieren. Die volle Navigation
-     steht weiterhin oben im Header. -->
+<!-- Leiste unten wie auf allen Seiten, "Termin anfragen" schwebt darüber -->
+<nav class="bnav" aria-label="Hauptnavigation">
+  <a href="/" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/></svg><span>Start</span></a>
+  <a href="unsere-angebote.html?filter=burg" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9l2-2 2 2 2-4 2 4 2-2 2 2 2-2v13z"/><path d="M10 20v-4h4v4"/></svg><span>Burgen</span></a>
+  <a href="fotobox.html" class="bi on" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3.2"/></svg><span>Fotobox</span></a>
+  <a href="unsere-angebote.html?filter=extra" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="9" width="16" height="11" rx="1"/><path d="M3 9h18M12 9v11"/><path d="M12 9c-1.5-3-5-3.5-5-1.2C7 9 9.5 9 12 9zm0 0c1.5-3 5-3.5 5-1.2C17 9 14.5 9 12 9z"/></svg><span>Extras</span></a>
+  <a href="kontakt.html" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg><span>Kontakt</span></a>
+</nav>
 <div class="cta-bar">
   <a href="#anfrage" class="cta-main">Termin anfragen</a>
   <a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20interessiere%20mich%20f%C3%BCr%20die%20Fotobox%20f%C3%BCr%20unsere%20Hochzeit" class="cta-ic" target="_blank" rel="noopener" data-track="whatsapp" aria-label="Per WhatsApp anfragen">
@@ -1912,6 +1973,30 @@ document.addEventListener('DOMContentLoaded',function(){
       });
   });
 
+})();
+</script>
+<script>
+/* Menü am Handy */
+(function(){
+  var html=document.documentElement, btn=document.getElementById('menuBtn'), cls=document.getElementById('menuClose'),
+      bg=document.getElementById('drawerBg'), dr=document.getElementById('drawer');
+  if(!btn||!dr) return;
+  function setOpen(o){
+    html.classList.toggle('menu-open',o); btn.setAttribute('aria-expanded',o); dr.setAttribute('aria-hidden',!o);
+    document.body.style.overflow=o?'hidden':'';
+    if(o) cls.focus(); else btn.focus();
+  }
+  btn.addEventListener('click',function(){ setOpen(true); });
+  cls.addEventListener('click',function(){ setOpen(false); });
+  bg.addEventListener('click',function(){ setOpen(false); });
+  dr.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ setOpen(false); }); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && html.classList.contains('menu-open')) setOpen(false); });
+})();
+/* "Termin anfragen"-Knopf unten ausblenden, solange das Formular zu sehen ist */
+(function(){
+  var bar=document.querySelector('.cta-bar'), form=document.getElementById('anfrage');
+  if(!bar||!form||!('IntersectionObserver' in window)) return;
+  new IntersectionObserver(function(e){ bar.classList.toggle('weg', e[0].isIntersecting); },{rootMargin:'0px 0px -30% 0px'}).observe(form);
 })();
 </script>
 </body>

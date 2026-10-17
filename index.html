@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<script src="consent.js?v=202610171603"></script>
-<script src="ref.js?v=202610171603"></script>
+<script src="consent.js?v=202610171625"></script>
+<script src="ref.js?v=202610171625"></script>
+<script src="nav.js?v=202610171625" defer></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="dark"/>
 <meta name="theme-color" content="#0B0B0E"/>
@@ -28,7 +29,7 @@
 <title>Hüpfburg &amp; Fotobox mieten Kärnten – Hüpfabenteuer | ab 120 €</title>
 
 <!-- PERFORMANCE: Preconnect to external domains -->
-<link rel="stylesheet" href="fonts.css?v=202610171603"/>
+<link rel="stylesheet" href="fonts.css?v=202610171625"/>
 <link rel="preconnect" href="https://i.imgur.com"/>
 <link rel="dns-prefetch" href="https://i.imgur.com"/>
 
@@ -36,7 +37,7 @@
 <link rel="preload" as="image" href="alienburg-poster.jpg" fetchpriority="high"/>
 <link rel="preload" as="video" href="alienburg-hero.mp4" type="video/mp4"/>
 
-<link rel="stylesheet" href="site.css?v=202610171603"/>
+<link rel="stylesheet" href="site.css?v=202610171625"/>
 
 <script type="application/ld+json">
 {
@@ -403,10 +404,11 @@
 </div>
 
 <!-- ══════════════ FOTOBOX ══════════════ -->
-<section class="fbx dk" id="fotobox">
+<section class="fbx dk" id="fotobox" data-nav="Fotobox">
   <div class="wrap">
     <div class="fbx-grid">
       <div class="sec-head rise" style="margin-bottom:0;">
+        <a href="fotobox.html" class="fbx-hero" aria-label="Zur Fotobox"><img src="fotobox-raum.webp" width="900" height="1200" alt="Aufgebaute Fotobox mit Licht im Raum" loading="lazy"/><img src="fotostreifen-props.webp" width="900" height="1200" alt="Fotostreifen aus der Fotobox mit Accessoires" loading="lazy"/></a>
         <div class="fbx-badge">Für Weihnachtsfeier &amp; Hochzeit</div>
         <div class="eyebrow">Fotobox mit Sofortdruck</div>
         <h2>Der Abend ist vorbei. Die Bilder <span class="it">bleiben.</span></h2>
@@ -451,7 +453,7 @@
 </section>
 
 <!-- ══════════════ HÜPFBURGEN ══════════════ -->
-<section id="huepfburgen">
+<section id="huepfburgen" data-nav="Burgen">
   <div class="wrap">
     <div class="sec-head rise">
       <div class="eyebrow">Hüpfburgen</div>
@@ -520,7 +522,7 @@
 </section>
 
 <!-- ══════════════ EXTRAS ══════════════ -->
-<section class="alt">
+<section class="alt" data-nav="Extras">
   <div class="wrap">
     <div class="sec-head rise">
       <div class="eyebrow">Extras</div>
