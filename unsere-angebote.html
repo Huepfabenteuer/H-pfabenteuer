@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<script src="consent.js?v=202610122237"></script>
-<script src="ref.js?v=202610122237"></script>
+<script src="consent.js?v=202610171603"></script>
+<script src="ref.js?v=202610171603"></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light"/>
 <meta name="theme-color" content="#0B0B0E"/>
@@ -25,8 +25,8 @@
 <meta name="twitter:description" content="Alienburg, Ritterburg, Feuerwehrauto & mehr ✓ Fotobox mit Sofortdruck ✓ Gratis Lieferung bis 40km ✓ 5,0★ Google ✓ Jetzt anfragen!"/>
 <title>Hüpfburg mieten Kärnten – Alle Angebote & Preise | Hüpfabenteuer Verleih</title>
 
-<link rel="stylesheet" href="fonts.css?v=202610122237"/>
-<link rel="stylesheet" href="site.css?v=202610122237"/>
+<link rel="stylesheet" href="fonts.css?v=202610171603"/>
+<link rel="stylesheet" href="site.css?v=202610171603"/>
 <link rel="preconnect" href="https://i.imgur.com"/>
 <link rel="dns-prefetch" href="https://i.imgur.com"/>
 
@@ -174,14 +174,32 @@
         <div class="eyebrow">Fotobox mit Sofortdruck</div>
         <h2>Der Abend ist vorbei. Die Bilder <span class="it">bleiben.</span></h2>
         <p class="lede">Drei Pakete ab 199 €, 16 Fotorahmen zur Auswahl, unbegrenzte digitale Fotos. Die Fotobox bleibt den ganzen Abend, Auf- und Abbau sind bei jeder Lieferung inklusive.</p>
-        <div class="fbx-prices">
-          <a href="fotobox.html#pakete"><div class="n">Digital</div><div class="p">199 €</div></a>
-          <a href="fotobox.html#pakete"><div class="n">Standard</div><div class="p">299 €</div></a>
-          <a href="fotobox.html#pakete" class="hot"><div class="n">Premium</div><div class="p">349 €</div><div class="t">Beliebt</div></a>
+        <div class="fp-hint">Paket antippen, die Details stehen darunter:</div>
+        <div class="fbx-prices fp-tabs" role="tablist" aria-label="Fotobox-Paket">
+          <button type="button" class="fp" role="tab" data-p="digital" aria-selected="false"><div class="n">Digital</div><div class="p">199 €</div></button>
+          <button type="button" class="fp" role="tab" data-p="standard" aria-selected="false"><div class="n">Standard</div><div class="p">299 €</div></button>
+          <button type="button" class="fp hot on" role="tab" data-p="premium" aria-selected="true"><div class="n">Premium</div><div class="p">349 €</div><div class="t">Beliebt</div></button>
         </div>
-        <div class="btns">
-          <a href="fotobox.html" class="btn btn-solid">Fotobox ansehen</a>
-          <a href="fotobox.html#anfrage" class="btn btn-ghost">Termin anfragen</a>
+        <div class="fp-panel" data-p="digital" hidden>
+          <ul class="fbx-list"><li><b>Alle Fotos digital</b> auf USB-Stick, unbegrenzt</li><li><b>Den ganzen Abend</b>, kein Stundenlimit</li><li>Auf- und Abbau inklusive</li><li class="dim">Ohne Drucker</li></ul>
+          <a href="fotobox.html?paket=digital#anfrage" class="btn btn-solid btn-wide fp-go">Digital anfragen · 199 €</a>
+        </div>
+        <div class="fp-panel" data-p="standard" hidden>
+          <ul class="fbx-list"><li><b>Sofortdruck</b>, das Foto in Sekunden in der Hand</li><li><b>300 Ausdrucke</b> inkludiert</li><li>Rahmen im Hüpfabenteuer-Design</li><li>Den ganzen Abend, Auf- und Abbau inklusive</li></ul>
+          <a href="fotobox.html?paket=standard#anfrage" class="btn btn-solid btn-wide fp-go">Standard anfragen · 299 €</a>
+        </div>
+        <div class="fp-panel" data-p="premium">
+          <ul class="fbx-list"><li><b>Sofortdruck</b> mit <b>300 Ausdrucken</b></li><li><b>Eigener Rahmen</b> mit euren Namen, Datum oder Firmenlogo, oder einer von 14 Motiven</li><li>Accessoire-Set, den ganzen Abend, Auf- und Abbau inklusive</li></ul>
+          <a href="fotobox.html?paket=premium#anfrage" class="btn btn-solid btn-wide fp-go">Premium anfragen · 349 €</a>
+        </div>
+        <script>
+        (function(){var s=document.currentScript,box=s.parentNode;var tabs=box.querySelectorAll('.fp'),pans=box.querySelectorAll('.fp-panel');
+          [].forEach.call(tabs,function(t){t.addEventListener('click',function(){var p=t.getAttribute('data-p');
+            [].forEach.call(tabs,function(x){var on=x===t;x.classList.toggle('on',on);x.setAttribute('aria-selected',on?'true':'false');});
+            [].forEach.call(pans,function(x){x.hidden=x.getAttribute('data-p')!==p;});});});})();
+        </script>
+        <div class="btns fp-more">
+          <a href="fotobox.html" class="btn btn-ghost">Alles zur Fotobox</a>
         </div>
         <div class="fbx-links">Speziell für: <a href="fotobox-weihnachtsfeier.html">Weihnachtsfeier</a> · <a href="fotobox-hochzeit.html">Hochzeit</a></div>
       </div>
