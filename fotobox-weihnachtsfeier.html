@@ -943,6 +943,43 @@ document.addEventListener('DOMContentLoaded', function(){
 #fotobox-form .antwort-heute a{color:#0B6B6F;font-weight:700;white-space:nowrap;}
 #fotobox-form .form-head .eyebrow{color:#0B6B6F;}
 </style>
+<style id="fotoform-v2-css">
+/* Fotobox-Anfrage v2 – ruhiger, kompakter */
+#fotobox-form{border-radius:16px;box-shadow:0 1px 3px rgba(26,24,19,.06);}
+#fotobox-form .form-head h2{font-size:clamp(1.7rem,6vw,2.3rem);}
+#fotobox-form .pw-chosen{border-radius:10px;background:rgba(11,107,111,.06);border:1px solid rgba(11,107,111,.22);color:#46413A;}
+#fotobox-form .pw-chosen a{color:#0B6B6F;}
+#fotobox-form .fset{background:#FFFDF8;}
+#fotobox-form .f input,#fotobox-form .f select,#fotobox-form .f textarea{background:#fff;}
+/* Empfehlung als Schalter */
+#fotobox-form .empf-opt{position:relative;gap:14px;padding:16px;border:1.5px solid rgba(11,107,111,.45);border-radius:12px;background:#FFFDF8;box-shadow:none;}
+#fotobox-form .empf-opt:hover{background:#FFFDF8;border-color:#0B6B6F;}
+#fotobox-form .empf-opt.on{background:#FFFDF8;border-color:#0B6B6F;box-shadow:0 0 0 3px rgba(11,107,111,.12);}
+#fotobox-form .empf-ico{flex:none;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(11,107,111,.09);color:#0B6B6F;transition:background .2s,color .2s;}
+#fotobox-form .empf-ico svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+#fotobox-form .empf-opt.on .empf-ico{background:#0B6B6F;color:#fff;}
+#fotobox-form .empf-n{font-family:var(--sans);font-size:15px;font-weight:800;line-height:1.3;color:#0B6B6F;}
+#fotobox-form .empf-t{font-family:var(--sans);font-size:13px;font-weight:600;color:#46413A;line-height:1.4;}
+#fotobox-form .empf-d{font-family:var(--sans);font-size:12px;letter-spacing:0;text-transform:none;font-weight:500;color:#0B6B6F;opacity:1;}
+#fotobox-form .empf-sw{flex:none;position:relative;width:46px;height:28px;border-radius:99px;background:#D9D2C3;transition:background .25s;}
+#fotobox-form .empf-sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#FFFDF8;box-shadow:0 2px 6px rgba(0,0,0,.18);transition:transform .28s cubic-bezier(.34,1.4,.64,1);}
+#fotobox-form .empf-opt.on .empf-sw{background:#0B6B6F;}
+#fotobox-form .empf-opt.on .empf-sw::after{transform:translateX(18px);}
+#fotobox-form .empf-mehr{border-radius:10px;background:#FFFDF8;}
+/* Übersicht */
+#fotobox-form .summary{background:#FFFDF8;padding:18px;}
+#fotobox-form .sum-row.total{align-items:center;}
+#fotobox-form .sum-row.total > span:first-child{display:flex;flex-direction:column;font-weight:700;}
+#fotobox-form .sum-sub{font-size:.76rem;font-weight:500;color:#6B6659;margin-top:2px;}
+#fotobox-form .sum-total{font-family:var(--sans);font-weight:800;font-size:1.6rem;color:#0B6B6F;}
+#fotobox-form .sum-total{white-space:nowrap;}
+@media(max-width:560px){#fotobox-form .form-head{padding:28px 18px 0;}#fotobox-form .form-body{padding:20px 14px 22px;}#fotobox-form .fset{padding:18px 16px;}}
+/* Absende-Knopf normal groß */
+#fotobox-form .fb-send{min-height:50px;padding:13px 22px;border-radius:10px;font-size:.95rem;font-weight:700;letter-spacing:.01em;
+  background:#0B6B6F !important;color:#fff !important;box-shadow:0 2px 6px rgba(11,107,111,.22) !important;}
+#fotobox-form .fb-send:hover{background:#084F52 !important;}
+#fotobox-form .fb-send:disabled{opacity:.7;}
+</style>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -1355,11 +1392,13 @@ document.addEventListener('DOMContentLoaded',function(){
         <div class="fset" id="empfFset">
           <label class="empf-opt" id="empfOpt">
             <input type="checkbox" id="empfCheck"/>
+            <span class="empf-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="9" width="17" height="11" rx="1.5"/><path d="M2.5 9h19M12 9v11"/><path d="M12 9c-1.6-3.2-5.5-3.6-5.5-1.1C6.5 9 9.5 9 12 9zm0 0c1.6-3.2 5.5-3.6 5.5-1.1C17.5 9 14.5 9 12 9z"/></svg></span>
             <span class="empf-copy">
               <span class="empf-n">Willst du dir 30 € Anreise sparen?</span>
+              <span class="empf-t">Empfiehl uns weiter, wir ziehen dir 30 € ab</span>
               <span class="empf-d" id="empfSub">Antippen und anschauen</span>
             </span>
-            <span class="empf-p">−30 €</span>
+            <span class="empf-sw" aria-hidden="true"></span>
           </label>
           <div class="empf-mehr">
             <p>Empfiehl uns weiter. Gleich nach dem Absenden bekommst du deinen eigenen
@@ -1376,7 +1415,7 @@ document.addEventListener('DOMContentLoaded',function(){
           <div class="sum-note" id="sumNote"></div>
         </div>
 
-        <button type="button" class="btn btn-brass btn-wide" id="submitBtn" style="min-height:54px;font-size:.95rem;">Anfrage absenden</button>
+        <button type="button" class="btn btn-brass btn-wide fb-send" id="submitBtn">Anfrage absenden</button>
         <div class="msg" id="msg" role="status"></div>
 
         <div class="antwort-heute">
@@ -1960,13 +1999,13 @@ document.addEventListener('DOMContentLoaded',function(){
     var empfZeile = '';
     var _ec = document.getElementById('empfCheck');
     var _an = window.hbAnreiseWert;
-    empfZeile += '<div class="sum-row sum-anreise"><span>Anreise <small>(0,55 €/km · vier Fahrten)</small></span><span>' + (_an ? 'ca. ' + _an.anreise + ' € (' + _an.km + ' km)' : 'nach Entfernung') + '</span></div>';
+    empfZeile += '<div class="sum-row sum-anreise"><span>Anreise <small>' + (_an ? _an.km + ' km · 4 Fahrten' : '0,55 €/km') + '</small></span><span>' + (_an ? 'ca. ' + _an.anreise + ' €' : 'nach Entfernung') + '</span></div>';
     if(_ec && _ec.checked){
       empfZeile += '<div class="sum-row sum-rabatt"><span>Empfehlungs-Deal · sobald jemand über dich bucht</span><span>bis zu 30 €</span></div>';
     }
     if(!selectedPrice){
       rows.innerHTML = '<div class="sum-row"><span>Fotobox</span><span>Paket noch offen</span></div>' + rahmenZeile + empfZeile;
-      note.innerHTML = 'Wir schauen uns dein Fest an und schlagen dir im Angebot das passende Paket vor. ' + (window.hbAnreiseWert ? 'Dazu kommt die Anreise von ca. ' + window.hbAnreiseWert.anreise + ' €.' : 'Dazu kommt die Anreise: 0,55 € pro Kilometer auf vier Fahrten.') + '';
+      note.innerHTML = 'Wir schauen uns dein Fest an und schlagen dir im Angebot das passende Paket vor. ' + (window.hbAnreiseWert ? 'Die Anreise ist im Gesamtpreis schon eingerechnet.' : 'Die Anreise rechnen wir aus, sobald du die Lieferadresse eingibst: 0,55 € pro Kilometer auf vier Fahrten.') + '';
       box.classList.add('on');
       return;
     }
@@ -1974,10 +2013,10 @@ document.addEventListener('DOMContentLoaded',function(){
     rows.innerHTML =
       '<div class="sum-row"><span>Fotobox ' + selectedName + '</span><span>' + selectedPrice + ' €</span></div>' +
       rahmenZeile + empfZeile +
-      '<div class="sum-row total"><span>Gesamt, geschätzt</span><span class="sum-total">' + selectedPrice + ' €</span></div>';
+      '<div class="sum-row total"><span>' + (_an ? 'Gesamt inkl. Anreise' : 'Gesamt, geschätzt') + '<small class="sum-sub">' + (_an ? 'geschätzt · mit Empfehlung ca. ' + (selectedPrice + _an.mitEmpfehlung) + ' €' : 'zzgl. Anreise') + '</small></span><span class="sum-total">' + (selectedPrice + (_an ? _an.anreise : 0)) + ' €</span></div>';
 
     var anz = selectedPrice >= 300 ? 100 : (selectedPrice >= 220 ? 50 : 30);
-    note.innerHTML = 'Anzahlung ' + anz + ' €, Restbetrag am Eventtag. ' + (window.hbAnreiseWert ? 'Dazu kommt die Anreise von ca. ' + window.hbAnreiseWert.anreise + ' €.' : 'Dazu kommt die Anreise: 0,55 € pro Kilometer auf vier Fahrten.') + ' Die genaue Rechnung steht auf deinem Angebot.';
+    note.innerHTML = 'Anzahlung ' + anz + ' €, Restbetrag am Eventtag. ' + (window.hbAnreiseWert ? 'Die Anreise ist im Gesamtpreis schon eingerechnet.' : 'Die Anreise rechnen wir aus, sobald du die Lieferadresse eingibst: 0,55 € pro Kilometer auf vier Fahrten.') + ' Die genaue Rechnung steht auf deinem Angebot.';
     box.classList.add('on');
   }
 

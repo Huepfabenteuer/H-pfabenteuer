@@ -859,6 +859,13 @@ document.addEventListener('DOMContentLoaded', function(){
 .extra-toggle.selected .extra-switch{background:#0B6B6F;}
 .extra-toggle.selected .extra-switch::after{transform:translateX(18px);}
 .extra-toggle:focus-visible{outline:2px solid #0B6B6F;outline-offset:2px;}
+/* Empfehlungs-Schalter: hell bleiben, auch wenn aktiv */
+#empf-btn{background:#FFFDF8 !important;border:1.5px solid rgba(11,107,111,.45) !important;}
+#empf-btn:hover{background:#FFFDF8 !important;border-color:#0B6B6F !important;}
+#empf-btn.selected{background:#FFFDF8 !important;border-color:#0B6B6F !important;box-shadow:0 0 0 3px rgba(11,107,111,.12) !important;}
+#empf-btn .extra-price,#empf-btn.selected .extra-price{background:none !important;padding:0 !important;color:#46413A !important;font-weight:600 !important;font-size:13px !important;border-radius:0;}
+#empf-btn .extra-hint{color:#0B6B6F !important;opacity:1 !important;}
+.empf-fields{border-radius:10px !important;background:#FFFDF8 !important;}
 </style>
 <style id="modus-ruhig-css">
 /* Modus-Auswahl oben: ruhigere Symbole in Petrol statt Braun */
@@ -1334,7 +1341,7 @@ document.addEventListener('DOMContentLoaded', function(){
         </div>
         <div class="gutschein-msg" id="gutscheinMsg"></div>
       </div>
-      <div class="order-note">* Geschätzter Preis · zzgl. Anreise 0,55 €/km · Endpreis nach Bestätigung</div>
+      <div class="order-note">* Geschätzter Preis · Anreise 0,55 €/km ab Glödnitz · Endpreis nach Bestätigung</div>
       <div id="anzahlungHinweis" style="display:none;margin-top:10px;padding:10px 14px;border-radius:3px;background:linear-gradient(135deg,rgba(11,107,111,.12),rgba(11,107,111,.08));border:1.5px solid rgba(11,107,111,.4);font-size:12px;font-weight:700;color:#7a5c00;line-height:1.6;"></div>
     </div>
  
@@ -1816,7 +1823,9 @@ function updateOrderSummary(){
   var _empf = document.getElementById('empf-val');
   var liefertWir = !_lief || _lief.value === 'Ja';
   var empfAktiv  = _empf && _empf.value === 'Ja';
+  var mietTotal = total, anreiseDrin = false;
   if(rows.length > 0 && liefertWir){
+    if(window.hbAnreiseWert){ total = Math.round((total + window.hbAnreiseWert.anreise) * 100) / 100; anreiseDrin = true; }
     rows.push({label: 'Anreise (0,55 €/km · vier Fahrten)', val: (window.hbAnreiseWert ? 'ca. ' + window.hbAnreiseWert.anreise + ' € (' + window.hbAnreiseWert.km + ' km)' : 'nach Entfernung'), anreise: true});
     if(empfAktiv){
       rows.push({label: 'Empfehlungs-Deal · sobald jemand über dich bucht',
@@ -1853,7 +1862,7 @@ function updateOrderSummary(){
     }
     html += '<div class="order-row '+(r.rabatt?'order-row-rabatt':'')+(r.anreise?' order-row-anreise':'')+'"><span class="order-label">'+labelHtml+'</span><span class="order-val" style="'+style+'">'+r.val+'</span></div>';
   });
-  html += '<div class="order-row total"><span class="order-total-label">Gesamt (geschätzt)</span><span class="order-total-val">'+total.toFixed(2)+' €*</span></div>';
+  html += '<div class="order-row total"><span class="order-total-label">' + (anreiseDrin ? 'Gesamt inkl. Anreise' : 'Gesamt (geschätzt)') + '</span><span class="order-total-val">'+total.toFixed(2)+' €*</span></div>';
   orderRows.innerHTML = html;
   summary.classList.add('visible');
   // Gesamtpreis global speichern für Formcarry
@@ -1863,13 +1872,13 @@ function updateOrderSummary(){
   // ── Anzahlungs-Hinweis ──
   var hinweis = document.getElementById('anzahlungHinweis');
   if(hinweis){
-    if(total >= 300){
+    if(mietTotal >= 300){
       hinweis.style.display = 'block';
       hinweis.innerHTML = 'Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 100 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird am Veranstaltungstag bezahlt.';
-    } else if(total >= 220){
+    } else if(mietTotal >= 220){
       hinweis.style.display = 'block';
       hinweis.innerHTML = 'Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 50 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird am Veranstaltungstag bezahlt.';
-    } else if(total > 0){
+    } else if(mietTotal > 0){
       hinweis.style.display = 'block';
       hinweis.innerHTML = 'Bei diesem Gesamtbetrag ist eine <strong>Anzahlung von 30 €</strong> erforderlich. Du erhältst nach der Anfrage unsere Bankdaten. Der Restbetrag wird am Veranstaltungstag bezahlt.';
     } else {
