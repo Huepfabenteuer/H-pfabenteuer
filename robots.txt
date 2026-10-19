@@ -2,6 +2,8 @@
 # Hüpfabenteuer Kärnten – Hüpfburgen, Fotobox, Partyausstattung
 
 User-agent: *
+Disallow: /verwaltung.html
+Disallow: /angebot/
 Allow: /
 
 # danke.html, bewertung.html und fotorahmen.html sind per

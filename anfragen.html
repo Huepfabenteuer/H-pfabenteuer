@@ -1181,12 +1181,12 @@ document.addEventListener('DOMContentLoaded', function(){
         </div>
       </div>
       <div class="field">
-        <label>Telefon *</label>
-        <input type="tel" id="telefon" name="Telefon" placeholder="+43 664 …" autocomplete="tel" inputmode="tel" required>
+        <label>Handynummer (WhatsApp) *</label>
+        <input type="tel" id="telefon" name="Telefon" placeholder="0664 123 45 67" autocomplete="tel" inputmode="tel" required>
       </div>
       <div class="field">
-        <label>E-Mail *</label>
-        <input type="email" name="E-Mail" placeholder="deine@email.at" autocomplete="email" inputmode="email" required>
+        <label>E-Mail <span style="font-weight:500;opacity:.7;">(optional)</span></label>
+        <input type="email" name="E-Mail" placeholder="deine@email.at" autocomplete="email" inputmode="email">
       </div>
     </div>
  
@@ -1823,6 +1823,24 @@ function updateOrderSummary(){
   var _empf = document.getElementById('empf-val');
   var liefertWir = !_lief || _lief.value === 'Ja';
   var empfAktiv  = _empf && _empf.value === 'Ja';
+  // ── Positionen fürs Angebot (Verwaltung) ──
+  var _pos = [];
+  if(selectedName && currentModus !== 'foto'){
+    var _bp = selectedPrice > 0 ? Math.round(days === 1 ? selectedPrice : selectedPrice + (days-1)*(selectedPrice*0.5)) : null;
+    _pos.push({art:'miete', titel: selectedName, text: 'Hüpfburg ' + selectedName + ' – Vermietung' + (days > 1 ? ' (' + days + ' Tage)' : '') + (selectedName === 'Hochzeitsburg' ? ' inkl. Deko' : ''), betrag: _bp});
+  }
+  if(selectedFoto){ _pos.push({art:'miete', titel: selectedFoto, text: 'Fotobox mit Sofortdruck, ganzer Abend, Auf- und Abbau inklusive', betrag: selectedFotoPrice || null}); }
+  if(aufbauOn && currentModus !== 'foto'){ _pos.push({art:'extra', titel:'Auf- und Abbau', text:'Aufbau und Abbau durch Hüpfabenteuer', betrag:50}); }
+  if(extrasVal && extrasVal !== 'Keine Extras'){
+    var _ex = extrasVal.indexOf('Zuckerwatte + Popcorn') !== -1 ? ['Zuckerwatte + Popcorn',100] : extrasVal.indexOf('Zuckerwatte') !== -1 ? ['Zuckerwatte',45] : ['Popcorn',60];
+    _pos.push({art:'extra', titel:_ex[0], text:'Maschine und Zutaten, pro Event', betrag:_ex[1]});
+  }
+  if(zuckerwatteSetOn){ _pos.push({art:'extra', titel:'Zuckerwatte-Set', text:'Geschmackssorten Erdbeere, Vanille, Kirsche, Bubblegum & Apfel', betrag:20}); }
+  if(popcornSetOn){ _pos.push({art:'extra', titel:'Popcorn-Set', text:'1 kg Popcornmais & Popcornöl', betrag:20}); }
+  if(rabattBetrag > 0){ _pos.push({art:'rabatt', titel: rabattLabel.replace(/[🏷️🎉]/g,'').trim(), text:'Rabatt auf die Mietpreise', betrag: -rabattBetrag}); }
+  window._posBasis = _pos;
+  window._liefertWir = liefertWir;
+
   var mietTotal = total, anreiseDrin = false;
   if(rows.length > 0 && liefertWir){
     if(window.hbAnreiseWert){ total = Math.round((total + window.hbAnreiseWert.anreise) * 100) / 100; anreiseDrin = true; }
@@ -2263,12 +2281,12 @@ function submitAnfrage(){
     return;
   }
   if(!telefon){
-    showMsg('\u26a0\ufe0f Bitte deine Telefonnummer angeben.', false);
+    showMsg('\u26a0\ufe0f Bitte deine Handynummer angeben \u2013 wir melden uns per WhatsApp.', false);
     flagField(document.getElementById('telefon'));
     return;
   }
-  if(!email || email.indexOf('@') === -1){
-    showMsg('\u26a0\ufe0f Bitte g\u00fcltige E-Mail angeben \u2013 wir senden dir die Best\u00e4tigung per Mail.', false);
+  if(email && email.indexOf('@') === -1){
+    showMsg('\u26a0\ufe0f Die E-Mail-Adresse stimmt nicht ganz \u2013 du kannst sie auch leer lassen.', false);
     flagField(document.querySelector('[name="E-Mail"]'));
     return;
   }
@@ -2385,6 +2403,29 @@ function submitAnfrage(){
   if(window._gesamtpreis) fd.append('Gesamtpreis (geschätzt)', window._gesamtpreis);
   if(window._preisdetails) fd.append('Preisaufschlüsselung', window._preisdetails);
  
+  // ── Zusätzlich in die Verwaltung (Alex bestätigt dort per WhatsApp) ──
+  try {
+    var _an = window.hbAnreiseWert;
+    var _posV = (window._posBasis || []).slice();
+    if(window._liefertWir !== false){
+      _posV.push({art:'lieferung', titel:'Lieferung & Abholung', text: 'Glödnitz – ' + ort + (_an ? ' · 4 Fahrten à ' + _an.km + ' km × 0,55 €' : ''), betrag: _an ? _an.anreise : null});
+    }
+    var _verw = {
+      typ: currentModus, quelle: 'Anfrageformular',
+      kunde: {vorname: vorname, nachname: nachname, telefon: telefon, email: email},
+      adresse: {strasse: strasse, plz: plz, ort: ort},
+      datum: startDat, datumEnde: endDat || '',
+      nachricht: nachricht, paket: (_pkF && _pkF.value) || '',
+      gutschein: activeGutschein ? activeGutschein.code + (activeGutschein.geprueft ? '' : ' (ungeprüft)') : '',
+      anreise: _an ? {km: _an.km, betrag: _an.anreise, ort: _an.ort} : null,
+      empfehlung: {aktiv: !!empfAktiv, code: empfCode || ''},
+      empfohlenVon: (window.hbEmpfehlung && window.hbEmpfehlung()) || '',
+      partner: (window.hbPartner && window.hbPartner()) || '',
+      positionen: _posV
+    };
+    fetch('/.netlify/functions/anfrage', {method:'POST', keepalive:true, headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'neu', daten:_verw})}).catch(function(){});
+  } catch(e){}
+
   fetch(FORMCARRY_ENDPOINT, {
     method:  'POST',
     headers: { 'Accept': 'application/json' },

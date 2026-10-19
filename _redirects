@@ -1,6 +1,22 @@
 # Netlify _redirects für Hüpfabenteuer
 
 # ─────────────────────────────────────────────────────────────
+# INTERNE DATEIEN SPERREN
+# Serverfunktionen, Codeliste, Werkzeuge und Anleitungen liegen
+# im selben Ordner wie die Website. Sie dürfen nicht öffentlich
+# abrufbar sein (z. B. die Gutschein-Codeliste).
+# ─────────────────────────────────────────────────────────────
+/netlify/*                  /404   404!
+/tools/*                    /404   404!
+/node_modules/*             /404   404!
+/package.json               /404   404!
+/package-lock.json          /404   404!
+/netlify.toml               /404   404!
+/ANLEITUNG-GUTSCHEINE.md    /404   404!
+/ANLEITUNG-VERWALTUNG.md    /404   404!
+/claude/*                   /404   404!
+
+# ─────────────────────────────────────────────────────────────
 # WWW → HAUPTDOMAIN
 # www.huepfabenteuer.at liefert dieselben Seiten aus wie die
 # Hauptdomain. Google kennt beide Varianten, dadurch verteilt

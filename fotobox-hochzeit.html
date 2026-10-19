@@ -1374,15 +1374,15 @@ document.addEventListener('DOMContentLoaded',function(){
           </div>
           <div class="grid2">
             <div class="f">
-              <label for="telefonFoto">Telefon</label>
-              <input type="tel" name="Telefon" id="telefonFoto" placeholder="+43 660 123 456" inputmode="tel" autocomplete="tel"/>
+              <label for="telefonFoto">Handynummer (WhatsApp)</label>
+              <input type="tel" name="Telefon" id="telefonFoto" placeholder="0664 123 45 67" inputmode="tel" autocomplete="tel" required/>
             </div>
             <div class="f">
-              <label for="emailFoto">E-Mail</label>
+              <label for="emailFoto">E-Mail <span style="font-weight:500;opacity:.7;">(optional)</span></label>
               <input type="email" name="E-Mail" id="emailFoto" placeholder="maria@beispiel.at" inputmode="email" autocomplete="email"/>
             </div>
           </div>
-          <p class="hint">Telefon oder E-Mail — eines von beiden genügt. Wir antworten auf dem Weg, den du angibst.</p>
+          <p class="hint">Wir melden uns per WhatsApp mit deinem Angebot. Die E-Mail brauchst du nicht unbedingt.</p>
           <div class="f">
             <label for="nachrichtFoto">Nachricht <span style="text-transform:none;letter-spacing:0;">(optional)</span></label>
             <textarea name="Nachricht" id="nachrichtFoto" placeholder="z. B. individueller Fotorahmen gewünscht, zusätzlich Zuckerwatte, ungefähre Gästezahl …"></textarea>
@@ -2104,7 +2104,7 @@ document.addEventListener('DOMContentLoaded',function(){
     if(!plz){ say('Bitte gib die Postleitzahl an.', false); return; }
     if(!ort){ say('Bitte gib den Ort an, damit wir die Lieferung rechnen können.', false); return; }
     if(!vorname){ say('Bitte trag zumindest deinen Vornamen ein.', false); return; }
-    if(!telefon && !email){ say('Bitte gib Telefon oder E-Mail an, damit wir dir antworten können.', false); return; }
+    if(!telefon){ say('Bitte gib deine Handynummer an – wir melden uns per WhatsApp.', false); return; }
 
     var btn = this;
     btn.disabled = true;
@@ -2141,6 +2141,24 @@ document.addEventListener('DOMContentLoaded',function(){
     }
     if(window.hbAnreise && window.hbAnreise.text()) fd.append('Anreise (berechnet)', window.hbAnreise.text());
     fd.append('Quelle', 'Hochzeit-Landingpage');
+    try {
+      var _an = window.hbAnreiseWert, _rw = rahmenWert();
+      var _posV = [{art:'miete', titel: selectedPrice ? 'Fotobox ' + selectedName : 'Fotobox (Paket noch offen)', text: 'Fotobox mit allem Zubehör, ganzer Abend, Auf- und Abbau inklusive' + (_rw ? ' · Rahmen: ' + _rw : ''), betrag: selectedPrice || null}];
+      _posV.push({art:'lieferung', titel:'Lieferung & Abholung', text:'Glödnitz – ' + ort + (_an ? ' · 4 Fahrten à ' + _an.km + ' km × 0,55 €' : ''), betrag: _an ? _an.anreise : null});
+      var _verw = {
+        typ: 'hochzeit', quelle: 'Hochzeit-Landingpage',
+        kunde: {vorname: vorname, nachname: nachname, telefon: telefon, email: email},
+        adresse: {strasse: strasse, plz: plz, ort: ort},
+        datum: datum, anlass: anlass || '', nachricht: nachricht || '', paket: paket.value, rahmen: _rw || '',
+        anreise: _an ? {km: _an.km, betrag: _an.anreise, ort: _an.ort} : null,
+        empfehlung: {aktiv: !!empfAktiv, code: empfCode || ''},
+        empfohlenVon: (window.hbEmpfehlung && window.hbEmpfehlung()) || '',
+        partner: (window.hbPartner && window.hbPartner()) || '',
+        positionen: _posV
+      };
+      fetch('/.netlify/functions/anfrage', {method:'POST', keepalive:true, headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'neu', daten:_verw})}).catch(function(){});
+    } catch(e){}
+
 
     fetch(ENDPOINT, { method:'POST', headers:{'Accept':'application/json'}, body: fd })
       .then(function(res){ return res.json().then(function(d){ return {ok:res.ok, data:d}; }); })
