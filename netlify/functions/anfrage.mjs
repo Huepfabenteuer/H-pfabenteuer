@@ -1,0 +1,169 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   HÜPFABENTEUER — Anfragen-Verwaltung
+   ───────────────────────────────────────────────────────────────────────
+   Öffentlich:
+     POST /.netlify/functions/anfrage  { action:"neu", daten:{…} }
+          → speichert eine neue Anfrage (Status „ausstehend“)
+     GET  /angebot/<id>/<token>
+          → PDF-Angebot für den Kunden (nur mit geheimem Token)
+
+   Nur für Alex (Header  x-admin-key: <ADMIN_KEY>):
+     POST { action:"liste" }
+     POST { action:"speichern",  id, patch:{…} }
+     POST { action:"annehmen",   id }      → vergibt Angebots-Nr., Status „fix“
+     POST { action:"ablehnen",   id }
+     POST { action:"zuruecksetzen", id }   → wieder „ausstehend“
+     POST { action:"archivieren", id }
+
+   Braucht in Netlify die Umgebungsvariable ADMIN_KEY (dein Passwort für
+   die Verwaltung). Gespeichert wird in Netlify Blobs („anfragen“).
+   ═══════════════════════════════════════════════════════════════════════ */
+
+import { FIRMA } from '../lib/firma.mjs';
+import { saeubere, summen, waZusage, waAbsage, waNummer, datumKurz } from '../lib/anfrage-daten.mjs';
+import { erstelleAngebotPdf } from '../lib/angebot-pdf.mjs';
+
+const STORE = 'anfragen';
+const PREFIX = 'a/';
+
+function json(body, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' }
+  });
+}
+async function store() {
+  const { getStore } = await import('@netlify/blobs');
+  return getStore(STORE);
+}
+function zufall(n) {
+  const z = 'abcdefghijkmnpqrstuvwxyz23456789';
+  const b = new Uint8Array(n); crypto.getRandomValues(b);
+  return Array.from(b, x => z[x % z.length]).join('');
+}
+function siteUrl(req) {
+  return (process.env.URL || new URL(req.url).origin).replace(/\/$/, '');
+}
+function pdfLink(req, a) { return siteUrl(req) + '/angebot/' + a.id + '/' + a.token; }
+
+/* Für die Verwaltung: Eintrag + fertige Zusatzinfos */
+function anreichern(req, a) {
+  const s = summen(a);
+  const out = { ...a, summen: s, waNummer: waNummer(a.kunde.telefon) };
+  if (a.nr) { out.pdf = pdfLink(req, a); out.waText = waZusage(a, out.pdf); }
+  out.waAbsage = waAbsage(a);
+  return out;
+}
+
+function istAdmin(req) {
+  const k = process.env.ADMIN_KEY;
+  if (!k) return false;
+  const h = req.headers.get('x-admin-key') || '';
+  if (h.length !== k.length) return false;
+  let diff = 0; for (let i = 0; i < k.length; i++) diff |= h.charCodeAt(i) ^ k.charCodeAt(i);
+  return diff === 0;
+}
+
+async function naechsteNr(st) {
+  let akt = null;
+  try { akt = await st.get('meta/nr', { type: 'json' }); } catch (e) {}
+  const nr = Math.max(Number(akt && akt.letzte) || 0, FIRMA.startNr - 1) + 1;
+  await st.setJSON('meta/nr', { letzte: nr });
+  return nr;
+}
+
+export default async (req, context) => {
+  const url = new URL(req.url);
+
+  /* ── PDF für den Kunden ── */
+  const params = (context && context.params) || {};
+  const pdfId = params.id || url.searchParams.get('pdf');
+  const pdfToken = params.token || url.searchParams.get('t');
+  if (req.method === 'GET' && pdfId) {
+    try {
+      const st = await store();
+      const a = await st.get(PREFIX + pdfId, { type: 'json' });
+      const admin = istAdmin(req);
+      if (!a || (!admin && (!pdfToken || pdfToken !== a.token)) || (!a.nr && !admin)) {
+        return new Response('Angebot nicht gefunden.', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+      }
+      const bytes = await erstelleAngebotPdf(a);
+      const name = (datumKurz(a.angenommenAm || a.erstellt).split('.').reverse().join('-')) + '_Angebot_Nr' + (a.nr || 'Entwurf') + '_' + (a.kunde.nachname || a.kunde.vorname || 'Kunde').replace(/[^A-Za-z0-9ÄÖÜäöüß-]/g, '') + '.pdf';
+      return new Response(bytes, {
+        status: 200,
+        headers: { 'Content-Type': 'application/pdf', 'Content-Disposition': 'inline; filename="' + name.replace(/[^\x20-\x7E]/g, '') + '"', 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex' }
+      });
+    } catch (e) {
+      return new Response('Das Angebot konnte gerade nicht erstellt werden.', { status: 500, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+    }
+  }
+
+  if (req.method !== 'POST') return json({ ok: false, grund: 'methode' }, 405);
+
+  let body;
+  try {
+    const roh = await req.text();
+    if (roh.length > 30000) return json({ ok: false, grund: 'zu-gross' }, 413);
+    body = JSON.parse(roh || '{}');
+  } catch (e) { return json({ ok: false, grund: 'json' }, 400); }
+
+  let st;
+  try { st = await store(); } catch (e) { return json({ ok: false, grund: 'speicher' }, 503); }
+
+  /* ── Neue Anfrage (öffentlich) ── */
+  if (body.action === 'neu') {
+    const daten = saeubere(body.daten);
+    if (!daten.kunde.vorname && !daten.kunde.nachname) return json({ ok: false, grund: 'name' }, 400);
+    if (!daten.kunde.telefon) return json({ ok: false, grund: 'telefon' }, 400);
+    const id = Date.now().toString(36) + zufall(4);
+    const eintrag = {
+      id, token: zufall(20), erstellt: new Date().toISOString(),
+      status: 'ausstehend', nr: null, anrede: '', notiz: '', anzahlung: null,
+      ...daten
+    };
+    await st.setJSON(PREFIX + id, eintrag);
+    return json({ ok: true, id });
+  }
+
+  /* ── Ab hier nur mit Passwort ── */
+  if (!istAdmin(req)) return json({ ok: false, grund: process.env.ADMIN_KEY ? 'passwort' : 'kein-admin-key' }, 401);
+
+  if (body.action === 'liste') {
+    const { blobs } = await st.list({ prefix: PREFIX });
+    const alle = (await Promise.all(blobs.map(b => st.get(b.key, { type: 'json' }).catch(() => null)))).filter(Boolean);
+    return json({ ok: true, anfragen: alle.map(a => anreichern(req, a)) });
+  }
+
+  const id = String(body.id || '');
+  const a = id ? await st.get(PREFIX + id, { type: 'json' }) : null;
+  if (!a) return json({ ok: false, grund: 'nicht-gefunden' }, 404);
+
+  if (body.action === 'speichern') {
+    const p = body.patch || {};
+    const sauber = saeubere({ ...a, ...p, kunde: { ...a.kunde, ...(p.kunde || {}) }, adresse: { ...a.adresse, ...(p.adresse || {}) } });
+    const neu = { ...a, ...sauber };
+    if ('anrede' in p) neu.anrede = ['herr', 'frau', ''].includes(p.anrede) ? p.anrede : '';
+    if ('notiz' in p) neu.notiz = String(p.notiz || '').slice(0, 2000);
+    if ('anzahlung' in p) neu.anzahlung = (p.anzahlung === '' || p.anzahlung == null || isNaN(Number(p.anzahlung))) ? null : Math.round(Number(p.anzahlung) * 100) / 100;
+    neu.geaendert = new Date().toISOString();
+    await st.setJSON(PREFIX + id, neu);
+    return json({ ok: true, anfrage: anreichern(req, neu) });
+  }
+
+  if (body.action === 'annehmen') {
+    if (!a.nr) a.nr = await naechsteNr(st);
+    a.status = 'fix';
+    a.angenommenAm = a.angenommenAm || new Date().toISOString();
+    await st.setJSON(PREFIX + id, a);
+    return json({ ok: true, anfrage: anreichern(req, a) });
+  }
+  if (body.action === 'ablehnen' || body.action === 'zuruecksetzen' || body.action === 'archivieren') {
+    a.status = body.action === 'ablehnen' ? 'abgelehnt' : body.action === 'archivieren' ? 'archiv' : 'ausstehend';
+    a.geaendert = new Date().toISOString();
+    await st.setJSON(PREFIX + id, a);
+    return json({ ok: true, anfrage: anreichern(req, a) });
+  }
+
+  return json({ ok: false, grund: 'aktion' }, 400);
+};
+
+export const config = { path: ['/.netlify/functions/anfrage', '/angebot/:id/:token'] };

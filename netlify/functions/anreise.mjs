@@ -68,18 +68,13 @@ export default async (req) => {
     const p = f.properties || {};
     const ort = [p.postalcode, p.locality || p.localadmin || p.county || p.name].filter(Boolean).join(' ') || p.label || q;
 
-    const dr = await fetch(BASE + '/openrouteservice/v2/directions/driving-car', {
-      method: 'POST',
-      headers: { Authorization: key, 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ coordinates: [START, [lng, lat]], units: 'm' })
-    });
-    if (!dr.ok) {
-      let info = ''; try { info = (await dr.text()).slice(0, 120); } catch (e) {}
-      return json({ ok: false, grund: 'route-' + dr.status, info });
-    }
+    const d = new URL(BASE + '/openrouteservice/v2/directions/driving-car');
+    d.searchParams.set('start', START.join(','));
+    d.searchParams.set('end', lng + ',' + lat);
+    const dr = await fetch(d, { headers: { Authorization: key, Accept: 'application/geo+json, application/json, */*' } });
+    if (!dr.ok) return json({ ok: false, grund: 'route-' + dr.status });
     const dj = await dr.json();
-    const m = (dj.routes && dj.routes[0] && dj.routes[0].summary && dj.routes[0].summary.distance)
-           ?? (dj.features && dj.features[0] && dj.features[0].properties.summary.distance);
+    const m = dj.features && dj.features[0] && dj.features[0].properties.summary.distance;
     if (!m && m !== 0) return json({ ok: false, grund: 'keine-route' });
 
     const km = Math.max(1, Math.round(m / 1000));
