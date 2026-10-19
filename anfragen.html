@@ -34,7 +34,7 @@
   100%{box-shadow:0 6px 22px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,0);}
 }
 
-:root{--pink:#8A6424;--purple:#1A1813;--sky:#46413A;--sun:#9C722F;--green:#1F7A4D;--dark:#1A1813;--shadow:0 8px 32px rgba(0,0,0,.10);--ok:#1b8d4b;--err:#b3261e;}
+:root{--pink:#0B6B6F;--purple:#1A1813;--sky:#46413A;--sun:#0E7F84;--green:#1F7A4D;--dark:#1A1813;--shadow:0 8px 32px rgba(0,0,0,.10);--ok:#1b8d4b;--err:#b3261e;}
 
 *{box-sizing:border-box;margin:0;padding:0;}
 @media(prefers-color-scheme:dark){.card{background:#F5F0E5 !important;}}
@@ -93,7 +93,7 @@
 
 .burg-opt{display:flex;align-items:center;gap:12px;padding:13px 15px;border:2px solid #eee;border-radius:3px;cursor:pointer;transition:all .2s;background:#F5F0E5;}
 
-.burg-opt.selected{border-color:var(--purple);background:linear-gradient(135deg,rgba(26,24,19,.06),rgba(156,114,47,.06));}
+.burg-opt.selected{border-color:var(--purple);background:linear-gradient(135deg,rgba(26,24,19,.06),rgba(11,107,111,.06));}
 
 .burg-opt-icon{font-size:26px;flex-shrink:0;}
 
@@ -119,7 +119,7 @@
 
  
 /* PRICE ESTIMATE */
-.price-est{background:linear-gradient(135deg,rgba(156,114,47,.06),rgba(26,24,19,.08));border:1.5px solid rgba(26,24,19,.15);border-radius:3px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
+.price-est{background:linear-gradient(135deg,rgba(11,107,111,.06),rgba(26,24,19,.08));border:1.5px solid rgba(26,24,19,.15);border-radius:3px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
 
 .pe-label{font-size:13px;font-weight:700;color:#4A453C;}
 
@@ -145,7 +145,7 @@
 
 .extra-toggle:hover{border-color:var(--purple);background:#F7F2E8;transform:translateY(-1px);box-shadow:0 4px 14px rgba(26,24,19,.1);}
 
-.extra-toggle.selected{background:linear-gradient(135deg,rgba(26,24,19,.06),rgba(156,114,47,.04));border-color:var(--purple);box-shadow:0 4px 14px rgba(26,24,19,.15);}
+.extra-toggle.selected{background:linear-gradient(135deg,rgba(26,24,19,.06),rgba(11,107,111,.04));border-color:var(--purple);box-shadow:0 4px 14px rgba(26,24,19,.15);}
 
 .extra-toggle.selected .extra-title{color:var(--purple);}
 
@@ -155,7 +155,7 @@
 
  
 /* SUB-EXTRAS PANEL */
-.sub-extra-panel{display:none;margin-top:8px;margin-bottom:8px;background:linear-gradient(135deg,rgba(156,114,47,.06),rgba(156,114,47,.06));border:1.5px solid rgba(156,114,47,.3);border-radius:3px;padding:14px 16px;animation:fadeSlide .25s ease;}
+.sub-extra-panel{display:none;margin-top:8px;margin-bottom:8px;background:linear-gradient(135deg,rgba(11,107,111,.06),rgba(11,107,111,.06));border:1.5px solid rgba(11,107,111,.3);border-radius:3px;padding:14px 16px;animation:fadeSlide .25s ease;}
 
 .sub-extra-panel.open{display:block;}
 from{opacity:0;transform:translateY(-6px);}
@@ -167,7 +167,7 @@ to{opacity:1;transform:translateY(0);}
 
 .sub-extra-toggle:hover{background:#F3EDE1;border-color:var(--purple);}
 
-.sub-extra-toggle.selected{background:linear-gradient(135deg,rgba(26,24,19,.08),rgba(156,114,47,.06));border-color:var(--purple);border-style:solid;}
+.sub-extra-toggle.selected{background:linear-gradient(135deg,rgba(26,24,19,.08),rgba(11,107,111,.06));border-color:var(--purple);border-style:solid;}
 
 .sub-extra-toggle .set-name{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:13px;font-weight:800;color:var(--dark);}
 
@@ -179,7 +179,7 @@ to{opacity:1;transform:translateY(0);}
 
  
 /* BESTELLÜBERSICHT */
-.order-summary{background:linear-gradient(135deg,rgba(26,24,19,.06),rgba(156,114,47,.06));border:2px solid rgba(26,24,19,.18);border-radius:3px;padding:18px 18px;margin-bottom:16px;display:none;}
+.order-summary{background:linear-gradient(135deg,rgba(26,24,19,.06),rgba(11,107,111,.06));border:2px solid rgba(26,24,19,.18);border-radius:3px;padding:18px 18px;margin-bottom:16px;display:none;}
 
 .order-summary.visible{display:block;}
 
@@ -253,7 +253,7 @@ input,select,textarea,button{-webkit-tap-highlight-color:transparent;}
 
  
 /* SUBMIT */
-.btn-submit{width:100%;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;padding:17px;border-radius:3px;font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:18px;font-weight:800;border:none;cursor:pointer;box-shadow:0 8px 28px rgba(156,114,47,.4);transition:transform .15s,box-shadow .15s,opacity .15s;display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;}
+.btn-submit{width:100%;background:linear-gradient(135deg,var(--pink),var(--purple));color:white;padding:17px;border-radius:3px;font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:18px;font-weight:800;border:none;cursor:pointer;box-shadow:0 8px 28px rgba(11,107,111,.4);transition:transform .15s,box-shadow .15s,opacity .15s;display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;}
 
 .btn-submit:active{transform:scale(.97);}
 
@@ -310,7 +310,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
 
 .modus-btn:active{transform:scale(.97);}
 
-.modus-btn.active{border-color:var(--purple);background:linear-gradient(135deg,rgba(26,24,19,.10),rgba(156,114,47,.06));box-shadow:0 6px 18px rgba(26,24,19,.25);transform:translateY(-1px);}
+.modus-btn.active{border-color:var(--purple);background:linear-gradient(135deg,rgba(26,24,19,.10),rgba(11,107,111,.06));box-shadow:0 6px 18px rgba(26,24,19,.25);transform:translateY(-1px);}
 @media(min-width:768px){
   .modus-selector{gap:14px;padding:0 24px;}
 
@@ -345,7 +345,7 @@ body[data-modus="foto"] .nur-burg{display:none !important;}
 
 .foto-opt input[type="radio"]{position:absolute;opacity:0;pointer-events:none;}
 
-.foto-opt.selected{border-color:var(--purple);background:linear-gradient(135deg,rgba(26,24,19,.06),rgba(156,114,47,.03));box-shadow:0 4px 16px rgba(26,24,19,.18);}
+.foto-opt.selected{border-color:var(--purple);background:linear-gradient(135deg,rgba(26,24,19,.06),rgba(11,107,111,.03));box-shadow:0 4px 16px rgba(26,24,19,.18);}
 
 .foto-icon{width:42px;height:42px;border-radius:3px;background:linear-gradient(135deg,rgba(26,24,19,.12),rgba(99,102,241,.08));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
 
@@ -357,17 +357,17 @@ body[data-modus="foto"] .nur-burg{display:none !important;}
 
 .foto-price{font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:16px;font-weight:900;color:var(--purple);text-align:right;}
 
-.foto-opt.tier-premium{background:linear-gradient(135deg,#1c0c00,#3d1f00);border-color:rgba(156,114,47,.35);}
+.foto-opt.tier-premium{background:linear-gradient(135deg,#1c0c00,#3d1f00);border-color:rgba(11,107,111,.35);}
 
 .foto-opt.tier-premium .foto-name{color:white;}
 
 .foto-opt.tier-premium .foto-sub{color:rgba(255,215,0,.7);}
 
-.foto-opt.tier-premium .foto-price{color:#9C722F;}
+.foto-opt.tier-premium .foto-price{color:#0E7F84;}
 
 .foto-opt.tier-premium .foto-icon{background:linear-gradient(135deg,rgba(255,215,0,.2),rgba(255,165,0,.1));}
 
-.foto-opt.tier-premium.selected{border-color:#9C722F;box-shadow:0 6px 22px rgba(156,114,47,.3);}
+.foto-opt.tier-premium.selected{border-color:#0E7F84;box-shadow:0 6px 22px rgba(11,107,111,.3);}
 
 
 /* Features pro Foto-Paket */
@@ -385,7 +385,7 @@ body[data-modus="foto"] .nur-burg{display:none !important;}
 
 .foto-opt.tier-premium .foto-feat{color:rgba(255,255,255,.82);}
 
-.foto-opt.tier-premium .foto-feat::before{content:"★";color:#9C722F;}
+.foto-opt.tier-premium .foto-feat::before{content:"★";color:#0E7F84;}
 
 
 /* Hochzeit-Modus: nur Hochzeitsburg sichtbar */
@@ -428,9 +428,9 @@ body[data-modus="foto"] .aufbau-foto-only{display:flex !important;}
 
 .foto-opt.tier-premium .foto-feats-plus{border-top-color:rgba(255,215,0,.3);}
 
-.foto-opt.tier-premium .foto-feats-plus-title{color:#9C722F;}
+.foto-opt.tier-premium .foto-feats-plus-title{color:#0E7F84;}
 
-.foto-opt.tier-premium .foto-feats-plus .foto-feat::before{content:"★";color:#9C722F;}
+.foto-opt.tier-premium .foto-feats-plus .foto-feat::before{content:"★";color:#0E7F84;}
 
 
 /* Foto-dazubuchen-Toggle (im Burg- + Hochzeit-Modus) */
@@ -730,7 +730,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 
 /* Preis-Schätzung dezenter */
 .price-est{
-  background:linear-gradient(135deg,rgba(156,114,47,.045),rgba(26,24,19,.055));
+  background:linear-gradient(135deg,rgba(11,107,111,.045),rgba(26,24,19,.055));
   border:1px solid rgba(26,24,19,.14);
 }
 
@@ -742,12 +742,12 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 /* Absenden-Button: mehr Tiefe, Desktop-Hover, feinere Schrift */
 .btn-submit{
   letter-spacing:.3px;
-  box-shadow:0 2px 6px rgba(26,24,19,.28),0 10px 26px rgba(156,114,47,.32);
+  box-shadow:0 2px 6px rgba(26,24,19,.28),0 10px 26px rgba(11,107,111,.32);
 }
 @media(hover:hover){
   .btn-submit:hover:not(:disabled){
     transform:translateY(-1px);
-    box-shadow:0 4px 10px rgba(26,24,19,.32),0 14px 32px rgba(156,114,47,.38);
+    box-shadow:0 4px 10px rgba(26,24,19,.32),0 14px 32px rgba(11,107,111,.38);
   }}
 
 @media(min-width:768px){
@@ -758,37 +758,37 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 </style>
 <link rel="stylesheet" href="site.css?v=202610171625"/>
 <style>
-.anf{--pink:#8A6424;--purple:#1A1813;--sky:#46413A;--sun:#9C722F;--dark:#1A1813;--green:#1F7A4D;--shadow:0 1px 2px rgba(26,24,19,.05);}
+.anf{--pink:#0B6B6F;--purple:#1A1813;--sky:#46413A;--sun:#0E7F84;--dark:#1A1813;--green:#1F7A4D;--shadow:0 1px 2px rgba(26,24,19,.05);}
 .anf .card,.anf .modus-btn,.anf .burg-opt,.anf .foto-opt,.anf .extra-toggle,.anf .sub-extra-toggle,.anf .lief-btn,.anf .order-summary,.anf .gutschein-box,.anf .rabatt-hint-card{border:1px solid rgba(26,24,19,.16) !important;box-shadow:none !important;}
 .anf .card{background:#F5F0E5 !important;}
 .anf .card-title{font-family:'Bodoni Moda',Didot,serif !important;font-weight:400 !important;font-size:1.35rem !important;letter-spacing:-.01em;color:#1A1813 !important;}
 .anf .card-sub{color:#6A6356 !important;}
 .anf .modus-btn.active,.anf .burg-opt.selected,.anf .foto-opt.selected,.anf .extra-toggle.selected,.anf .sub-extra-toggle.selected{border-color:#0B6B6F !important;background:#FBF8F2 !important;box-shadow:inset 0 0 0 1px #0B6B6F !important;}
-.anf .burg-opt.selected .burg-opt-check{background:#8A6424 !important;border-color:#8A6424 !important;}
+.anf .burg-opt.selected .burg-opt-check{background:#0B6B6F !important;border-color:#0B6B6F !important;}
 .anf .extra-toggle.selected .extra-switch{background:#0B6B6F !important;}
 .anf .extra-toggle.selected .extra-title,.anf .sub-extra-toggle.selected .set-name{color:#0B6B6F !important;}
 .anf .lief-btn.lief-active{background:#0B6B6F !important;color:#fff !important;border-color:#0B6B6F !important;}
 .anf input:not([type=radio]):not([type=checkbox]),.anf select,.anf textarea{background:#FBF8F2 !important;border:1px solid rgba(26,24,19,.2) !important;border-radius:2px !important;font-family:'Karla','Helvetica Neue',Arial,sans-serif !important;color:#1A1813 !important;}
-.anf input:focus,.anf select:focus,.anf textarea:focus{border-color:#8A6424 !important;outline:none;box-shadow:0 0 0 2px rgba(26,24,19,.12) !important;}
+.anf input:focus,.anf select:focus,.anf textarea:focus{border-color:#0B6B6F !important;outline:none;box-shadow:0 0 0 2px rgba(26,24,19,.12) !important;}
 .anf .btn-submit{background:#0B6B6F !important;color:#fff !important;border-radius:6px !important;box-shadow:none !important;font-family:'Karla','Helvetica Neue',Arial,sans-serif !important;font-weight:700 !important;letter-spacing:.02em;}
-.anf .btn-submit:hover{background:#9C722F !important;}
+.anf .btn-submit:hover{background:#0E7F84 !important;}
 .anf{padding-bottom:20px;}
 .anf .field-row>*{min-width:0;}
 .anf input,.anf select{min-width:0;max-width:100%;}
-.anf .burg-opt-badge-hochzeit{background:#8A6424 !important;color:#fff !important;padding:5px 8px !important;font-size:10.5px !important;border-radius:4px !important;white-space:nowrap;}
+.anf .burg-opt-badge-hochzeit{background:#0B6B6F !important;color:#fff !important;padding:5px 8px !important;font-size:10.5px !important;border-radius:4px !important;white-space:nowrap;}
 @media(max-width:400px){.anf .burg-opt-badge-hochzeit{font-size:0 !important;padding:6px 9px !important;}.anf .burg-opt-badge-hochzeit::after{content:"Paket →";font-size:10.5px;}}
 .anf .modus-selector{max-width:760px;margin-left:auto;margin-right:auto;padding-left:16px !important;padding-right:16px !important;box-sizing:border-box;}
 .anf .burg-banner,.anf .rabatt-banner{width:auto !important;margin-left:16px !important;margin-right:16px !important;}
 @media(min-width:792px){.anf .burg-banner,.anf .rabatt-banner{margin-left:auto !important;margin-right:auto !important;}}
 .anf form{max-width:760px;margin-left:auto !important;margin-right:auto !important;}
 .anf .burg-banner,.anf .rabatt-banner{max-width:728px;}
-.anf .burg-opt-price,.anf .foto-price,.anf .pe-val,.anf .burg-banner-price{color:#8A6424 !important;}
-.anf .burg-opt.selected .burg-opt-icon{background:#8A6424 !important;border-color:#8A6424 !important;color:#fff !important;}
+.anf .burg-opt-price,.anf .foto-price,.anf .pe-val,.anf .burg-banner-price{color:#0B6B6F !important;}
+.anf .burg-opt.selected .burg-opt-icon{background:#0B6B6F !important;border-color:#0B6B6F !important;color:#fff !important;}
 
 .anf .modus-icon svg{width:26px;height:26px;stroke:#1A1813;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;}
-.anf .modus-btn.active .modus-icon svg{stroke:#8A6424;}
+.anf .modus-btn.active .modus-icon svg{stroke:#0B6B6F;}
 .anf .burg-opt-icon,.anf .foto-icon,.anf .burg-banner-icon,.anf .rabatt-banner-icon,.anf .rh-icon{display:inline-flex !important;align-items:center;justify-content:center;width:38px !important;height:38px !important;min-width:38px;border-radius:50% !important;border:1px solid rgba(26,24,19,.28) !important;background:transparent !important;font-family:'Bodoni Moda',Didot,serif !important;font-size:1.15rem !important;font-weight:400 !important;color:#1A1813 !important;line-height:1 !important;}
-.anf .burg-opt.selected .burg-opt-icon,.anf .foto-opt.selected .foto-icon{background:#8A6424 !important;color:#fff !important;border-color:#8A6424;}
+.anf .burg-opt.selected .burg-opt-icon,.anf .foto-opt.selected .foto-icon{background:#0B6B6F !important;color:#fff !important;border-color:#0B6B6F;}
 .anf .rabatt-banner-icon,.anf .rh-icon{font-family:'Karla',sans-serif !important;font-weight:700 !important;font-size:.95rem !important;color:#1F7A4D !important;border-color:rgba(31,122,77,.4);}
 </style>
 
@@ -803,8 +803,8 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
   "isPartOf": {"@type": "WebSite", "name": "Hüpfabenteuer Kärnten", "url": "https://huepfabenteuer.at"}
 }
 </script>
-<style>body[data-modus="hochzeit"] .nur-foto{display:block !important;}body[data-modus="hochzeit"] .foto-dazu-wrap{display:none !important;}.anf .foto-opt.tier-premium{background:#FBF8F2 !important;border:1px solid #9C722F !important;box-shadow:inset 0 0 0 1px rgba(156,114,47,.35) !important;}.anf .foto-opt.tier-premium .foto-name{color:#1A1813 !important;}.anf .foto-opt.tier-premium .foto-sub{color:#8A6424 !important;}.anf .foto-opt.tier-premium .foto-feat{color:#46413A !important;}.anf .foto-opt.tier-premium .foto-icon{background:#8A6424 !important;color:#fff !important;}.anf .foto-opt.tier-premium .foto-feats,.anf .foto-opt.tier-premium .foto-feats-plus{border-top-color:rgba(156,114,47,.3) !important;}.anf .foto-opt.tier-premium.selected{box-shadow:inset 0 0 0 2px #8A6424 !important;}</style>
-<style>.anf .rabatt-banner .rabatt-banner-icon{color:#fff !important;border-color:rgba(255,255,255,.55) !important;}.anf .modus-sub,.anf .burg-banner-sub,.anf .sub-extra-desc,.anf .extra-hint,.anf .pe-note,.anf .order-note{color:#5E584C !important;}.anf .foto-feats-plus-title{color:#7A5518 !important;}.anf .foto-rabatt-hint,.anf .foto-rabatt-hint strong{color:#1A6B42 !important;}</style>
+<style>body[data-modus="hochzeit"] .nur-foto{display:block !important;}body[data-modus="hochzeit"] .foto-dazu-wrap{display:none !important;}.anf .foto-opt.tier-premium{background:#FBF8F2 !important;border:1px solid #0E7F84 !important;box-shadow:inset 0 0 0 1px rgba(11,107,111,.35) !important;}.anf .foto-opt.tier-premium .foto-name{color:#1A1813 !important;}.anf .foto-opt.tier-premium .foto-sub{color:#0B6B6F !important;}.anf .foto-opt.tier-premium .foto-feat{color:#46413A !important;}.anf .foto-opt.tier-premium .foto-icon{background:#0B6B6F !important;color:#fff !important;}.anf .foto-opt.tier-premium .foto-feats,.anf .foto-opt.tier-premium .foto-feats-plus{border-top-color:rgba(11,107,111,.3) !important;}.anf .foto-opt.tier-premium.selected{box-shadow:inset 0 0 0 2px #0B6B6F !important;}</style>
+<style>.anf .rabatt-banner .rabatt-banner-icon{color:#fff !important;border-color:rgba(255,255,255,.55) !important;}.anf .modus-sub,.anf .burg-banner-sub,.anf .sub-extra-desc,.anf .extra-hint,.anf .pe-note,.anf .order-note{color:#5E584C !important;}.anf .foto-feats-plus-title{color:#0B6B6F !important;}.anf .foto-rabatt-hint,.anf .foto-rabatt-hint strong{color:#1A6B42 !important;}</style>
 <style id="empfehlung-css">
 .empf-wrap{margin-top:14px;}
 #empf-btn{border:2px solid #0B6B6F !important;background:rgba(11,107,111,.06) !important;}
@@ -859,6 +859,21 @@ document.addEventListener('DOMContentLoaded', function(){
 .extra-toggle.selected .extra-switch{background:#0B6B6F;}
 .extra-toggle.selected .extra-switch::after{transform:translateX(18px);}
 .extra-toggle:focus-visible{outline:2px solid #0B6B6F;outline-offset:2px;}
+</style>
+<style id="modus-ruhig-css">
+/* Modus-Auswahl oben: ruhigere Symbole in Petrol statt Braun */
+.anf .modus-icon{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:rgba(11,107,111,.07);transition:background .2s;}
+.anf .modus-icon svg{width:24px !important;height:24px !important;stroke:#5E6B6B !important;stroke-width:1.5 !important;}
+.anf .modus-btn{border-radius:12px !important;}
+.anf .modus-btn.active .modus-icon{background:rgba(11,107,111,.14);}
+.anf .modus-btn.active .modus-icon svg{stroke:#0B6B6F !important;}
+.anf .modus-btn.active .modus-sub{color:#0B6B6F !important;}
+.anf .burg-opt,.anf .foto-opt{border-radius:10px !important;}
+.anf .burg-opt-icon{color:#46413A;}
+.anf .burg-opt.selected .burg-opt-icon{background:rgba(11,107,111,.12) !important;border-color:#0B6B6F !important;color:#0B6B6F !important;}
+.anf .burg-opt.selected .burg-opt-check{background:#0B6B6F !important;border-color:#0B6B6F !important;}
+.anf .it,.hero h1 .it{color:#0B6B6F;}
 </style>
 </head>
 <body>
@@ -968,7 +983,7 @@ document.addEventListener('DOMContentLoaded', function(){
     <div class="card reveal nur-burg">
       <div class="card-title">Hüpfburg wählen</div>
       <div class="card-sub card-sub-burg-hide">Welche Burg darf es sein?</div>
-      <div class="card-sub" style="display:none;color:#9C722F;font-weight:700;" id="hochzeit-burg-hint">Hochzeitsburg ist im Paket fix enthalten</div>
+      <div class="card-sub" style="display:none;color:#0E7F84;font-weight:700;" id="hochzeit-burg-hint">Hochzeitsburg ist im Paket fix enthalten</div>
       <div class="burg-picker" id="burgPicker">
         <label class="burg-opt" data-name="Alienburg" data-price="180" data-icon="A">
           <input type="radio" name="Hüpfburg" value="Alienburg (180 €/Tag)">
@@ -1009,7 +1024,7 @@ document.addEventListener('DOMContentLoaded', function(){
           <input type="radio" name="Hüpfburg" value="Feuerwehrauto (140 €/Tag)">
           <div class="burg-opt-check"></div>
           <div class="burg-opt-icon">F</div>
-          <div class="burg-opt-name">Feuerwehrauto <span style="background:linear-gradient(135deg,#9C722F,#8A6424);color:white;font-size:9px;padding:2px 7px;border-radius:3px;margin-left:4px;">NEU</span></div>
+          <div class="burg-opt-name">Feuerwehrauto <span style="background:linear-gradient(135deg,#0E7F84,#0B6B6F);color:white;font-size:9px;padding:2px 7px;border-radius:3px;margin-left:4px;">NEU</span></div>
           <div class="burg-opt-price">140 €/Tag</div>
         </label>
       </div>
@@ -1087,7 +1102,7 @@ document.addEventListener('DOMContentLoaded', function(){
           <div class="foto-head">
             <div class="foto-icon">P</div>
             <div class="foto-info">
-              <div class="foto-name">Premium <span style="font-size:10px;color:#fff;background:#7A5518;padding:2px 7px;border-radius:3px;font-weight:800;margin-left:4px;letter-spacing:.04em;white-space:nowrap;display:inline-block;vertical-align:2px;">BELIEBTESTES PAKET</span></div>
+              <div class="foto-name">Premium <span style="font-size:10px;color:#fff;background:#0B6B6F;padding:2px 7px;border-radius:3px;font-weight:800;margin-left:4px;letter-spacing:.04em;white-space:nowrap;display:inline-block;vertical-align:2px;">BELIEBTESTES PAKET</span></div>
               <div class="foto-sub">Alle Highlights inkl.</div>
             </div>
             <div class="foto-price">349 €</div>
@@ -1320,7 +1335,7 @@ document.addEventListener('DOMContentLoaded', function(){
         <div class="gutschein-msg" id="gutscheinMsg"></div>
       </div>
       <div class="order-note">* Geschätzter Preis · zzgl. Anreise 0,55 €/km · Endpreis nach Bestätigung</div>
-      <div id="anzahlungHinweis" style="display:none;margin-top:10px;padding:10px 14px;border-radius:3px;background:linear-gradient(135deg,rgba(156,114,47,.12),rgba(156,114,47,.08));border:1.5px solid rgba(156,114,47,.4);font-size:12px;font-weight:700;color:#7a5c00;line-height:1.6;"></div>
+      <div id="anzahlungHinweis" style="display:none;margin-top:10px;padding:10px 14px;border-radius:3px;background:linear-gradient(135deg,rgba(11,107,111,.12),rgba(11,107,111,.08));border:1.5px solid rgba(11,107,111,.4);font-size:12px;font-weight:700;color:#7a5c00;line-height:1.6;"></div>
     </div>
  
     <!-- DSGVO-Einwilligung -->
@@ -1349,9 +1364,9 @@ document.addEventListener('DOMContentLoaded', function(){
 <div style="background:linear-gradient(135deg,rgba(26,24,19,.06),rgba(26,24,19,.06));border-top:1.5px solid rgba(26,24,19,.18);padding:20px 18px 22px;text-align:center;">
   <div style="font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:14px;font-weight:800;color:#1A1813;margin-bottom:10px;">Anzahlung zur Terminreservierung</div>
   <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:480px;margin:0 auto;">
-    <div style="background:#F5F0E5;padding:9px 14px;border-radius:3px;font-size:12px;color:#1A1813;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Karla','Helvetica Neue',Arial,sans-serif;">bis 219 €</strong> → <span style="color:#8A6424;font-weight:900;">30 €</span></div>
-    <div style="background:#F5F0E5;padding:9px 14px;border-radius:3px;font-size:12px;color:#1A1813;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Karla','Helvetica Neue',Arial,sans-serif;">220 – 299 €</strong> → <span style="color:#8A6424;font-weight:900;">50 €</span></div>
-    <div style="background:#F5F0E5;padding:9px 14px;border-radius:3px;font-size:12px;color:#1A1813;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Karla','Helvetica Neue',Arial,sans-serif;">ab 300 €</strong> → <span style="color:#8A6424;font-weight:900;">100 €</span></div>
+    <div style="background:#F5F0E5;padding:9px 14px;border-radius:3px;font-size:12px;color:#1A1813;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Karla','Helvetica Neue',Arial,sans-serif;">bis 219 €</strong> → <span style="color:#0B6B6F;font-weight:900;">30 €</span></div>
+    <div style="background:#F5F0E5;padding:9px 14px;border-radius:3px;font-size:12px;color:#1A1813;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Karla','Helvetica Neue',Arial,sans-serif;">220 – 299 €</strong> → <span style="color:#0B6B6F;font-weight:900;">50 €</span></div>
+    <div style="background:#F5F0E5;padding:9px 14px;border-radius:3px;font-size:12px;color:#1A1813;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.04);"><strong style="font-family:'Karla','Helvetica Neue',Arial,sans-serif;">ab 300 €</strong> → <span style="color:#0B6B6F;font-weight:900;">100 €</span></div>
   </div>
   <div style="font-size:11px;color:#4A453C;margin-top:12px;">Restbetrag bezahlbar am Veranstaltungstag</div>
 </div>
@@ -1895,8 +1910,8 @@ window.addEventListener('DOMContentLoaded', function(){
     if(pk){
       // Paket-Hinweis Banner einblenden
       var banner = document.createElement('div');
-      banner.id = 'paketBanner'; banner.style.cssText = 'margin:0 16px 14px;background:#FBF8F2;border:1px solid rgba(26,24,19,.16);border-left:3px solid #8A6424;border-radius:6px;padding:12px 16px;display:flex;align-items:center;gap:12px;';
-      banner.innerHTML = '<span id="paketIcon" style="width:38px;height:38px;flex:0 0 38px;border-radius:50%;background:#8A6424;color:#fff;display:flex;align-items:center;justify-content:center;font-family:\'Bodoni Moda\',Didot,serif;font-size:18px;">'+pk.icon+'</span><div><div id="paketName" style="font-family:\'Karla\',sans-serif;font-size:16px;font-weight:700;color:#1A1813;">'+pk.name+'</div><div id="paketDesc" style="font-size:13px;color:#6A6356;">'+pk.desc+'</div><div style="font-size:12px;color:#6A6356;margin-top:2px;">Burg, Fotobox und Extras kannst du unten frei dazu wählen.</div></div>';
+      banner.id = 'paketBanner'; banner.style.cssText = 'margin:0 16px 14px;background:#FBF8F2;border:1px solid rgba(26,24,19,.16);border-left:3px solid #0B6B6F;border-radius:6px;padding:12px 16px;display:flex;align-items:center;gap:12px;';
+      banner.innerHTML = '<span id="paketIcon" style="width:38px;height:38px;flex:0 0 38px;border-radius:50%;background:#0B6B6F;color:#fff;display:flex;align-items:center;justify-content:center;font-family:\'Bodoni Moda\',Didot,serif;font-size:18px;">'+pk.icon+'</span><div><div id="paketName" style="font-family:\'Karla\',sans-serif;font-size:16px;font-weight:700;color:#1A1813;">'+pk.name+'</div><div id="paketDesc" style="font-size:13px;color:#6A6356;">'+pk.desc+'</div><div style="font-size:12px;color:#6A6356;margin-top:2px;">Burg, Fotobox und Extras kannst du unten frei dazu wählen.</div></div>';
       var burgBanner = document.getElementById('burgBanner');
       burgBanner.parentNode.insertBefore(banner, burgBanner);
     }
