@@ -14,6 +14,9 @@
      POST { action:"ablehnen",   id }
      POST { action:"zuruecksetzen", id }   → wieder „ausstehend“
      POST { action:"archivieren", id }
+     POST { action:"papierkorb", id }      → in den Papierkorb
+     POST { action:"wiederherstellen", id }
+     POST { action:"loeschen", id }        → endgültig (nur aus dem Papierkorb)
 
    Braucht in Netlify die Umgebungsvariable ADMIN_KEY (dein Passwort für
    die Verwaltung). Gespeichert wird in Netlify Blobs („anfragen“).
@@ -183,11 +186,26 @@ export default async (req, context) => {
     await st.setJSON(PREFIX + id, a);
     return json({ ok: true, anfrage: anreichern(req, a) });
   }
-  if (body.action === 'ablehnen' || body.action === 'zuruecksetzen' || body.action === 'archivieren') {
-    a.status = body.action === 'ablehnen' ? 'abgelehnt' : body.action === 'archivieren' ? 'archiv' : 'ausstehend';
+  if (['ablehnen', 'zuruecksetzen', 'archivieren', 'papierkorb', 'wiederherstellen'].includes(body.action)) {
+    if (body.action === 'archivieren' || body.action === 'papierkorb') {
+      if (a.status !== 'archiv' && a.status !== 'papierkorb') a.vorherStatus = a.status;
+    }
+    a.status = {
+      ablehnen: 'abgelehnt', zuruecksetzen: 'ausstehend', archivieren: 'archiv', papierkorb: 'papierkorb',
+      wiederherstellen: (a.vorherStatus && a.vorherStatus !== 'papierkorb' && a.vorherStatus !== 'archiv') ? a.vorherStatus : 'ausstehend'
+    }[body.action];
+    if (body.action === 'papierkorb') a.geloeschtAm = new Date().toISOString();
+    if (body.action === 'wiederherstellen') delete a.geloeschtAm;
     a.geaendert = new Date().toISOString();
     await st.setJSON(PREFIX + id, a);
     return json({ ok: true, anfrage: anreichern(req, a) });
+  }
+
+  /* Endgültig löschen – nur was schon im Papierkorb liegt */
+  if (body.action === 'loeschen') {
+    if (a.status !== 'papierkorb') return json({ ok: false, grund: 'erst-papierkorb' }, 400);
+    await st.delete(PREFIX + id);
+    return json({ ok: true, geloescht: id });
   }
 
   return json({ ok: false, grund: 'aktion' }, 400);

@@ -62,8 +62,9 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .ikon:active{background:rgba(26,24,19,.06);}
 .ikon.dreht svg{animation:dreh .8s linear infinite;}
 @keyframes dreh{to{transform:rotate(360deg);}}
-.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:12px;padding:4px;background:rgba(26,24,19,.06);border-radius:12px;}
-.tab{min-height:40px;border-radius:9px;font-weight:700;font-size:.92rem;color:var(--ink-2);display:flex;align-items:center;justify-content:center;gap:6px;}
+.tabs{display:flex;gap:4px;margin-top:12px;padding:4px;background:rgba(26,24,19,.06);border-radius:12px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{flex:1 0 auto;padding:0 12px;white-space:nowrap;min-height:40px;border-radius:9px;font-weight:700;font-size:.92rem;color:var(--ink-2);display:flex;align-items:center;justify-content:center;gap:6px;}
 .tab.on{background:var(--paper);color:var(--ink);box-shadow:0 1px 2px rgba(26,24,19,.12);}
 .zahl{min-width:22px;height:22px;padding:0 6px;border-radius:99px;font-size:.78rem;display:inline-flex;align-items:center;justify-content:center;background:rgba(26,24,19,.08);}
 .tab[data-t="ausstehend"] .zahl.voll{background:var(--offen);color:#fff;}
@@ -153,6 +154,21 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .haken{width:56px;height:56px;border-radius:50%;background:var(--fix-l);color:var(--fix);display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
 .haken svg{width:30px;height:30px;stroke-width:2.4;}
 
+.wisch{position:relative;border-radius:14px;overflow:hidden;background:var(--sand);}
+.wisch-akt{position:absolute;top:0;right:0;bottom:0;display:flex;}
+.wisch-akt button{width:78px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:.78rem;font-weight:800;color:#fff;}
+.wisch-akt button svg{width:22px;height:22px;}
+.wa-grau{background:#6B6659;}
+.wa-gelb{background:var(--offen);}
+.wa-rot{background:var(--nein);}
+.wa-gruen{background:var(--fix);}
+.wisch .karte{position:relative;z-index:1;touch-action:pan-y;transition:transform .22s cubic-bezier(.2,.8,.2,1);will-change:transform;}
+.wisch.zieht .karte{transition:none;}
+.wisch-tipp{font-size:.8rem;color:var(--mute);text-align:center;padding:2px 0 4px;}
+.leeren{align-self:flex-end;color:var(--nein);font-weight:800;font-size:.9rem;min-height:40px;padding:0 6px;}
+.toast button{color:#7FD8DA;font-weight:800;margin-left:14px;padding:4px 0;}
+.toast:has(button){display:flex;align-items:center;white-space:nowrap;}
+.toast.auf{pointer-events:auto;}
 .toast{position:fixed;left:50%;bottom:calc(96px + var(--safe-b));transform:translate(-50%,20px);z-index:80;background:var(--ink);color:#fff;padding:11px 16px;border-radius:12px;font-weight:700;font-size:.92rem;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:calc(100% - 32px);text-align:center;}
 .toast.auf{opacity:1;transform:translate(-50%,0);}
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important;}}
@@ -186,6 +202,8 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
       <button class="tab on" data-t="ausstehend" role="tab">Offen <span class="zahl" id="z-ausstehend">0</span></button>
       <button class="tab" data-t="fix" role="tab">Fix <span class="zahl" id="z-fix">0</span></button>
       <button class="tab" data-t="abgelehnt" role="tab">Abgesagt <span class="zahl" id="z-abgelehnt">0</span></button>
+      <button class="tab" data-t="archiv" role="tab">Archiv <span class="zahl" id="z-archiv">0</span></button>
+      <button class="tab" data-t="papierkorb" role="tab" aria-label="Papierkorb"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg><span class="zahl" id="z-papierkorb">0</span></button>
     </nav>
   </header>
   <div class="liste" id="liste"></div>
@@ -281,7 +299,11 @@ function summen(a){
 function waLink(nummer, text){ return 'https://wa.me/' + nummer + '?text=' + encodeURIComponent(text); }
 
 var toastT;
-function toast(t){ var el = $('toast'); el.textContent = t; el.classList.add('auf'); clearTimeout(toastT); toastT = setTimeout(function(){ el.classList.remove('auf'); }, 2600); }
+function toast(t, rueck){
+  var el = $('toast'); el.textContent = t;
+  if(rueck){ var b = document.createElement('button'); b.textContent = 'Rückgängig'; b.addEventListener('click', function(){ el.classList.remove('auf'); rueck(); }); el.appendChild(b); }
+  el.classList.add('auf'); clearTimeout(toastT); toastT = setTimeout(function(){ el.classList.remove('auf'); }, rueck ? 5000 : 2600);
+}
 
 /* ── Server ── */
 function api(action, extra){
@@ -324,12 +346,27 @@ document.querySelectorAll('.tab').forEach(function(b){
   b.addEventListener('click', function(){ tab = b.dataset.t; document.querySelectorAll('.tab').forEach(function(x){ x.classList.toggle('on', x === b); }); zeichneListe(); window.scrollTo(0,0); });
 });
 
+var IK = {
+  absagen: '<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7"/></svg>',
+  archiv: '<svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="4" rx="1"/><path d="M5 8.5V19a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5M10 12.5h4"/></svg>',
+  muell: '<svg class="i" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg>',
+  zurueck: '<svg class="i" viewBox="0 0 24 24"><path d="M9 14l-5-5 5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg>'
+};
+function wischAktionen(a){
+  var b = function(cls, act, ik, txt){ return '<button class="' + cls + '" data-act="' + act + '" data-id="' + esc(a.id) + '">' + IK[ik] + txt + '</button>'; };
+  if(a.status === 'ausstehend') return b('wa-gelb','ablehnen','absagen','Absagen') + b('wa-rot','papierkorb','muell','Löschen');
+  if(a.status === 'archiv') return b('wa-gruen','wiederherstellen','zurueck','Zurück') + b('wa-rot','papierkorb','muell','Löschen');
+  if(a.status === 'papierkorb') return b('wa-gruen','wiederherstellen','zurueck','Zurück') + b('wa-rot','loeschen','muell','Weg');
+  return b('wa-grau','archivieren','archiv','Archiv') + b('wa-rot','papierkorb','muell','Löschen');
+}
 function karte(a){
   var d = tagDatum(a.datum), s = summen(a), k = a.status === 'ausstehend' ? konflikte(a) : [];
   var ort = (a.adresse && a.adresse.ort) || '';
   var km = a.anreise && a.anreise.km ? a.anreise.km + ' km' : '';
   var info = a.status === 'ausstehend' ? 'Eingegangen ' + wannEingegangen(a.erstellt) : (a.nr ? 'Angebot ' + a.nr + (d ? ', ' + inTagen(a.datum) : '') : '');
-  return '<button class="karte" data-id="' + esc(a.id) + '" data-s="' + esc(a.status) + '">' +
+  if(a.status === 'papierkorb' && a.geloeschtAm) info = 'Gelöscht ' + wannEingegangen(a.geloeschtAm);
+  if(a.status === 'archiv') info = 'Archiviert' + (a.vorherStatus === 'fix' && a.nr ? ', Angebot ' + a.nr : '');
+  return '<div class="wisch" data-id="' + esc(a.id) + '"><div class="wisch-akt">' + wischAktionen(a) + '</div><button class="karte" data-id="' + esc(a.id) + '" data-s="' + esc(a.status) + '">' +
     '<span class="tag">' + (d ? '<span class="tag-w">' + WT[d.getDay()] + '</span><span class="tag-d">' + d.getDate() + '</span><span class="tag-m">' + MO[d.getMonth()] + '</span>' : '<span class="tag-m">kein<br>Datum</span>') + '</span>' +
     '<span class="k-mitte"><span class="k-prod">' + esc(produkte(a)) + '</span>' +
     '<span class="k-wer">' + esc(((a.kunde.vorname || '') + ' ' + (a.kunde.nachname || '')).trim()) + (ort ? ', ' + esc(ort) : '') + '</span>' +
@@ -337,13 +374,13 @@ function karte(a){
     '<span class="k-rechts"><span class="k-preis">' + (s.offen && !s.gesamt ? 'offen' : eur(s.gesamt)) + '</span>' +
     (k.length ? '<span class="warn"><svg class="i" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg>Schon fix</span>' : '') +
     (s.offen && s.gesamt ? '<span class="warn" style="color:var(--offen)">Betrag fehlt</span>' : '') +
-    '</span></button>';
+    '</span></button></div>';
 }
 
 function zeichneListe(){
-  var z = {ausstehend:0, fix:0, abgelehnt:0};
-  alle.forEach(function(a){ if(a.status === 'archiv') return; if(z[a.status] != null) z[a.status]++; });
-  Object.keys(z).forEach(function(k){ var el = $('z-' + k); el.textContent = z[k]; el.classList.toggle('voll', z[k] > 0); });
+  var z = {ausstehend:0, fix:0, abgelehnt:0, archiv:0, papierkorb:0};
+  alle.forEach(function(a){ if(z[a.status] != null) z[a.status]++; });
+  Object.keys(z).forEach(function(k){ var el = $('z-' + k); el.textContent = z[k]; el.classList.toggle('voll', z[k] > 0); el.hidden = (k === 'papierkorb' || k === 'archiv') && !z[k]; });
   var l = alle.filter(function(a){ return a.status === tab; }), html = '';
   if(tab === 'ausstehend'){
     l.sort(function(a,b){ return (b.erstellt || '').localeCompare(a.erstellt || ''); });
@@ -359,10 +396,71 @@ function zeichneListe(){
   } else {
     l.sort(function(a,b){ return (b.geaendert || b.erstellt || '').localeCompare(a.geaendert || a.erstellt || ''); });
     html = l.map(karte).join('');
-    if(!l.length) html = '<div class="leer"><b>Keine Absagen</b>Abgesagte Anfragen findest du hier wieder.</div>';
+    var LEER = {
+      abgelehnt: '<b>Keine Absagen</b>Abgesagte Anfragen findest du hier wieder.',
+      archiv: '<b>Archiv ist leer</b>Wisch eine Anfrage nach links und tipp auf „Archiv“, um sie aufzuheben.',
+      papierkorb: '<b>Papierkorb ist leer</b>Gelöschte Anfragen bleiben hier, bis du sie endgültig entfernst.'
+    };
+    if(!l.length) html = '<div class="leer">' + LEER[tab] + '</div>';
+    else if(tab === 'papierkorb') html = '<button class="leeren" id="leeren">Papierkorb leeren</button>' + html;
   }
+  if(l.length && !html.includes('wisch-tipp') && !lsTipp()) html = '<div class="wisch-tipp">Tipp: Karte nach links wischen für mehr Aktionen</div>' + html;
   $('liste').innerHTML = html;
-  $('liste').querySelectorAll('.karte').forEach(function(b){ b.addEventListener('click', function(){ oeffneDetail(b.dataset.id); }); });
+  $('liste').querySelectorAll('.karte').forEach(function(b){ b.addEventListener('click', function(e){ if(b.dataset.gewischt){ delete b.dataset.gewischt; e.preventDefault(); return; } if(offen && offen !== b.parentNode){ zuWisch(); return; } if(b.parentNode.classList.contains('offen')){ zuWisch(); return; } oeffneDetail(b.dataset.id); }); });
+  $('liste').querySelectorAll('.wisch').forEach(wischbar);
+  $('liste').querySelectorAll('.wisch-akt button').forEach(function(b){ b.addEventListener('click', function(e){ e.stopPropagation(); aktionAusListe(b.dataset.act, b.dataset.id); }); });
+  if($('leeren')) $('leeren').addEventListener('click', papierkorbLeeren);
+}
+
+/* ── Wischen ── */
+function lsTipp(){ try{ return localStorage.getItem('hb_wisch_tipp') === '1'; }catch(e){ return true; } }
+function tippGesehen(){ try{ localStorage.setItem('hb_wisch_tipp', '1'); }catch(e){} }
+var offen = null, BREITE = 156;
+function zuWisch(){ if(offen){ offen.classList.remove('offen'); offen.querySelector('.karte').style.transform = ''; offen = null; } }
+function wischbar(w){
+  var k = w.querySelector('.karte'), x0 = 0, y0 = 0, dx = 0, aktiv = false, richtung = null;
+  k.addEventListener('touchstart', function(e){ var t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; dx = 0; aktiv = true; richtung = null; }, {passive:true});
+  k.addEventListener('touchmove', function(e){
+    if(!aktiv) return; var t = e.touches[0], mx = t.clientX - x0, my = t.clientY - y0;
+    if(!richtung){ if(Math.abs(mx) < 8 && Math.abs(my) < 8) return; richtung = Math.abs(mx) > Math.abs(my) ? 'x' : 'y'; if(richtung === 'x'){ w.classList.add('zieht'); if(offen && offen !== w) zuWisch(); } }
+    if(richtung !== 'x') return;
+    var basis = w.classList.contains('offen') ? -BREITE : 0;
+    dx = Math.max(-BREITE - 30, Math.min(0, basis + mx));
+    k.style.transform = 'translateX(' + dx + 'px)';
+  }, {passive:true});
+  k.addEventListener('touchend', function(){
+    if(!aktiv) return; aktiv = false; w.classList.remove('zieht');
+    if(richtung !== 'x') return;
+    k.dataset.gewischt = '1'; setTimeout(function(){ delete k.dataset.gewischt; }, 350);
+    if(dx < -BREITE / 2){ k.style.transform = 'translateX(' + (-BREITE) + 'px)'; w.classList.add('offen'); offen = w; tippGesehen(); }
+    else { k.style.transform = ''; w.classList.remove('offen'); if(offen === w) offen = null; }
+  });
+}
+document.addEventListener('touchstart', function(e){ if(offen && !offen.contains(e.target)) zuWisch(); }, {passive:true});
+
+var MELDUNG = {ablehnen:'Abgesagt', archivieren:'Ins Archiv verschoben', papierkorb:'In den Papierkorb verschoben', wiederherstellen:'Wiederhergestellt', loeschen:'Endgültig gelöscht'};
+var GEGEN = {ablehnen:'zuruecksetzen', archivieren:'wiederherstellen', papierkorb:'wiederherstellen'};
+function aktionAusListe(act, id, gefragt){
+  if(act === 'loeschen' && !gefragt && !confirmLeise('Endgültig löschen? Das kann man nicht rückgängig machen.')) return;
+  zuWisch();
+  var vorher = alle.filter(function(a){ return a.id === id; })[0];
+  api(act, {id: id}).then(function(d){
+    if(act === 'loeschen'){ alle = alle.filter(function(a){ return a.id !== id; }); }
+    else { var i = alle.findIndex(function(x){ return x.id === id; }); if(i !== -1) alle[i] = d.anfrage; }
+    zeichneListe();
+    var gegen = GEGEN[act];
+    toast(MELDUNG[act], gegen && vorher ? function(){
+      var ziel = act === 'ablehnen' ? 'zuruecksetzen' : 'wiederherstellen';
+      api(ziel, {id: id}).then(function(d2){ var i = alle.findIndex(function(x){ return x.id === id; }); if(i !== -1) alle[i] = d2.anfrage; zeichneListe(); toast('Rückgängig gemacht'); }).catch(function(){});
+    } : null);
+  }).catch(function(e){ if(e.message !== '401') toast('Das hat nicht geklappt. Versuch es nochmal.'); });
+}
+function papierkorbLeeren(){
+  var weg = alle.filter(function(a){ return a.status === 'papierkorb'; });
+  if(!weg.length || !confirmLeise(weg.length + (weg.length === 1 ? ' Anfrage' : ' Anfragen') + ' endgültig löschen?')) return;
+  Promise.all(weg.map(function(a){ return api('loeschen', {id: a.id}).then(function(){ return a.id; }).catch(function(){ return null; }); })).then(function(ids){
+    alle = alle.filter(function(a){ return ids.indexOf(a.id) === -1; }); zeichneListe(); toast('Papierkorb geleert');
+  });
 }
 
 /* ── Detail ── */
@@ -388,7 +486,7 @@ window.addEventListener('popstate', function(e){
   if($('detail').classList.contains('auf') && !st.detail && !st.sheet) schliesseDetail(true);
 });
 
-var STATUS_TEXT = {ausstehend:'Offen', fix:'Fix', abgelehnt:'Abgesagt', archiv:'Archiv'};
+var STATUS_TEXT = {ausstehend:'Offen', fix:'Fix', abgelehnt:'Abgesagt', archiv:'Archiv', papierkorb:'Papierkorb'};
 
 function zeichneDetail(){
   var a = aktuell, s = summen(a), k = konflikte(a);
@@ -460,8 +558,18 @@ function zeichneDetail(){
   if(a.status === 'fix'){
     h += '<div class="block"><h3>Termin ändern</h3><div class="aktionen">' +
          '<button class="btn btn-g" id="zurOffen">Wieder öffnen</button><button class="btn btn-n" id="absagenFix">Absagen</button></div></div>';
-  } else if(a.status === 'abgelehnt' || a.status === 'archiv'){
+  } else if(a.status === 'abgelehnt'){
     h += '<div class="block"><div class="aktionen"><button class="btn btn-g" id="zurOffen" style="grid-column:1/-1">Wieder auf offen setzen</button></div></div>';
+  }
+  if(a.status === 'archiv' || a.status === 'papierkorb'){
+    h += '<div class="block"><div class="aktionen">' +
+      '<button class="btn btn-g" data-dact="wiederherstellen">Wiederherstellen</button>' +
+      (a.status === 'papierkorb' ? '<button class="btn btn-n" data-dact="loeschen">Endgültig löschen</button>' : '<button class="btn btn-n" data-dact="papierkorb">Löschen</button>') +
+      '</div></div>';
+  } else {
+    h += '<div class="block"><div class="aktionen">' +
+      '<button class="btn btn-g" data-dact="archivieren">' + IK.archiv + 'Archivieren</button>' +
+      '<button class="btn btn-n" data-dact="papierkorb">' + IK.muell + 'Löschen</button></div></div>';
   }
 
   $('dInhalt').innerHTML = h;
@@ -543,6 +651,11 @@ function verbindeDetail(){
   });
   $('notiz').addEventListener('input', function(){ aktuell.notiz = $('notiz').value; planeSpeichern(); });
   if($('zurOffen')) $('zurOffen').addEventListener('click', function(){ statusAendern('zuruecksetzen', 'Wieder offen'); });
+  $('dInhalt').querySelectorAll('[data-dact]').forEach(function(b){ b.addEventListener('click', function(){
+    var act = b.dataset.dact, id = aktuell.id;
+    if(act === 'loeschen' && !confirmLeise('Endgültig löschen? Das kann man nicht rückgängig machen.')) return;
+    Promise.resolve(sofortSpeichern()).then(function(){ schliesseDetail(); aktionAusListe(act, id, true); });
+  }); });
   if($('absagenFix')) $('absagenFix').addEventListener('click', function(){ absageSheet(); });
 }
 function confirmLeise(t){ try{ return window.confirm(t); }catch(e){ return true; } }
