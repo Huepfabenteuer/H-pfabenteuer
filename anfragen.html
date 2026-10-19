@@ -4,6 +4,7 @@
 <script src="consent.js?v=202610171625"></script>
 <script src="ref.js?v=202610191900"></script>
 <script src="nav.js?v=202610171625" defer></script>
+<script src="anreise.js?v=202610192130"></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light"/>
 <meta name="theme-color" content="#0B0B0E"/>
@@ -821,6 +822,23 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 .empf-wert{display:inline-block;margin-top:2px;font-size:11px;font-weight:800;color:#1A6B42;}
 .order-row-anreise .order-label{color:#5E584C;}
 </style>
+<style id="anreise-css">
+.anreise-info{margin-top:12px;padding:11px 14px;border-radius:8px;background:rgba(11,107,111,.07);border:1px solid rgba(11,107,111,.22);font-size:.88rem;line-height:1.5;color:#1A1813;}
+.anreise-info b{color:#0B6B6F;}
+.anreise-info span{color:#5E584C;font-size:.8rem;}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  if(!window.hbAnreise) return;
+  function v(id){ var e=document.getElementById(id); return e ? e.value.trim() : ''; }
+  hbAnreise.watch({
+    felder: ['strasseField','plzField','ortField'],
+    ziel: 'anreiseInfo',
+    baueText: function(){ var ort=(v('plzField')+' '+v('ortField')).trim(); if(!ort) return ''; return [v('strasseField'), ort].filter(Boolean).join(', '); },
+    danach: function(){ if(typeof updateOrderSummary==='function') updateOrderSummary(); }
+  });
+});
+</script>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -1188,6 +1206,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
           <input type="text" id="ortField" name="Ort" placeholder="Glödnitz" autocomplete="address-level2" required>
         </div>
       </div>
+      <div class="anreise-info" id="anreiseInfo" hidden></div>
     </div>
  
     <!-- EXTRAS -->
@@ -1805,7 +1824,7 @@ function updateOrderSummary(){
   var liefertWir = !_lief || _lief.value === 'Ja';
   var empfAktiv  = _empf && _empf.value === 'Ja';
   if(rows.length > 0 && liefertWir){
-    rows.push({label: 'Anreise (0,55 €/km · vier Fahrten)', val: 'nach Entfernung', anreise: true});
+    rows.push({label: 'Anreise (0,55 €/km · vier Fahrten)', val: (window.hbAnreiseWert ? 'ca. ' + window.hbAnreiseWert.anreise + ' € (' + window.hbAnreiseWert.km + ' km)' : 'nach Entfernung'), anreise: true});
     if(empfAktiv){
       rows.push({label: 'Empfehlungs-Deal · sobald jemand über dich bucht',
                  val: 'bis zu 30 €', rabatt: true});
@@ -2345,6 +2364,7 @@ function submitAnfrage(){
   if(_pkF && _pkF.value && currentModus !== 'foto') fd.append('Paket', _pkF.value);
   fd.append('Auf- und Abbau', aufbau);
   fd.append('Lieferung',      document.getElementById('lieferung-val').value);
+  if(window.hbAnreise && window.hbAnreise.text()) fd.append('Anreise (berechnet)', window.hbAnreise.text());
   if(empfAktiv){
     fd.append('Empfehlungs-Deal', 'Ja \u2013 30 \u20ac von der Anreise abziehen, sobald jemand \u00fcber den Link bucht');
     fd.append('Empfehlungscode', empfCode);

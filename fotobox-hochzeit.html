@@ -4,6 +4,7 @@
 <script src="consent.js?v=202610171625"></script>
 <script src="ref.js?v=202610191900"></script>
 <script src="nav.js?v=202610171625" defer></script>
+<script src="anreise.js?v=202610192130"></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light"/>
 <meta name="theme-color" content="#0B0B0E"/>
@@ -895,6 +896,22 @@ h1,h2{font-weight:500;}
   background:transparent !important;box-shadow:none !important;font-weight:700;}
 .sprung .btn:hover{background:rgba(11,107,111,.09) !important;}
 </style>
+<style id="anreise-css">
+.anreise-info{margin-top:12px;padding:11px 14px;border-radius:8px;background:rgba(11,107,111,.07);border:1px solid rgba(11,107,111,.22);font-size:.88rem;line-height:1.5;color:#1A1813;}
+.anreise-info b{color:#0B6B6F;}
+.anreise-info span{color:#5E584C;font-size:.8rem;}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  if(!window.hbAnreise) return;
+  function v(id){ var e=document.getElementById(id); return e ? e.value.trim() : ''; }
+  hbAnreise.watch({
+    felder: ['ortFeld'],
+    ziel: 'anreiseInfo',
+    baueText: function(){ return v('ortFeld'); },
+  });
+});
+</script>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -1229,6 +1246,7 @@ document.addEventListener('DOMContentLoaded',function(){
           <div class="f">
             <label for="ortFeld">Ort</label>
             <input type="text" name="Ort" id="ortFeld" placeholder="z. B. Klagenfurt" required autocomplete="address-level2"/>
+            <div class="anreise-info" id="anreiseInfo" hidden></div>
           </div>
           <p class="hint">Die genaue Adresse brauchen wir erst bei der Buchung — für das Angebot reicht der Ort.</p>
         </div>
@@ -2026,6 +2044,7 @@ document.addEventListener('DOMContentLoaded',function(){
       fd.append('Empfehlungscode', empfCode);
       fd.append('Empfehlungslink', 'https://huepfabenteuer.at/?empfehlung=' + empfCode);
     }
+    if(window.hbAnreise && window.hbAnreise.text()) fd.append('Anreise (berechnet)', window.hbAnreise.text());
     fd.append('Quelle', 'Hochzeit-Landingpage');
 
     fetch(ENDPOINT, { method:'POST', headers:{'Accept':'application/json'}, body: fd })
