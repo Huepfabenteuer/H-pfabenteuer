@@ -821,12 +821,43 @@ document.addEventListener('DOMContentLoaded', function(){
   if(!window.hbAnreise) return;
   function v(id){ var e=document.getElementById(id); return e ? e.value.trim() : ''; }
   hbAnreise.watch({
-    felder: ['ortFeld'],
+    felder: ['strasseFoto','plzFoto','ortFeld'],
     ziel: 'anreiseInfo',
-    baueText: function(){ return v('ortFeld'); },
+    baueText: function(){ var ort=(v('plzFoto')+' '+v('ortFeld')).trim(); if(!ort) return ''; return [v('strasseFoto'), ort].filter(Boolean).join(', '); },
+    danach: function(){ if(typeof window.hbRenderSummary==='function') window.hbRenderSummary(); }
   });
 });
 </script>
+<style id="fotoform-neu-css">
+/* Fotobox-Anfrage im Stil der Hüpfburg-Anfrage */
+#fotobox-form .form-body{gap:16px;}
+#fotobox-form .fset{background:#F5F0E5;border:1px solid rgba(26,24,19,.14);border-radius:12px;padding:20px 18px;gap:14px;}
+#fotobox-form #empfFset{background:none;border:none;padding:0;}
+#fotobox-form .fset-t{font-family:var(--serif);font-size:1.32rem;letter-spacing:0;text-transform:none;color:#1A1813;}
+#fotobox-form .fset-t::after{display:none;}
+#fotobox-form .f label{font-family:var(--sans);font-size:.82rem;letter-spacing:0;text-transform:none;font-weight:700;color:#46413A;margin-bottom:6px;}
+#fotobox-form .f input,#fotobox-form .f select,#fotobox-form .f textarea{border-radius:8px;border:1px solid rgba(26,24,19,.18);background:#FFFDF8;}
+#fotobox-form .f input:focus,#fotobox-form .f select:focus,#fotobox-form .f textarea:focus{border-color:#0B6B6F;box-shadow:0 0 0 3px rgba(11,107,111,.14);}
+#fotobox-form .grid-plz{display:grid;grid-template-columns:110px 1fr;gap:12px;}
+#fotobox-form .opt{border-radius:10px;background:#FFFDF8;}
+#fotobox-form .opt.on{border-color:#0B6B6F;background:rgba(11,107,111,.06);box-shadow:inset 0 0 0 1px #0B6B6F;}
+#fotobox-form .opt-p{color:#0B6B6F;}
+#fotobox-form .rp{border-radius:8px;}
+#fotobox-form .summary{border-radius:12px;background:#F5F0E5;border:1px solid rgba(26,24,19,.14);}
+#fotobox-form .sum-t{font-family:var(--sans);font-size:1rem;font-weight:800;letter-spacing:0;text-transform:none;color:#1A1813;}
+#fotobox-form .sum-row{border-bottom:1px solid rgba(26,24,19,.08);}
+#fotobox-form .sum-row small{font-size:.78em;color:#6B6659;}
+#fotobox-form .sum-anreise span:last-child{font-weight:700;color:#46413A;white-space:nowrap;}
+#fotobox-form .sum-rabatt span{color:#1A6B42;font-weight:700;}
+#fotobox-form .sum-row.total{border-bottom:none;}
+#fotobox-form .sum-total{color:#0B6B6F;}
+#fotobox-form .antwort-heute{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-radius:10px;
+  background:rgba(11,107,111,.06);font-family:var(--sans);font-size:.86rem;line-height:1.5;color:#46413A;}
+#fotobox-form .antwort-heute svg{flex:none;width:18px;height:18px;margin-top:1px;fill:none;stroke:#0B6B6F;stroke-width:1.8;stroke-linecap:round;}
+#fotobox-form .antwort-heute b{color:#1A1813;}
+#fotobox-form .antwort-heute a{color:#0B6B6F;font-weight:700;white-space:nowrap;}
+#fotobox-form .form-head .eyebrow{color:#0B6B6F;}
+</style>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -1027,9 +1058,6 @@ document.addEventListener('DOMContentLoaded',function(){
 
       <div class="form-body">
 
-        <div class="speed">
-          <div><b>Antwort noch heute</b>, meistens innerhalb einer Stunde. Wenn es dringend ist, ruf einfach an: <a href="tel:+436641852634" style="color:#8A6A2A;font-weight:700;" data-track="call">+43 664 185 26 34</a></div>
-        </div>
 
         <div class="fset" id="rahmenWahl" hidden>
           <div class="fset-t">Fotorahmen wählen</div>
@@ -1129,8 +1157,8 @@ document.addEventListener('DOMContentLoaded',function(){
 
 
         <div class="fset">
-          <div class="fset-t">Termin &amp; Ort</div>
-          <p class="hint" style="margin:0 0 12px;">Zuerst das Wichtigste: Wir schauen sofort nach, ob dein Datum noch frei ist.</p>
+          <div class="fset-t">Termin</div>
+          <p class="hint" style="margin:-6px 0 2px;">Wir schauen sofort nach, ob dein Datum noch frei ist.</p>
           <div class="grid2">
             <div class="f">
               <label for="datumFoto">Datum</label>
@@ -1150,12 +1178,26 @@ document.addEventListener('DOMContentLoaded',function(){
               </select>
             </div>
           </div>
+        </div>
+
+        <div class="fset">
+          <div class="fset-t">Lieferadresse</div>
+          <p class="hint" style="margin:-6px 0 2px;">Wo soll die Fotobox aufgebaut werden? Damit rechnen wir die Anreise gleich genau aus.</p>
           <div class="f">
-            <label for="ortFeld">Ort</label>
-            <input type="text" name="Ort" id="ortFeld" placeholder="z. B. Klagenfurt" required autocomplete="address-level2"/>
-            <div class="anreise-info" id="anreiseInfo" hidden></div>
+            <label for="strasseFoto">Straße &amp; Hausnummer</label>
+            <input type="text" name="Strasse" id="strasseFoto" placeholder="Musterstraße 1" required autocomplete="street-address"/>
           </div>
-          <p class="hint">Die genaue Adresse brauchen wir erst bei der Buchung — für das Angebot reicht der Ort.</p>
+          <div class="grid-plz">
+            <div class="f">
+              <label for="plzFoto">PLZ</label>
+              <input type="text" name="PLZ" id="plzFoto" placeholder="9346" inputmode="numeric" required autocomplete="postal-code"/>
+            </div>
+            <div class="f">
+              <label for="ortFeld">Ort</label>
+              <input type="text" name="Ort" id="ortFeld" placeholder="z. B. Klagenfurt" required autocomplete="address-level2"/>
+            </div>
+          </div>
+          <div class="anreise-info" id="anreiseInfo" hidden></div>
         </div>
 
         <div class="fset" id="paketFset" hidden>
@@ -1244,7 +1286,12 @@ document.addEventListener('DOMContentLoaded',function(){
         <button type="button" class="btn btn-brass btn-wide" id="submitBtn" style="min-height:54px;font-size:.95rem;">Anfrage absenden</button>
         <div class="msg" id="msg" role="status"></div>
 
-        <p class="hint">Mit dem Absenden stimmst du zu, dass wir deine Angaben zur Bearbeitung der Anfrage verwenden. Details in der <a href="datenschutz.html" style="color:#8A6A2A;">Datenschutzerklärung</a>.</p>
+        <div class="antwort-heute">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
+          <span><b>Antwort noch heute</b>, meistens innerhalb einer Stunde. Dringend? <a href="tel:+436641852634" data-track="call">+43 664 185 26 34</a></span>
+        </div>
+
+        <p class="hint">Mit dem Absenden stimmst du zu, dass wir deine Angaben zur Bearbeitung der Anfrage verwenden. Details in der <a href="datenschutz.html" style="color:#0B6B6F;">Datenschutzerklärung</a>.</p>
 
       </div>
     </form>
@@ -1909,6 +1956,7 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   })();
 
+  window.hbRenderSummary = function(){ renderSummary(); };
   function renderSummary(){
     var box  = document.getElementById('summary');
     var rows = document.getElementById('sumRows');
@@ -1922,12 +1970,14 @@ document.addEventListener('DOMContentLoaded',function(){
     }
     var empfZeile = '';
     var _ec = document.getElementById('empfCheck');
+    var _an = window.hbAnreiseWert;
+    empfZeile += '<div class="sum-row sum-anreise"><span>Anreise <small>(0,55 €/km · vier Fahrten)</small></span><span>' + (_an ? 'ca. ' + _an.anreise + ' € (' + _an.km + ' km)' : 'nach Entfernung') + '</span></div>';
     if(_ec && _ec.checked){
-      empfZeile = '<div class="sum-row"><span>Empfehlungs-Deal</span><span>\u221230 \u20ac Anreise</span></div>';
+      empfZeile += '<div class="sum-row sum-rabatt"><span>Empfehlungs-Deal · sobald jemand über dich bucht</span><span>bis zu 30 €</span></div>';
     }
     if(!selectedPrice){
       rows.innerHTML = '<div class="sum-row"><span>Fotobox</span><span>Paket noch offen</span></div>' + rahmenZeile + empfZeile;
-      note.innerHTML = 'Wir schauen uns dein Fest an und schlagen dir im Angebot das passende Paket vor. Die Anreise kommt je nach Entfernung dazu — 0,55 € pro Kilometer auf vier Fahrten, 30 € weniger bei Weiterempfehlung.';
+      note.innerHTML = 'Wir schauen uns dein Fest an und schlagen dir im Angebot das passende Paket vor. ' + (window.hbAnreiseWert ? 'Dazu kommt die Anreise von ca. ' + window.hbAnreiseWert.anreise + ' €.' : 'Dazu kommt die Anreise: 0,55 € pro Kilometer auf vier Fahrten.') + '';
       box.classList.add('on');
       return;
     }
@@ -1938,7 +1988,7 @@ document.addEventListener('DOMContentLoaded',function(){
       '<div class="sum-row total"><span>Gesamt, geschätzt</span><span class="sum-total">' + selectedPrice + ' €</span></div>';
 
     var anz = selectedPrice >= 300 ? 100 : (selectedPrice >= 220 ? 50 : 30);
-    note.innerHTML = 'Anzahlung ' + anz + ' €, Restbetrag am Eventtag. Die Anreise kommt je nach Entfernung dazu — 0,55 € pro Kilometer auf vier Fahrten, 30 € weniger bei Weiterempfehlung. Die genaue Rechnung steht auf deinem Angebot.';
+    note.innerHTML = 'Anzahlung ' + anz + ' €, Restbetrag am Eventtag. ' + (window.hbAnreiseWert ? 'Dazu kommt die Anreise von ca. ' + window.hbAnreiseWert.anreise + ' €.' : 'Dazu kommt die Anreise: 0,55 € pro Kilometer auf vier Fahrten.') + ' Die genaue Rechnung steht auf deinem Angebot.';
     box.classList.add('on');
   }
 
@@ -1993,6 +2043,9 @@ document.addEventListener('DOMContentLoaded',function(){
       return;
     }
     if(!datum){ say('Bitte trag das Datum deines Events ein.', false); return; }
+    var strasse = val('strasseFoto'), plz = val('plzFoto');
+    if(!strasse){ say('Bitte gib Straße und Hausnummer an, wo die Fotobox hinkommt.', false); return; }
+    if(!plz){ say('Bitte gib die Postleitzahl an.', false); return; }
     if(!ort){ say('Bitte gib den Ort an, damit wir die Lieferung rechnen können.', false); return; }
     if(!vorname){ say('Bitte trag zumindest deinen Vornamen ein.', false); return; }
     if(!telefon && !email){ say('Bitte gib Telefon oder E-Mail an, damit wir dir antworten können.', false); return; }
@@ -2012,6 +2065,9 @@ document.addEventListener('DOMContentLoaded',function(){
     fd.append('Paket',   paket.value);
     fd.append('Datum',   datum);
     fd.append('Ort',     ort);
+    fd.append('Strasse', strasse);
+    fd.append('PLZ',     plz);
+    fd.append('Adresse', strasse + ', ' + plz + ' ' + ort);
     var anlass = document.getElementById('anlassFeld').value;
     if(anlass) fd.append('Anlass', anlass);
     var rahmenGewaehlt = rahmenWert();
