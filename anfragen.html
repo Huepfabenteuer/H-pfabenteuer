@@ -839,6 +839,27 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 });
 </script>
+<style id="extras-neu-css">
+/* Schalter (Auf- & Abbau, Empfehlung) – neues Design */
+.extra-toggle{display:flex;align-items:center;gap:14px;width:100%;padding:16px;border:1.5px solid rgba(26,24,19,.14);border-radius:12px;
+  background:#FFFDF8;box-shadow:0 1px 2px rgba(26,24,19,.05);transition:border-color .2s,background .2s,box-shadow .2s;transform:none!important;}
+.extra-toggle:hover{border-color:rgba(11,107,111,.55);background:#FFFDF8;box-shadow:0 2px 10px rgba(26,24,19,.07);}
+.extra-toggle .extra-ico{flex:none;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  background:rgba(11,107,111,.09);color:#0B6B6F;transition:background .2s,color .2s;}
+.extra-toggle .extra-ico svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.extra-toggle .extra-copy{gap:4px;}
+.extra-toggle .extra-title{font-size:15px;font-weight:800;color:#1A1813;}
+.extra-toggle .extra-price{align-self:flex-start;font-size:12.5px;font-weight:800;color:#0B6B6F;background:rgba(11,107,111,.10);padding:2px 10px;border-radius:999px;}
+.extra-toggle .extra-hint{font-size:12px;font-weight:500;color:#6B6659;line-height:1.4;}
+.extra-toggle .extra-switch{width:46px;height:28px;background:#D9D2C3;}
+.extra-toggle.selected{border-color:#0B6B6F;background:rgba(11,107,111,.05);box-shadow:0 0 0 3px rgba(11,107,111,.12);}
+.extra-toggle.selected .extra-title{color:#1A1813;}
+.extra-toggle.selected .extra-ico{background:#0B6B6F;color:#fff;}
+.extra-toggle.selected .extra-price{background:#0B6B6F;color:#fff;}
+.extra-toggle.selected .extra-switch{background:#0B6B6F;}
+.extra-toggle.selected .extra-switch::after{transform:translateX(18px);}
+.extra-toggle:focus-visible{outline:2px solid #0B6B6F;outline-offset:2px;}
+</style>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -999,11 +1020,11 @@ document.addEventListener('DOMContentLoaded', function(){
 <!-- FOTOBOX DAZUBUCHEN-TOGGLE (Burg- + Hochzeit-Modus) -->
 <div class="foto-dazu-wrap">
 <button type="button" class="extra-toggle foto-dazu-toggle-btn" id="fotoDazuBanner">
+  <span class="extra-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3.2"/></svg></span>
   <span class="extra-copy">
     <span class="extra-title">Fotobox dazubuchen?</span>
     <span class="extra-price" id="fotoDazuPriceText">+ ab 199 € · perfekt für unvergessliche Erinnerungen</span>
     <span class="extra-hint" id="fotoDazuHint">Zum Anzeigen antippen</span>
-    <span class="foto-rabatt-hint" id="fotoRabattHint">Kombi-Bonus: <strong>−5%</strong> zusätzlich auf die Gesamtsumme</span>
   </span>
   <span class="extra-switch"></span>
 </button>
@@ -1168,6 +1189,7 @@ document.addEventListener('DOMContentLoaded', function(){
       <!-- EMPFEHLUNGSBONUS -->
       <div class="empf-wrap" id="empf-wrap">
         <button type="button" class="extra-toggle" id="empf-btn" onclick="toggleEmpfehlung()">
+          <span class="extra-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="9" width="17" height="11" rx="1.5"/><path d="M2.5 9h19M12 9v11"/><path d="M12 9c-1.6-3.2-5.5-3.6-5.5-1.1C6.5 9 9.5 9 12 9zm0 0c1.6-3.2 5.5-3.6 5.5-1.1C17.5 9 14.5 9 12 9z"/></svg></span>
           <span class="extra-copy">
             <span class="extra-title">Willst du dir 30 € Anreise sparen?</span>
             <span class="extra-price">Empfiehl uns weiter, wir ziehen dir 30 € ab</span>
@@ -1214,35 +1236,14 @@ document.addEventListener('DOMContentLoaded', function(){
       <div class="card-title">Extras & Wünsche</div>
       <div class="card-sub">Möchtest du noch etwas dazubuchen?</div>
 
-      <!-- Rabatt-Hinweis: Anreiz für Kombi-Pakete -->
-      <div class="rabatt-hint-card">
-        <div class="rh-header">
-          <span class="rh-icon">%</span>
-          <span class="rh-title">Spar-Tipp: Pakete kombinieren</span>
-        </div>
-        <div class="rh-list">
-          <div class="rh-row">
-            <span class="rh-badge">5%</span>
-            <span class="rh-desc">Burg + Aufbau + Süßes</span>
-          </div>
-          <div class="rh-row rh-row-best">
-            <span class="rh-badge rh-badge-best">10%</span>
-            <span class="rh-desc">Burg + Aufbau + Zuckerwatte &amp; Popcorn</span>
-          </div>
-          <div class="rh-row rh-row-bonus">
-            <span class="rh-bonus">+ 5%</span>
-            <span class="rh-desc">Fotobox dazu (max. 10% gesamt)</span>
-          </div>
-        </div>
-      </div>
- 
       <!-- Auf- & Abbau Toggle (nur für Burgen relevant) -->
       <div class="aufbau-burg-only">
         <button type="button" class="extra-toggle" id="aufbau-btn">
+          <span class="extra-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3.5 17.3a1.8 1.8 0 0 0 2.5 2.5l5.8-5.8a4 4 0 0 0 5.2-5.4l-2.6 2.6-2.3-.5-.5-2.3z"/></svg></span>
           <span class="extra-copy">
-            <span class="extra-title">Auf- &amp; Abbau dazubuchen</span>
-            <span class="extra-price">+50 € · wir bauen alles auf &amp; ab</span>
-            <span class="extra-hint">Zum Aktivieren antippen</span>
+            <span class="extra-title">Auf- &amp; Abbau übernehmen wir</span>
+            <span class="extra-price">+50 €</span>
+            <span class="extra-hint">Wir bauen auf, erklären alles und holen wieder ab</span>
           </span>
           <span class="extra-switch"></span>
         </button>
@@ -1562,7 +1563,7 @@ document.getElementById('aufbau-btn').addEventListener('click', function(){
   aufbauOn = !aufbauOn;
   this.classList.toggle('selected', aufbauOn);
   document.getElementById('aufbau-val').value = aufbauOn ? 'Ja – Auf- & Abbau (+50 €)' : 'Nein';
-  this.querySelector('.extra-hint').textContent = aufbauOn ? 'Aktiviert – wird dazugerechnet' : 'Zum Aktivieren antippen';
+  this.querySelector('.extra-hint').textContent = aufbauOn ? 'Gebucht – wird dazugerechnet' : 'Wir bauen auf, erklären alles und holen wieder ab';
   updateOrderSummary();
 });
  
@@ -1768,8 +1769,9 @@ function updateOrderSummary(){
   var hasZuckerwatte = extrasVal.indexOf('Zuckerwatte') !== -1;
   var hasPopcorn = extrasVal.indexOf('Popcorn') !== -1;
 
-  // Auto-Paket-Erkennung: passt die Auswahl zu einem Paket auf der Website?
-  if(hasBurg && aufbauOn){
+  // Rabatt NUR, wenn der Kunde über ein Paket unter „Unsere Angebote“ kommt (?paket=…).
+  // Wer im Formular selbst Extras auswählt, bekommt keinen automatischen Rabatt.
+  if(paket && hasBurg && aufbauOn){
     if(hasZuckerwatte && hasPopcorn){
       rabattProzent = 10;
       rabattLabel = 'All-Inclusive-Paket −10%';
@@ -1779,30 +1781,6 @@ function updateOrderSummary(){
     } else if(hasPopcorn){
       rabattProzent = 5;
       rabattLabel = 'Snack-Paket −5%';
-    }
-  }
-
-  // Foto-Modus (reine Fotobox): Süße Extras geben Rabatt – Cap bei 10%
-  if(hasFoto && !hasBurg){
-    if(hasZuckerwatte && hasPopcorn){
-      rabattProzent = 10;
-      rabattLabel = 'Fotobox + Süßes-Komplett −10%';
-    } else if(hasZuckerwatte){
-      rabattProzent = 5;
-      rabattLabel = 'Fotobox + Süßes −5%';
-    } else if(hasPopcorn){
-      rabattProzent = 5;
-      rabattLabel = 'Fotobox + Snack −5%';
-    }
-  }
-
-  // Kombi-Bonus: Burg + Fotobox = zusätzlich +5% (kumulativ obendrauf)
-  if(hasBurg && hasFoto){
-    rabattProzent = Math.min(rabattProzent + 5, 10);  // Cap bei 10%
-    if(rabattLabel){
-      rabattLabel = rabattLabel + ' + Kombi-Bonus';
-    } else {
-      rabattLabel = 'Kombi-Rabatt: Burg + Fotobox −5%';
     }
   }
   // ── Gutscheincode: ersetzt Auto-/Paket-Rabatte, wenn er höher ist (nicht kombinierbar) ──
