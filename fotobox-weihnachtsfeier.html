@@ -929,7 +929,7 @@ h1,h2{font-weight:500;}
     <a href="unsere-angebote.html?filter=extra">Extras<small>Zuckerwatte &amp; Popcorn</small></a>
     <a href="#indoor">Indoor<small>Auch im Winter</small></a>
     <a href="kontakt.html">Kontakt<small>Antwort meist in unter 1 Std</small></a>
-    <a href="partner.html" class="drawer-partner">Partnerprogramm<small>20 % für Empfehlungen</small></a>
+    <a href="partner.html" class="drawer-partner">Partnerprogramm<small>15 % für Empfehlungen</small></a>
   </nav>
   <div class="drawer-c">
     <a href="#pakete" class="btn btn-solid btn-wide">Fotobox anfragen</a>
@@ -1898,7 +1898,7 @@ document.addEventListener('DOMContentLoaded',function(){
     }
     if(!selectedPrice){
       rows.innerHTML = '<div class="sum-row"><span>Fotobox</span><span>Paket noch offen</span></div>' + rahmenZeile + empfZeile;
-      note.innerHTML = 'Wir schauen uns dein Fest an und schlagen dir im Angebot das passende Paket vor. Die Anreise kommt je nach Entfernung dazu — 0,55 € pro Kilometer auf vier Fahrten, geschenkt bei Weiterempfehlung.';
+      note.innerHTML = 'Wir schauen uns dein Fest an und schlagen dir im Angebot das passende Paket vor. Die Anreise kommt je nach Entfernung dazu — 0,55 € pro Kilometer auf vier Fahrten, 30 € weniger bei Weiterempfehlung.';
       box.classList.add('on');
       return;
     }
@@ -1909,7 +1909,7 @@ document.addEventListener('DOMContentLoaded',function(){
       '<div class="sum-row total"><span>Gesamt, geschätzt</span><span class="sum-total">' + selectedPrice + ' €</span></div>';
 
     var anz = selectedPrice >= 300 ? 100 : (selectedPrice >= 220 ? 50 : 30);
-    note.innerHTML = 'Anzahlung ' + anz + ' €, Restbetrag am Eventtag. Die Anreise kommt je nach Entfernung dazu — 0,55 € pro Kilometer auf vier Fahrten, geschenkt bei Weiterempfehlung. Die genaue Rechnung steht auf deinem Angebot.';
+    note.innerHTML = 'Anzahlung ' + anz + ' €, Restbetrag am Eventtag. Die Anreise kommt je nach Entfernung dazu — 0,55 € pro Kilometer auf vier Fahrten, 30 € weniger bei Weiterempfehlung. Die genaue Rechnung steht auf deinem Angebot.';
     box.classList.add('on');
   }
 

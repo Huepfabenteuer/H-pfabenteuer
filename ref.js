@@ -3,9 +3,9 @@
    ───────────────────────────────────────────────────────────────
    Zwei Arten von Links werden erkannt:
 
-     ?partner=CODE      Partnerprogramm (Betriebe, 20 %)
-     ?empfehlung=CODE   Kunden-Empfehlung (Anreise bis 40 km
-                        gratis für den, der den Link weitergibt)
+     ?partner=CODE      Partnerprogramm (Betriebe, 15 %)
+     ?empfehlung=CODE   Kunden-Empfehlung (30 € Rabatt auf die
+                        Anreise für den, der den Link weitergibt)
 
    • Der Code bleibt beim Klicken durch die Website erhalten
      (wird an alle internen Links angehängt).

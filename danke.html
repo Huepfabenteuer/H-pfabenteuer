@@ -77,6 +77,7 @@
 .empf-btns{display:flex;flex-wrap:wrap;gap:10px;}
 .empf-btns .btn{flex:1 1 180px;text-align:center;justify-content:center;}
 .empf-hint{margin-top:14px;font-family:var(--sans);font-size:.78rem;color:var(--paper-mute);line-height:1.6;}
+.empf-top{margin:0 0 30px;text-align:left;}
 .empf-wert{display:inline-block;font-family:var(--sans);font-weight:800;color:#1A6B42;}
 </style>
 </head>
@@ -112,7 +113,7 @@
     <a href="unsere-angebote.html?filter=extra">Extras<small>Zuckerwatte &amp; Popcorn</small></a>
     <a href="#indoor">Indoor<small>Auch im Winter</small></a>
     <a href="kontakt.html">Kontakt<small>Antwort meist in unter 1 Std</small></a>
-    <a href="partner.html" class="drawer-partner">Partnerprogramm<small>20 % für Empfehlungen</small></a>
+    <a href="partner.html" class="drawer-partner">Partnerprogramm<small>15 % für Empfehlungen</small></a>
   </nav>
   <div class="drawer-c">
     <a href="anfragen.html" class="btn btn-solid btn-wide">Termin anfragen</a>
@@ -123,6 +124,21 @@
 
 <div class="hero slim">
   <div class="hero-in">
+    <!-- EMPFEHLUNGSLINK -->
+    <div class="empf-box empf-top" id="empfBox" style="display:none;">
+      <div class="empf-box-h">Dein Empfehlungslink</div>
+      <p class="empf-box-p">Schick den Link an Freunde, Verwandte oder in die Gemeinde-Gruppe.
+        Bucht jemand darüber, ziehen wir dir
+        <span class="empf-wert">30 €</span> von der Anreise ab.</p>
+      <div class="empf-link" id="empfLink"></div>
+      <div class="empf-btns">
+        <button type="button" class="btn btn-solid" id="empfCopy">Link kopieren</button>
+        <a class="btn btn-ghost" id="empfWa" target="_blank" rel="noopener">Per WhatsApp schicken</a>
+      </div>
+      <div class="empf-hint">Du musst dir den Link nicht merken, wir schicken ihn dir mit der
+        Bestätigung nochmal. Es zählt die erste echte Buchung über deinen Link.</div>
+    </div>
+
     <div class="tick" aria-hidden="true">
       <svg viewBox="0 0 24 24"><path d="m4 12.5 5.5 5.5L20 7"/></svg>
     </div>
@@ -144,21 +160,6 @@
       <h2>Was wir bekommen haben.</h2>
     </div>
     <div class="recap rise" id="recap"><div id="recapRows"></div></div>
-
-    <!-- EMPFEHLUNGSLINK -->
-    <div class="empf-box rise" id="empfBox" style="display:none;">
-      <div class="empf-box-h">Dein Empfehlungslink</div>
-      <p class="empf-box-p">Schick den Link an Freunde, Verwandte oder in die Gemeinde-Gruppe.
-        Bucht jemand darüber, ziehen wir dir
-        <span class="empf-wert">30 €</span> von der Anreise ab.</p>
-      <div class="empf-link" id="empfLink"></div>
-      <div class="empf-btns">
-        <button type="button" class="btn btn-solid" id="empfCopy">Link kopieren</button>
-        <a class="btn btn-ghost" id="empfWa" target="_blank" rel="noopener">Per WhatsApp schicken</a>
-      </div>
-      <div class="empf-hint">Du musst dir den Link nicht merken, wir schicken ihn dir mit der
-        Bestätigung nochmal. Es zählt die erste echte Buchung über deinen Link.</div>
-    </div>
 
     <div class="rows" style="margin-top:34px;">
       <div class="row-i rise">

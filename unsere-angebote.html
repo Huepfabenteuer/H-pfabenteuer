@@ -7,7 +7,7 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light"/>
 <meta name="theme-color" content="#0B0B0E"/>
-<meta name="description" content="Hüpfburg mieten in Kärnten – Alienburg, Ritterburg, Piratenburg, Candyburg, Feuerwehr-Hüpfburg & Hochzeitsburg ✓ Hüpfburgverleih ab 120€ ✓ Fotobox mieten ✓ Zuckerwatte & Popcorn ✓ Gratis Anreise für Empfehler ✓ 5,0★ Google"/>
+<meta name="description" content="Hüpfburg mieten in Kärnten – Alienburg, Ritterburg, Piratenburg, Candyburg, Feuerwehr-Hüpfburg & Hochzeitsburg ✓ Hüpfburgverleih ab 120€ ✓ Fotobox mieten ✓ Zuckerwatte & Popcorn ✓ 30 € Anreise-Rabatt für Empfehler ✓ 5,0★ Google"/>
 <meta name="keywords" content="Hüpfburg mieten Kärnten, Hüpfburgen Kärnten, Hüpfburgverleih Kärnten, Hüpfburg leihen Kärnten, Fotobox mieten Kärnten, Fotobox Hochzeit Kärnten, Fotobox Geburtstag Kärnten, Fotobox mit Sofortdruck Kärnten, Fotobox Verleih Kärnten, Alienburg mieten, Ritterburg mieten, Piratenburg mieten, Candyburg mieten, Feuerwehr Hüpfburg mieten, Hochzeitsburg mieten Kärnten, Hüpfburg Kindergeburtstag Kärnten, Hüpfburg Hochzeit Kärnten, Hüpfburg Firmenfeier, Hüpfburg Sommerfest, Zuckerwatte mieten Kärnten, Zuckerwattemaschine mieten, Popcornmaschine mieten Kärnten, Hüpfburg Glödnitz, Hüpfburg Gurktal, Hüpfburg St. Veit an der Glan, Hüpfburg Feldkirchen, Hüpfburg Friesach, Hüpfburg Villach, Hüpfburg Klagenfurt, Hüpfburg Wolfsberg, Hüpfburg Spittal, Hüpfburg Indoor Kärnten, aufblasbare Hüpfburg mieten, Springburg mieten Kärnten, Event Equipment Kärnten"/>
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"/>
 <meta name="author" content="Hüpfabenteuer Kärnten"/>
@@ -16,14 +16,14 @@
 <link rel="canonical" href="https://huepfabenteuer.at/unsere-angebote.html"/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Hüpfburg & Fotobox mieten Kärnten ab 120€ – Alle Angebote | Hüpfabenteuer"/>
-<meta property="og:description" content="6 Hüpfburgen, Fotobox mit Sofortdruck & Extras mieten in Kärnten ✓ Ab 120€/Tag ✓ Fotobox ab 199€ ✓ Gratis Anreise für Empfehler ✓ 5,0★ Google ✓ Jetzt anfragen!"/>
+<meta property="og:description" content="6 Hüpfburgen, Fotobox mit Sofortdruck & Extras mieten in Kärnten ✓ Ab 120€/Tag ✓ Fotobox ab 199€ ✓ 30 € Anreise-Rabatt für Empfehler ✓ 5,0★ Google ✓ Jetzt anfragen!"/>
 <meta property="og:url" content="https://huepfabenteuer.at/unsere-angebote.html"/>
 <meta property="og:image" content="https://i.imgur.com/xNdofDm.jpeg"/>
 <meta property="og:site_name" content="Hüpfabenteuer Kärnten"/>
 <meta property="og:locale" content="de_AT"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Hüpfburg & Fotobox mieten Kärnten – 6 Burgen + Fotobox ab 199€ | Hüpfabenteuer"/>
-<meta name="twitter:description" content="Alienburg, Ritterburg, Feuerwehrauto & mehr ✓ Fotobox mit Sofortdruck ✓ Gratis Anreise für Empfehler ✓ 5,0★ Google ✓ Jetzt anfragen!"/>
+<meta name="twitter:description" content="Alienburg, Ritterburg, Feuerwehrauto & mehr ✓ Fotobox mit Sofortdruck ✓ 30 € Anreise-Rabatt für Empfehler ✓ 5,0★ Google ✓ Jetzt anfragen!"/>
 <title>Hüpfburg mieten Kärnten – Alle Angebote & Preise | Hüpfabenteuer Verleih</title>
 
 <link rel="stylesheet" href="fonts.css?v=202610171625"/>
@@ -122,7 +122,7 @@
     <a href="unsere-angebote.html?filter=extra">Extras<small>Zuckerwatte &amp; Popcorn</small></a>
     <a href="#indoor">Indoor<small>Auch im Winter</small></a>
     <a href="kontakt.html">Kontakt<small>Antwort meist in unter 1 Std</small></a>
-    <a href="partner.html" class="drawer-partner">Partnerprogramm<small>20 % für Empfehlungen</small></a>
+    <a href="partner.html" class="drawer-partner">Partnerprogramm<small>15 % für Empfehlungen</small></a>
   </nav>
   <div class="drawer-c">
     <a href="anfragen.html" class="btn btn-solid btn-wide">Termin anfragen</a>
@@ -483,9 +483,15 @@ document.querySelectorAll('[data-track]').forEach(function(el){
     document.querySelectorAll('.bnav .bi').forEach(function(a){ var on=navMap[cat] && a.textContent.trim()===navMap[cat]; a.classList.toggle('on',!!on); if(on) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
     document.querySelectorAll('.top-nav a').forEach(function(a){ var t=a.textContent.trim(); a.classList.toggle('on',(cat==='burg'&&t==='Hüpfburgen')||(cat==='extra'&&t==='Extras')); });
   }
+  var aktiv='all';
+  function markTab(cat){
+    tabs.forEach(function(t){ var on=t.dataset.filter===cat; t.classList.toggle('on',on); t.setAttribute('aria-selected',on);
+      if(on){ var bar=t.parentNode; if(bar.scrollWidth>bar.clientWidth){ bar.scrollTo({left:t.offsetLeft-16,behavior:'smooth'}); } } });
+  }
   function apply(cat, scroll){
     if(!tabs.some(function(t){ return t.dataset.filter===cat; })) cat='all';
-    tabs.forEach(function(t){ var on=t.dataset.filter===cat; t.classList.toggle('on',on); t.setAttribute('aria-selected',on); });
+    aktiv=cat;
+    markTab(cat);
     secs.forEach(function(s){ var k=s.dataset.sec; s.hidden = k==='ov' ? cat!=='all' : !(cat==='all' || k==='always' || k===cat); });
     setNav(cat);
     try{ window.dispatchEvent(new CustomEvent('hbfilter',{detail:navMap[cat]||''})); }catch(e){}
@@ -493,8 +499,25 @@ document.querySelectorAll('[data-track]').forEach(function(el){
     try{ var u=new URL(location.href); if(cat==='all') u.searchParams.delete('filter'); else u.searchParams.set('filter',cat); history.replaceState(null,'',u); }catch(e){}
   }
   tabs.forEach(function(t){ t.addEventListener('click',function(){ apply(t.dataset.filter,true); }); });
+
+  /* Beim Scrollen unter „Alle“ zeigt der Filter mit, in welchem Bereich man gerade ist */
+  var tick=false, zuletzt='all';
+  function spy(){
+    tick=false;
+    if(aktiv!=='all') return;
+    var mid=window.innerHeight*0.45, hit='all';
+    secs.forEach(function(sec){
+      if(sec.hidden || sec.offsetParent===null) return;
+      var r=sec.getBoundingClientRect();
+      if(r.top<=mid && r.bottom>=mid){ var k=sec.dataset.sec; hit=(k==='ov'||k==='always')?'all':k; }
+    });
+    if(!tabs.some(function(t){ return t.dataset.filter===hit; })) hit='all';
+    if(hit!==zuletzt){ zuletzt=hit; markTab(hit); }
+  }
+  window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(spy); } },{passive:true});
   var p=null; try{ p=new URLSearchParams(location.search).get('filter'); }catch(e){}
   apply(p||'all',false);
+  zuletzt=aktiv;
   if(p && p!=='all'){ setTimeout(function(){ var w=document.querySelector('.ftabs-wrap'); window.scrollTo({top:w.getBoundingClientRect().top+window.scrollY-60}); },50); }
 })();
 </script>
