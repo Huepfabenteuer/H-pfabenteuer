@@ -873,17 +873,22 @@ h1,h2{font-weight:500;}
 }
 </script>
 <style id="empfehlung-fotobox-css">
-.empf-opt{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;
-  border:1.5px solid var(--line-2);border-radius:8px;background:var(--card);
-  cursor:pointer;text-align:left;transition:border-color .2s,background .2s,box-shadow .2s;}
+.empf-opt{display:flex;align-items:center;gap:14px;width:100%;padding:18px 18px;
+  border:2px solid #0B6B6F;border-radius:10px;background:rgba(11,107,111,.06);
+  cursor:pointer;text-align:left;transition:background .2s,box-shadow .2s;}
 .empf-opt input{position:absolute;opacity:0;pointer-events:none;}
-.empf-opt:hover{border-color:rgba(22,21,15,.4);}
-.empf-opt.on{border-color:#0B6B6F;background:rgba(11,107,111,.07);box-shadow:inset 0 0 0 1px #0B6B6F;}
-.empf-copy{flex:1;display:flex;flex-direction:column;gap:3px;min-width:0;}
-.empf-n{font-family:var(--sans);font-weight:700;font-size:.95rem;}
-.empf-d{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-mute);}
-.empf-p{font-family:var(--serif);font-size:1.4rem;line-height:1;color:#0B6B6F;white-space:nowrap;}
-.empf-opt.on .empf-n{color:#0B6B6F;}
+.empf-opt:hover{background:rgba(11,107,111,.11);}
+.empf-opt.on{background:rgba(11,107,111,.13);box-shadow:inset 0 0 0 1px #0B6B6F;}
+.empf-copy{flex:1;display:flex;flex-direction:column;gap:4px;min-width:0;}
+.empf-n{font-family:var(--serif);font-size:1.22rem;line-height:1.25;color:#0B6B6F;}
+.empf-d{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:#0B6B6F;opacity:.75;}
+.empf-p{font-family:var(--serif);font-size:1.75rem;line-height:1;color:#0B6B6F;white-space:nowrap;}
+.empf-mehr{display:none;margin-top:10px;padding:14px 18px;border:1px solid var(--line);
+  border-radius:8px;background:var(--card);}
+.empf-opt.on + .empf-mehr{display:block;}
+.empf-mehr p{font-family:var(--sans);font-size:.9rem;line-height:1.65;color:var(--fog);margin:0;}
+.empf-mehr p + p{margin-top:10px;}
+.empf-klein{font-size:.8rem !important;opacity:.8;}
 .sprung{margin-top:16px;display:flex;flex-wrap:wrap;gap:10px;}
 .sprung .btn{font-size:.82rem;padding:10px 16px;min-height:42px;border-radius:8px;
   color:#0B6B6F !important;border:1.5px solid #0B6B6F !important;
@@ -937,7 +942,7 @@ h1,h2{font-weight:500;}
 <div class="hero">
   <div class="hero-in">
     <div>
-      <h1>Das ehrlichste<br>Gästebuch <span class="it">eurer Hochzeit.</span></h1>
+      <h1>Was nehmen eure Gäste<br>von der Hochzeit <span class="it">mit?</span></h1>
       <p class="lede">Der Rahmen trägt eure Namen und das Datum. Jeder Gast nimmt seinen Streifen mit, ein zweiter wandert ins Gästebuch — und am Ende habt ihr alles digital. Die Box bleibt, bis der letzte Gast geht.</p>
       <div class="hero-cta">
         <a href="#pakete" class="btn btn-solid">Termin anfragen</a>
@@ -1288,17 +1293,21 @@ document.addEventListener('DOMContentLoaded',function(){
         </div>
 
         <div class="fset" id="empfFset">
-          <div class="fset-t">30 € Anreise-Rabatt</div>
-          <p class="hint" style="margin:0 0 12px;">Empfiehl uns weiter und wir ziehen dir 30 € von der Anreise ab.
-            Gleich nach dem Absenden bekommst du deinen eigenen Empfehlungslink. Bucht jemand darüber, ist der Rabatt deiner.</p>
           <label class="empf-opt" id="empfOpt">
             <input type="checkbox" id="empfCheck"/>
             <span class="empf-copy">
-              <span class="empf-n">Ja, ich empfehle euch weiter</span>
-              <span class="empf-d">Link kommt nach dem Absenden</span>
+              <span class="empf-n">Willst du dir 30 € Anreise sparen?</span>
+              <span class="empf-d" id="empfSub">Antippen und anschauen</span>
             </span>
             <span class="empf-p">−30 €</span>
           </label>
+          <div class="empf-mehr">
+            <p>Empfiehl uns weiter. Gleich nach dem Absenden bekommst du deinen eigenen
+              Empfehlungslink. Schick ihn an Freunde, Verwandte oder in die Gemeinde-Gruppe.
+              Bucht jemand darüber, ziehen wir dir <b>30 €</b> von der Anreise ab.</p>
+            <p class="empf-klein">Es zählt die erste echte Buchung über deinen Link.
+              Wenn dein Termin schon war, bekommst du den Betrag gutgeschrieben.</p>
+          </div>
         </div>
 
         <div class="summary" id="summary">
@@ -1888,10 +1897,13 @@ document.addEventListener('DOMContentLoaded',function(){
 
   /* Schalter für den Empfehlungs-Deal */
   (function(){
-    var c = document.getElementById('empfCheck'), o = document.getElementById('empfOpt');
+    var c = document.getElementById('empfCheck'), o = document.getElementById('empfOpt'),
+        s = document.getElementById('empfSub');
     if(!c || !o) return;
     c.addEventListener('change', function(){
       o.classList.toggle('on', c.checked);
+      if(s) s.textContent = c.checked ? 'Aktiv – Link kommt nach dem Absenden'
+                                      : 'Antippen und anschauen';
       if(typeof renderSummary === 'function') renderSummary();
     });
   })();
@@ -2068,11 +2080,27 @@ document.addEventListener('DOMContentLoaded',function(){
   dr.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ setOpen(false); }); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && html.classList.contains('menu-open')) setOpen(false); });
 })();
-/* "Termin anfragen"-Knopf unten ausblenden, solange das Formular zu sehen ist */
+/* Die mitlaufende Leiste bleibt oben weg und taucht erst auf, wenn man
+   unter dem Anfrageformular ist. Davor steht ohnehin überall ein
+   Anfrage-Knopf am Bildschirm. */
 (function(){
-  var bar=document.querySelector('.cta-bar'), form=document.getElementById('anfrage');
-  if(!bar||!form||!('IntersectionObserver' in window)) return;
-  new IntersectionObserver(function(e){ bar.classList.toggle('weg', e[0].isIntersecting); },{rootMargin:'0px 0px -30% 0px'}).observe(form);
+  var bar  = document.querySelector('.cta-bar');
+  var form = document.getElementById('anfrage');
+  if(!bar) return;
+  if(!form){ bar.classList.remove('weg'); return; }
+
+  var wartet = false;
+  function pruefen(){
+    wartet = false;
+    // Solange die Unterkante des Formulars noch im Bild ist: Leiste weg
+    bar.classList.toggle('weg', form.getBoundingClientRect().bottom > 80);
+  }
+  function anstossen(){
+    if(!wartet){ wartet = true; requestAnimationFrame(pruefen); }
+  }
+  window.addEventListener('scroll', anstossen, {passive:true});
+  window.addEventListener('resize', anstossen, {passive:true});
+  pruefen();
 })();
 </script>
 </body>

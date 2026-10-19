@@ -805,7 +805,13 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 <style>body[data-modus="hochzeit"] .nur-foto{display:block !important;}body[data-modus="hochzeit"] .foto-dazu-wrap{display:none !important;}.anf .foto-opt.tier-premium{background:#FBF8F2 !important;border:1px solid #9C722F !important;box-shadow:inset 0 0 0 1px rgba(156,114,47,.35) !important;}.anf .foto-opt.tier-premium .foto-name{color:#1A1813 !important;}.anf .foto-opt.tier-premium .foto-sub{color:#8A6424 !important;}.anf .foto-opt.tier-premium .foto-feat{color:#46413A !important;}.anf .foto-opt.tier-premium .foto-icon{background:#8A6424 !important;color:#fff !important;}.anf .foto-opt.tier-premium .foto-feats,.anf .foto-opt.tier-premium .foto-feats-plus{border-top-color:rgba(156,114,47,.3) !important;}.anf .foto-opt.tier-premium.selected{box-shadow:inset 0 0 0 2px #8A6424 !important;}</style>
 <style>.anf .rabatt-banner .rabatt-banner-icon{color:#fff !important;border-color:rgba(255,255,255,.55) !important;}.anf .modus-sub,.anf .burg-banner-sub,.anf .sub-extra-desc,.anf .extra-hint,.anf .pe-note,.anf .order-note{color:#5E584C !important;}.anf .foto-feats-plus-title{color:#7A5518 !important;}.anf .foto-rabatt-hint,.anf .foto-rabatt-hint strong{color:#1A6B42 !important;}</style>
 <style id="empfehlung-css">
-.empf-wrap{margin-top:12px;}
+.empf-wrap{margin-top:14px;}
+#empf-btn{border:2px solid #0B6B6F !important;background:rgba(11,107,111,.06) !important;}
+#empf-btn:hover{background:rgba(11,107,111,.11) !important;}
+#empf-btn.selected{background:rgba(11,107,111,.13) !important;box-shadow:inset 0 0 0 1px #0B6B6F !important;}
+#empf-btn .extra-title{font-size:16px;color:#0B6B6F;}
+#empf-btn .extra-price{color:#1A1813;font-weight:700;}
+#empf-btn .extra-hint{color:#0B6B6F;opacity:.8;}
 .empf-fields{display:none;margin-top:4px;padding:12px 14px;border:1px solid rgba(26,24,19,.16);border-radius:3px;background:#FBF8F2;}
 .empf-wrap.on .empf-fields{display:block;}
 .empf-fields .field{margin-bottom:10px;}
@@ -1145,9 +1151,9 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
       <div class="empf-wrap" id="empf-wrap">
         <button type="button" class="extra-toggle" id="empf-btn" onclick="toggleEmpfehlung()">
           <span class="extra-copy">
-            <span class="extra-title">30 € Anreise-Rabatt</span>
-            <span class="extra-price">Empfiehl uns weiter und spar dir 30 €</span>
-            <span class="extra-hint">Zum Aktivieren antippen</span>
+            <span class="extra-title">Willst du dir 30 € Anreise sparen?</span>
+            <span class="extra-price">Empfiehl uns weiter, wir ziehen dir 30 € ab</span>
+            <span class="extra-hint" id="empf-hint">Antippen und anschauen</span>
           </span>
           <span class="extra-switch"></span>
         </button>
@@ -2603,6 +2609,9 @@ function toggleEmpfehlung(){
   wrap.classList.toggle('on', an);
   btn.classList.toggle('selected', an);
   val.value = an ? 'Ja' : 'Nein';
+  var hint = document.getElementById('empf-hint');
+  if(hint) hint.textContent = an ? 'Aktiv \u2013 Link kommt nach dem Absenden'
+                                 : 'Antippen und anschauen';
   if(typeof updateOrderSummary === 'function') updateOrderSummary();
   if(typeof saveDraft === 'function') saveDraft();
 }
