@@ -2051,11 +2051,33 @@ document.addEventListener('DOMContentLoaded',function(){
   dr.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ setOpen(false); }); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && html.classList.contains('menu-open')) setOpen(false); });
 })();
-/* "Termin anfragen"-Knopf unten ausblenden, solange das Formular zu sehen ist */
+/* Die mitlaufende Leiste unten ausblenden, sobald auf dem Bildschirm
+   ohnehin schon ein Anfrage-Knopf steht: im Hero, bei den Paketen oder
+   im Formular. Sonst steht dasselbe zweimal da. */
 (function(){
-  var bar=document.querySelector('.cta-bar'), form=document.getElementById('anfrage');
-  if(!bar||!form||!('IntersectionObserver' in window)) return;
-  new IntersectionObserver(function(e){ bar.classList.toggle('weg', e[0].isIntersecting); },{rootMargin:'0px 0px -30% 0px'}).observe(form);
+  var bar = document.querySelector('.cta-bar');
+  if(!bar || !('IntersectionObserver' in window)) return;
+
+  var stellen  = ['.hero', '.pw-go', '#anfrage'];
+  var sichtbar = {};
+
+  function pruefen(){
+    var belegt = false;
+    for(var k in sichtbar){ if(sichtbar[k]) belegt = true; }
+    bar.classList.toggle('weg', belegt);
+  }
+
+  stellen.forEach(function(sel){
+    var el = document.querySelector(sel);
+    if(!el) return;
+    sichtbar[sel] = (sel === '.hero');   // oben startet die Seite im Hero
+    new IntersectionObserver(function(e){
+      sichtbar[sel] = e[0].isIntersecting;
+      pruefen();
+    }, {rootMargin:'0px 0px -25% 0px'}).observe(el);
+  });
+
+  pruefen();
 })();
 </script>
 </body>
