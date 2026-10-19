@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <script src="consent.js?v=202610171625"></script>
-<script src="ref.js?v=202610171625"></script>
+<script src="ref.js?v=202610191900"></script>
 <script src="nav.js?v=202610171625" defer></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light"/>
@@ -583,7 +583,7 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
 /* ═══ HELL & ÜBERSICHTLICH (Fotobox-Seiten) ═══ */
 :root{--void:#EAE2D2;--void-2:#E0D6C3;--void-3:#D3C7B0;--paper:#1A1813;--paper-2:#E6DECF;--paper-ink:#FAF7F1;--paper-mute:#6B6659;
   --brass:#7A5518;--brass-lt:#74501A;--brass-dim:rgba(156,114,47,.35);--fog:#46413A;--fog-2:#5E584C;
-  --line:rgba(26,24,19,.13);--line-2:rgba(26,24,19,.24);--card:#F5F0E5;--cta:#7A5518;--cta-h:#5E4110;}
+  --line:rgba(26,24,19,.13);--line-2:rgba(26,24,19,.24);--card:#F5F0E5;--cta:#0B6B6F;--cta-h:#084F52;}
 .grain{display:none;}
 body{background:var(--void);color:var(--paper);}
 /* Papier-Elemente bleiben hell mit dunkler Schrift */
@@ -661,7 +661,7 @@ footer{background:var(--void-2);}
 @media(max-width:899px){
   .hero-in{padding-top:22px !important;}
   .hero .strip{order:-1;max-width:100%;width:100%;padding:8px 8px 0;transform:rotate(-.6deg);margin-bottom:6px;}
-  .hero .strip img,.hero .strip .strip-img{aspect-ratio:16/11;object-position:center 30%;}
+  .hero .strip img,.hero .strip .strip-img{aspect-ratio:auto;height:auto;object-fit:contain;object-position:center;}
   .hero .strip-cap{padding:8px 2px 10px;}
 }
 /* ── Paketwahl: antippen, Details darunter, Anfrage gleich im Anschluss ── */
@@ -760,11 +760,11 @@ h1,h2{font-weight:500;}
   "@type": "FAQPage",
   "mainEntity": [
     {"@type":"Question","name":"Wie lange habe ich die Fotobox?","acceptedAnswer":{"@type":"Answer","text":"Den ganzen Abend, ohne Stundenlimit. Wir bauen die Fotobox vor dem Fest auf und holen sie am nächsten Tag wieder ab. Es gibt keine Stundenpakete und keinen Aufpreis, wenn es später wird als geplant."}},
-    {"@type":"Question","name":"Was kostet es, eine Fotobox in Kärnten zu mieten?","acceptedAnswer":{"@type":"Answer","text":"Es gibt drei Pakete: Digital um 199 €, Standard um 299 € und Premium um 349 €. Auf- und Abbau sind bei Lieferung inklusive, die ersten 40 Kilometer Anfahrt sind gratis."}},
-    {"@type":"Question","name":"Was kostet die Lieferung?","acceptedAnswer":{"@type":"Answer","text":"Die ersten 40 Kilometer sind gratis. Darüber hinaus werden 0,55 € pro Kilometer verrechnet, gerechnet auf vier Fahrten: Lieferung hin und retour, Abholung hin und retour. Die genaue Rechnung steht offen auf jedem Angebot."}},
+    {"@type":"Question","name":"Was kostet es, eine Fotobox in Kärnten zu mieten?","acceptedAnswer":{"@type":"Answer","text":"Es gibt drei Pakete: Digital um 199 €, Standard um 299 € und Premium um 349 €. Auf- und Abbau sind bei Lieferung inklusive, die Anreise kostet 0,55 € pro Kilometer. Wer uns weiterempfiehlt, bekommt 30 € Rabatt auf die Anreise."}},
+    {"@type":"Question","name":"Was kostet die Lieferung?","acceptedAnswer":{"@type":"Answer","text":"Für die Anreise werden 0,55 € pro Kilometer verrechnet, gerechnet auf vier Fahrten: Lieferung hin und retour, Abholung hin und retour. Wer uns weiterempfiehlt, bekommt 30 € Rabatt auf die Anreise. Die genaue Rechnung steht offen auf jedem Angebot."}},
     {"@type":"Question","name":"Wie viele Fotos sind inkludiert?","acceptedAnswer":{"@type":"Answer","text":"Digitale Fotos sind bei allen Paketen unbegrenzt. Bei Standard und Premium sind jeweils 300 Ausdrucke inkludiert. Beim Digital-Paket gibt es keinen Drucker, alle Fotos gibt es digital auf USB-Stick."}},
     {"@type":"Question","name":"Kann ich die Fotobox auch ohne Hüpfburg mieten?","acceptedAnswer":{"@type":"Answer","text":"Ja. Die Fotobox ist ein eigenständiges Angebot und kann einzeln gemietet werden. Hüpfburgen, Zuckerwatte und Popcorn lassen sich dazubuchen, sind aber keine Voraussetzung."}},
-    {"@type":"Question","name":"Liefert ihr die Fotobox auch nach Klagenfurt und Villach?","acceptedAnswer":{"@type":"Answer","text":"Ja. Wir liefern in ganz Kärnten, unter anderem nach Klagenfurt, Villach, St. Veit an der Glan, Feldkirchen, Friesach, Wolfsberg, Spittal an der Drau und Gurk. Die ersten 40 Kilometer ab Glödnitz sind gratis."}},
+    {"@type":"Question","name":"Liefert ihr die Fotobox auch nach Klagenfurt und Villach?","acceptedAnswer":{"@type":"Answer","text":"Ja. Wir liefern in ganz Kärnten, unter anderem nach Klagenfurt, Villach, St. Veit an der Glan, Feldkirchen, Friesach, Wolfsberg, Spittal an der Drau und Gurk. Die Anreise ab Glödnitz kostet 0,55 € pro Kilometer, gerechnet auf vier Fahrten. Wer uns weiterempfiehlt, bekommt 30 € Rabatt auf die Anreise."}},
     {"@type":"Question","name":"Bekomme ich alle Fotos digital?","acceptedAnswer":{"@type":"Answer","text":"Ja. Alle Aufnahmen werden gespeichert und du bekommst sie nach dem Event auf USB-Stick. Digitale Fotos sind bei jedem Paket unbegrenzt."}},
     {"@type":"Question","name":"Kann ich den Fotorahmen selbst aussuchen?","acceptedAnswer":{"@type":"Answer","text":"Beim Standard-Paket drucken wir im Hüpfabenteuer-Design, wahlweise als Dreier-Streifen oder als Einzelbild. Beim Premium-Paket stehen vierzehn Motiv-Rahmen zur freien Auswahl - Hochzeit, Weihnachten, Halloween und Geburtstag - oder wir gestalten einen individuellen Rahmen mit euren Namen, eurem Datum oder dem Firmenlogo."}},
     {"@type":"Question","name":"Wie viel Platz braucht die Fotobox?","acceptedAnswer":{"@type":"Answer","text":"Rund zwei mal zwei Meter reichen für die Box selbst, etwas mehr, wenn eine Gruppe davor Platz haben soll. Am besten steht sie drinnen oder überdacht, damit Technik und Ausdrucke trocken bleiben."}},
@@ -787,6 +787,24 @@ h1,h2{font-weight:500;}
 </script>
 
 
+<style id="empfehlung-fotobox-css">
+.empf-opt{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;
+  border:1.5px solid var(--line-2);border-radius:8px;background:var(--card);
+  cursor:pointer;text-align:left;transition:border-color .2s,background .2s,box-shadow .2s;}
+.empf-opt input{position:absolute;opacity:0;pointer-events:none;}
+.empf-opt:hover{border-color:rgba(22,21,15,.4);}
+.empf-opt.on{border-color:#0B6B6F;background:rgba(11,107,111,.07);box-shadow:inset 0 0 0 1px #0B6B6F;}
+.empf-copy{flex:1;display:flex;flex-direction:column;gap:3px;min-width:0;}
+.empf-n{font-family:var(--sans);font-weight:700;font-size:.95rem;}
+.empf-d{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-mute);}
+.empf-p{font-family:var(--serif);font-size:1.4rem;line-height:1;color:#0B6B6F;white-space:nowrap;}
+.empf-opt.on .empf-n{color:#0B6B6F;}
+.sprung{margin-top:16px;display:flex;flex-wrap:wrap;gap:10px;}
+.sprung .btn{font-size:.82rem;padding:10px 16px;min-height:42px;border-radius:8px;
+  color:#0B6B6F !important;border:1.5px solid #0B6B6F !important;
+  background:transparent !important;box-shadow:none !important;font-weight:700;}
+.sprung .btn:hover{background:rgba(11,107,111,.09) !important;}
+</style>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -803,7 +821,7 @@ h1,h2{font-weight:500;}
     </nav>
     <div class="top-actions">
       <a href="tel:+436641852634" class="top-tel" data-track="call">+43 664 185 26 34</a>
-      <a href="#anfrage" class="btn btn-solid btn-sm">Termin anfragen</a>
+      <a href="#pakete" class="btn btn-solid btn-sm">Termin anfragen</a>
       <button type="button" class="menu-btn" id="menuBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="drawer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
@@ -824,7 +842,7 @@ h1,h2{font-weight:500;}
     <a href="partner.html" class="drawer-partner">Partnerprogramm<small>20 % für Empfehlungen</small></a>
   </nav>
   <div class="drawer-c">
-    <a href="#anfrage" class="btn btn-solid btn-wide">Fotobox anfragen</a>
+    <a href="#pakete" class="btn btn-solid btn-wide">Fotobox anfragen</a>
     <a href="tel:+436641852634" class="btn btn-ghost btn-wide" data-track="call"><svg class="ic ic-ph" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg> +43 664 185 26 34</a>
     <a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20h%C3%A4tte%20eine%20Anfrage" target="_blank" rel="noopener" class="btn btn-ghost btn-wide" data-track="whatsapp"><svg class="ic ic-wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg> WhatsApp schreiben</a>
   </div>
@@ -834,18 +852,16 @@ h1,h2{font-weight:500;}
 <div class="hero">
   <div class="hero-in">
     <div>
-      <div class="hero-kicker">Fotobox mit Sofortdruck · Kärnten</div>
       <h1>Der Abend ist vorbei.<br>Die Bilder <span class="it">bleiben.</span></h1>
       <p class="lede">Eine Fotobox, die Gäste zusammenbringt, statt nur herumzustehen. Wir liefern sie, bauen sie auf, holen sie wieder ab — und du bekommst jeden Schnappschuss des Abends, gedruckt und digital. Den ganzen Abend lang, ohne Stundenzähler.</p>
       <div class="hero-cta">
-        <a href="#anfrage" class="btn btn-solid">Termin anfragen</a>
-        <a href="#pakete" class="btn btn-ghost">Pakete ansehen</a>
+        <a href="#pakete" class="btn btn-solid">Termin anfragen</a>
       </div>
       <div class="hero-meta">
         <span><b>5,0</b> auf Google</span>
         <span><b>80+</b> Feste ausgestattet</span>
         <span><b>3</b> Pakete ab 199 €</span>
-        <span><b>40 km</b> Lieferung gratis</span>
+        <span><b>0,55 €</b> pro km Anreise</span>
         <span><b>Ganzer Abend</b> ohne Stundenlimit</span>
       </div>
     </div>
@@ -863,7 +879,7 @@ h1,h2{font-weight:500;}
   <div class="facts-in">
     <div class="fact"><div class="fact-v">199<span class="u"> €</span></div><div class="fact-l">Einstiegspreis</div></div>
     <div class="fact"><div class="fact-v">∞</div><div class="fact-l">Digitale Fotos</div></div>
-    <div class="fact"><div class="fact-v">40<span class="u"> km</span></div><div class="fact-l">Gratis Lieferung</div></div>
+    <div class="fact"><div class="fact-v">0,55<span class="u"> €</span></div><div class="fact-l">pro km Anreise</div></div>
     <div class="fact"><div class="fact-v">&lt; 1<span class="u"> Std</span></div><div class="fact-l">Bis zum Angebot</div></div>
   </div>
 </div>
@@ -937,6 +953,9 @@ h1,h2{font-weight:500;}
           <li><b>Oder individuell gestaltet</b> mit euren Namen, eurem Datum oder Logo</li>
           <li><b>Accessoire-Set</b> inklusive</li>
         </ul>
+        <div class="sprung">
+          <a href="#rahmen" class="btn btn-ghost">Alle Rahmen ansehen</a>
+        </div>
       </div>
 
       <div class="pw-go">
@@ -1081,6 +1100,9 @@ document.addEventListener('DOMContentLoaded',function(){
             </label>
           </div>
           <p class="hint">Noch unschlüssig? Lass es offen — wir klären den Rahmen gemeinsam, bevor gedruckt wird.</p>
+          <div class="sprung">
+            <a href="#pakete" class="btn btn-ghost">Zurück zu den Paketen</a>
+          </div>
         </div>
 
 
@@ -1170,6 +1192,20 @@ document.addEventListener('DOMContentLoaded',function(){
             <label for="nachrichtFoto">Nachricht <span style="text-transform:none;letter-spacing:0;">(optional)</span></label>
             <textarea name="Nachricht" id="nachrichtFoto" placeholder="z. B. individueller Fotorahmen gewünscht, zusätzlich Zuckerwatte, ungefähre Gästezahl …"></textarea>
           </div>
+        </div>
+
+        <div class="fset" id="empfFset">
+          <div class="fset-t">30 € Anreise-Rabatt</div>
+          <p class="hint" style="margin:0 0 12px;">Empfiehl uns weiter und wir ziehen dir 30 € von der Anreise ab.
+            Gleich nach dem Absenden bekommst du deinen eigenen Empfehlungslink. Bucht jemand darüber, ist der Rabatt deiner.</p>
+          <label class="empf-opt" id="empfOpt">
+            <input type="checkbox" id="empfCheck"/>
+            <span class="empf-copy">
+              <span class="empf-n">Ja, ich empfehle euch weiter</span>
+              <span class="empf-d">Link kommt nach dem Absenden</span>
+            </span>
+            <span class="empf-p">−30 €</span>
+          </label>
         </div>
 
         <div class="summary" id="summary">
@@ -1282,6 +1318,10 @@ document.addEventListener('DOMContentLoaded',function(){
     </div>
 
     <p class="rahmen-note rise">Die farbigen Flächen sind die Platzhalter — dort stehen später eure Fotos. Namen und Datum in den Beispielen werden für euren Anlass ersetzt.</p>
+
+    <div class="sprung rise">
+      <a href="#pakete" class="btn btn-ghost">Zurück zu den Paketen</a>
+    </div>
   </div>
 </section>
 
@@ -1413,7 +1453,7 @@ document.addEventListener('DOMContentLoaded',function(){
         <div class="li-n">01</div>
         <div>
           <div class="li-t">Anfahrt, Auf- und Abbau</div>
-          <div class="li-d">Die ersten 40 Kilometer sind gratis. Darüber 0,55 € pro Kilometer, gerechnet auf vier Fahrten. Die volle Rechnung steht offen auf deinem Angebot.</div>
+          <div class="li-d">Die Anreise kostet 0,55 € pro Kilometer, gerechnet auf vier Fahrten. Wer uns weiterempfiehlt, bekommt 30 € Rabatt auf die Anreise. Die volle Rechnung steht offen auf deinem Angebot.</div>
         </div>
       </div>
 
@@ -1467,7 +1507,7 @@ document.addEventListener('DOMContentLoaded',function(){
     <div class="sec-head rise">
       <div class="eyebrow">Liefergebiet</div>
       <h2>Fotobox mieten in ganz Kärnten.</h2>
-      <p class="lede">Wir starten in Glödnitz und liefern von dort im ganzen Bundesland. Die ersten 40 Kilometer sind gratis, jeder weitere kostet 0,55 € — gerechnet auf vier Fahrten, weil wir die Box bringen und wieder abholen.</p>
+      <p class="lede">Wir starten in Glödnitz und liefern von dort im ganzen Bundesland. Jeder Kilometer kostet 0,55 € — gerechnet auf vier Fahrten, weil wir die Box bringen und wieder abholen. Wer uns weiterempfiehlt, bekommt 30 € Rabatt auf die Anreise.</p>
     </div>
     <div class="orte rise">
       <span class="ort">Klagenfurt</span>
@@ -1539,7 +1579,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
       <details class="faq">
         <summary>Was kostet die Lieferung?</summary>
-        <div class="faq-a">Die ersten 40 Kilometer sind gratis. Darüber verrechnen wir 0,55 € pro Kilometer, gerechnet auf vier Fahrten — Lieferung hin und retour, Abholung hin und retour. Die komplette Rechnung steht offen auf deinem Angebot, damit du siehst, wie der Betrag zustande kommt.</div>
+        <div class="faq-a">Für die Anreise verrechnen wir 0,55 € pro Kilometer, gerechnet auf vier Fahrten — Lieferung hin und retour, Abholung hin und retour. Wer uns weiterempfiehlt, bekommt 30 € Rabatt auf die Anreise. Die komplette Rechnung steht offen auf deinem Angebot, damit du siehst, wie der Betrag zustande kommt.</div>
       </details>
 
       <details class="faq">
@@ -1564,7 +1604,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
       <details class="faq">
         <summary>Liefert ihr auch nach Klagenfurt oder Villach?</summary>
-        <div class="faq-a">Ja, wir liefern in ganz Kärnten — unter anderem nach Klagenfurt, Villach, St. Veit an der Glan, Feldkirchen, Friesach, Wolfsberg, Spittal an der Drau und Gurk. Die ersten 40 Kilometer ab Glödnitz sind gratis, darüber 0,55 € pro Kilometer.</div>
+        <div class="faq-a">Ja, wir liefern in ganz Kärnten — unter anderem nach Klagenfurt, Villach, St. Veit an der Glan, Feldkirchen, Friesach, Wolfsberg, Spittal an der Drau und Gurk. Die Anreise ab Glödnitz kostet 0,55 € pro Kilometer, gerechnet auf vier Fahrten. Wer uns weiterempfiehlt, bekommt 30 € Rabatt auf die Anreise.</div>
       </details>
 
       <!-- ⚠️ BITTE PRÜFEN: Platzbedarf und Strom sind Annahmen.
@@ -1651,7 +1691,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <a href="kontakt.html" class="bi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4h4l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L16 14l4 1.5v4a1 1 0 0 1-1.1 1A16.5 16.5 0 0 1 3.5 5.1 1 1 0 0 1 4.5 4z"/></svg><span>Kontakt</span></a>
 </nav>
 <div class="cta-bar">
-  <a href="#anfrage" class="cta-main">Termin anfragen</a>
+  <a href="#pakete" class="cta-main">Termin anfragen</a>
   <a href="https://wa.me/436641852634?text=Hallo%20Alex%2C%20ich%20interessiere%20mich%20f%C3%BCr%20die%20Fotobox" class="cta-ic" target="_blank" rel="noopener" data-track="whatsapp" aria-label="Per WhatsApp anfragen">
     <svg viewBox="0 0 24 24" data-fill aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
   </a>
@@ -1819,6 +1859,26 @@ document.addEventListener('DOMContentLoaded',function(){
   })();
 
   /* ── Zusammenfassung ── */
+  /* Persönlicher Empfehlungscode: Nachname plus drei Zufallszeichen */
+  function empfehlungscode(nachname, vorname){
+    var basis = String(nachname || vorname || 'KUNDE').toUpperCase()
+      .replace(/\u00c4/g,'AE').replace(/\u00d6/g,'OE').replace(/\u00dc/g,'UE').replace(/\u00df/g,'SS')
+      .replace(/[^A-Z0-9]/g,'').slice(0,10) || 'KUNDE';
+    var abc = 'ACDEFGHJKLMNPQRTUVWXY2346789', s = '';
+    for(var i = 0; i < 3; i++) s += abc.charAt(Math.floor(Math.random() * abc.length));
+    return basis + '-' + s;
+  }
+
+  /* Schalter für den Empfehlungs-Deal */
+  (function(){
+    var c = document.getElementById('empfCheck'), o = document.getElementById('empfOpt');
+    if(!c || !o) return;
+    c.addEventListener('change', function(){
+      o.classList.toggle('on', c.checked);
+      if(typeof renderSummary === 'function') renderSummary();
+    });
+  })();
+
   function renderSummary(){
     var box  = document.getElementById('summary');
     var rows = document.getElementById('sumRows');
@@ -1830,20 +1890,25 @@ document.addEventListener('DOMContentLoaded',function(){
     if(rw){
       rahmenZeile = '<div class="sum-row"><span>Fotorahmen</span><span>' + rw + '</span></div>';
     }
+    var empfZeile = '';
+    var _ec = document.getElementById('empfCheck');
+    if(_ec && _ec.checked){
+      empfZeile = '<div class="sum-row"><span>Empfehlungs-Deal</span><span>\u221230 \u20ac Anreise</span></div>';
+    }
     if(!selectedPrice){
-      rows.innerHTML = '<div class="sum-row"><span>Fotobox</span><span>Paket noch offen</span></div>' + rahmenZeile;
-      note.innerHTML = 'Wir schauen uns dein Fest an und schlagen dir im Angebot das passende Paket vor. Lieferkosten kommen je nach Entfernung dazu — die ersten 40 km sind gratis.';
+      rows.innerHTML = '<div class="sum-row"><span>Fotobox</span><span>Paket noch offen</span></div>' + rahmenZeile + empfZeile;
+      note.innerHTML = 'Wir schauen uns dein Fest an und schlagen dir im Angebot das passende Paket vor. Die Anreise kommt je nach Entfernung dazu — 0,55 € pro Kilometer auf vier Fahrten, geschenkt bei Weiterempfehlung.';
       box.classList.add('on');
       return;
     }
 
     rows.innerHTML =
       '<div class="sum-row"><span>Fotobox ' + selectedName + '</span><span>' + selectedPrice + ' €</span></div>' +
-      rahmenZeile +
+      rahmenZeile + empfZeile +
       '<div class="sum-row total"><span>Gesamt, geschätzt</span><span class="sum-total">' + selectedPrice + ' €</span></div>';
 
     var anz = selectedPrice >= 300 ? 100 : (selectedPrice >= 220 ? 50 : 30);
-    note.innerHTML = 'Anzahlung ' + anz + ' €, Restbetrag am Eventtag. Lieferkosten kommen je nach Entfernung dazu — die ersten 40 km sind gratis, die genaue Rechnung steht auf deinem Angebot.';
+    note.innerHTML = 'Anzahlung ' + anz + ' €, Restbetrag am Eventtag. Die Anreise kommt je nach Entfernung dazu — 0,55 € pro Kilometer auf vier Fahrten, geschenkt bei Weiterempfehlung. Die genaue Rechnung steht auf deinem Angebot.';
     box.classList.add('on');
   }
 
@@ -1907,8 +1972,13 @@ document.addEventListener('DOMContentLoaded',function(){
     btn.textContent = 'Wird gesendet …';
     say('Anfrage wird gesendet …', true);
 
+    var _ecS = document.getElementById('empfCheck');
+    var empfAktiv = !!(_ecS && _ecS.checked);
+    var empfCode  = empfAktiv ? empfehlungscode(val('nachnameFoto'), vorname) : '';
+
     var fd = new FormData();
-    fd.append('subject', 'Neue Fotobox-Anfrage – ' + paket.value + ' – ' + datum);
+    fd.append('subject', 'Neue Fotobox-Anfrage – ' + paket.value + ' – ' + datum
+                         + (empfAktiv ? ' [EMPFEHLUNG]' : ''));
     fd.append('Paket',   paket.value);
     fd.append('Datum',   datum);
     fd.append('Ort',     ort);
@@ -1922,6 +1992,11 @@ document.addEventListener('DOMContentLoaded',function(){
     if(email)   fd.append('E-Mail', email);
     var nachricht = val('nachrichtFoto');
     if(nachricht) fd.append('Nachricht', nachricht);
+    if(empfAktiv){
+      fd.append('Empfehlungs-Deal', 'Ja \u2013 30 \u20ac von der Anreise abziehen, sobald jemand \u00fcber den Link bucht');
+      fd.append('Empfehlungscode', empfCode);
+      fd.append('Empfehlungslink', 'https://huepfabenteuer.at/?empfehlung=' + empfCode);
+    }
     fd.append('Quelle', 'Fotobox-Landingpage');
 
     fetch(ENDPOINT, { method:'POST', headers:{'Accept':'application/json'}, body: fd })
@@ -1943,6 +2018,7 @@ document.addEventListener('DOMContentLoaded',function(){
             wert:  String(selectedPrice),
             tid:   tid
           });
+          if(empfAktiv && empfCode) params.set('empf', empfCode);
           setTimeout(function(){ window.location.replace(THANK_YOU + '?' + params.toString()); }, 800);
         } else {
           var err = (r.data && r.data.message) ? r.data.message : 'Das Senden hat nicht geklappt.';

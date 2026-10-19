@@ -30,8 +30,8 @@
   --line-2:rgba(26,24,19,.24);
 
   --card:#F5F0E5;
-  --cta:#7A5518;
-  --cta-h:#5E4110;
+  --cta:#0B6B6F;        /* Petrol – Aktionsfarbe: Buttons, Links, Preise */
+  --cta-h:#084F52;      /* dunkler beim Drüberfahren */
 
   --ok:#1F7A4D;
   --alert:#B5532F;

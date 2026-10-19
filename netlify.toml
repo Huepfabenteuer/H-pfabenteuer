@@ -1,0 +1,9 @@
+# Hüpfabenteuer — Netlify-Konfiguration
+# Die Website liegt direkt im Hauptordner, die Serverfunktionen darunter.
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"

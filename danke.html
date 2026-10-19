@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <script src="consent.js?v=202610171625"></script>
-<script src="ref.js?v=202610171625"></script>
+<script src="ref.js?v=202610191900"></script>
 <script src="nav.js?v=202610171625" defer></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light"/>
@@ -67,6 +67,18 @@
   }
 })();
 </script>
+<style id="empfehlung-danke-css">
+.empf-box{margin-top:24px;padding:22px;border:1.5px solid rgba(31,122,77,.3);border-radius:8px;
+  background:linear-gradient(135deg,rgba(31,122,77,.09),rgba(31,122,77,.03));}
+.empf-box-h{font-family:var(--serif);font-size:1.35rem;color:#1A1813;margin-bottom:8px;}
+.empf-box-p{font-family:var(--sans);font-size:.92rem;line-height:1.65;color:var(--fog);margin-bottom:16px;}
+.empf-link{font-family:var(--mono);font-size:.82rem;word-break:break-all;background:#fff;
+  border:1px solid rgba(26,24,19,.18);border-radius:4px;padding:12px 14px;color:#1A1813;margin-bottom:14px;}
+.empf-btns{display:flex;flex-wrap:wrap;gap:10px;}
+.empf-btns .btn{flex:1 1 180px;text-align:center;justify-content:center;}
+.empf-hint{margin-top:14px;font-family:var(--sans);font-size:.78rem;color:var(--paper-mute);line-height:1.6;}
+.empf-wert{display:inline-block;font-family:var(--sans);font-weight:800;color:#1A6B42;}
+</style>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -133,6 +145,21 @@
     </div>
     <div class="recap rise" id="recap"><div id="recapRows"></div></div>
 
+    <!-- EMPFEHLUNGSLINK -->
+    <div class="empf-box rise" id="empfBox" style="display:none;">
+      <div class="empf-box-h">Dein Empfehlungslink</div>
+      <p class="empf-box-p">Schick den Link an Freunde, Verwandte oder in die Gemeinde-Gruppe.
+        Bucht jemand darüber, ziehen wir dir
+        <span class="empf-wert">30 €</span> von der Anreise ab.</p>
+      <div class="empf-link" id="empfLink"></div>
+      <div class="empf-btns">
+        <button type="button" class="btn btn-solid" id="empfCopy">Link kopieren</button>
+        <a class="btn btn-ghost" id="empfWa" target="_blank" rel="noopener">Per WhatsApp schicken</a>
+      </div>
+      <div class="empf-hint">Du musst dir den Link nicht merken, wir schicken ihn dir mit der
+        Bestätigung nochmal. Es zählt die erste echte Buchung über deinen Link.</div>
+    </div>
+
     <div class="rows" style="margin-top:34px;">
       <div class="row-i rise">
         <div class="row-n">01</div>
@@ -170,7 +197,7 @@
     </div>
     <div class="chips" style="justify-content:center;margin-top:8px;">
       <span class="chip">5,0 auf Google</span>
-      <span class="chip">40 km Lieferung gratis</span>
+      <span class="chip">Anreise 0,55 €/km</span>
       <span class="chip">Auf- &amp; Abbau inklusive</span>
     </div>
   </div>
@@ -278,6 +305,41 @@ document.querySelectorAll('[data-track]').forEach(function(el){
       return '<div class="recap-row"><span class="recap-k">'+esc(r[0])+'</span><span class="recap-v">'+esc(r[1])+'</span></div>';
     }).join('');
     document.getElementById('recap').classList.add('on');
+  }
+
+  // ── Empfehlungslink ──
+  var empf = (q.get('empf') || '').replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40);
+  if(empf){
+    var link = 'https://huepfabenteuer.at/?empfehlung=' + empf;
+    var box  = document.getElementById('empfBox');
+    document.getElementById('empfLink').textContent = link;
+    box.style.display = '';
+
+    var waTxt = 'Schau mal, die hab ich f\u00fcr unser Fest gebucht – H\u00fcpfburgen, '
+              + 'Fotobox und mehr: ' + link;
+    document.getElementById('empfWa').href = 'https://wa.me/?text=' + encodeURIComponent(waTxt);
+
+    document.getElementById('empfCopy').addEventListener('click', function(){
+      var btn = this;
+      function fertig(){
+        btn.textContent = 'Kopiert';
+        setTimeout(function(){ btn.textContent = 'Link kopieren'; }, 2000);
+      }
+      function notfall(){
+        var ta = document.createElement('textarea');
+        ta.value = link;
+        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+        document.body.appendChild(ta);
+        ta.focus(); ta.select();
+        try { document.execCommand('copy'); fertig(); } catch(e){}
+        document.body.removeChild(ta);
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(link).then(fertig, notfall);
+      } else {
+        notfall();
+      }
+    });
   }
 })();
 </script>

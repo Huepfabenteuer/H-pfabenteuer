@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <script src="consent.js?v=202610171625"></script>
-<script src="ref.js?v=202610171625"></script>
+<script src="ref.js?v=202610191900"></script>
 <script src="nav.js?v=202610171625" defer></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light"/>
@@ -23,7 +23,7 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Hüpfburg anfragen Kärnten – Jetzt Termin sichern | Hüpfabenteuer"/>
 <meta name="twitter:description" content="Hüpfburg mieten in Kärnten – einfach anfragen, Antwort innerhalb 24h. Hüpfburgen, Fotobox, Zuckerwatte & mehr."/>
-<meta name="description" content="Hüpfburg mieten in Kärnten – jetzt einfach anfragen! Hüpfburgverleih, Fotobox, Zuckerwatte & mehr. Antwort innerhalb 24h ✓ Gratis Lieferung bis 40 km ✓ ab 120€/Tag"/>
+<meta name="description" content="Hüpfburg mieten in Kärnten – jetzt einfach anfragen! Hüpfburgverleih, Fotobox, Zuckerwatte & mehr. Antwort innerhalb 24h ✓ Gratis Anreise für Empfehler ✓ ab 120€/Tag"/>
 
 <link rel="stylesheet" href="fonts.css?v=202610171625"/>
 <style>
@@ -284,7 +284,7 @@ footer{background:var(--dark);padding:26px 20px 18px;text-align:center;}
 /* ── STICKY TOPBAR ── */
 .topbar-sticky{display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:997;padding:10px 18px;background:rgba(10,22,40,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 2px 20px rgba(0,0,0,.25);}
 
-.lief-btn{flex:1;padding:12px 10px;border-radius:3px;border:2px solid #d0d8e8;background:#f0f4fa;color:#555;font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;text-align:center;}
+.lief-btn{flex:1;padding:12px 10px;border-radius:3px;border:2px solid rgba(26,24,19,.16);background:#F5F0E5;color:#46413A;font-family:'Karla','Helvetica Neue',Arial,sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;text-align:center;}
 
 .lief-btn.lief-active{background:linear-gradient(135deg,#1A1813,#2A2620);border-color:rgba(26,24,19,.4);color:white;}
 
@@ -762,13 +762,14 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 .anf .card{background:#F5F0E5 !important;}
 .anf .card-title{font-family:'Bodoni Moda',Didot,serif !important;font-weight:400 !important;font-size:1.35rem !important;letter-spacing:-.01em;color:#1A1813 !important;}
 .anf .card-sub{color:#6A6356 !important;}
-.anf .modus-btn.active,.anf .burg-opt.selected,.anf .foto-opt.selected,.anf .extra-toggle.selected,.anf .sub-extra-toggle.selected{border-color:#8A6424 !important;background:#FBF8F2 !important;box-shadow:inset 0 0 0 1px #8A6424 !important;}
+.anf .modus-btn.active,.anf .burg-opt.selected,.anf .foto-opt.selected,.anf .extra-toggle.selected,.anf .sub-extra-toggle.selected{border-color:#0B6B6F !important;background:#FBF8F2 !important;box-shadow:inset 0 0 0 1px #0B6B6F !important;}
 .anf .burg-opt.selected .burg-opt-check{background:#8A6424 !important;border-color:#8A6424 !important;}
-.anf .extra-toggle.selected .extra-switch{background:#8A6424 !important;}
-.anf .lief-btn.lief-active{background:#8A6424 !important;color:#fff !important;border-color:#8A6424 !important;}
+.anf .extra-toggle.selected .extra-switch{background:#0B6B6F !important;}
+.anf .extra-toggle.selected .extra-title,.anf .sub-extra-toggle.selected .set-name{color:#0B6B6F !important;}
+.anf .lief-btn.lief-active{background:#0B6B6F !important;color:#fff !important;border-color:#0B6B6F !important;}
 .anf input:not([type=radio]):not([type=checkbox]),.anf select,.anf textarea{background:#FBF8F2 !important;border:1px solid rgba(26,24,19,.2) !important;border-radius:2px !important;font-family:'Karla','Helvetica Neue',Arial,sans-serif !important;color:#1A1813 !important;}
 .anf input:focus,.anf select:focus,.anf textarea:focus{border-color:#8A6424 !important;outline:none;box-shadow:0 0 0 2px rgba(26,24,19,.12) !important;}
-.anf .btn-submit{background:#8A6424 !important;color:#fff !important;border-radius:6px !important;box-shadow:none !important;font-family:'Karla','Helvetica Neue',Arial,sans-serif !important;font-weight:700 !important;letter-spacing:.02em;}
+.anf .btn-submit{background:#0B6B6F !important;color:#fff !important;border-radius:6px !important;box-shadow:none !important;font-family:'Karla','Helvetica Neue',Arial,sans-serif !important;font-weight:700 !important;letter-spacing:.02em;}
 .anf .btn-submit:hover{background:#9C722F !important;}
 .anf{padding-bottom:20px;}
 .anf .field-row>*{min-width:0;}
@@ -803,6 +804,17 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 </script>
 <style>body[data-modus="hochzeit"] .nur-foto{display:block !important;}body[data-modus="hochzeit"] .foto-dazu-wrap{display:none !important;}.anf .foto-opt.tier-premium{background:#FBF8F2 !important;border:1px solid #9C722F !important;box-shadow:inset 0 0 0 1px rgba(156,114,47,.35) !important;}.anf .foto-opt.tier-premium .foto-name{color:#1A1813 !important;}.anf .foto-opt.tier-premium .foto-sub{color:#8A6424 !important;}.anf .foto-opt.tier-premium .foto-feat{color:#46413A !important;}.anf .foto-opt.tier-premium .foto-icon{background:#8A6424 !important;color:#fff !important;}.anf .foto-opt.tier-premium .foto-feats,.anf .foto-opt.tier-premium .foto-feats-plus{border-top-color:rgba(156,114,47,.3) !important;}.anf .foto-opt.tier-premium.selected{box-shadow:inset 0 0 0 2px #8A6424 !important;}</style>
 <style>.anf .rabatt-banner .rabatt-banner-icon{color:#fff !important;border-color:rgba(255,255,255,.55) !important;}.anf .modus-sub,.anf .burg-banner-sub,.anf .sub-extra-desc,.anf .extra-hint,.anf .pe-note,.anf .order-note{color:#5E584C !important;}.anf .foto-feats-plus-title{color:#7A5518 !important;}.anf .foto-rabatt-hint,.anf .foto-rabatt-hint strong{color:#1A6B42 !important;}</style>
+<style id="empfehlung-css">
+.empf-wrap{margin-top:12px;}
+.empf-fields{display:none;margin-top:4px;padding:12px 14px;border:1px solid rgba(26,24,19,.16);border-radius:3px;background:#FBF8F2;}
+.empf-wrap.on .empf-fields{display:block;}
+.empf-fields .field{margin-bottom:10px;}
+.empf-fields .field:last-of-type{margin-bottom:0;}
+.empf-note{margin-top:10px;font-size:11.5px;font-weight:600;color:#46413A;line-height:1.55;}
+.empf-note b{color:#0B6B6F;}
+.empf-wert{display:inline-block;margin-top:2px;font-size:11px;font-weight:800;color:#1A6B42;}
+.order-row-anreise .order-label{color:#5E584C;}
+</style>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -847,7 +859,6 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
 
 <div class="hero slim">
   <div class="hero-in">
-    <div class="hero-kicker">Anfrage · unverbindlich</div>
     <h1>Jetzt <span class="it">anfragen.</span></h1>
     <p class="lede" style="margin-top:20px;">Schnell und einfach: Wähl aus, was du brauchst, und schick die Anfrage ab. Wir melden uns innerhalb von 24 Stunden mit einem fixen Angebot – meistens deutlich schneller.</p>
     <div class="quick" style="margin:26px 0 0;max-width:420px;">
@@ -994,7 +1005,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
             <div class="foto-feat">Premium Fotobox</div>
             <div class="foto-feat">Unbegrenzte digitale Fotos</div>
             <div class="foto-feat">Alle Fotos per USB-Stick</div>
-            <div class="foto-feat">Lieferung erste 40 km gratis</div>
+            <div class="foto-feat">Anreise 0,55 €/km</div>
             <div class="foto-feat">Auf- &amp; Abbau inklusive</div>
             <div class="foto-feat">Telefonischer Support nach Aufstellung</div>
           </div>
@@ -1014,7 +1025,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
             <div class="foto-feat">Premium Fotobox</div>
             <div class="foto-feat">Unbegrenzte digitale Fotos</div>
             <div class="foto-feat">Alle Fotos per USB-Stick</div>
-            <div class="foto-feat">Lieferung erste 40 km gratis</div>
+            <div class="foto-feat">Anreise 0,55 €/km</div>
             <div class="foto-feat">Auf- &amp; Abbau inklusive</div>
             <div class="foto-feat">Telefonischer Support</div>
           </div>
@@ -1042,7 +1053,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
             <div class="foto-feat">300 Fotos inkludiert</div>
             <div class="foto-feat">Unbegrenzte digitale Fotos</div>
             <div class="foto-feat">Alle Fotos per USB-Stick</div>
-            <div class="foto-feat">Lieferung erste 40 km gratis</div>
+            <div class="foto-feat">Anreise 0,55 €/km</div>
             <div class="foto-feat">Auf- &amp; Abbau inklusive</div>
             <div class="foto-feat">Telefonischer Support</div>
           </div>
@@ -1082,7 +1093,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
       <div class="price-est" id="priceEst" style="display:none;margin-top:14px;">
         <div>
           <div class="pe-label">Geschätzter Preis</div>
-          <div class="pe-note">Lieferung gratis bis 40 km · Auf- & Abbau optional +50 €</div>
+          <div class="pe-note">Anreise 0,55 €/km · Auf- & Abbau optional +50 €</div>
         </div>
         <div class="pe-val" id="priceVal">–</div>
       </div>
@@ -1116,7 +1127,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
     <!-- LIEFERUNG JA/NEIN -->
     <div class="card reveal">
       <div class="card-title">Lieferung gewünscht?</div>
-      <div class="card-sub">Wir liefern gratis bis 40 km · danach 0,55 €/km</div>
+      <div class="card-sub">0,55 € pro km · gerechnet auf vier Fahrten</div>
       <div style="display:flex;gap:10px;margin-top:4px;">
         <button type="button" id="lief-ja" onclick="setLieferung(true)" class="lief-btn lief-active">
           Ja, bitte liefern
@@ -1126,8 +1137,30 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
         </button>
       </div>
       <input type="hidden" name="Lieferung" id="lieferung-val" value="Ja">
-      <div id="lief-hinweis" style="margin-top:10px;font-size:12px;font-weight:700;color:#1A5A73;padding:6px 12px;background:rgba(26,24,19,.08);border-radius:3px;border:1px solid rgba(26,24,19,.2);">
-        Gratis bis 40 km ab Glödnitz · darüber 0,55 €/km
+      <div id="lief-hinweis" style="margin-top:10px;font-size:12px;font-weight:700;color:#0B6B6F;padding:6px 12px;background:rgba(11,107,111,.08);border-radius:3px;border:1px solid rgba(11,107,111,.22);">
+        Ab Glödnitz · 0,55 € pro km auf vier Fahrten
+      </div>
+
+      <!-- EMPFEHLUNGSBONUS -->
+      <div class="empf-wrap" id="empf-wrap">
+        <button type="button" class="extra-toggle" id="empf-btn" onclick="toggleEmpfehlung()">
+          <span class="extra-copy">
+            <span class="extra-title">30 € Anreise-Rabatt</span>
+            <span class="extra-price">Empfiehl uns weiter und spar dir 30 €</span>
+            <span class="extra-hint">Zum Aktivieren antippen</span>
+          </span>
+          <span class="extra-switch"></span>
+        </button>
+        <div class="empf-fields">
+          <div class="empf-note">
+            <b>So geht's:</b> Gleich nach dem Absenden bekommst du deinen eigenen
+            Empfehlungslink. Schick ihn an Freunde, Verwandte oder in die
+            Gemeinde-Gruppe. Bucht jemand über deinen Link, ziehen wir dir
+            30 € von der Anreise ab.
+          </div>
+          <div class="empf-note" style="opacity:.8;">Es zählt die erste echte Buchung über deinen Link. Wenn dein Termin schon war, bekommst du den Betrag gutgeschrieben.</div>
+        </div>
+        <input type="hidden" name="Empfehlung" id="empf-val" value="Nein">
       </div>
     </div>
 
@@ -1260,7 +1293,7 @@ button:not(.modus-btn):not(.tab-btn){min-height:44px;}
         </div>
         <div class="gutschein-msg" id="gutscheinMsg"></div>
       </div>
-      <div class="order-note">* Geschätzter Preis · Lieferung gratis bis 40 km · Endpreis nach Bestätigung</div>
+      <div class="order-note">* Geschätzter Preis · zzgl. Anreise 0,55 €/km · Endpreis nach Bestätigung</div>
       <div id="anzahlungHinweis" style="display:none;margin-top:10px;padding:10px 14px;border-radius:3px;background:linear-gradient(135deg,rgba(156,114,47,.12),rgba(156,114,47,.08));border:1.5px solid rgba(156,114,47,.4);font-size:12px;font-weight:700;color:#7a5c00;line-height:1.6;"></div>
     </div>
  
@@ -1556,30 +1589,71 @@ document.getElementById('popcorn-set-btn').addEventListener('click', function(){
  
 // ── Bestellübersicht aktualisieren ──
 // ── GUTSCHEINCODES ──
-// Neue Codes einfach hier ergänzen: 'CODE': { prozent: X, label: 'Anzeige-Name' }
-var GUTSCHEINE = {
-  'INFINEON15': { prozent: 15, label: 'Infineon-Mitarbeiterrabatt' },
-  'DUSSMANN15': { prozent: 15, label: 'Dussmann-Mitarbeiterrabatt' }
-};
-var activeGutschein = null; // { code, prozent, label }
+// Die Codeliste liegt auf dem Server (netlify/functions/codes.mjs) und ist
+// hier bewusst NICHT eingetragen – sonst könnte man sie im Quelltext lesen.
+// Einmal-Codes werden serverseitig verbraucht und gelten dann geräte-
+// übergreifend als eingelöst.
+var GUTSCHEIN_API = '/.netlify/functions/gutschein';
+var activeGutschein = null;   // { code, prozent, label, einmalig, geprueft }
+var _gutscheinLaeuft = false;
 
 function applyGutschein(silent){
   var input = document.getElementById('gutscheinInput');
-  var code = (input.value || '').toUpperCase().trim();
-  var msg = document.getElementById('gutscheinMsg');
+  var msg   = document.getElementById('gutscheinMsg');
+  var code  = (input.value || '').toUpperCase().trim();
   msg.className = 'gutschein-msg';
-  if(!code) return;
-  var g = GUTSCHEINE[code];
-  if(!g){
-    msg.textContent = 'Dieser Code ist leider ungültig.';
-    msg.className = 'gutschein-msg err';
-    return;
-  }
-  activeGutschein = { code: code, prozent: g.prozent, label: g.label };
-  renderGutscheinUI();
-  updateOrderSummary();
-  if(typeof saveDraft === 'function') saveDraft();
-  if(!silent) showToast('Gutschein eingelöst: −' + g.prozent + '% ', 'success');
+  if(!code || _gutscheinLaeuft) return;
+
+  _gutscheinLaeuft = true;
+  msg.textContent = 'Code wird geprüft…';
+  msg.className = 'gutschein-msg ok';
+
+  fetch(GUTSCHEIN_API, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ action: 'check', code: code })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    _gutscheinLaeuft = false;
+    if(d && d.ok){
+      activeGutschein = { code: d.code, prozent: d.prozent, label: d.label,
+                          einmalig: d.einmalig, geprueft: true };
+      renderGutscheinUI();
+      updateOrderSummary();
+      if(typeof saveDraft === 'function') saveDraft();
+      if(!silent) showToast('Gutschein eingelöst: −' + d.prozent + '% ', 'success');
+    } else if(d && d.grund === 'eingeloest'){
+      msg.textContent = 'Dieser Code wurde bereits eingelöst.';
+      msg.className = 'gutschein-msg err';
+    } else {
+      msg.textContent = 'Dieser Code ist leider ungültig.';
+      msg.className = 'gutschein-msg err';
+    }
+  })
+  .catch(function(){
+    // Server nicht erreichbar: Buchung nicht blockieren, Code mitschicken
+    _gutscheinLaeuft = false;
+    activeGutschein = { code: code, prozent: 0, label: 'wird von uns geprüft',
+                        einmalig: true, geprueft: false };
+    renderGutscheinUI();
+    updateOrderSummary();
+    if(typeof saveDraft === 'function') saveDraft();
+  });
+}
+
+/* Code nach erfolgreicher Anfrage endgültig verbrauchen */
+function verbraucheGutschein(kunde, datum){
+  if(!activeGutschein || !activeGutschein.geprueft || !activeGutschein.einmalig) return;
+  try{
+    fetch(GUTSCHEIN_API, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ action: 'redeem', code: activeGutschein.code,
+                                kunde: kunde || '', datum: datum || '' }),
+      keepalive: true
+    });
+  }catch(e){ /* egal – beim Bestätigen fällt es auf */ }
 }
 
 function removeGutschein(){
@@ -1599,9 +1673,15 @@ function renderGutscheinUI(){
   if(activeGutschein){
     row.style.display = 'none';
     act.style.display = 'flex';
-    document.getElementById('gutscheinActiveText').textContent = '' + activeGutschein.code + ' · −' + activeGutschein.prozent + '% aktiv';
-    msg.textContent = 'Nicht kombinierbar mit Paket-Rabatten – es gilt automatisch der höhere Rabatt.';
-    msg.className = 'gutschein-msg ok';
+    if(activeGutschein.geprueft){
+      document.getElementById('gutscheinActiveText').textContent = '' + activeGutschein.code + ' · −' + activeGutschein.prozent + '% aktiv';
+      msg.textContent = 'Nicht kombinierbar mit Paket-Rabatten – es gilt automatisch der höhere Rabatt.';
+      msg.className = 'gutschein-msg ok';
+    } else {
+      document.getElementById('gutscheinActiveText').textContent = '' + activeGutschein.code + ' · wird geprüft';
+      msg.textContent = 'Wir konnten den Code gerade nicht prüfen. Er wird mitgeschickt und bei der Bestätigung von uns kontrolliert.';
+      msg.className = 'gutschein-msg ok';
+    }
   } else {
     row.style.display = 'flex';
     act.style.display = 'none';
@@ -1713,6 +1793,19 @@ function updateOrderSummary(){
     total = Math.round((total - rabattBetrag) * 100) / 100;
   }
 
+  // ── Anreise (0,55 €/km auf vier Fahrten) ──
+  var _lief = document.getElementById('lieferung-val');
+  var _empf = document.getElementById('empf-val');
+  var liefertWir = !_lief || _lief.value === 'Ja';
+  var empfAktiv  = _empf && _empf.value === 'Ja';
+  if(rows.length > 0 && liefertWir){
+    rows.push({label: 'Anreise (0,55 €/km · vier Fahrten)', val: 'nach Entfernung', anreise: true});
+    if(empfAktiv){
+      rows.push({label: 'Empfehlungs-Deal · sobald jemand über dich bucht',
+                 val: 'bis zu 30 €', rabatt: true});
+    }
+  }
+
     // Rabatt-Banner sichtbar machen wenn aktiv
   var rb = document.getElementById('rabattBanner');
   if(rb){
@@ -1735,12 +1828,12 @@ function updateOrderSummary(){
 
   var html = '';
   rows.forEach(function(r){
-    var style = r.rabatt ? 'color:#1A6B42;font-weight:800;' : '';
+    var style = r.rabatt ? 'color:#1A6B42;font-weight:800;' : (r.anreise ? 'color:#5E584C;font-weight:700;' : '');
     var labelHtml = r.label;
     if(r.rabatt && r.totalProzent){
       labelHtml += ' <span class="rabatt-total-badge">Gesamt −'+r.totalProzent+'%</span>';
     }
-    html += '<div class="order-row '+(r.rabatt?'order-row-rabatt':'')+'"><span class="order-label">'+labelHtml+'</span><span class="order-val" style="'+style+'">'+r.val+'</span></div>';
+    html += '<div class="order-row '+(r.rabatt?'order-row-rabatt':'')+(r.anreise?' order-row-anreise':'')+'"><span class="order-label">'+labelHtml+'</span><span class="order-val" style="'+style+'">'+r.val+'</span></div>';
   });
   html += '<div class="order-row total"><span class="order-total-label">Gesamt (geschätzt)</span><span class="order-total-val">'+total.toFixed(2)+' €*</span></div>';
   orderRows.innerHTML = html;
@@ -2211,6 +2304,12 @@ function submitAnfrage(){
     return;
   }
  
+  // Empfehlungs-Deal: eigener Code f\u00fcr den Link, den der Kunde weitergibt
+  var _empfVal  = document.getElementById('empf-val');
+  var empfAktiv = _empfVal && _empfVal.value === 'Ja';
+  var empfCode  = empfAktiv ? erzeugeEmpfehlungscode(nachname, vorname) : '';
+  var empfLink  = empfCode ? 'https://huepfabenteuer.at/?empfehlung=' + empfCode : '';
+
   var burgLine  = selectedName || 'Nicht ausgew\u00e4hlt';
   var datumLine = startDat + (endDat ? ' bis ' + endDat : '');
   var adresse   = [strasse, (plz + ' ' + ort).trim()].filter(Boolean).join(', ');
@@ -2224,6 +2323,7 @@ function submitAnfrage(){
   var fd = new FormData();
   var subjectLine = 'Neue Anfrage \u2013 ' + (currentModus === 'foto' ? (selectedFoto || 'Fotobox') : (currentModus === 'hochzeit' ? 'Hochzeitspaket' : burgLine)) + ' \u2013 ' + startDat;
   if(activeGutschein) subjectLine += ' [' + activeGutschein.code + ']';
+  if(empfAktiv) subjectLine += ' [EMPFEHLUNG]';
   fd.append('subject',        subjectLine);
   fd.append('H\u00fcpfburg',  burgLine);
   fd.append('Datum',          datumLine);
@@ -2239,11 +2339,20 @@ function submitAnfrage(){
   if(_pkF && _pkF.value && currentModus !== 'foto') fd.append('Paket', _pkF.value);
   fd.append('Auf- und Abbau', aufbau);
   fd.append('Lieferung',      document.getElementById('lieferung-val').value);
+  if(empfAktiv){
+    fd.append('Empfehlungs-Deal', 'Ja \u2013 30 \u20ac von der Anreise abziehen, sobald jemand \u00fcber den Link bucht');
+    fd.append('Empfehlungscode', empfCode);
+    fd.append('Empfehlungslink', empfLink);
+  }
   if(extras && extras !== 'Keine Extras') fd.append('Extras', extras);
   if(zuckerwatteSetOn) fd.append('Zuckerwatte-Set', 'Ja – Zuckerwatte-Set (+20 €)');
   if(popcornSetOn)     fd.append('Popcorn-Set',     'Ja – Popcorn-Set (+20 €)');
   if(nachricht) fd.append('Nachricht', nachricht);
-  if(activeGutschein) fd.append('Gutscheincode', activeGutschein.code + ' (' + activeGutschein.label + ', \u2212' + activeGutschein.prozent + '%)');
+  if(activeGutschein){
+    fd.append('Gutscheincode', activeGutschein.geprueft
+      ? activeGutschein.code + ' (' + activeGutschein.label + ', \u2212' + activeGutschein.prozent + '%)'
+      : activeGutschein.code + ' (NICHT GEPR\u00dcFT \u2013 bitte selbst kontrollieren)');
+  }
   // Gesamtpreis und Aufschlüsselung mitsenden
   if(window._gesamtpreis) fd.append('Gesamtpreis (geschätzt)', window._gesamtpreis);
   if(window._preisdetails) fd.append('Preisaufschlüsselung', window._preisdetails);
@@ -2256,9 +2365,11 @@ function submitAnfrage(){
   .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
   .then(function(result){
     if(result.ok){
+      verbraucheGutschein(vorname + (nachname ? ' ' + nachname : ''), datumLine);
       try { localStorage.removeItem('huepfabenteuer_anfrage_draft_v1'); } catch(e){}
       showMsg('\u2705 Anfrage gesendet!', true);
       var params = new URLSearchParams({ burg: selectedName||'', datum: datumLine||'', name: vorname||'' });
+      if(empfAktiv && empfCode) params.set('empf', empfCode);
       setTimeout(function(){
         window.location.replace(THANK_YOU_URL + '?' + params.toString());
       }, 800);
@@ -2308,6 +2419,7 @@ function saveDraft(){
       popcornSetOn: !!popcornSetOn,
       extraFoto: document.body.classList.contains('extra-foto'),
       lieferung: _val('#lieferung-val'),
+      empfOn:     _val('#empf-val') === 'Ja',
       gutschein: activeGutschein ? activeGutschein.code : ''
     };
     // Nur speichern wenn irgendwas Sinnvolles drin steht
@@ -2389,8 +2501,14 @@ function loadDraft(){
       setLieferung(false);
     }
  
+    // 6b. Empfehlungs-Deal wiederherstellen
+    if(d.empfOn){
+      var ew = document.getElementById('empf-wrap');
+      if(ew && !ew.classList.contains('on') && typeof toggleEmpfehlung === 'function') toggleEmpfehlung();
+    }
+
     // 7. Gutscheincode wiederherstellen
-    if(d.gutschein && GUTSCHEINE[d.gutschein]){
+    if(d.gutschein){
       var gi = document.getElementById('gutscheinInput');
       if(gi) gi.value = d.gutschein;
       applyGutschein(true);
@@ -2452,17 +2570,52 @@ function setLieferung(ja){
   var btnJa = document.getElementById('lief-ja');
   var btnNein = document.getElementById('lief-nein');
 
+  var empf = document.getElementById('empf-wrap');
+
   if(ja){
     val.value = 'Ja';
     hinweis.style.display = '';
     btnJa.classList.add('lief-active');
     btnNein.classList.remove('lief-active');
+    if(empf) empf.style.display = '';
   } else {
     val.value = 'Nein – Selbstabholung';
     hinweis.style.display = 'none';
     btnJa.classList.remove('lief-active');
     btnNein.classList.add('lief-active');
+    // Ohne Lieferung gibt es keine Anreise, also auch keinen Bonus
+    if(empf){
+      empf.style.display = 'none';
+      if(empf.classList.contains('on')) toggleEmpfehlung();
+    }
   }
+  if(typeof updateOrderSummary === 'function') updateOrderSummary();
+  if(typeof saveDraft === 'function') saveDraft();
+}
+
+/* Empfehlungs-Panel auf/zu */
+function toggleEmpfehlung(){
+  var wrap = document.getElementById('empf-wrap');
+  var btn  = document.getElementById('empf-btn');
+  var val  = document.getElementById('empf-val');
+  if(!wrap || !btn || !val) return;
+  var an = !wrap.classList.contains('on');
+  wrap.classList.toggle('on', an);
+  btn.classList.toggle('selected', an);
+  val.value = an ? 'Ja' : 'Nein';
+  if(typeof updateOrderSummary === 'function') updateOrderSummary();
+  if(typeof saveDraft === 'function') saveDraft();
+}
+
+/* Persönlichen Empfehlungscode bauen: Nachname + drei Zufallszeichen.
+   Die Zeichen sind so gewählt, dass man sie am Handy nicht verwechselt. */
+function erzeugeEmpfehlungscode(nachname, vorname){
+  var basis = String(nachname || vorname || 'KUNDE').toUpperCase()
+    .replace(/\u00c4/g,'AE').replace(/\u00d6/g,'OE').replace(/\u00dc/g,'UE').replace(/\u00df/g,'SS')
+    .replace(/[^A-Z0-9]/g,'').slice(0,10) || 'KUNDE';
+  var abc = 'ACDEFGHJKLMNPQRTUVWXY2346789', s = '';
+  for(var i = 0; i < 3; i++) s += abc.charAt(Math.floor(Math.random() * abc.length));
+  return basis + '-' + s;
 }
 </script>
 
