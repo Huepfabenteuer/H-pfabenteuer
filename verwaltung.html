@@ -68,6 +68,9 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .tab.on{background:var(--paper);color:var(--ink);box-shadow:0 1px 2px rgba(26,24,19,.12);}
 .zahl{min-width:22px;height:22px;padding:0 6px;border-radius:99px;font-size:.78rem;display:inline-flex;align-items:center;justify-content:center;background:rgba(26,24,19,.08);}
 .tab[data-t="ausstehend"] .zahl.voll{background:var(--offen);color:#fff;}
+.tab .stern{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:99px;font-size:.78rem;background:#E8A317;color:#fff;}
+.stern-badge{display:inline-flex;align-items:center;gap:3px;font-size:.75rem;font-weight:800;color:#9A6A0B;background:rgba(232,163,23,.16);padding:2px 8px;border-radius:99px;}
+.bew-status{font-size:.92rem;color:var(--ink-2);margin-bottom:10px;line-height:1.45;}
 
 /* ── Liste ── */
 .liste{padding:6px 12px calc(100px + var(--safe-b));display:flex;flex-direction:column;gap:10px;max-width:640px;margin:0 auto;}
@@ -200,7 +203,7 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
     </div>
     <nav class="tabs" role="tablist">
       <button class="tab on" data-t="ausstehend" role="tab">Offen <span class="zahl" id="z-ausstehend">0</span></button>
-      <button class="tab" data-t="fix" role="tab">Fix <span class="zahl" id="z-fix">0</span></button>
+      <button class="tab" data-t="fix" role="tab">Fix <span class="zahl" id="z-fix">0</span><span class="stern" id="z-stern" hidden>★</span></button>
       <button class="tab" data-t="abgelehnt" role="tab">Abgesagt <span class="zahl" id="z-abgelehnt">0</span></button>
       <button class="tab" data-t="archiv" role="tab">Archiv <span class="zahl" id="z-archiv">0</span></button>
       <button class="tab" data-t="papierkorb" role="tab" aria-label="Papierkorb"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg><span class="zahl" id="z-papierkorb">0</span></button>
@@ -296,6 +299,16 @@ function summen(a){
   var anz = (a.anzahlung != null && a.anzahlung !== '' && !isNaN(Number(a.anzahlung))) ? Number(a.anzahlung) : autoAnz;
   return {miete:miete, liefer:liefer, gesamt:gesamt, anzahlung:anz, autoAnz:autoAnz, rest:Math.round((gesamt-anz)*100)/100, offen:offen};
 }
+function tageSeit(iso){ return iso ? Math.floor((Date.now() - new Date(iso).getTime())/864e5) : 0; }
+function bewertungStatus(a){
+  if(a.status !== 'fix') return null;
+  var ende = tagDatum(a.datumEnde || a.datum); if(!ende || ende >= heute()) return null;
+  var b = a.bewertung || {};
+  if(b.erhalten) return 'erhalten';
+  if(!b.angefragtAm) return 'faellig';
+  if(!b.erinnertAm && tageSeit(b.angefragtAm) >= (a.erinnerungNachTagen || 4)) return 'erinnern';
+  return b.erinnertAm ? 'erinnert' : 'gefragt';
+}
 function waLink(nummer, text){ return 'https://wa.me/' + nummer + '?text=' + encodeURIComponent(text); }
 
 var toastT;
@@ -374,12 +387,15 @@ function karte(a){
     '<span class="k-rechts"><span class="k-preis">' + (s.offen && !s.gesamt ? 'offen' : eur(s.gesamt)) + '</span>' +
     (k.length ? '<span class="warn"><svg class="i" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg>Schon fix</span>' : '') +
     (s.offen && s.gesamt ? '<span class="warn" style="color:var(--offen)">Betrag fehlt</span>' : '') +
+    (bewertungStatus(a) === 'faellig' ? '<span class="stern-badge">★ Bewertung</span>' : bewertungStatus(a) === 'erinnern' ? '<span class="stern-badge">★ Erinnern</span>' : '') +
     '</span></button></div>';
 }
 
 function zeichneListe(){
   var z = {ausstehend:0, fix:0, abgelehnt:0, archiv:0, papierkorb:0};
   alle.forEach(function(a){ if(z[a.status] != null) z[a.status]++; });
+  var nStern = alle.filter(function(a){ var b = bewertungStatus(a); return b === 'faellig' || b === 'erinnern'; }).length;
+  $('z-stern').hidden = !nStern; $('z-stern').textContent = '★ ' + nStern;
   Object.keys(z).forEach(function(k){ var el = $('z-' + k); el.textContent = z[k]; el.classList.toggle('voll', z[k] > 0); el.hidden = (k === 'papierkorb' || k === 'archiv') && !z[k]; });
   var l = alle.filter(function(a){ return a.status === tab; }), html = '';
   if(tab === 'ausstehend'){
@@ -388,9 +404,11 @@ function zeichneListe(){
     if(!l.length) html = '<div class="leer"><b>Alles erledigt</b>Neue Anfragen von der Website landen hier.</div>';
   } else if(tab === 'fix'){
     var h = heute();
+    var bew = l.filter(function(a){ var b = bewertungStatus(a); return b === 'faellig' || b === 'erinnern'; }).sort(function(a,b){ return (b.datum || '').localeCompare(a.datum || ''); });
     var kommend = l.filter(function(a){ var d = tagDatum(a.datumEnde || a.datum); return !d || d >= h; }).sort(function(a,b){ return (a.datum || '9').localeCompare(b.datum || '9'); });
-    var vorbei = l.filter(function(a){ var d = tagDatum(a.datumEnde || a.datum); return d && d < h; }).sort(function(a,b){ return (b.datum || '').localeCompare(a.datum || ''); });
-    html = (kommend.length ? '<div class="gruppe">Kommende Termine</div>' + kommend.map(karte).join('') : '') +
+    var vorbei = l.filter(function(a){ var d = tagDatum(a.datumEnde || a.datum); return d && d < h && bew.indexOf(a) === -1; }).sort(function(a,b){ return (b.datum || '').localeCompare(a.datum || ''); });
+    html = (bew.length ? '<div class="gruppe">★ Um eine Bewertung bitten</div>' + bew.map(karte).join('') : '') +
+           (kommend.length ? '<div class="gruppe">Kommende Termine</div>' + kommend.map(karte).join('') : '') +
            (vorbei.length ? '<div class="gruppe">Schon vorbei</div>' + vorbei.map(karte).join('') : '');
     if(!l.length) html = '<div class="leer"><b>Noch keine fixen Termine</b>Nimm eine offene Anfrage an, dann steht sie hier.</div>';
   } else {
@@ -501,6 +519,25 @@ function zeichneDetail(){
       k.map(function(b){ return esc((b.kunde.vorname || '') + ' ' + (b.kunde.nachname || '')).trim() + (b.nr ? ', Angebot ' + b.nr : ''); }).join('; ') + ').</div>';
   }
   if(a.status === 'fix') h += '<div class="hinweis gruen">Termin ist fix. Angebot ' + esc(a.nr) + ' wurde ' + (a.angenommenAm ? 'am ' + new Date(a.angenommenAm).toLocaleDateString('de-AT') + ' ' : '') + 'erstellt.</div>';
+
+  /* Bewertung */
+  var bs = bewertungStatus(a), bw = a.bewertung || {};
+  if(bs){
+    var datumDe = function(iso){ return new Date(iso).toLocaleDateString('de-AT'); };
+    var bt = {
+      faellig: 'Das Fest ist vorbei. Frag jetzt nach einer kurzen Google-Bewertung, am besten gleich heute.',
+      gefragt: 'Angefragt am ' + (bw.angefragtAm ? datumDe(bw.angefragtAm) : '') + '. Eine Erinnerung kannst du ab ' + (bw.angefragtAm ? datumDe(new Date(new Date(bw.angefragtAm).getTime() + (a.erinnerungNachTagen || 4)*864e5).toISOString()) : '') + ' schicken.',
+      erinnern: 'Angefragt am ' + (bw.angefragtAm ? datumDe(bw.angefragtAm) : '') + '. Noch keine Bewertung? Schick einmal eine kurze Erinnerung.',
+      erinnert: 'Angefragt und am ' + (bw.erinnertAm ? datumDe(bw.erinnertAm) : '') + ' erinnert. Mehr nicht nachfragen.',
+      erhalten: '★ Bewertung ist da. Danke!'
+    }[bs];
+    h += '<div class="block"><h3>Google-Bewertung</h3><div class="bew-status">' + esc(bt) + '</div>';
+    if(bs === 'faellig' && a.waNummer) h += '<a class="btn btn-wa btn-w" id="bewAnfragen" href="' + esc(waLink(a.waNummer, a.waBewertung)) + '" target="_blank" rel="noopener">★ Per WhatsApp um Bewertung bitten</a>';
+    if(bs === 'erinnern' && a.waNummer) h += '<a class="btn btn-wa btn-w" id="bewErinnern" href="' + esc(waLink(a.waNummer, a.waErinnerung)) + '" target="_blank" rel="noopener">Erinnerung schicken</a>';
+    if(bs !== 'erhalten') h += '<button class="btn btn-g btn-w" id="bewErhalten" style="margin-top:8px">Bewertung ist da</button>';
+    else h += '<button class="pos-neu" id="bewZurueck" style="color:var(--mute)">Zurücksetzen</button>';
+    h += '</div>';
+  }
 
   /* Termin */
   h += '<div class="block"><div class="gross">' + esc(datumLang(a.datum)) + '</div>' +
@@ -651,6 +688,16 @@ function verbindeDetail(){
   });
   $('notiz').addEventListener('input', function(){ aktuell.notiz = $('notiz').value; planeSpeichern(); });
   if($('zurOffen')) $('zurOffen').addEventListener('click', function(){ statusAendern('zuruecksetzen', 'Wieder offen'); });
+  var bewSchritt = function(schritt, meldung){
+    api('bewertung', {id: aktuell.id, schritt: schritt}).then(function(d){
+      var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
+      aktuell = JSON.parse(JSON.stringify(d.anfrage)); zeichneDetail(); zeichneListe(); if(meldung) toast(meldung);
+    }).catch(function(e){ if(e.message !== '401') toast('Das hat nicht geklappt.'); });
+  };
+  if($('bewAnfragen')) $('bewAnfragen').addEventListener('click', function(){ setTimeout(function(){ bewSchritt('angefragt', 'Als angefragt markiert'); }, 300); });
+  if($('bewErinnern')) $('bewErinnern').addEventListener('click', function(){ setTimeout(function(){ bewSchritt('erinnert', 'Erinnerung vermerkt'); }, 300); });
+  if($('bewErhalten')) $('bewErhalten').addEventListener('click', function(){ bewSchritt('erhalten', '★ Super, abgehakt'); });
+  if($('bewZurueck')) $('bewZurueck').addEventListener('click', function(){ bewSchritt('zuruecksetzen', 'Zurückgesetzt'); });
   $('dInhalt').querySelectorAll('[data-dact]').forEach(function(b){ b.addEventListener('click', function(){
     var act = b.dataset.dact, id = aktuell.id;
     if(act === 'loeschen' && !confirmLeise('Endgültig löschen? Das kann man nicht rückgängig machen.')) return;

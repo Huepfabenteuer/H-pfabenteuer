@@ -115,34 +115,68 @@ export function waZusage(a, link) {
   const s = summen(a);
   const adr = [a.adresse.strasse, ((a.adresse.plz || '') + ' ' + (a.adresse.ort || '')).trim()].filter(Boolean).join(', ');
   const vz = 'Anzahlung ' + produktText(a, true) + ' ' + datumKurz(a.datum) + ' – ' + (a.kunde.nachname || a.kunde.vorname || '');
+  const pr = produkte(a);
+  const fuer = pr.length ? pr.map(t => 'die ' + t).join(' und ') : 'deine Feier';
+  const betrag = v => (v == null || v === '') ? 'nach Vereinbarung' : (Number(v) === 0 ? 'gratis' : eur(v) + ' €');
+  const posZeilen = (a.positionen || []).filter(p => p && p.titel).map(p => {
+    if (istLieferung(p)) return 'Lieferung' + (adr ? ' nach ' + adr : '') + ': ' + betrag(p.betrag);
+    if (p.art === 'rabatt') return p.titel + ': −' + eur(Math.abs(Number(p.betrag) || 0)) + ' €';
+    return p.titel + ': ' + betrag(p.betrag);
+  });
   return [
-    'Hallo ' + (a.kunde.vorname || '') + '! 😊',
-    'Danke für deine Anfrage – dein Termin ist fix:',
+    'Hallo ' + (a.kunde.vorname || '') + ', danke für deine Anfrage bei ' + FIRMA.name + '!',
     '',
-    '🗓 ' + datumLang(a.datum) + (a.datumEnde && a.datumEnde !== a.datum ? ' bis ' + datumLang(a.datumEnde) : ''),
-    '🎉 ' + produktText(a, false),
-    adr ? '📍 ' + adr : '',
+    'Gerne schicke ich dir das Angebot für ' + fuer + ':',
     '',
-    'Gesamt: ' + eur(s.gesamt) + ' € (inkl. Lieferung & Abholung)',
-    'Anzahlung: ' + eur(s.anzahlung) + ' € – bitte bis spätestens ' + fristDatum(a.datum) + ' überweisen:',
-    FIRMA.empfaenger,
+    ...posZeilen,
+    '',
+    'Gesamt: ' + eur(s.gesamt) + ' €',
+    '',
+    'Anzahlung zur Reservierung: ' + eur(s.anzahlung) + ' €',
+    'Empfänger: ' + FIRMA.empfaenger,
+    FIRMA.bank,
     'IBAN: ' + FIRMA.iban,
     'Verwendungszweck: ' + vz,
-    'Den Rest (' + eur(s.rest) + ' €) zahlst du am Veranstaltungstag.',
     '',
-    '📄 Dein Angebot Nr. ' + a.nr + ' als PDF:',
-    link,
+    'Restbetrag (' + eur(s.rest) + ' €) am Veranstaltungstag.',
     '',
-    'Die genaue Uhrzeit für Lieferung und Abholung machen wir noch aus. Bei Fragen einfach hier schreiben!',
-    'Liebe Grüße, Alex – ' + FIRMA.name
-  ].filter((z, i, arr) => !(z === '' && arr[i - 1] === '')).join('\n');
+    'Angebot als PDF: ' + link,
+    '',
+    'LG ' + 'Alexander – ' + FIRMA.name,
+    FIRMA.web
+  ].join('\n');
 }
 
 export function waAbsage(a) {
   return [
-    'Hallo ' + (a.kunde.vorname || '') + '!',
-    'Danke für deine Anfrage für den ' + datumKurz(a.datum) + '. Leider sind wir an diesem Tag schon ausgebucht 😕',
-    'Wenn ein anderer Termin für dich passt, schreib mir gern – ich schau sofort nach.',
-    'Liebe Grüße, Alex – ' + FIRMA.name
+    'Hallo ' + (a.kunde.vorname || '') + ', danke für deine Anfrage bei ' + FIRMA.name + '!',
+    '',
+    'Leider sind wir am ' + datumKurz(a.datum) + ' schon ausgebucht. Wenn ein anderer Termin für dich passt, schreib mir gern, ich schau sofort nach.',
+    '',
+    'LG Alexander – ' + FIRMA.name,
+    FIRMA.web
+  ].join('\n');
+}
+
+/* ── Bewertung (nach dem Fest) ── */
+export function waBewertung(a) {
+  const pr = produkte(a);
+  const was = pr.length ? 'die ' + pr.join(' und die ') : 'unsere Sachen';
+  return [
+    'Hallo ' + (a.kunde.vorname || '') + ', danke nochmal, dass ihr ' + was + ' bei ' + FIRMA.name + ' gemietet habt!',
+    '',
+    'Wenn es euch gefallen hat, würde ich mich riesig über eine kurze Google-Bewertung freuen. Das dauert nur 30 Sekunden und hilft mir als kleinem Betrieb enorm:',
+    FIRMA.googleBewertung,
+    '',
+    'LG Alexander – ' + FIRMA.name,
+    FIRMA.web
+  ].join('\n');
+}
+export function waBewertungErinnerung(a) {
+  return [
+    'Hallo ' + (a.kunde.vorname || '') + ', nur eine kurze Erinnerung, falls es untergegangen ist: Über eine Google-Bewertung würde ich mich sehr freuen 😊',
+    FIRMA.googleBewertung,
+    '',
+    'Danke dir! LG Alexander – ' + FIRMA.name
   ].join('\n');
 }

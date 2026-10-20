@@ -24,6 +24,8 @@ export const FIRMA = {
   ustHinweis: 'Umsatzsteuerbefreit gemäß § 6 Abs. 1 Z 27 UStG (Kleinunternehmerregelung)',
   ustKurz:    'Umsatzsteuerbefreit gemäß § 6 Abs. 1 Z 27 UStG',
   gerichtsstand: 'Gerichtsstand Kärnten',
+  googleBewertung: 'https://g.page/r/CUE00P_892NPEAE/review',
+  erinnerungNachTagen: 4, // so lange nach der Bewertungsanfrage einmal erinnern
   fristTage:  3,          // Anzahlung spätestens X Tage vor der Veranstaltung
   startNr:    117         // erste Angebotsnummer aus dem System
 };

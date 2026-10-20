@@ -14,13 +14,17 @@
      POST { action:"ablehnen",   id }
      POST { action:"zuruecksetzen", id }   → wieder „ausstehend“
      POST { action:"archivieren", id }
+     POST { action:"papierkorb", id }      → in den Papierkorb
+     POST { action:"wiederherstellen", id }
+     POST { action:"loeschen", id }        → endgültig (nur aus dem Papierkorb)
+     POST { action:"bewertung", id, schritt:"angefragt"|"erinnert"|"erhalten"|"zuruecksetzen" }
 
    Braucht in Netlify die Umgebungsvariable ADMIN_KEY (dein Passwort für
    die Verwaltung). Gespeichert wird in Netlify Blobs („anfragen“).
    ═══════════════════════════════════════════════════════════════════════ */
 
 import { FIRMA } from '../lib/firma.mjs';
-import { saeubere, summen, waZusage, waAbsage, waNummer, datumKurz } from '../lib/anfrage-daten.mjs';
+import { saeubere, summen, waZusage, waAbsage, waNummer, datumKurz, waBewertung, waBewertungErinnerung } from '../lib/anfrage-daten.mjs';
 import { erstelleAngebotPdf } from '../lib/angebot-pdf.mjs';
 
 const STORE = 'anfragen';
@@ -51,7 +55,36 @@ function anreichern(req, a) {
   const out = { ...a, summen: s, waNummer: waNummer(a.kunde.telefon) };
   if (a.nr) { out.pdf = pdfLink(req, a); out.waText = waZusage(a, out.pdf); }
   out.waAbsage = waAbsage(a);
+  out.waBewertung = waBewertung(a);
+  out.waErinnerung = waBewertungErinnerung(a);
+  out.erinnerungNachTagen = FIRMA.erinnerungNachTagen;
   return out;
+}
+
+/* Push aufs Handy über ntfy (App „ntfy“, Thema = NTFY_TOPIC) */
+async function pushNeu(req, a) {
+  const thema = process.env.NTFY_TOPIC;
+  if (!thema) return;
+  const s = summen(a);
+  const prod = (a.positionen || []).filter(p => p.art === 'miete').map(p => p.titel).join(' + ') || (a.typ === 'foto' ? 'Fotobox' : 'Hüpfburg');
+  const wer = ((a.kunde.vorname || '') + ' ' + (a.kunde.nachname || '')).trim();
+  const zeilen = [
+    prod + (a.datum ? ' · ' + datumKurz(a.datum) : ''),
+    wer + (a.adresse.ort ? ', ' + a.adresse.ort : ''),
+    s.gesamt ? 'Gesamt ca. ' + s.gesamt.toLocaleString('de-AT') + ' €' + (s.offen ? ' (Betrag fehlt noch)' : '') : ''
+  ].filter(Boolean);
+  const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 3500);
+  try {
+    await fetch((process.env.NTFY_SERVER || 'https://ntfy.sh').replace(/\/$/, '') + '/', {
+      method: 'POST', signal: ctrl.signal,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        topic: thema, title: 'Neue Anfrage', message: zeilen.join('\n'),
+        tags: ['tada'], priority: 4, click: siteUrl(req) + '/verwaltung.html'
+      })
+    });
+  } catch (e) { /* Push ist nur Zusatz – Anfrage ist schon gespeichert */ }
+  finally { clearTimeout(t); }
 }
 
 function istAdmin(req) {
@@ -121,6 +154,7 @@ export default async (req, context) => {
       ...daten
     };
     await st.setJSON(PREFIX + id, eintrag);
+    await pushNeu(req, eintrag);
     return json({ ok: true, id });
   }
 
@@ -156,11 +190,40 @@ export default async (req, context) => {
     await st.setJSON(PREFIX + id, a);
     return json({ ok: true, anfrage: anreichern(req, a) });
   }
-  if (body.action === 'ablehnen' || body.action === 'zuruecksetzen' || body.action === 'archivieren') {
-    a.status = body.action === 'ablehnen' ? 'abgelehnt' : body.action === 'archivieren' ? 'archiv' : 'ausstehend';
+  if (['ablehnen', 'zuruecksetzen', 'archivieren', 'papierkorb', 'wiederherstellen'].includes(body.action)) {
+    if (body.action === 'archivieren' || body.action === 'papierkorb') {
+      if (a.status !== 'archiv' && a.status !== 'papierkorb') a.vorherStatus = a.status;
+    }
+    a.status = {
+      ablehnen: 'abgelehnt', zuruecksetzen: 'ausstehend', archivieren: 'archiv', papierkorb: 'papierkorb',
+      wiederherstellen: (a.vorherStatus && a.vorherStatus !== 'papierkorb' && a.vorherStatus !== 'archiv') ? a.vorherStatus : 'ausstehend'
+    }[body.action];
+    if (body.action === 'papierkorb') a.geloeschtAm = new Date().toISOString();
+    if (body.action === 'wiederherstellen') delete a.geloeschtAm;
     a.geaendert = new Date().toISOString();
     await st.setJSON(PREFIX + id, a);
     return json({ ok: true, anfrage: anreichern(req, a) });
+  }
+
+  /* Google-Bewertung nach dem Fest */
+  if (body.action === 'bewertung') {
+    const b = a.bewertung || {};
+    const jetzt = new Date().toISOString();
+    if (body.schritt === 'angefragt') b.angefragtAm = b.angefragtAm || jetzt;
+    else if (body.schritt === 'erinnert') b.erinnertAm = jetzt;
+    else if (body.schritt === 'erhalten') b.erhalten = true;
+    else if (body.schritt === 'zuruecksetzen') { delete b.erhalten; delete b.angefragtAm; delete b.erinnertAm; }
+    else return json({ ok: false, grund: 'schritt' }, 400);
+    a.bewertung = b;
+    await st.setJSON(PREFIX + id, a);
+    return json({ ok: true, anfrage: anreichern(req, a) });
+  }
+
+  /* Endgültig löschen – nur was schon im Papierkorb liegt */
+  if (body.action === 'loeschen') {
+    if (a.status !== 'papierkorb') return json({ ok: false, grund: 'erst-papierkorb' }, 400);
+    await st.delete(PREFIX + id);
+    return json({ ok: true, geloescht: id });
   }
 
   return json({ ok: false, grund: 'aktion' }, 400);
