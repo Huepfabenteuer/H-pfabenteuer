@@ -2764,7 +2764,7 @@ if(window.hbFrei) hbFrei.watch({
   datum:'datumStart', ende:'datumEnde', ausloeser:'.burg-opt, .foto-opt, .modus-btn, .foto-dazu-toggle-btn',
   geraet:function(){
     var g=[];
-    if(typeof currentModus!=='undefined' && currentModus!=='foto' && selectedName) g.push(String(selectedName).toLowerCase());
+    if(typeof currentModus!=='undefined' && currentModus!=='foto' && selectedName) g.push(String(selectedName).toLowerCase().replace('feuerwehrauto','feuerwehrburg'));
     if(typeof selectedFoto!=='undefined' && selectedFoto) g.push('fotobox');
     return g;
   },

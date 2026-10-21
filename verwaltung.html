@@ -79,6 +79,33 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .karte:active{background:#fff;}
 .tag{flex:none;width:62px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 0;background:var(--offen-l);color:var(--offen);}
 .karte[data-s="fix"] .tag{background:var(--fix-l);color:var(--fix);}
+.karte[data-s="erledigt"] .tag{background:var(--petrol-l);color:var(--petrol);}
+.chip.erledigt{background:var(--petrol-l);color:var(--petrol);}
+.anz-badge{display:inline-flex;align-items:center;font-size:.72rem;font-weight:800;padding:2px 8px;border-radius:99px;background:var(--offen-l);color:#8A5A12;}
+.anz-badge.rot{background:var(--nein-l);color:var(--nein);}
+.anz-badge.ok{background:var(--fix-l);color:var(--fix);}
+.umsatz{background:var(--petrol);color:#fff;border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;}
+.umsatz b{display:block;font-size:1.45rem;line-height:1.1;}
+.umsatz span{font-size:.8rem;opacity:.85;}
+.ikon-plus{background:var(--petrol);color:#fff;}
+.ikon-plus:active{background:var(--petrol-d);}
+.menue-p{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px 4px;border-bottom:1px solid var(--line);font-weight:800;font-size:1.02rem;}
+.menue-p small{display:block;font-weight:500;color:var(--mute);font-size:.82rem;}
+.menue-p svg{color:var(--petrol);}
+.kat-g{font-size:.8rem;font-weight:800;color:var(--mute);text-transform:uppercase;letter-spacing:.08em;margin:16px 0 4px;}
+.kat-r{display:grid;grid-template-columns:1fr 84px 34px;gap:6px;align-items:center;padding:4px 0;}
+.kat-r input{width:100%;min-width:0;border:1px solid var(--line-2);border-radius:8px;padding:9px 8px;background:#fff;font-size:16px;}
+.kat-r .kp{text-align:right;font-weight:800;}
+.kat-r .weg{width:34px;height:38px;color:var(--mute);display:flex;align-items:center;justify-content:center;}
+.neu-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.neu-chip{border:1px solid var(--line-2);background:#fff;border-radius:99px;padding:8px 12px;font-weight:700;font-size:.9rem;}
+.neu-chip.on{background:var(--petrol);border-color:var(--petrol);color:#fff;}
+.neu-chip small{font-weight:500;opacity:.8;margin-left:4px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ein-t{width:100%;border-collapse:collapse;font-size:.9rem;}
+.ein-t td,.ein-t th{padding:7px 4px;border-bottom:1px solid var(--line);text-align:right;}
+.ein-t td:first-child,.ein-t th:first-child{text-align:left;}
+.ein-t th{font-size:.75rem;color:var(--mute);font-weight:800;}
 .karte[data-s="abgelehnt"] .tag,.karte[data-s="archiv"] .tag{background:rgba(26,24,19,.06);color:var(--mute);}
 .tag-w{font-size:.75rem;font-weight:700;}
 .tag-d{font-family:var(--serif);font-size:2rem;line-height:1;color:var(--ink);}
@@ -115,6 +142,8 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .hinweis.rot{background:var(--nein-l);color:#7E321D;}
 .hinweis.gelb{background:var(--offen-l);color:#7A5113;}
 .hinweis.gruen{background:var(--fix-l);color:#155A38;}
+.emp-sw{display:flex;gap:12px;align-items:flex-start;font-size:.95rem;line-height:1.4;cursor:pointer;}
+.emp-sw input{width:22px;height:22px;flex:none;margin-top:1px;accent-color:var(--petrol);}
 .nachricht{white-space:pre-wrap;color:var(--ink-2);font-size:.95rem;}
 
 /* Positionen */
@@ -174,6 +203,36 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .toast.auf{pointer-events:auto;}
 .toast{position:fixed;left:50%;bottom:calc(96px + var(--safe-b));transform:translate(-50%,20px);z-index:80;background:var(--ink);color:#fff;padding:11px 16px;border-radius:12px;font-weight:700;font-size:.92rem;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:calc(100% - 32px);text-align:center;}
 .toast.auf{opacity:1;transform:translate(-50%,0);}
+.fb-kopf{display:flex;align-items:center;gap:4px;padding:4px 2px 0;}
+.fb-kopf b{font-size:1.15rem;min-width:52px;text-align:center;}
+.fb-xls{margin-left:auto;min-height:42px;padding:8px 14px;font-size:.92rem;}
+.fb-monate{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;}
+.fb-m{background:var(--paper);border:1px solid var(--line);border-radius:10px;min-height:52px;font-weight:800;font-size:.9rem;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;}
+.fb-m small{font-weight:600;font-size:.7rem;color:var(--mute);}
+.fb-m.on{background:var(--petrol);border-color:var(--petrol);color:#fff;}
+.fb-m.on small{color:rgba(255,255,255,.8);}
+.fb-stand{font-weight:800;font-size:.85rem;color:var(--offen);background:var(--offen-l);padding:4px 10px;border-radius:99px;}
+.fb-stand.ok{color:var(--fix);background:var(--fix-l);}
+.fb-tipp{text-align:center;font-size:.85rem;color:var(--mute);margin:8px 0 4px;min-height:1.2em;}
+.fb-e{border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:10px;}
+.fb-e-k{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;}
+.fb-e-k span{font-size:.88rem;color:var(--ink-2);}
+.fb-d{border:1px solid var(--line-2);border-radius:8px;padding:6px 8px;background:#fff;font-size:16px;}
+.fb-r{display:grid;grid-template-columns:68px minmax(0,1fr) 16px minmax(0,1fr);align-items:center;gap:5px;padding:4px 0;}
+.fb-r span{font-size:.88rem;font-weight:700;color:var(--ink-2);}
+.fb-r i{font-style:normal;text-align:center;color:var(--mute);font-size:.82rem;}
+.fb-z{width:100%;min-width:0;min-height:44px;border:1px solid var(--line-2);border-radius:10px;padding:6px 8px;background:#fff;font-size:16px;text-align:center;}
+.fb-z:focus,.fb-d:focus{outline:none;border-color:var(--petrol);}
+.fb-z.blink{background:var(--fix-l);border-color:var(--fix);}
+.fb-st{display:grid;grid-template-columns:68px repeat(3,minmax(0,1fr));gap:5px;align-items:start;padding-top:6px;margin-top:4px;border-top:1px dashed var(--line);}
+.fb-st>span{font-size:.88rem;font-weight:700;color:var(--ink-2);padding-top:12px;}
+.fb-s{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.fb-s small{font-size:.7rem;color:var(--mute);}
+.fb-sn{width:100%;min-width:0;min-height:44px;border:1px solid var(--line-2);border-radius:10px;padding:6px 4px;background:#fff;font-size:16px;text-align:center;}
+.fb-sn:focus{outline:none;border-color:var(--petrol);}
+.fb-km{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-weight:700;font-size:.92rem;}
+.fb-km input{width:90px;text-align:right;border:1px solid var(--line-2);border-radius:8px;padding:8px;font-size:16px;font-weight:800;background:#fff;}
+@media(min-width:520px){.fb-monate{grid-template-columns:repeat(12,1fr);}}
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important;}}
 </style>
 </head>
@@ -199,11 +258,15 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
     <div class="kopf-z">
       <h1>Anfragen</h1>
       <button class="ikon" id="neuLaden" aria-label="Neu laden"><svg class="i" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg></button>
-      <button class="ikon" id="abmelden" aria-label="Abmelden"><svg class="i" viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l-5-5 5-5"/><path d="M5 12h11"/></svg></button>
+      <button class="ikon ikon-plus" id="neuAnlegen" aria-label="Neue Anfrage anlegen"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+      <button class="ikon" id="menue" aria-label="Menü"><svg class="i" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button id="abmelden" hidden></button>
     </div>
     <nav class="tabs" role="tablist">
       <button class="tab on" data-t="ausstehend" role="tab">Offen <span class="zahl" id="z-ausstehend">0</span></button>
       <button class="tab" data-t="fix" role="tab">Fix <span class="zahl" id="z-fix">0</span><span class="stern" id="z-stern" hidden>★</span></button>
+      <button class="tab" data-t="erledigt" role="tab">Erledigt <span class="zahl" id="z-erledigt">0</span></button>
+      <button class="tab" data-t="fahrten" role="tab"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M3 16V8h11v8M14 11h4l3 3v2h-7"/><circle cx="7" cy="17" r="1.8"/><circle cx="17" cy="17" r="1.8"/></svg>Fahrten</button>
       <button class="tab" data-t="abgelehnt" role="tab">Abgesagt <span class="zahl" id="z-abgelehnt">0</span></button>
       <button class="tab" data-t="archiv" role="tab">Archiv <span class="zahl" id="z-archiv">0</span></button>
       <button class="tab" data-t="papierkorb" role="tab" aria-label="Papierkorb"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg><span class="zahl" id="z-papierkorb">0</span></button>
@@ -282,7 +345,7 @@ function konflikte(a){
   var tg = tageVon(a), pr = produktSchluessel(a);
   if(!tg.length || !pr.length) return [];
   return alle.filter(function(b){
-    if(b.id === a.id || b.status !== 'fix') return false;
+    if(b.id === a.id || (b.status !== 'fix' && b.status !== 'erledigt')) return false;
     var tb = tageVon(b); if(!tb.some(function(x){ return tg.indexOf(x) !== -1; })) return false;
     return produktSchluessel(b).some(function(x){ return pr.indexOf(x) !== -1; });
   });
@@ -299,9 +362,22 @@ function summen(a){
   var anz = (a.anzahlung != null && a.anzahlung !== '' && !isNaN(Number(a.anzahlung))) ? Number(a.anzahlung) : autoAnz;
   return {miete:miete, liefer:liefer, gesamt:gesamt, anzahlung:anz, autoAnz:autoAnz, rest:Math.round((gesamt-anz)*100)/100, offen:offen};
 }
+function anzStatus(a){
+  if(a.status !== 'fix') return null;
+  if(a.anzahlungErhaltenAm) return 'ok';
+  var d = tagDatum(a.datum); if(!d) return 'offen';
+  var frist = new Date(d); frist.setDate(frist.getDate() - 3);
+  return heute() > frist ? 'ueberfaellig' : 'offen';
+}
+function anzBadge(a){
+  var s = anzStatus(a);
+  if(s === 'offen') return '<span class="anz-badge">Anzahlung offen</span>';
+  if(s === 'ueberfaellig') return '<span class="anz-badge rot">Anzahlung fehlt!</span>';
+  return '';
+}
 function tageSeit(iso){ return iso ? Math.floor((Date.now() - new Date(iso).getTime())/864e5) : 0; }
 function bewertungStatus(a){
-  if(a.status !== 'fix') return null;
+  if(a.status !== 'fix' && a.status !== 'erledigt') return null;
   var ende = tagDatum(a.datumEnde || a.datum); if(!ende || ende >= heute()) return null;
   var b = a.bewertung || {};
   if(b.erhalten) return 'erhalten';
@@ -363,13 +439,15 @@ var IK = {
   absagen: '<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7"/></svg>',
   archiv: '<svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="4" rx="1"/><path d="M5 8.5V19a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5M10 12.5h4"/></svg>',
   muell: '<svg class="i" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg>',
-  zurueck: '<svg class="i" viewBox="0 0 24 24"><path d="M9 14l-5-5 5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg>'
+  zurueck: '<svg class="i" viewBox="0 0 24 24"><path d="M9 14l-5-5 5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg>',
+  haken: '<svg class="i" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>'
 };
 function wischAktionen(a){
   var b = function(cls, act, ik, txt){ return '<button class="' + cls + '" data-act="' + act + '" data-id="' + esc(a.id) + '">' + IK[ik] + txt + '</button>'; };
   if(a.status === 'ausstehend') return b('wa-gelb','ablehnen','absagen','Absagen') + b('wa-rot','papierkorb','muell','Löschen');
   if(a.status === 'archiv') return b('wa-gruen','wiederherstellen','zurueck','Zurück') + b('wa-rot','papierkorb','muell','Löschen');
   if(a.status === 'papierkorb') return b('wa-gruen','wiederherstellen','zurueck','Zurück') + b('wa-rot','loeschen','muell','Weg');
+  if(a.status === 'fix') return b('wa-gruen','abschliessen','haken','Erledigt') + b('wa-rot','papierkorb','muell','Löschen');
   return b('wa-grau','archivieren','archiv','Archiv') + b('wa-rot','papierkorb','muell','Löschen');
 }
 function karte(a){
@@ -387,16 +465,33 @@ function karte(a){
     '<span class="k-rechts"><span class="k-preis">' + (s.offen && !s.gesamt ? 'offen' : eur(s.gesamt)) + '</span>' +
     (k.length ? '<span class="warn"><svg class="i" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg>Schon fix</span>' : '') +
     (s.offen && s.gesamt ? '<span class="warn" style="color:var(--offen)">Betrag fehlt</span>' : '') +
+    anzBadge(a) +
     (bewertungStatus(a) === 'faellig' ? '<span class="stern-badge">★ Bewertung</span>' : bewertungStatus(a) === 'erinnern' ? '<span class="stern-badge">★ Erinnern</span>' : '') +
     '</span></button></div>';
 }
 
 function zeichneListe(){
-  var z = {ausstehend:0, fix:0, abgelehnt:0, archiv:0, papierkorb:0};
+  var z = {ausstehend:0, fix:0, erledigt:0, abgelehnt:0, archiv:0, papierkorb:0};
   alle.forEach(function(a){ if(z[a.status] != null) z[a.status]++; });
   var nStern = alle.filter(function(a){ var b = bewertungStatus(a); return b === 'faellig' || b === 'erinnern'; }).length;
   $('z-stern').hidden = !nStern; $('z-stern').textContent = '★ ' + nStern;
   Object.keys(z).forEach(function(k){ var el = $('z-' + k); el.textContent = z[k]; el.classList.toggle('voll', z[k] > 0); el.hidden = (k === 'papierkorb' || k === 'archiv') && !z[k]; });
+  if(tab === 'fahrten'){ zeichneFahrten(); return; }
+  if(tab === 'erledigt'){
+    var le = alle.filter(function(a){ return a.status === 'erledigt'; }).sort(function(a,b){ return (b.datum || '').localeCompare(a.datum || ''); });
+    var jahr = String(new Date().getFullYear());
+    var uJ = 0, uG = 0, nJ = 0;
+    le.forEach(function(a){ var g = summen(a).gesamt; uG += g; if((a.datum || '').slice(0,4) === jahr){ uJ += g; nJ++; } });
+    var gepl = alle.filter(function(a){ return a.status === 'fix'; }).reduce(function(x, a){ return x + summen(a).gesamt; }, 0);
+    var h2 = '<div class="umsatz"><div><span>Umsatz ' + jahr + '</span><b>' + eur(uJ) + '</b></div><div><span>Feste ' + jahr + '</span><b>' + nJ + '</b></div>' +
+      '<div><span>Umsatz gesamt</span><b>' + eur(uG) + '</b></div><div><span>Noch fix geplant</span><b>' + eur(gepl) + '</b></div></div>';
+    var mon = null;
+    le.forEach(function(a){ var d = tagDatum(a.datum), m = d ? ['Jänner','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'][d.getMonth()] + ' ' + d.getFullYear() : 'Ohne Datum';
+      if(m !== mon){ var su = le.filter(function(x){ var dx = tagDatum(x.datum); return dx && d && dx.getMonth() === d.getMonth() && dx.getFullYear() === d.getFullYear(); }).reduce(function(t, x){ return t + summen(x).gesamt; }, 0); h2 += '<div class="gruppe">' + esc(m) + ' · ' + eur(su) + '</div>'; mon = m; }
+      h2 += karte(a); });
+    if(!le.length) h2 += '<div class="leer"><b>Noch nichts erledigt</b>Wenn ein Fest vorbei und bezahlt ist, wisch die Buchung bei „Fix“ nach links und tipp auf „Erledigt“.</div>';
+    $('liste').innerHTML = h2; verbindeListe(); return;
+  }
   var l = alle.filter(function(a){ return a.status === tab; }), html = '';
   if(tab === 'ausstehend'){
     l.sort(function(a,b){ return (b.erstellt || '').localeCompare(a.erstellt || ''); });
@@ -424,7 +519,10 @@ function zeichneListe(){
   }
   if(l.length && !html.includes('wisch-tipp') && !lsTipp()) html = '<div class="wisch-tipp">Tipp: Karte nach links wischen für mehr Aktionen</div>' + html;
   $('liste').innerHTML = html;
-  $('liste').querySelectorAll('.karte').forEach(function(b){ b.addEventListener('click', function(e){ if(b.dataset.gewischt){ delete b.dataset.gewischt; e.preventDefault(); return; } if(offen && offen !== b.parentNode){ zuWisch(); return; } if(b.parentNode.classList.contains('offen')){ zuWisch(); return; } oeffneDetail(b.dataset.id); }); });
+  verbindeListe();
+}
+function verbindeListe(){
+  $('liste').querySelectorAll('.karte:not(.fb-karte)').forEach(function(b){ b.addEventListener('click', function(e){ if(b.dataset.gewischt){ delete b.dataset.gewischt; e.preventDefault(); return; } if(offen && offen !== b.parentNode){ zuWisch(); return; } if(b.parentNode.classList.contains('offen')){ zuWisch(); return; } oeffneDetail(b.dataset.id); }); });
   $('liste').querySelectorAll('.wisch').forEach(wischbar);
   $('liste').querySelectorAll('.wisch-akt button').forEach(function(b){ b.addEventListener('click', function(e){ e.stopPropagation(); aktionAusListe(b.dataset.act, b.dataset.id); }); });
   if($('leeren')) $('leeren').addEventListener('click', papierkorbLeeren);
@@ -456,8 +554,8 @@ function wischbar(w){
 }
 document.addEventListener('touchstart', function(e){ if(offen && !offen.contains(e.target)) zuWisch(); }, {passive:true});
 
-var MELDUNG = {ablehnen:'Abgesagt', archivieren:'Ins Archiv verschoben', papierkorb:'In den Papierkorb verschoben', wiederherstellen:'Wiederhergestellt', loeschen:'Endgültig gelöscht'};
-var GEGEN = {ablehnen:'zuruecksetzen', archivieren:'wiederherstellen', papierkorb:'wiederherstellen'};
+var MELDUNG = {abschliessen:'Als erledigt abgelegt', wiederoeffnen:'Wieder bei Fix', ablehnen:'Abgesagt', archivieren:'Ins Archiv verschoben', papierkorb:'In den Papierkorb verschoben', wiederherstellen:'Wiederhergestellt', loeschen:'Endgültig gelöscht'};
+var GEGEN = {ablehnen:'zuruecksetzen', archivieren:'wiederherstellen', papierkorb:'wiederherstellen', abschliessen:'wiederoeffnen'};
 function aktionAusListe(act, id, gefragt){
   if(act === 'loeschen' && !gefragt && !confirmLeise('Endgültig löschen? Das kann man nicht rückgängig machen.')) return;
   zuWisch();
@@ -468,7 +566,7 @@ function aktionAusListe(act, id, gefragt){
     zeichneListe();
     var gegen = GEGEN[act];
     toast(MELDUNG[act], gegen && vorher ? function(){
-      var ziel = act === 'ablehnen' ? 'zuruecksetzen' : 'wiederherstellen';
+      var ziel = GEGEN[act];
       api(ziel, {id: id}).then(function(d2){ var i = alle.findIndex(function(x){ return x.id === id; }); if(i !== -1) alle[i] = d2.anfrage; zeichneListe(); toast('Rückgängig gemacht'); }).catch(function(){});
     } : null);
   }).catch(function(e){ if(e.message !== '401') toast('Das hat nicht geklappt. Versuch es nochmal.'); });
@@ -504,7 +602,7 @@ window.addEventListener('popstate', function(e){
   if($('detail').classList.contains('auf') && !st.detail && !st.sheet) schliesseDetail(true);
 });
 
-var STATUS_TEXT = {ausstehend:'Offen', fix:'Fix', abgelehnt:'Abgesagt', archiv:'Archiv', papierkorb:'Papierkorb'};
+var STATUS_TEXT = {ausstehend:'Offen', fix:'Fix', erledigt:'Erledigt', abgelehnt:'Abgesagt', archiv:'Archiv', papierkorb:'Papierkorb'};
 
 function zeichneDetail(){
   var a = aktuell, s = summen(a), k = konflikte(a);
@@ -518,6 +616,7 @@ function zeichneDetail(){
     h += '<div class="hinweis rot"><b>Achtung:</b> ' + esc(produkte(a)) + ' ist an dem Tag schon fix vergeben (' +
       k.map(function(b){ return esc((b.kunde.vorname || '') + ' ' + (b.kunde.nachname || '')).trim() + (b.nr ? ', Angebot ' + b.nr : ''); }).join('; ') + ').</div>';
   }
+  if(a.status === 'fix' && a.geaendertNachVersand) h += '<div class="hinweis gelb" id="hGeaendert"><b>Geändert nach dem Senden.</b> Das PDF, das der Kunde schon hat, bleibt so wie es war. Soll er die neue Version bekommen, tipp unten auf „Neues Angebot senden“.</div>';
   if(a.status === 'fix') h += '<div class="hinweis gruen">Termin ist fix. Angebot ' + esc(a.nr) + ' wurde ' + (a.angenommenAm ? 'am ' + new Date(a.angenommenAm).toLocaleDateString('de-AT') + ' ' : '') + 'erstellt.</div>';
 
   /* Bewertung */
@@ -536,6 +635,20 @@ function zeichneDetail(){
     if(bs === 'erinnern' && a.waNummer) h += '<a class="btn btn-wa btn-w" id="bewErinnern" href="' + esc(waLink(a.waNummer, a.waErinnerung)) + '" target="_blank" rel="noopener">Erinnerung schicken</a>';
     if(bs !== 'erhalten') h += '<button class="btn btn-g btn-w" id="bewErhalten" style="margin-top:8px">Bewertung ist da</button>';
     else h += '<button class="pos-neu" id="bewZurueck" style="color:var(--mute)">Zurücksetzen</button>';
+    h += '</div>';
+  }
+
+  /* Anzahlung */
+  if(a.status === 'fix' || a.status === 'erledigt'){
+    var as = anzStatus(a), sA = summen(a);
+    h += '<div class="block"><h3>Anzahlung ' + eur(sA.anzahlung) + '</h3>';
+    if(a.anzahlungErhaltenAm){
+      h += '<div class="hinweis gruen">✓ Erhalten am ' + new Date(a.anzahlungErhaltenAm).toLocaleDateString('de-AT') + '</div><button class="pos-neu" id="anzZurueck" style="color:var(--mute)">Doch nicht erhalten</button>';
+    } else {
+      h += '<div class="bew-status">Frist: <b>' + esc(a.anzahlungFrist || '') + '</b>' + (as === 'ueberfaellig' ? ' · <span style="color:var(--nein);font-weight:800">überfällig</span>' : '') + (a.anzahlungErinnertAm ? '<br>Erinnert am ' + new Date(a.anzahlungErinnertAm).toLocaleDateString('de-AT') : '') + '</div>' +
+        '<button class="btn btn-p btn-w" id="anzOk"><svg class="i" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Anzahlung ist da</button>' +
+        (a.waNummer ? '<a class="btn btn-g btn-w" style="margin-top:8px" id="anzErinnern" href="' + esc(waLink(a.waNummer, a.waAnzahlung)) + '" target="_blank" rel="noopener">Per WhatsApp erinnern</a>' : '');
+    }
     h += '</div>';
   }
 
@@ -558,8 +671,8 @@ function zeichneDetail(){
        '</div>';
 
   /* Angebot */
-  var gesperrt = a.status === 'fix';
-  h += '<div class="block"><h3>Angebot' + (gesperrt ? ' (fix, Änderungen gelten fürs PDF)' : '') + '</h3><div id="posListe">';
+  var gesperrt = a.status === 'fix' || a.status === 'erledigt';
+  h += '<div class="block"><h3>Angebot' + (gesperrt ? ' (fix · gesendetes PDF bleibt gleich)' : '') + '</h3><div id="posListe">';
   (a.positionen || []).forEach(function(p, i){
     var leer = p.betrag == null || p.betrag === '';
     h += '<div class="pos" data-i="' + i + '">' +
@@ -577,6 +690,11 @@ function zeichneDetail(){
        ['', 'herr', 'frau'].map(function(v){ return '<button data-v="' + v + '" class="' + ((a.anrede || '') === v ? 'on' : '') + '">' + (v === '' ? 'Neutral' : v === 'herr' ? 'Herr' : 'Frau') + '</button>'; }).join('') +
        '</div><div style="color:var(--mute);font-size:.85rem;margin-top:8px" id="anredeVorschau"></div></div>';
 
+  var _em = a.empfehlung && a.empfehlung.aktiv;
+  h += '<div class="block"><h3>Empfehlungs-Deal (−30 €)</h3>' +
+       '<label class="emp-sw"><input type="checkbox" id="empAn"' + (_em ? ' checked' : '') + '/><span>Im Angebot anbieten: Kunde bekommt seinen Link und 30 € weniger, sobald jemand darüber bucht</span></label>' +
+       '<div style="color:var(--mute);font-size:.85rem;margin-top:8px" id="empInfo">' + (_em && a.empfehlung.code ? 'Code ' + esc(a.empfehlung.code) + ' · Link steht in der WhatsApp-Nachricht' : (a.quelle ? '' : 'Für Anfragen per Telefon oder WhatsApp einfach anhaken.')) + '</div></div>';
+
   if(a.nachricht) h += '<div class="block"><h3>Nachricht vom Kunden</h3><div class="nachricht">' + esc(a.nachricht) + '</div></div>';
   if(a.fotoFreigabe) h += '<div class="block"><h3>📸 Fotos</h3><div class="nachricht">Kunde ist einverstanden, dass du Fotos der Fotobox von diesem Fest zeigst (nur Bilder, auf denen alle einverstanden sind).</div></div>';
 
@@ -584,7 +702,6 @@ function zeichneDetail(){
   if(a.paket) extra.push(['Paket', a.paket]);
   if(a.rahmen) extra.push(['Fotorahmen', a.rahmen]);
   if(a.gutschein) extra.push(['Gutschein', a.gutschein]);
-  if(a.empfehlung && a.empfehlung.aktiv) extra.push(['Empfehlungs-Deal', 'Ja, Code ' + (a.empfehlung.code || '–') + ' (30 € weniger, sobald jemand darüber bucht)']);
   if(a.empfohlenVon) extra.push(['Empfohlen von', a.empfohlenVon + ' – dieser Kunde bekommt 30 € gutgeschrieben']);
   if(a.partner) extra.push(['Partner', a.partner]);
   extra.push(['Eingegangen', new Date(a.erstellt).toLocaleString('de-AT', {dateStyle:'medium', timeStyle:'short'}) + (a.quelle ? ' über ' + a.quelle : '')]);
@@ -594,8 +711,12 @@ function zeichneDetail(){
 
   /* Weitere Aktionen */
   if(a.status === 'fix'){
+    h += '<div class="block"><h3>Fest vorbei?</h3><button class="btn btn-p btn-w" id="abschliessen"><svg class="i" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Abgeschlossen</button>' +
+         '<div style="color:var(--mute);font-size:.85rem;margin-top:8px">Kommt zu „Erledigt“ und zählt zum Umsatz.</div></div>';
     h += '<div class="block"><h3>Termin ändern</h3><div class="aktionen">' +
          '<button class="btn btn-g" id="zurOffen">Wieder öffnen</button><button class="btn btn-n" id="absagenFix">Absagen</button></div></div>';
+  } else if(a.status === 'erledigt'){
+    h += '<div class="block"><div class="hinweis gruen" style="margin-bottom:10px">Abgeschlossen' + (a.abgeschlossenAm ? ' am ' + new Date(a.abgeschlossenAm).toLocaleDateString('de-AT') : '') + '. Zählt zum Umsatz.</div><button class="btn btn-g btn-w" id="wiederFix">Zurück zu Fix</button></div>';
   } else if(a.status === 'abgelehnt'){
     h += '<div class="block"><div class="aktionen"><button class="btn btn-g" id="zurOffen" style="grid-column:1/-1">Wieder auf offen setzen</button></div></div>';
   }
@@ -641,7 +762,10 @@ function zeichneLeiste(){
   if(a.status === 'ausstehend'){
     h = '<button class="btn btn-n" id="lAblehnen">Absagen</button><button class="btn btn-p" id="lAnnehmen"><svg class="i" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Annehmen</button>';
     L.className = 'leiste-in';
-  } else if(a.status === 'fix'){
+  } else if((a.status === 'fix' || a.status === 'erledigt') && a.geaendertNachVersand){
+    h = '<a class="btn btn-g" id="lPdf" href="' + esc(a.pdf) + '" target="_blank" rel="noopener">Altes PDF</a><button class="btn btn-wa" id="lNeu"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>Neues Angebot senden</button>';
+    L.className = 'leiste-in';
+} else if(a.status === 'fix' || a.status === 'erledigt'){
     h = '<a class="btn btn-g" id="lPdf" href="' + esc(a.pdf) + '" target="_blank" rel="noopener">PDF</a><a class="btn btn-wa" id="lWa" href="' + esc(waLink(a.waNummer, a.waText)) + '" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>Per WhatsApp senden</a>';
     L.className = 'leiste-in';
   } else {
@@ -651,7 +775,13 @@ function zeichneLeiste(){
   $('leiste').style.visibility = h ? 'visible' : 'hidden';
   if($('lAnnehmen')) $('lAnnehmen').addEventListener('click', annehmen);
   if($('lAblehnen')) $('lAblehnen').addEventListener('click', function(){ absageSheet(); });
-  if($('lWa')) $('lWa').addEventListener('click', function(){ /* PDF aktuell halten */ sofortSpeichern(); });
+  if($('lNeu')) $('lNeu').addEventListener('click', function(){
+    var b = this; b.disabled = true;
+    Promise.resolve(sofortSpeichern()).then(function(){ return api('neueFassung', {id: aktuell.id}); }).then(function(d){
+      var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
+      aktuell = JSON.parse(JSON.stringify(d.anfrage)); zeichneDetail(); zeichneListe(); erfolgSheet(d.anfrage);
+    }).catch(function(e){ b.disabled = false; if(e.message !== '401') toast('Hat nicht geklappt. Versuch es nochmal.'); });
+  });
 }
 
 function verbindeDetail(){
@@ -684,6 +814,11 @@ function verbindeDetail(){
     var idx = li === -1 ? aktuell.positionen.length - 1 : li;
     var el = document.querySelector('.pos[data-i="' + idx + '"] .p-t'); if(el){ el.focus(); el.select(); }
   });
+  if($('empAn')) $('empAn').addEventListener('change', function(){
+    aktuell.empfehlung = {aktiv: this.checked, code: (aktuell.empfehlung && aktuell.empfehlung.code) || ''};
+    $('empInfo').textContent = this.checked ? 'Wird gespeichert, der Link kommt in die WhatsApp-Nachricht …' : 'Nicht im Angebot.';
+    planeSpeichern();
+  });
   $('anrede').querySelectorAll('button').forEach(function(b){
     b.addEventListener('click', function(){ aktuell.anrede = b.dataset.v; $('anrede').querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x === b); }); zeichneAnrede(); planeSpeichern(); });
   });
@@ -705,6 +840,17 @@ function verbindeDetail(){
     Promise.resolve(sofortSpeichern()).then(function(){ schliesseDetail(); aktionAusListe(act, id, true); });
   }); });
   if($('absagenFix')) $('absagenFix').addEventListener('click', function(){ absageSheet(); });
+  if($('abschliessen')) $('abschliessen').addEventListener('click', function(){ statusAendern('abschliessen', 'Als erledigt abgelegt'); });
+  if($('wiederFix')) $('wiederFix').addEventListener('click', function(){ statusAendern('wiederoeffnen', 'Wieder bei Fix'); });
+  var anzSchritt = function(daten, meldung){
+    api('anzahlung', Object.assign({id: aktuell.id}, daten)).then(function(d){
+      var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
+      aktuell = JSON.parse(JSON.stringify(d.anfrage)); zeichneDetail(); zeichneListe(); if(meldung) toast(meldung);
+    }).catch(function(e){ if(e.message !== '401') toast('Das hat nicht geklappt.'); });
+  };
+  if($('anzOk')) $('anzOk').addEventListener('click', function(){ anzSchritt({erhalten:true}, '✓ Anzahlung abgehakt'); });
+  if($('anzZurueck')) $('anzZurueck').addEventListener('click', function(){ anzSchritt({erhalten:false}, 'Zurückgesetzt'); });
+  if($('anzErinnern')) $('anzErinnern').addEventListener('click', function(){ setTimeout(function(){ anzSchritt({erhalten:false, erinnert:true}, 'Erinnerung vermerkt'); }, 300); });
 }
 function confirmLeise(t){ try{ return window.confirm(t); }catch(e){ return true; } }
 
@@ -718,10 +864,10 @@ function sofortSpeichern(){
   if(!speicherTimer || !aktuell) return speichertGerade || Promise.resolve();
   clearTimeout(speicherTimer); speicherTimer = null;
   var a = aktuell;
-  var patch = {positionen: a.positionen, anrede: a.anrede || '', notiz: a.notiz || '', anzahlung: a.anzahlung};
+  var patch = {positionen: a.positionen, anrede: a.anrede || '', notiz: a.notiz || '', anzahlung: a.anzahlung, empfehlung: a.empfehlung || {aktiv:false, code:''}};
   speichertGerade = api('speichern', {id: a.id, patch: patch}).then(function(d){
     var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
-    if(aktuell && aktuell.id === d.anfrage.id){ aktuell.pdf = d.anfrage.pdf; aktuell.waText = d.anfrage.waText; aktuell.waAbsage = d.anfrage.waAbsage; if(aktuell.status === 'fix' && $('lWa')) $('lWa').href = waLink(aktuell.waNummer, aktuell.waText); }
+    if(aktuell && aktuell.id === d.anfrage.id){ aktuell.pdf = d.anfrage.pdf; aktuell.waText = d.anfrage.waText; aktuell.waAbsage = d.anfrage.waAbsage; aktuell.empfehlung = d.anfrage.empfehlung; if(!!d.anfrage.geaendertNachVersand !== !!aktuell.geaendertNachVersand){ aktuell.geaendertNachVersand = d.anfrage.geaendertNachVersand; zeichneLeiste(); if(!$('hGeaendert') && aktuell.geaendertNachVersand) toast('Geändert. Das gesendete PDF bleibt gleich.'); } if($('empInfo') && d.anfrage.empfehlung && d.anfrage.empfehlung.aktiv && d.anfrage.empfehlung.code) $('empInfo').textContent = 'Code ' + d.anfrage.empfehlung.code + ' · Link steht in der WhatsApp-Nachricht'; if((aktuell.status === 'fix' || aktuell.status === 'erledigt') && $('lWa')) $('lWa').href = waLink(aktuell.waNummer, aktuell.waText); }
     $('dGespeichert').textContent = 'Gespeichert';
     setTimeout(function(){ if($('dGespeichert').textContent === 'Gespeichert') $('dGespeichert').textContent = ''; }, 1500);
   }).catch(function(e){ if(e.message !== '401'){ $('dGespeichert').textContent = 'Nicht gespeichert'; toast('Speichern hat nicht geklappt.'); } })
@@ -752,7 +898,7 @@ function annehmen(){
 function erfolgSheet(a){
   oeffneSheet(
     '<div class="haken"><svg class="i" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>' +
-    '<h3>Termin ist fix</h3><p>Angebot ' + esc(a.nr) + ' für ' + esc(a.kunde.vorname || '') + ' ist erstellt. Schick es jetzt per WhatsApp, die Nachricht ist schon fertig.</p>' +
+    '<h3>' + ((a.versionen||[]).length > 1 ? 'Neues Angebot fertig' : 'Termin ist fix') + '</h3><p>Angebot ' + esc(a.nr) + ' für ' + esc(a.kunde.vorname || '') + ' ist erstellt. Schick es jetzt per WhatsApp, die Nachricht ist schon fertig.</p>' +
     '<div class="vorschau">' + esc(a.waText) + '</div>' +
     (a.waNummer ? '<a class="btn btn-wa btn-w" id="sWa" href="' + esc(waLink(a.waNummer, a.waText)) + '" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>An ' + esc(a.kunde.vorname || 'Kunde') + ' senden</a>' : '<div class="hinweis gelb">Keine Handynummer vorhanden. Kopier den Text und schick ihn selbst.</div>') +
     '<a class="btn btn-g btn-w" href="' + esc(a.pdf) + '" target="_blank" rel="noopener">Angebot als PDF ansehen</a>' +
@@ -802,6 +948,438 @@ function schliesseSheet(){
   try{ if(history.state && history.state.sheet) history.back(); }catch(e){}
 }
 $('schleier').addEventListener('click', schliesseSheet);
+
+/* ══════════ Fahrtenbuch ══════════
+   Jede fixe Buchung hat zwei Einsätze: Lieferung (Datum = Festtag) und
+   Abholung (Datum frei, Standard: Tag danach). Pro Einsatz Hin- und Rückfahrt
+   mit Abfahrt und Ankunft. Daraus wird die Excel-Liste je Monat gebaut. */
+var MONATE = ['Jänner','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+var START = 'Glödnitz, Schulstraße 3';
+var fbJahr = new Date().getFullYear(), fbMonat = new Date().getMonth();
+function istFixA(a){ return a.status === 'fix' || a.status === 'erledigt' || (a.status === 'archiv' && (a.vorherStatus === 'fix' || a.vorherStatus === 'erledigt')); }
+function plusTag(iso, n){ var d = tagDatum(iso); if(!d) return ''; d.setDate(d.getDate() + n); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
+function fbKm(a){
+  if(a.fahrten && a.fahrten.km != null) return a.fahrten.km;
+  if(a.anreise && a.anreise.km) return a.anreise.km;
+  var l = (a.positionen || []).filter(function(p){ return p.art === 'lieferung' && Number(p.betrag) > 0; })[0];
+  return l ? Math.round(Number(l.betrag) / 2.2) : 0;
+}
+function fbDaten(a){
+  var f = a.fahrten || {};
+  var leer = function(){ return {ab:'', an:''}; };
+  function e(x, datum){ x = x || {}; return {datum: x.datum || datum, hin: x.hin || leer(), rueck: x.rueck || leer(), stand: x.stand || {start:null, kunde:null, ende:null}}; }
+  return {liefer: e(f.liefer, a.datum), abhol: e(f.abhol, plusTag(a.datumEnde || a.datum, 1)), km: fbKm(a), notiz: f.notiz || '', fahrzeug: f.fahrzeug || fbFahrzeugMerk()};
+}
+function fbFahrzeugMerk(){ try{ return localStorage.getItem('hb_fahrzeug') || ''; }catch(e){ return ''; } }
+function fbZiel(a){ return [a.adresse && a.adresse.strasse, ((a.adresse && a.adresse.plz) || '') + ' ' + ((a.adresse && a.adresse.ort) || '')].filter(function(x){ return x && x.trim(); }).join(', ') || 'Kunde'; }
+function fbFelder(f){ return [f.liefer.hin.ab, f.liefer.hin.an, f.liefer.rueck.ab, f.liefer.rueck.an, f.abhol.hin.ab, f.abhol.hin.an, f.abhol.rueck.ab, f.abhol.rueck.an]; }
+function fbFertig(f){ return fbFelder(f).filter(Boolean).length; }
+
+/* Alle Fahrten (Zeilen) eines Jahres */
+function fbZeilen(jahr){
+  var out = [];
+  alle.filter(istFixA).forEach(function(a){
+    var f = fbDaten(a), ziel = fbZiel(a), wer = ((a.kunde.vorname || '') + ' ' + (a.kunde.nachname || '')).trim();
+    [['liefer','Lieferung'],['abhol','Abholung']].forEach(function(e){
+      var x = f[e[0]]; if(!x.datum || x.datum.slice(0,4) !== String(jahr)) return;
+      var st = x.stand || {}, d1 = (st.start != null && st.kunde != null) ? st.kunde - st.start : null, d2 = (st.kunde != null && st.ende != null) ? st.ende - st.kunde : null;
+      out.push({datum:x.datum, ab:x.hin.ab, an:x.hin.an, von:START, nach:ziel, zweck:e[1] + ' ' + produkte(a) + ' (Hinfahrt)', kunde:wer, nr:a.nr || '', km: d1 != null && d1 >= 0 ? d1 : f.km, kmA: st.start, kmE: st.kunde, fz: f.fahrzeug});
+      out.push({datum:x.datum, ab:x.rueck.ab, an:x.rueck.an, von:ziel, nach:START, zweck:e[1] + ' ' + produkte(a) + ' (Rückfahrt)', kunde:wer, nr:a.nr || '', km: d2 != null && d2 >= 0 ? d2 : f.km, kmA: st.kunde, kmE: st.ende, fz: f.fahrzeug});
+    });
+  });
+  return out.sort(function(x, y){ return (x.datum + (x.ab || '99')).localeCompare(y.datum + (y.ab || '99')); });
+}
+
+function zeichneFahrten(){
+  var zeilen = fbZeilen(fbJahr);
+  var proMonat = MONATE.map(function(_, m){ return zeilen.filter(function(z){ return +z.datum.slice(5,7) === m + 1; }); });
+  var html = '<div class="fb-kopf"><button class="ikon" id="fbVor" aria-label="Jahr zurück"><svg class="i" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><b>' + fbJahr + '</b><button class="ikon" id="fbNach" aria-label="Jahr vor"><svg class="i" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>' +
+    '<button class="btn btn-p fb-xls" id="fbXls"><svg class="i" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Excel ' + fbJahr + '</button></div>';
+  html += '<div class="fb-monate">' + MONATE.map(function(n, m){
+    var km = proMonat[m].reduce(function(s, z){ return s + (Number(z.km) || 0); }, 0);
+    return '<button class="fb-m' + (m === fbMonat ? ' on' : '') + '" data-m="' + m + '">' + n.slice(0,3) + (km ? '<small>' + Math.round(km) + ' km</small>' : '<small>–</small>') + '</button>';
+  }).join('') + '</div>';
+  var buchungen = alle.filter(istFixA).filter(function(a){
+    var f = fbDaten(a);
+    return [f.liefer.datum, f.abhol.datum].some(function(d){ return d && +d.slice(0,4) === fbJahr && +d.slice(5,7) === fbMonat + 1; });
+  }).sort(function(a, b){ return (a.datum || '').localeCompare(b.datum || ''); });
+  var kmM = proMonat[fbMonat].reduce(function(s, z){ return s + (Number(z.km) || 0); }, 0);
+  html += '<div class="gruppe">' + MONATE[fbMonat] + ' ' + fbJahr + (kmM ? ' · ' + Math.round(kmM) + ' km' : '') + '</div>';
+  if(!buchungen.length) html += '<div class="leer"><b>Keine Fahrten</b>Fixe Buchungen in diesem Monat erscheinen hier automatisch.</div>';
+  html += buchungen.map(function(a){
+    var f = fbDaten(a), n = fbFertig(f), d = tagDatum(a.datum);
+    return '<button class="karte fb-karte" data-fb="' + esc(a.id) + '">' +
+      '<span class="tag" style="background:var(--petrol-l);color:var(--petrol)">' + (d ? '<span class="tag-w">' + WT[d.getDay()] + '</span><span class="tag-d">' + d.getDate() + '</span><span class="tag-m">' + MO[d.getMonth()] + '</span>' : '') + '</span>' +
+      '<span class="k-mitte"><span class="k-prod">' + esc(produkte(a)) + '</span><span class="k-wer">' + esc(fbZiel(a)) + '</span>' +
+      '<span class="k-info">Abholung ' + esc(datumKurz(f.abhol.datum)) + ' · 4 × ' + esc(String(f.km).replace('.', ',')) + ' km</span></span>' +
+      '<span class="k-rechts"><span class="fb-stand' + (n === 8 ? ' ok' : '') + '">' + (n === 8 ? '✓ fertig' : n + '/8') + '</span></span></button>';
+  }).join('');
+  $('liste').innerHTML = html;
+  $('fbVor').onclick = function(){ fbJahr--; zeichneFahrten(); };
+  $('fbNach').onclick = function(){ fbJahr++; zeichneFahrten(); };
+  $('fbXls').onclick = function(){ excelExport(fbJahr); };
+  $('liste').querySelectorAll('.fb-m').forEach(function(b){ b.onclick = function(){ fbMonat = +b.dataset.m; zeichneFahrten(); }; });
+  $('liste').querySelectorAll('[data-fb]').forEach(function(b){ b.onclick = function(){ fahrtenSheet(b.dataset.fb); }; });
+}
+
+function fahrtenSheet(id){
+  var a = alle.filter(function(x){ return x.id === id; })[0]; if(!a) return;
+  var f = fbDaten(a);
+  function zeit(pfad, wert){ return '<input type="time" class="fb-z" data-p="' + pfad + '" value="' + esc(wert) + '"/>'; }
+  function stand(pfad, wert, lbl){ return '<label class="fb-s"><input type="number" inputmode="numeric" class="fb-sn" data-p="' + pfad + '" value="' + (wert == null ? '' : esc(String(wert))) + '" placeholder="–"/><small>' + lbl + '</small></label>'; }
+  function einsatz(key, titel, datumFix){
+    var x = f[key];
+    return '<div class="fb-e"><div class="fb-e-k"><b>' + titel + '</b>' +
+      (datumFix ? '<span>' + esc(datumLang(x.datum)) + '</span>' : '<input type="date" class="fb-d" data-p="' + key + '.datum" value="' + esc(x.datum) + '"/>') + '</div>' +
+      '<div class="fb-r"><span>Hinfahrt</span>' + zeit(key + '.hin.ab', x.hin.ab) + '<i>bis</i>' + zeit(key + '.hin.an', x.hin.an) + '</div>' +
+      '<div class="fb-r"><span>Rückfahrt</span>' + zeit(key + '.rueck.ab', x.rueck.ab) + '<i>bis</i>' + zeit(key + '.rueck.an', x.rueck.an) + '</div>' +
+      '<div class="fb-st"><span>km-Stand</span>' + stand(key + '.stand.start', x.stand.start, 'Abfahrt') + stand(key + '.stand.kunde', x.stand.kunde, 'beim Kunden') + stand(key + '.stand.ende', x.stand.ende, 'zurück') + '</div></div>';
+  }
+  oeffneSheet(
+    '<h3>Fahrtenbuch</h3><p style="margin-bottom:10px">' + esc(produkte(a)) + ' · ' + esc(fbZiel(a)) + '</p>' +
+    '<button class="btn btn-p btn-w" id="fbJetzt"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>Jetzt eintragen</button>' +
+    '<div class="fb-tipp" id="fbTipp"></div>' +
+    einsatz('liefer', 'Lieferung', true) + einsatz('abhol', 'Abholung', false) +
+    '<div class="fb-km"><span>Fahrzeug</span><input type="text" id="fbFz" value="' + esc(f.fahrzeug) + '" placeholder="z. B. VW Caddy · SP-123AB" style="width:62%;text-align:left;font-weight:700"/></div>' +
+    '<div class="fb-km"><span>Kilometer pro Strecke</span><input type="number" inputmode="decimal" id="fbKmIn" value="' + esc(String(f.km)) + '"/></div>' +
+    '<div class="gespeichert" id="fbGesp" style="text-align:center;padding-top:8px"></div>'
+  );
+  var T;
+  function setze(pfad, wert){ var t = pfad.split('.'), o = f; for(var i = 0; i < t.length - 1; i++) o = o[t[i]]; o[t[t.length-1]] = wert; }
+  function naechstes(){ return [].filter.call($('sheetIn').querySelectorAll('.fb-z'), function(i){ return !i.value; })[0]; }
+  function tipp(){
+    var n = naechstes(), r = n && n.closest('.fb-r'), e = n && n.closest('.fb-e');
+    $('fbTipp').textContent = n ? 'Als Nächstes: ' + e.querySelector('b').textContent + ', ' + r.querySelector('span').textContent + (n === r.querySelectorAll('.fb-z')[0] ? ' Abfahrt' : ' Ankunft') : 'Alle Zeiten eingetragen ✓';
+    $('fbJetzt').disabled = !n;
+  }
+  function speichern(){
+    $('fbGesp').textContent = 'Speichert …'; clearTimeout(T);
+    T = setTimeout(function(){
+      api('fahrten', {id: id, fahrten: f}).then(function(d){
+        var i = alle.findIndex(function(x){ return x.id === id; }); if(i !== -1) alle[i] = d.anfrage;
+        $('fbGesp').textContent = 'Gespeichert';
+        if(tab === 'fahrten') zeichneFahrten();
+      }).catch(function(e){ if(e.message !== '401'){ $('fbGesp').textContent = 'Nicht gespeichert'; toast('Speichern hat nicht geklappt.'); } });
+    }, 500);
+  }
+  $('sheetIn').querySelectorAll('.fb-z,.fb-d').forEach(function(inp){ inp.addEventListener('change', function(){ setze(inp.dataset.p, inp.value); tipp(); speichern(); }); });
+  $('sheetIn').querySelectorAll('.fb-sn').forEach(function(inp){ inp.addEventListener('change', function(){
+    var v = inp.value === '' ? null : Math.round(Number(inp.value)); setze(inp.dataset.p, isFinite(v) ? v : null);
+    /* nächsten Stand vorschlagen: + km pro Strecke */
+    var alleS = [].slice.call($('sheetIn').querySelectorAll('.fb-sn')), i = alleS.indexOf(inp), n = alleS[i + 1];
+    if(v != null && n && !n.value && n.closest('.fb-e') === inp.closest('.fb-e')) n.placeholder = String(v + Math.round(Number(f.km) || 0));
+    speichern();
+  }); });
+  $('fbFz').addEventListener('change', function(){ f.fahrzeug = this.value.trim(); try{ localStorage.setItem('hb_fahrzeug', f.fahrzeug); }catch(e){} speichern(); });
+  $('fbKmIn').addEventListener('change', function(){ var v = Number(String(this.value).replace(',', '.')); f.km = isFinite(v) && v >= 0 ? v : 0; speichern(); });
+  $('fbJetzt').addEventListener('click', function(){
+    var n = naechstes(); if(!n) return;
+    var d = new Date(); n.value = ('0'+d.getHours()).slice(-2) + ':' + ('0'+d.getMinutes()).slice(-2);
+    setze(n.dataset.p, n.value); tipp(); speichern();
+    n.classList.add('blink'); setTimeout(function(){ n.classList.remove('blink'); }, 700);
+  });
+  tipp();
+}
+
+/* Excel: ein Blatt pro Monat + Übersicht */
+function ladeXlsx(){
+  if(window.XLSX) return Promise.resolve(window.XLSX);
+  return new Promise(function(ok, nein){
+    var s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+    s.onload = function(){ ok(window.XLSX); }; s.onerror = nein; document.head.appendChild(s);
+  });
+}
+function excelExport(jahr){
+  var b = $('fbXls'); if(b){ b.disabled = true; b.lastChild.textContent = 'Wird erstellt …'; }
+  ladeXlsx().then(function(X){
+    var zeilen = fbZeilen(jahr), wb = X.utils.book_new(), uebersicht = [['Monat', 'Fahrten', 'Kilometer']], summe = 0, anz = 0;
+    MONATE.forEach(function(name, m){
+      var z = zeilen.filter(function(r){ return +r.datum.slice(5,7) === m + 1; });
+      var km = z.reduce(function(s, r){ return s + (Number(r.km) || 0); }, 0);
+      var daten = [['Fahrtenbuch ' + name + ' ' + jahr + ' – Hüpfabenteuer'], [], ['Datum', 'Abfahrt', 'Ankunft', 'Fahrzeug', 'km-Stand Beginn', 'km-Stand Ende', 'Von', 'Nach', 'Zweck', 'Kunde', 'Angebot-Nr.', 'km']];
+      z.forEach(function(r){ daten.push([datumKurz(r.datum), r.ab, r.an, r.fz || '', r.kmA == null ? '' : r.kmA, r.kmE == null ? '' : r.kmE, r.von, r.nach, r.zweck, r.kunde, r.nr, Number(r.km) || 0]); });
+      daten.push([]); daten.push(['', '', '', '', '', '', '', '', '', '', 'Summe km', Math.round(km * 10) / 10]);
+      var ws = X.utils.aoa_to_sheet(daten);
+      ws['!cols'] = [{wch:11},{wch:8},{wch:8},{wch:20},{wch:14},{wch:14},{wch:30},{wch:30},{wch:38},{wch:20},{wch:11},{wch:8}];
+      X.utils.book_append_sheet(wb, ws, name);
+      uebersicht.push([name, z.length, Math.round(km * 10) / 10]); summe += km; anz += z.length;
+    });
+    uebersicht.push([]); uebersicht.push(['Gesamt ' + jahr, anz, Math.round(summe * 10) / 10]);
+    var wu = X.utils.aoa_to_sheet(uebersicht); wu['!cols'] = [{wch:14},{wch:9},{wch:11}];
+    X.utils.book_append_sheet(wb, wu, 'Übersicht');
+    X.writeFile(wb, 'Fahrtenbuch_' + jahr + '_Huepfabenteuer.xlsx');
+  }).catch(function(){ toast('Excel konnte nicht geladen werden. Prüf die Verbindung.'); })
+    .finally(function(){ if($('fbXls')){ $('fbXls').disabled = false; $('fbXls').lastChild.textContent = 'Excel ' + jahr; } });
+}
+
+/* ══════════ Menü, Angebote, Neue Anfrage, Einnahmen ══════════ */
+var katalog = null;
+function ladeKatalog(neu){
+  if(katalog && !neu) return Promise.resolve(katalog);
+  return api('katalog').then(function(d){ katalog = d.katalog || []; return katalog; });
+}
+var GRUPPEN = [['burg','Hüpfburgen'],['foto','Fotobox'],['extra','Extras']];
+var IC_MENUE = {
+  neu: '<svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
+  preis: '<svg class="i" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>',
+  geld: '<svg class="i" viewBox="0 0 24 24"><path d="M4 19h16M6 16V10M10 16V6M14 16v-4M18 16V8"/></svg>',
+  raus: '<svg class="i" viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l-5-5 5-5"/><path d="M5 12h11"/></svg>'
+};
+$('menue').addEventListener('click', function(){
+  oeffneSheet('<h3>Menü</h3>' +
+    '<button class="menue-p" data-m="neu">' + IC_MENUE.neu + '<span>Neue Anfrage<small>Für Kunden per Telefon oder WhatsApp</small></span></button>' +
+    '<button class="menue-p" data-m="angebote"><svg class="i" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg><span>Alle Angebote<small>Verschickte PDFs ansehen und nachträglich ändern</small></span></button>' +
+    '<button class="menue-p" data-m="preise">' + IC_MENUE.preis + '<span>Angebote &amp; Preise<small>Alle Burgen, Fotoboxen und Extras bearbeiten</small></span></button>' +
+    '<button class="menue-p" data-m="geld">' + IC_MENUE.geld + '<span>Einnahmen<small>Umsatz pro Monat und Gerät, Excel</small></span></button>' +
+    '<button class="menue-p" data-m="raus" style="border-bottom:none;color:var(--nein)">' + IC_MENUE.raus + '<span>Abmelden</span></button>');
+  $('sheetIn').querySelectorAll('[data-m]').forEach(function(b){ b.onclick = function(){
+    var m = b.dataset.m;
+    if(m === 'raus'){ schliesseSheet(); abmelden(''); return; }
+    schliesseSheetDann(function(){ if(m === 'neu') neuSheet(); else if(m === 'angebote') angeboteSheet(); else if(m === 'preise') preiseSheet(); else einnahmenSheet(); });
+  }; });
+});
+$('neuAnlegen').addEventListener('click', function(){ neuSheet(); });
+/* Sheet schließen und danach ein neues öffnen (History sauber halten) */
+function schliesseSheetDann(fn){ schliesseSheet(); setTimeout(fn, 320); }
+
+/* ── Alle verschickten Angebote ── */
+var angebotListe = [];
+function angeboteSheet(suche){
+  oeffneSheetOderErsetzen('<h3>Alle Angebote</h3><p>Wird geladen …</p>');
+  api('angebote').then(function(d){
+    angebotListe = (d.angebote || []).sort(function(a, b){ return (b.gesendetAm || '').localeCompare(a.gesendetAm || ''); });
+    zeichneAngebote(suche || '');
+  }).catch(function(e){ if(e.message !== '401') toast('Konnte die Angebote nicht laden.'); });
+}
+function zeichneAngebote(suche){
+  var q = suche.toLowerCase().trim();
+  var l = angebotListe.filter(function(v){ return !q || [v.nr, v.kunde && v.kunde.vorname, v.kunde && v.kunde.nachname, v.adresse && v.adresse.ort].join(' ').toLowerCase().indexOf(q) !== -1; });
+  var gezaehlt = {};
+  var h = '<h3>Alle Angebote</h3><div class="feld" style="margin-bottom:6px"><input id="agSuche" placeholder="Suchen: Name, Ort oder Nr." value="' + esc(suche) + '"/></div>';
+  if(!l.length) h += '<div class="leer" style="padding:30px 10px"><b>Keine Angebote</b>Angenommene Anfragen erscheinen hier.</div>';
+  h += l.map(function(v, i){
+    gezaehlt[v.nr] = (gezaehlt[v.nr] || 0) + 1;
+    var name = ((v.kunde && v.kunde.vorname || '') + ' ' + (v.kunde && v.kunde.nachname || '')).trim();
+    return '<button class="menue-p" data-ag="' + angebotListe.indexOf(v) + '" style="padding:12px 2px"><span style="flex:1"><b style="font-size:1rem">Nr. ' + esc(v.nr || '–') + ' · ' + esc(name) + '</b>' +
+      '<small>' + esc(datumKurz(v.datum)) + (v.adresse && v.adresse.ort ? ' · ' + esc(v.adresse.ort) : '') + ' · gesendet ' + esc(new Date(v.gesendetAm).toLocaleDateString('de-AT')) + (v.bearbeitetAm ? ' · geändert ' + esc(new Date(v.bearbeitetAm).toLocaleDateString('de-AT')) : '') + '</small></span>' +
+      '<span style="font-weight:800">' + eur(v.summen && v.summen.gesamt) + '</span></button>';
+  }).join('');
+  $('sheetIn').innerHTML = h;
+  var inp = $('agSuche'); inp.oninput = function(){ var pos = inp.selectionStart; zeichneAngebote(inp.value); var n = $('agSuche'); n.focus(); try{ n.setSelectionRange(pos, pos); }catch(e){} };
+  $('sheetIn').querySelectorAll('[data-ag]').forEach(function(b){ b.onclick = function(){ angebotBearbeiten(angebotListe[+b.dataset.ag]); }; });
+}
+function angebotBearbeiten(v0){
+  var v = JSON.parse(JSON.stringify(v0)), geaendert = false;
+  function sum(){ return summen(v); }
+  function zeichne(){
+    var s = sum(), name = ((v.kunde.vorname || '') + ' ' + (v.kunde.nachname || '')).trim();
+    var h = '<button class="pos-neu" id="agZurueck" style="margin:-6px 0 4px">‹ Alle Angebote</button>' +
+      '<h3>Angebot ' + esc(v.nr || '') + '</h3><p style="margin-bottom:6px">' + esc(name) + ' · ' + esc(datumLang(v.datum)) + '</p>' +
+      '<div class="hinweis gelb" style="margin-bottom:10px">Änderungen hier gelten auch für den Link, den der Kunde schon hat.</div><div id="agPos">';
+    (v.positionen || []).forEach(function(p, i){
+      h += '<div class="pos" data-i="' + i + '"><input class="p-t" value="' + esc(p.titel) + '" data-f="titel"/><input class="p-b" value="' + (p.betrag == null ? '' : esc(String(p.betrag).replace('.', ','))) + '" data-f="betrag" inputmode="decimal" placeholder="€"/>' +
+        '<button class="weg" data-weg="' + i + '" aria-label="Entfernen"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button><input class="p-x" value="' + esc(p.text || '') + '" data-f="text" placeholder="Beschreibung (optional)"/></div>';
+    });
+    h += '</div><button class="pos-neu" id="agNeuPos">' + IC_MENUE.neu + 'Position hinzufügen</button>' +
+      '<div class="summe"><div class="zeile"><span>Gesamt</span><span id="agGes">' + eur(s.gesamt, true) + '</span></div>' +
+      '<div class="zeile"><span>Anzahlung</span><span class="anz"><input id="agAnz" inputmode="decimal" value="' + (v.anzahlung != null ? esc(String(v.anzahlung).replace('.', ',')) : '') + '" placeholder="' + esc(String(s.autoAnz)) + '"/> €</span></div>' +
+      '<div class="zeile"><span>Rest</span><span id="agRest">' + eur(s.rest, true) + '</span></div></div>' +
+      '<button class="btn btn-p btn-w" id="agSpeichern" style="margin-top:12px">Speichern</button>' +
+      '<div class="aktionen"><a class="btn btn-g" href="' + esc(v.pdf) + '" target="_blank" rel="noopener">PDF ansehen</a>' +
+      (v.waNummer ? '<a class="btn btn-wa" id="agWa" href="#" target="_blank" rel="noopener">Kunde informieren</a>' : '') + '</div>';
+    $('sheetIn').innerHTML = h;
+    var neuRechnen = function(){ var s2 = sum(); $('agGes').textContent = eur(s2.gesamt, true); $('agRest').textContent = eur(s2.rest, true); geaendert = true; };
+    $('agPos').querySelectorAll('input').forEach(function(inp){ inp.oninput = function(){
+      var p = v.positionen[+inp.closest('.pos').dataset.i], f = inp.dataset.f;
+      if(f === 'betrag'){ var x = inp.value.replace(/\s/g,'').replace(',', '.'); p.betrag = x === '' ? null : (isNaN(Number(x)) ? p.betrag : Number(x)); } else p[f] = inp.value;
+      neuRechnen();
+    }; });
+    $('agPos').querySelectorAll('[data-weg]').forEach(function(b){ b.onclick = function(){ v.positionen.splice(+b.dataset.weg, 1); geaendert = true; zeichne(); }; });
+    $('agNeuPos').onclick = function(){ v.positionen.push({art:'extra', titel:'Neue Position', text:'', betrag:null}); geaendert = true; zeichne(); };
+    $('agAnz').oninput = function(){ var x = this.value.replace(',', '.').trim(); v.anzahlung = x === '' ? null : (isNaN(Number(x)) ? v.anzahlung : Number(x)); neuRechnen(); };
+    $('agZurueck').onclick = function(){ if(geaendert && !confirmLeise('Änderungen verwerfen?')) return; zeichneAngebote(''); };
+    if($('agWa')) $('agWa').onclick = function(){ this.href = waLink(v.waNummer, 'Hallo ' + (v.kunde.vorname || '') + ', ich hab dein Angebot ' + (v.nr || '') + ' angepasst. Neuer Gesamtbetrag: ' + eur(sum().gesamt) + '.\nDu findest es wie gewohnt hier: ' + v.pdf + '\n\nLG Alexander – Hüpfabenteuer'); if(geaendert) toast('Tipp: zuerst speichern, dann informieren.'); };
+    $('agSpeichern').onclick = function(){
+      var b = this; b.disabled = true; b.textContent = 'Speichert …';
+      api('angebotSpeichern', {id: v.id, token: v.token, patch: {positionen: v.positionen, anzahlung: v.anzahlung, anrede: v.anrede}}).then(function(d){
+        geaendert = false; v.bearbeitetAm = d.angebot.bearbeitetAm; v.summen = d.angebot.summen;
+        var i = angebotListe.findIndex(function(x){ return x.id === v.id && x.token === v.token; }); if(i !== -1) angebotListe[i] = JSON.parse(JSON.stringify(v));
+        b.disabled = false; b.textContent = 'Gespeichert ✓'; setTimeout(function(){ if($('agSpeichern')) $('agSpeichern').textContent = 'Speichern'; }, 1500);
+        toast('Gespeichert. Der Link zeigt jetzt die neue Fassung.');
+        laden(true).catch(function(){});
+      }).catch(function(e){ b.disabled = false; b.textContent = 'Speichern'; if(e.message !== '401') toast('Speichern hat nicht geklappt.'); });
+    };
+  }
+  zeichne();
+}
+
+/* ── Angebote & Preise ── */
+function preiseSheet(){
+  oeffneSheet('<h3>Angebote &amp; Preise</h3><p>Wird geladen …</p>');
+  ladeKatalog(true).then(function(k){
+    var liste = JSON.parse(JSON.stringify(k));
+    function zeichne(){
+      var h = '<h3>Angebote &amp; Preise</h3><p style="margin-bottom:4px">Diese Liste nutzt du bei „Neue Anfrage“. Änderungen speichern mit dem Knopf unten.</p>';
+      GRUPPEN.forEach(function(g){
+        h += '<div class="kat-g">' + g[1] + '</div>';
+        liste.forEach(function(x, i){ if(x.gruppe !== g[0]) return;
+          h += '<div class="kat-r" data-i="' + i + '"><input class="kt" value="' + esc(x.titel) + '" aria-label="Name"/><input class="kp" inputmode="decimal" value="' + esc(String(x.preis).replace('.', ',')) + '" aria-label="Preis"/><button class="weg" aria-label="Entfernen"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>';
+        });
+        h += '<button class="pos-neu" data-neu="' + g[0] + '">' + IC_MENUE.neu + 'Hinzufügen</button>';
+      });
+      h += '<button class="btn btn-p btn-w" id="katSpeichern" style="margin-top:16px">Speichern</button>';
+      $('sheetIn').innerHTML = h;
+      $('sheetIn').querySelectorAll('.kat-r').forEach(function(r){
+        var x = liste[+r.dataset.i];
+        r.querySelector('.kt').oninput = function(){ x.titel = this.value; };
+        r.querySelector('.kp').oninput = function(){ var v = Number(this.value.replace(',', '.')); if(isFinite(v)) x.preis = v; };
+        r.querySelector('.weg').onclick = function(){ if(confirmLeise('„' + x.titel + '“ entfernen?')){ liste.splice(+r.dataset.i, 1); zeichne(); } };
+      });
+      $('sheetIn').querySelectorAll('[data-neu]').forEach(function(b){ b.onclick = function(){ liste.push({id:'', gruppe:b.dataset.neu, titel:'', preis:0, text:''}); zeichne(); var r = $('sheetIn').querySelectorAll('.kat-r'); r[r.length - 1] && r[r.length - 1].querySelector('.kt').focus(); }; });
+      $('katSpeichern').onclick = function(){
+        var b = this; b.disabled = true;
+        var sauber = liste.filter(function(x){ return (x.titel || '').trim(); });
+        api('katalogSpeichern', {katalog: sauber}).then(function(d){ katalog = d.katalog; toast('Preise gespeichert'); schliesseSheet(); })
+          .catch(function(e){ b.disabled = false; if(e.message !== '401') toast('Speichern hat nicht geklappt.'); });
+      };
+    }
+    zeichne();
+  }).catch(function(e){ if(e.message !== '401') toast('Konnte die Preise nicht laden.'); });
+}
+
+/* ── Neue Anfrage selbst anlegen ── */
+var AKTION_BIS = '2026-11-15', AKTION_PROZENT = 15;
+function aktionAktiv(){ return new Date().toLocaleDateString('sv-SE', {timeZone:'Europe/Vienna'}) <= AKTION_BIS; }
+function neuSheet(){
+  oeffneSheet('<h3>Neue Anfrage</h3><p>Wird geladen …</p>');
+  ladeKatalog().then(function(k){
+    var gewaehlt = {}, anreise = null, anrNr = 0;
+    var chips = GRUPPEN.map(function(g){
+      var l = k.filter(function(x){ return x.gruppe === g[0] && x.aktiv !== false; });
+      return l.length ? '<div class="kat-g">' + g[1] + '</div><div class="neu-chips">' + l.map(function(x){ return '<button type="button" class="neu-chip" data-id="' + esc(x.id) + '">' + esc(x.titel) + '<small>' + eur(x.preis) + '</small></button>'; }).join('') + '</div>' : '';
+    }).join('');
+    $('sheetIn').innerHTML = '<h3>Neue Anfrage</h3>' +
+      '<div class="grid2"><div class="feld"><label>Vorname</label><input id="nVn" autocomplete="off"/></div><div class="feld"><label>Nachname</label><input id="nNn" autocomplete="off"/></div></div>' +
+      '<div class="feld"><label>Handynummer (WhatsApp)</label><input id="nTel" type="tel" inputmode="tel" placeholder="0664 …"/></div>' +
+      '<div class="grid2"><div class="feld"><label>Datum</label><input id="nDat" type="date"/></div><div class="feld"><label>Bis (optional)</label><input id="nEnd" type="date"/></div></div>' +
+      '<div class="feld"><label>Straße &amp; Nr.</label><input id="nStr" autocomplete="off"/></div>' +
+      '<div class="grid2"><div class="feld"><label>PLZ</label><input id="nPlz" inputmode="numeric"/></div><div class="feld"><label>Ort</label><input id="nOrt" autocomplete="off"/></div></div>' +
+      '<div id="nAnr" class="bew-status" style="margin:-4px 0 6px;min-height:2.9em">Adresse eingeben, dann wird die Anreise berechnet.</div>' +
+      chips +
+      '<label class="emp-sw" style="margin-top:14px" id="nAkW" hidden><input type="checkbox" id="nAk" checked/><span>Winter-Rabatt −' + AKTION_PROZENT + ' % auf die Fotobox</span></label>' +
+      '<label class="emp-sw" style="margin-top:10px"><input type="checkbox" id="nEmp"/><span>Empfehlungs-Deal (−30 €) anbieten</span></label>' +
+      '<label class="emp-sw" style="margin-top:10px"><input type="checkbox" id="nSelbst"/><span>Holt selbst ab (keine Lieferung)</span></label>' +
+      '<div class="feld" style="margin-top:12px"><label>Notiz (optional)</label><textarea id="nNotiz" rows="2" placeholder="z. B. 40er, Aufbau im Garten"></textarea></div>' +
+      '<div class="zeile" style="font-weight:800;font-size:1.05rem"><span style="color:var(--ink)">Gesamt</span><span id="nSum">–</span></div>' +
+      '<button class="btn btn-p btn-w" id="nGo">Anlegen</button><div class="fehler" id="nFehler"></div>';
+    function v(id){ return ($(id).value || '').trim(); }
+    function positionen(){
+      var pos = [];
+      k.forEach(function(x){ if(gewaehlt[x.id]) pos.push({art: x.gruppe === 'extra' ? 'extra' : 'miete', titel: x.titel, text: x.text || '', betrag: x.preis}); });
+      if($('nAk').checked && aktionAktiv()){
+        k.forEach(function(x){ if(gewaehlt[x.id] && x.gruppe === 'foto'){ var r = x.preis - Math.floor(x.preis * (100 - AKTION_PROZENT) / 100); if(r > 0) pos.push({art:'rabatt', titel:'Start-in-den-Winter-Rabatt (−' + AKTION_PROZENT + ' %)', text:'Aktion bis 15. November auf alle Fotobox-Pakete', betrag:-r}); } });
+      }
+      if(!$('nSelbst').checked){
+        pos.push({art:'lieferung', titel:'Lieferung & Abholung', text:'Glödnitz – ' + (v('nOrt') || 'Kunde') + (anreise ? ' · 4 Fahrten à ' + anreise.km + ' km × 0,55 €' : ''), betrag: anreise ? anreise.anreise : null});
+      }
+      return pos;
+    }
+    function summe(){
+      var fotoDa = k.some(function(x){ return gewaehlt[x.id] && x.gruppe === 'foto'; });
+      $('nAkW').hidden = !(fotoDa && aktionAktiv());
+      var t = positionen().reduce(function(s, p){ return s + (Number(p.betrag) || 0); }, 0);
+      var fehlt = !$('nSelbst').checked && !anreise;
+      $('nSum').textContent = eur(t) + (fehlt ? ' + Anreise' : '');
+    }
+    function anreiseHolen(){
+      var ort = (v('nPlz') + ' ' + v('nOrt')).trim(); if(!ort){ anreise = null; $('nAnr').textContent = ''; summe(); return; }
+      var q = [v('nStr'), ort].filter(Boolean).join(', '), nr = ++anrNr;
+      $('nAnr').textContent = 'Anreise wird berechnet …';
+      fetch('/.netlify/functions/anreise?q=' + encodeURIComponent(q), {headers:{Accept:'application/json'}}).then(function(r){ return r.json(); }).then(function(d){
+        if(nr !== anrNr) return;
+        if(d && d.ok && d.km){ anreise = d; $('nAnr').textContent = d.km + ' km ab Glödnitz · Anreise ' + eur(d.anreise) + (d.ort ? ' (' + d.ort + ')' : ''); }
+        else { anreise = null; $('nAnr').textContent = 'Adresse nicht gefunden, Anreise bitte im Angebot eintragen.'; }
+        summe();
+      }).catch(function(){ if(nr === anrNr){ anreise = null; $('nAnr').textContent = 'Anreise konnte nicht berechnet werden.'; summe(); } });
+    }
+    ['nStr','nPlz','nOrt'].forEach(function(id){ $(id).addEventListener('change', anreiseHolen); });
+    ['nAk','nSelbst'].forEach(function(id){ $(id).addEventListener('change', summe); });
+    $('sheetIn').querySelectorAll('.neu-chip').forEach(function(c){ c.onclick = function(){ gewaehlt[c.dataset.id] = !gewaehlt[c.dataset.id]; c.classList.toggle('on', !!gewaehlt[c.dataset.id]); summe(); }; });
+    summe();
+    $('nGo').onclick = function(){
+      $('nFehler').textContent = '';
+      if(!v('nVn') && !v('nNn')){ $('nFehler').textContent = 'Bitte einen Namen eintragen.'; return; }
+      var pos = positionen();
+      if(!pos.some(function(p){ return p.art !== 'lieferung'; })){ $('nFehler').textContent = 'Bitte mindestens ein Angebot antippen.'; return; }
+      var fotoNur = k.some(function(x){ return gewaehlt[x.id] && x.gruppe === 'foto'; }) && !k.some(function(x){ return gewaehlt[x.id] && x.gruppe === 'burg'; });
+      var b = this; b.disabled = true; b.textContent = 'Wird angelegt …';
+      api('anlegen', {daten: {
+        typ: fotoNur ? 'foto' : 'burg',
+        kunde: {vorname: v('nVn'), nachname: v('nNn'), telefon: v('nTel'), email: ''},
+        adresse: {strasse: v('nStr'), plz: v('nPlz'), ort: v('nOrt')},
+        datum: v('nDat'), datumEnde: v('nEnd'),
+        anreise: anreise ? {km: anreise.km, betrag: anreise.anreise, ort: anreise.ort} : null,
+        empfehlung: {aktiv: $('nEmp').checked, code: ''},
+        notiz: v('nNotiz'), positionen: pos
+      }}).then(function(d){
+        alle.push(d.anfrage); schliesseSheet();
+        tab = 'ausstehend'; document.querySelectorAll('.tab').forEach(function(x){ x.classList.toggle('on', x.dataset.t === 'ausstehend'); });
+        zeichneListe(); setTimeout(function(){ oeffneDetail(d.anfrage.id); }, 330); toast('Anfrage angelegt');
+      }).catch(function(e){ b.disabled = false; b.textContent = 'Anlegen'; if(e.message !== '401') $('nFehler').textContent = 'Hat nicht geklappt. Versuch es nochmal.'; });
+    };
+  }).catch(function(e){ if(e.message !== '401') toast('Konnte die Angebote nicht laden.'); });
+}
+
+/* ── Einnahmen ── */
+var einJahr = new Date().getFullYear();
+function einnahmenDaten(jahr){
+  var l = alle.filter(function(a){ return (a.status === 'fix' || a.status === 'erledigt' || (a.status === 'archiv' && (a.vorherStatus === 'fix' || a.vorherStatus === 'erledigt'))) && (a.datum || '').slice(0,4) === String(jahr); });
+  var monate = MONATE.map(function(){ return {fix:0, erledigt:0, anzahl:0}; }), geraete = {};
+  l.forEach(function(a){
+    var s = summen(a), m = +a.datum.slice(5,7) - 1, erl = a.status !== 'fix';
+    monate[m][erl ? 'erledigt' : 'fix'] += s.gesamt; monate[m].anzahl++;
+    (a.positionen || []).forEach(function(p){ if(p.art !== 'miete' && p.art !== 'extra') return; var t = p.titel || 'Sonstiges'; geraete[t] = geraete[t] || {anzahl:0, summe:0}; geraete[t].anzahl++; geraete[t].summe += Number(p.betrag) || 0; });
+  });
+  return {liste: l, monate: monate, geraete: geraete};
+}
+function einnahmenSheet(){
+  var d = einnahmenDaten(einJahr);
+  var sumE = d.monate.reduce(function(s, m){ return s + m.erledigt; }, 0), sumF = d.monate.reduce(function(s, m){ return s + m.fix; }, 0);
+  var h = '<h3>Einnahmen</h3><div class="fb-kopf" style="padding:0 0 8px"><button class="ikon" id="eVor" aria-label="Jahr zurück"><svg class="i" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><b>' + einJahr + '</b><button class="ikon" id="eNach" aria-label="Jahr vor"><svg class="i" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>' +
+    '<button class="btn btn-p fb-xls" id="eXls"><svg class="i" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Excel</button></div>' +
+    '<div class="umsatz" style="margin-bottom:12px"><div><span>Erledigt</span><b>' + eur(sumE) + '</b></div><div><span>Noch fix geplant</span><b>' + eur(sumF) + '</b></div></div>' +
+    '<table class="ein-t"><tr><th>Monat</th><th>Feste</th><th>Erledigt</th><th>Geplant</th></tr>' +
+    d.monate.map(function(m, i){ return m.anzahl ? '<tr><td>' + MONATE[i] + '</td><td>' + m.anzahl + '</td><td>' + eur(m.erledigt) + '</td><td>' + eur(m.fix) + '</td></tr>' : ''; }).join('') +
+    '</table>';
+  var g = Object.keys(d.geraete).sort(function(x, y){ return d.geraete[y].summe - d.geraete[x].summe; });
+  if(g.length) h += '<div class="kat-g">Pro Angebot</div><table class="ein-t"><tr><th>Angebot</th><th>Mal</th><th>Umsatz</th></tr>' + g.map(function(t){ return '<tr><td>' + esc(t) + '</td><td>' + d.geraete[t].anzahl + '</td><td>' + eur(d.geraete[t].summe) + '</td></tr>'; }).join('') + '</table>';
+  if(!d.liste.length) h += '<div class="leer" style="padding:30px 10px"><b>Noch keine Buchungen in ' + einJahr + '</b></div>';
+  oeffneSheetOderErsetzen(h);
+  $('eVor').onclick = function(){ einJahr--; einnahmenSheet(); };
+  $('eNach').onclick = function(){ einJahr++; einnahmenSheet(); };
+  $('eXls').onclick = function(){ einnahmenExcel(einJahr); };
+}
+function oeffneSheetOderErsetzen(h){ if($('sheet').classList.contains('auf')) $('sheetIn').innerHTML = h; else oeffneSheet(h); }
+function einnahmenExcel(jahr){
+  ladeXlsx().then(function(X){
+    var d = einnahmenDaten(jahr), wb = X.utils.book_new();
+    var b = [['Datum', 'Angebot-Nr.', 'Kunde', 'Ort', 'Leistung', 'Miete', 'Anreise', 'Gesamt', 'Anzahlung erhalten', 'Status']];
+    d.liste.slice().sort(function(x, y){ return (x.datum || '').localeCompare(y.datum || ''); }).forEach(function(a){
+      var s = summen(a);
+      b.push([datumKurz(a.datum), a.nr || '', ((a.kunde.vorname || '') + ' ' + (a.kunde.nachname || '')).trim(), (a.adresse && a.adresse.ort) || '', produkte(a), s.miete, s.liefer, s.gesamt, a.anzahlungErhaltenAm ? 'ja' : 'nein', a.status === 'fix' ? 'geplant' : 'erledigt']);
+    });
+    var w1 = X.utils.aoa_to_sheet(b); w1['!cols'] = [{wch:11},{wch:11},{wch:22},{wch:16},{wch:30},{wch:9},{wch:9},{wch:9},{wch:18},{wch:10}];
+    X.utils.book_append_sheet(wb, w1, 'Buchungen');
+    var m = [['Monat', 'Feste', 'Erledigt (€)', 'Geplant (€)']];
+    d.monate.forEach(function(x, i){ m.push([MONATE[i], x.anzahl, Math.round(x.erledigt * 100) / 100, Math.round(x.fix * 100) / 100]); });
+    m.push([]); m.push(['Gesamt', d.liste.length, d.monate.reduce(function(s, x){ return s + x.erledigt; }, 0), d.monate.reduce(function(s, x){ return s + x.fix; }, 0)]);
+    X.utils.book_append_sheet(wb, X.utils.aoa_to_sheet(m), 'Monate');
+    var g = [['Angebot', 'Anzahl', 'Umsatz (€)']];
+    Object.keys(d.geraete).forEach(function(t){ g.push([t, d.geraete[t].anzahl, Math.round(d.geraete[t].summe * 100) / 100]); });
+    X.utils.book_append_sheet(wb, X.utils.aoa_to_sheet(g), 'Pro Angebot');
+    X.writeFile(wb, 'Einnahmen_' + jahr + '_Huepfabenteuer.xlsx');
+  }).catch(function(){ toast('Excel konnte nicht geladen werden.'); });
+}
 
 /* ── Start ── */
 schluessel = lsGet();

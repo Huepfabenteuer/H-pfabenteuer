@@ -21,13 +21,15 @@
      POST { action:"wiederherstellen", id }
      POST { action:"loeschen", id }        → endgültig (nur aus dem Papierkorb)
      POST { action:"bewertung", id, schritt:"angefragt"|"erinnert"|"erhalten"|"zuruecksetzen" }
+     POST { action:"fahrten", id, fahrten:{ liefer, abhol, km } }   → Fahrtenbuch
+     POST { action:"neueFassung", id }   → geändertes Angebot neu senden
 
    Braucht in Netlify die Umgebungsvariable ADMIN_KEY (dein Passwort für
    die Verwaltung). Gespeichert wird in Netlify Blobs („anfragen“).
    ═══════════════════════════════════════════════════════════════════════ */
 
 import { FIRMA } from '../lib/firma.mjs';
-import { saeubere, summen, waZusage, waAbsage, waNummer, datumKurz, waBewertung, waBewertungErinnerung, geraeteSchluessel, tageDerBuchung, istFix } from '../lib/anfrage-daten.mjs';
+import { saeubere, summen, waZusage, waAbsage, waNummer, datumKurz, waBewertung, waBewertungErinnerung, geraeteSchluessel, tageDerBuchung, istFix, empfehlungscode, waAnzahlung, KATALOG_STANDARD, saeubereKatalog, fristDatum } from '../lib/anfrage-daten.mjs';
 import { erstelleAngebotPdf } from '../lib/angebot-pdf.mjs';
 
 const STORE = 'anfragen';
@@ -50,7 +52,23 @@ function zufall(n) {
 function siteUrl(req) {
   return (process.env.URL || new URL(req.url).origin).replace(/\/$/, '');
 }
-function pdfLink(req, a) { return siteUrl(req) + '/angebot/' + a.id + '/' + a.token; }
+function pdfLink(req, a) { return siteUrl(req) + '/angebot/' + a.id + '/' + (a.pdfToken || a.token); }
+
+/* ── Gesendete Angebote einfrieren ──
+   Jedes verschickte Angebot wird als eigene Fassung gespeichert (v/<id>/<token>).
+   Der Link im WhatsApp-Chat zeigt immer genau diese Fassung, auch wenn die
+   Anfrage danach geändert oder gelöscht wird. */
+const VERS = 'v/';
+const PDF_FELDER = ['positionen', 'anrede', 'anzahlung', 'empfehlung', 'kunde', 'adresse', 'datum', 'datumEnde', 'anlass'];
+function pdfStand(a) { return JSON.stringify(PDF_FELDER.map(f => a[f] ?? null)); }
+async function fassungSpeichern(st, a, token) {
+  const t = token || zufall(20);
+  const { versionen, ...rest } = a;
+  await st.setJSON(VERS + a.id + '/' + t, { ...rest, gesendetAm: new Date().toISOString() });
+  a.pdfToken = t;
+  a.versionen = [...(a.versionen || []), { token: t, am: new Date().toISOString() }];
+  a.geaendertNachVersand = false;
+}
 
 /* Für die Verwaltung: Eintrag + fertige Zusatzinfos */
 function anreichern(req, a) {
@@ -58,6 +76,8 @@ function anreichern(req, a) {
   const out = { ...a, summen: s, waNummer: waNummer(a.kunde.telefon) };
   if (a.nr) { out.pdf = pdfLink(req, a); out.waText = waZusage(a, out.pdf); }
   out.waAbsage = waAbsage(a);
+  out.waAnzahlung = waAnzahlung(a);
+  out.anzahlungFrist = fristDatum(a.datum);
   out.waBewertung = waBewertung(a);
   out.waErinnerung = waBewertungErinnerung(a);
   out.erinnerungNachTagen = FIRMA.erinnerungNachTagen;
@@ -143,9 +163,21 @@ export default async (req, context) => {
   if (req.method === 'GET' && pdfId) {
     try {
       const st = await store();
-      const a = await st.get(PREFIX + pdfId, { type: 'json' });
       const admin = istAdmin(req);
-      if (!a || (!admin && (!pdfToken || pdfToken !== a.token)) || (!a.nr && !admin)) {
+      const sicher = /^[a-z0-9]{4,40}$/;
+      let a = null;
+      if (pdfToken && sicher.test(pdfId) && sicher.test(pdfToken)) {
+        try { a = await st.get(VERS + pdfId + '/' + pdfToken, { type: 'json' }); } catch (e) {}
+      }
+      if (!a) {
+        const live = await st.get(PREFIX + pdfId, { type: 'json' });
+        if (live && pdfToken && pdfToken === live.token && live.nr) {
+          /* Ältere Angebote ohne Fassung: jetzt einfrieren */
+          await st.setJSON(VERS + live.id + '/' + live.token, { ...live, gesendetAm: live.angenommenAm || new Date().toISOString() });
+          a = live;
+        } else if (live && admin && !pdfToken) a = live;   /* Entwurf für Alex */
+      }
+      if (!a || (!a.nr && !admin)) {
         return new Response('Angebot nicht gefunden.', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
       }
       const bytes = await erstelleAngebotPdf(a);
@@ -157,6 +189,17 @@ export default async (req, context) => {
     } catch (e) {
       return new Response('Das Angebot konnte gerade nicht erstellt werden.', { status: 500, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
     }
+  }
+
+  /* ── Angebote & Preise (öffentlich lesbar) ── */
+  if (req.method === 'GET' && url.searchParams.has('katalog')) {
+    try {
+      const st = await store();
+      let k = null; try { k = await st.get('meta/katalog', { type: 'json' }); } catch (e) {}
+      return new Response(JSON.stringify({ ok: true, katalog: (k && k.liste) || KATALOG_STANDARD, stand: (k && k.stand) || null }), {
+        status: 200, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=60' }
+      });
+    } catch (e) { return json({ ok: true, katalog: KATALOG_STANDARD }, 200); }
   }
 
   /* ── Belegte Tage für die Formulare (öffentlich) ── */
@@ -211,6 +254,76 @@ export default async (req, context) => {
     return json({ ok: true, anfragen: alle.map(a => anreichern(req, a)) });
   }
 
+  if (body.action === 'katalog') {
+    let k = null; try { k = await st.get('meta/katalog', { type: 'json' }); } catch (e) {}
+    return json({ ok: true, katalog: (k && k.liste) || KATALOG_STANDARD, standard: !k });
+  }
+  if (body.action === 'katalogSpeichern') {
+    const liste = saeubereKatalog(body.katalog);
+    if (!liste || !liste.length) return json({ ok: false, grund: 'katalog' }, 400);
+    await st.setJSON('meta/katalog', { stand: new Date().toISOString(), liste });
+    return json({ ok: true, katalog: liste });
+  }
+  /* ── Alle verschickten Angebote (eingefrorene Fassungen) ── */
+  if (body.action === 'angebote') {
+    /* Ältere Angebote ohne Fassung einmal einfrieren */
+    for (const a of await alleAnfragen(st)) {
+      if (!a.nr || a.pdfToken) continue;
+      const k = VERS + a.id + '/' + a.token;
+      const da = await st.get(k, { type: 'json' }).catch(() => null);
+      if (!da) await st.setJSON(k, { ...a, gesendetAm: a.angenommenAm || a.erstellt });
+    }
+    const { blobs } = await st.list({ prefix: VERS });
+    const liste = (await Promise.all(blobs.map(async b => {
+      const v = await st.get(b.key, { type: 'json' }).catch(() => null);
+      if (!v) return null;
+      const t = b.key.split('/')[2];
+      return { id: v.id, token: t, nr: v.nr, kunde: v.kunde, adresse: v.adresse, datum: v.datum, datumEnde: v.datumEnde,
+        positionen: v.positionen, anzahlung: v.anzahlung, anrede: v.anrede || '', summen: summen(v),
+        gesendetAm: v.gesendetAm, bearbeitetAm: v.bearbeitetAm || null, waNummer: waNummer(v.kunde && v.kunde.telefon),
+        pdf: siteUrl(req) + '/angebot/' + v.id + '/' + t };
+    }))).filter(Boolean);
+    return json({ ok: true, angebote: liste });
+  }
+  /* Verschicktes Angebot bewusst ändern: der Link beim Kunden zeigt danach die neue Fassung */
+  if (body.action === 'angebotSpeichern') {
+    const vid = String(body.id || ''), vt = String(body.token || '');
+    if (!/^[a-z0-9]{4,40}$/.test(vid) || !/^[a-z0-9]{4,40}$/.test(vt)) return json({ ok: false, grund: 'id' }, 400);
+    const key = VERS + vid + '/' + vt;
+    const v = await st.get(key, { type: 'json' });
+    if (!v) return json({ ok: false, grund: 'nicht-gefunden' }, 404);
+    const p = body.patch || {};
+    const sauber = saeubere({ ...v, positionen: Array.isArray(p.positionen) ? p.positionen : v.positionen });
+    v.positionen = sauber.positionen;
+    if ('anzahlung' in p) v.anzahlung = (p.anzahlung === '' || p.anzahlung == null || isNaN(Number(p.anzahlung))) ? null : Math.round(Number(p.anzahlung) * 100) / 100;
+    if ('anrede' in p) v.anrede = ['herr', 'frau', ''].includes(p.anrede) ? p.anrede : '';
+    v.bearbeitetAm = new Date().toISOString();
+    await st.setJSON(key, v);
+    /* Ist das die aktuelle Fassung der Anfrage, dort auch übernehmen */
+    const live = await st.get(PREFIX + vid, { type: 'json' }).catch(() => null);
+    if (live && (live.pdfToken || live.token) === vt) {
+      live.positionen = v.positionen; live.anzahlung = v.anzahlung; live.anrede = v.anrede;
+      live.geaendertNachVersand = false; live.geaendert = v.bearbeitetAm;
+      await st.setJSON(PREFIX + vid, live);
+    }
+    return json({ ok: true, angebot: { id: vid, token: vt, summen: summen(v), bearbeitetAm: v.bearbeitetAm } });
+  }
+
+  /* Anfrage selbst anlegen (Telefon, WhatsApp) */
+  if (body.action === 'anlegen') {
+    const daten = saeubere({ ...body.daten, quelle: (body.daten && body.daten.quelle) || 'Telefon/WhatsApp' });
+    if (!daten.kunde.vorname && !daten.kunde.nachname) return json({ ok: false, grund: 'name' }, 400);
+    const id = Date.now().toString(36) + zufall(4);
+    const eintrag = {
+      id, token: zufall(20), erstellt: new Date().toISOString(),
+      status: 'ausstehend', nr: null, anrede: '', notiz: String((body.daten && body.daten.notiz) || '').slice(0, 2000), anzahlung: null,
+      ...daten, manuell: true
+    };
+    if (eintrag.empfehlung.aktiv && !eintrag.empfehlung.code) eintrag.empfehlung.code = empfehlungscode(eintrag.kunde.nachname, eintrag.kunde.vorname);
+    await st.setJSON(PREFIX + id, eintrag);
+    return json({ ok: true, anfrage: anreichern(req, eintrag) });
+  }
+
   const id = String(body.id || '');
   const a = id ? await st.get(PREFIX + id, { type: 'json' }) : null;
   if (!a) return json({ ok: false, grund: 'nicht-gefunden' }, 404);
@@ -221,8 +334,13 @@ export default async (req, context) => {
     const neu = { ...a, ...sauber };
     if ('anrede' in p) neu.anrede = ['herr', 'frau', ''].includes(p.anrede) ? p.anrede : '';
     if ('notiz' in p) neu.notiz = String(p.notiz || '').slice(0, 2000);
+    if ('empfehlung' in p) {
+      const aktiv = !!(p.empfehlung && p.empfehlung.aktiv);
+      neu.empfehlung = { aktiv, code: (a.empfehlung && a.empfehlung.code) || (aktiv ? empfehlungscode(neu.kunde.nachname, neu.kunde.vorname) : '') };
+    }
     if ('anzahlung' in p) neu.anzahlung = (p.anzahlung === '' || p.anzahlung == null || isNaN(Number(p.anzahlung))) ? null : Math.round(Number(p.anzahlung) * 100) / 100;
     neu.geaendert = new Date().toISOString();
+    if ((neu.status === 'fix' || neu.status === 'erledigt') && neu.pdfToken && pdfStand(neu) !== pdfStand(a)) neu.geaendertNachVersand = true;
     await st.setJSON(PREFIX + id, neu);
     await belegtNeuBerechnen(st);
     return json({ ok: true, anfrage: anreichern(req, neu) });
@@ -232,6 +350,7 @@ export default async (req, context) => {
     if (!a.nr) a.nr = await naechsteNr(st);
     a.status = 'fix';
     a.angenommenAm = a.angenommenAm || new Date().toISOString();
+    if (!a.pdfToken) await fassungSpeichern(st, a);
     await st.setJSON(PREFIX + id, a);
     await belegtNeuBerechnen(st);
     return json({ ok: true, anfrage: anreichern(req, a) });
@@ -262,6 +381,50 @@ export default async (req, context) => {
     else if (body.schritt === 'zuruecksetzen') { delete b.erhalten; delete b.angefragtAm; delete b.erinnertAm; }
     else return json({ ok: false, grund: 'schritt' }, 400);
     a.bewertung = b;
+    await st.setJSON(PREFIX + id, a);
+    return json({ ok: true, anfrage: anreichern(req, a) });
+  }
+
+  if (body.action === 'anzahlung') {
+    if (body.erhalten) a.anzahlungErhaltenAm = a.anzahlungErhaltenAm || new Date().toISOString();
+    else delete a.anzahlungErhaltenAm;
+    if (body.erinnert) a.anzahlungErinnertAm = new Date().toISOString();
+    await st.setJSON(PREFIX + id, a);
+    return json({ ok: true, anfrage: anreichern(req, a) });
+  }
+  if (body.action === 'abschliessen' || body.action === 'wiederoeffnen') {
+    if (body.action === 'abschliessen') { if (a.status !== 'fix') return json({ ok: false, grund: 'nicht-fix' }, 400); a.status = 'erledigt'; a.abgeschlossenAm = new Date().toISOString(); }
+    else { if (a.status !== 'erledigt') return json({ ok: false, grund: 'nicht-erledigt' }, 400); a.status = 'fix'; delete a.abgeschlossenAm; }
+    a.geaendert = new Date().toISOString();
+    await st.setJSON(PREFIX + id, a);
+    await belegtNeuBerechnen(st);
+    return json({ ok: true, anfrage: anreichern(req, a) });
+  }
+
+  /* Fahrtenbuch zu einer Buchung speichern (ändert das Angebot nicht) */
+  if (body.action === 'fahrten') {
+    const f = body.fahrten || {};
+    const zeit = v => /^\d{2}:\d{2}$/.test(v || '') ? v : '';
+    const tag = v => /^\d{4}-\d{2}-\d{2}$/.test(v || '') ? v : '';
+    const fahrt = x => ({ ab: zeit(x && x.ab), an: zeit(x && x.an) });
+    const stand = v => { const n = Number(v); return v !== '' && v != null && isFinite(n) && n >= 0 && n < 10000000 ? Math.round(n) : null; };
+    const einsatz = x => ({ datum: tag(x && x.datum), hin: fahrt(x && x.hin), rueck: fahrt(x && x.rueck),
+      stand: { start: stand(x && x.stand && x.stand.start), kunde: stand(x && x.stand && x.stand.kunde), ende: stand(x && x.stand && x.stand.ende) } });
+    const km = Number(f.km);
+    a.fahrten = {
+      liefer: einsatz(f.liefer), abhol: einsatz(f.abhol),
+      km: isFinite(km) && km >= 0 && km < 2000 ? Math.round(km * 10) / 10 : null,
+      notiz: String(f.notiz || '').slice(0, 300),
+      fahrzeug: String(f.fahrzeug || '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, 40)
+    };
+    await st.setJSON(PREFIX + id, a);
+    return json({ ok: true, anfrage: anreichern(req, a) });
+  }
+
+  /* Geändertes Angebot neu senden: neue Fassung, neuer Link (alter bleibt gültig) */
+  if (body.action === 'neueFassung') {
+    if (a.status !== 'fix' && a.status !== 'erledigt') return json({ ok: false, grund: 'nicht-fix' }, 400);
+    await fassungSpeichern(st, a);
     await st.setJSON(PREFIX + id, a);
     return json({ ok: true, anfrage: anreichern(req, a) });
   }
