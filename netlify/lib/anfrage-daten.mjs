@@ -86,6 +86,7 @@ export function geraeteSchluessel(a) {
     const t = String(p.titel || '').toLowerCase();
     if (t.includes('fotobox')) out.add('fotobox');
     for (const g of GERAETE) if (t.includes(g)) out.add(g);
+    if (t.includes('feuerwehr')) out.add('feuerwehrburg');
   }
   if (!out.size && (a.typ === 'foto' || a.typ === 'hochzeit')) out.add('fotobox');
   return [...out];
@@ -104,7 +105,7 @@ export function tageDerBuchung(a) {
 
 /* Gilt die Anfrage als feste Buchung? (fix, oder fix und danach archiviert) */
 export function istFix(a) {
-  return a.status === 'fix' || (a.status === 'archiv' && a.vorherStatus === 'fix');
+  return a.status === 'fix' || a.status === 'erledigt' || (a.status === 'archiv' && (a.vorherStatus === 'fix' || a.vorherStatus === 'erledigt'));
 }
 
 /* Persönlicher Empfehlungscode, z. B. MUSTER-K7Q */
@@ -218,6 +219,60 @@ export function waAbsage(a) {
     'LG Alexander – ' + FIRMA.name,
     FIRMA.web
   ].join('\n');
+}
+
+/* ── Erinnerung an die Anzahlung ── */
+export function waAnzahlung(a) {
+  const s = summen(a);
+  const vz = 'Anzahlung ' + produktText(a, true) + ' ' + datumKurz(a.datum) + ' – ' + (a.kunde.nachname || a.kunde.vorname || '');
+  return [
+    'Hallo ' + (a.kunde.vorname || '') + ', kurze Erinnerung zu deinem Termin am ' + datumKurz(a.datum) + ':',
+    '',
+    'Damit er fix für dich reserviert bleibt, bräuchte ich noch die Anzahlung von ' + eur(s.anzahlung) + ' € bis ' + fristDatum(a.datum) + '.',
+    '',
+    'Empfänger: ' + FIRMA.empfaenger,
+    'IBAN: ' + FIRMA.iban,
+    'Verwendungszweck: ' + vz,
+    '',
+    'Falls du schon überwiesen hast, passt alles, dann einfach ignorieren 😊',
+    '',
+    'LG Alexander – ' + FIRMA.name
+  ].join('\n');
+}
+
+/* ── Angebote & Preise (Standard, in der Verwaltung änderbar) ── */
+export const KATALOG_STANDARD = [
+  { id: 'alienburg', gruppe: 'burg', titel: 'Alienburg', preis: 180, text: 'Hüpfburg Alienburg – Vermietung' },
+  { id: 'piratenburg', gruppe: 'burg', titel: 'Piratenburg', preis: 140, text: 'Hüpfburg Piratenburg – Vermietung' },
+  { id: 'ritterburg', gruppe: 'burg', titel: 'Ritterburg', preis: 140, text: 'Hüpfburg Ritterburg – Vermietung' },
+  { id: 'feuerwehrburg', gruppe: 'burg', titel: 'Feuerwehrburg', preis: 140, text: 'Hüpfburg Feuerwehrburg – Vermietung' },
+  { id: 'candyburg', gruppe: 'burg', titel: 'Candyburg', preis: 120, text: 'Hüpfburg Candyburg – Vermietung' },
+  { id: 'hochzeitsburg', gruppe: 'burg', titel: 'Hochzeitsburg', preis: 220, text: 'Hochzeitsburg inkl. Deko, Aufbau inklusive' },
+  { id: 'fotobox-digital', gruppe: 'foto', titel: 'Fotobox Digital', preis: 199, text: 'Ganzer Abend, unbegrenzt digitale Fotos, Auf- und Abbau inklusive' },
+  { id: 'fotobox-standard', gruppe: 'foto', titel: 'Fotobox Standard', preis: 299, text: 'Sofortdruck, 300 Ausdrucke, alle Fotos digital, Auf- und Abbau inklusive' },
+  { id: 'fotobox-premium', gruppe: 'foto', titel: 'Fotobox Premium', preis: 349, text: 'Sofortdruck, 300 Ausdrucke, eigener Rahmen, Accessoire-Set' },
+  { id: 'aufbau', gruppe: 'extra', titel: 'Auf- und Abbau', preis: 50, text: 'Aufbau und Abbau durch Hüpfabenteuer' },
+  { id: 'zuckerwatte', gruppe: 'extra', titel: 'Zuckerwatte', preis: 45, text: 'Zuckerwattemaschine' },
+  { id: 'popcorn', gruppe: 'extra', titel: 'Popcorn', preis: 60, text: 'Popcornmaschine' },
+  { id: 'zuckerwatte-set', gruppe: 'extra', titel: 'Zuckerwatte-Set', preis: 20, text: 'Zucker und Stäbchen' },
+  { id: 'popcorn-set', gruppe: 'extra', titel: 'Popcorn-Set', preis: 20, text: 'Mais, Öl und Tüten' }
+];
+export function saeubereKatalog(liste) {
+  if (!Array.isArray(liste)) return null;
+  const ids = new Set();
+  return liste.slice(0, 60).map((x, i) => {
+    let id = String((x && x.id) || '').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 40) || ('p' + Date.now().toString(36) + i);
+    while (ids.has(id)) id += 'x';
+    ids.add(id);
+    const preis = Number(x && x.preis);
+    return {
+      id, gruppe: ['burg', 'foto', 'extra'].includes(x && x.gruppe) ? x.gruppe : 'extra',
+      titel: str(x && x.titel, 60) || 'Ohne Namen',
+      preis: isFinite(preis) && preis >= 0 ? Math.round(preis * 100) / 100 : 0,
+      text: str(x && x.text, 160),
+      aktiv: !(x && x.aktiv === false)
+    };
+  });
 }
 
 /* ── Bewertung (nach dem Fest) ── */

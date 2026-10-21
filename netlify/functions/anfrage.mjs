@@ -29,7 +29,7 @@
    ═══════════════════════════════════════════════════════════════════════ */
 
 import { FIRMA } from '../lib/firma.mjs';
-import { saeubere, summen, waZusage, waAbsage, waNummer, datumKurz, waBewertung, waBewertungErinnerung, geraeteSchluessel, tageDerBuchung, istFix, empfehlungscode } from '../lib/anfrage-daten.mjs';
+import { saeubere, summen, waZusage, waAbsage, waNummer, datumKurz, waBewertung, waBewertungErinnerung, geraeteSchluessel, tageDerBuchung, istFix, empfehlungscode, waAnzahlung, KATALOG_STANDARD, saeubereKatalog, fristDatum } from '../lib/anfrage-daten.mjs';
 import { erstelleAngebotPdf } from '../lib/angebot-pdf.mjs';
 
 const STORE = 'anfragen';
@@ -76,6 +76,8 @@ function anreichern(req, a) {
   const out = { ...a, summen: s, waNummer: waNummer(a.kunde.telefon) };
   if (a.nr) { out.pdf = pdfLink(req, a); out.waText = waZusage(a, out.pdf); }
   out.waAbsage = waAbsage(a);
+  out.waAnzahlung = waAnzahlung(a);
+  out.anzahlungFrist = fristDatum(a.datum);
   out.waBewertung = waBewertung(a);
   out.waErinnerung = waBewertungErinnerung(a);
   out.erinnerungNachTagen = FIRMA.erinnerungNachTagen;
@@ -189,6 +191,17 @@ export default async (req, context) => {
     }
   }
 
+  /* ── Angebote & Preise (öffentlich lesbar) ── */
+  if (req.method === 'GET' && url.searchParams.has('katalog')) {
+    try {
+      const st = await store();
+      let k = null; try { k = await st.get('meta/katalog', { type: 'json' }); } catch (e) {}
+      return new Response(JSON.stringify({ ok: true, katalog: (k && k.liste) || KATALOG_STANDARD, stand: (k && k.stand) || null }), {
+        status: 200, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=60' }
+      });
+    } catch (e) { return json({ ok: true, katalog: KATALOG_STANDARD }, 200); }
+  }
+
   /* ── Belegte Tage für die Formulare (öffentlich) ── */
   if (req.method === 'GET' && url.searchParams.has('verfuegbar')) {
     try {
@@ -241,6 +254,31 @@ export default async (req, context) => {
     return json({ ok: true, anfragen: alle.map(a => anreichern(req, a)) });
   }
 
+  if (body.action === 'katalog') {
+    let k = null; try { k = await st.get('meta/katalog', { type: 'json' }); } catch (e) {}
+    return json({ ok: true, katalog: (k && k.liste) || KATALOG_STANDARD, standard: !k });
+  }
+  if (body.action === 'katalogSpeichern') {
+    const liste = saeubereKatalog(body.katalog);
+    if (!liste || !liste.length) return json({ ok: false, grund: 'katalog' }, 400);
+    await st.setJSON('meta/katalog', { stand: new Date().toISOString(), liste });
+    return json({ ok: true, katalog: liste });
+  }
+  /* Anfrage selbst anlegen (Telefon, WhatsApp) */
+  if (body.action === 'anlegen') {
+    const daten = saeubere({ ...body.daten, quelle: (body.daten && body.daten.quelle) || 'Telefon/WhatsApp' });
+    if (!daten.kunde.vorname && !daten.kunde.nachname) return json({ ok: false, grund: 'name' }, 400);
+    const id = Date.now().toString(36) + zufall(4);
+    const eintrag = {
+      id, token: zufall(20), erstellt: new Date().toISOString(),
+      status: 'ausstehend', nr: null, anrede: '', notiz: String((body.daten && body.daten.notiz) || '').slice(0, 2000), anzahlung: null,
+      ...daten, manuell: true
+    };
+    if (eintrag.empfehlung.aktiv && !eintrag.empfehlung.code) eintrag.empfehlung.code = empfehlungscode(eintrag.kunde.nachname, eintrag.kunde.vorname);
+    await st.setJSON(PREFIX + id, eintrag);
+    return json({ ok: true, anfrage: anreichern(req, eintrag) });
+  }
+
   const id = String(body.id || '');
   const a = id ? await st.get(PREFIX + id, { type: 'json' }) : null;
   if (!a) return json({ ok: false, grund: 'nicht-gefunden' }, 404);
@@ -257,7 +295,7 @@ export default async (req, context) => {
     }
     if ('anzahlung' in p) neu.anzahlung = (p.anzahlung === '' || p.anzahlung == null || isNaN(Number(p.anzahlung))) ? null : Math.round(Number(p.anzahlung) * 100) / 100;
     neu.geaendert = new Date().toISOString();
-    if (neu.status === 'fix' && neu.pdfToken && pdfStand(neu) !== pdfStand(a)) neu.geaendertNachVersand = true;
+    if ((neu.status === 'fix' || neu.status === 'erledigt') && neu.pdfToken && pdfStand(neu) !== pdfStand(a)) neu.geaendertNachVersand = true;
     await st.setJSON(PREFIX + id, neu);
     await belegtNeuBerechnen(st);
     return json({ ok: true, anfrage: anreichern(req, neu) });
@@ -302,6 +340,22 @@ export default async (req, context) => {
     return json({ ok: true, anfrage: anreichern(req, a) });
   }
 
+  if (body.action === 'anzahlung') {
+    if (body.erhalten) a.anzahlungErhaltenAm = a.anzahlungErhaltenAm || new Date().toISOString();
+    else delete a.anzahlungErhaltenAm;
+    if (body.erinnert) a.anzahlungErinnertAm = new Date().toISOString();
+    await st.setJSON(PREFIX + id, a);
+    return json({ ok: true, anfrage: anreichern(req, a) });
+  }
+  if (body.action === 'abschliessen' || body.action === 'wiederoeffnen') {
+    if (body.action === 'abschliessen') { if (a.status !== 'fix') return json({ ok: false, grund: 'nicht-fix' }, 400); a.status = 'erledigt'; a.abgeschlossenAm = new Date().toISOString(); }
+    else { if (a.status !== 'erledigt') return json({ ok: false, grund: 'nicht-erledigt' }, 400); a.status = 'fix'; delete a.abgeschlossenAm; }
+    a.geaendert = new Date().toISOString();
+    await st.setJSON(PREFIX + id, a);
+    await belegtNeuBerechnen(st);
+    return json({ ok: true, anfrage: anreichern(req, a) });
+  }
+
   /* Fahrtenbuch zu einer Buchung speichern (ändert das Angebot nicht) */
   if (body.action === 'fahrten') {
     const f = body.fahrten || {};
@@ -324,7 +378,7 @@ export default async (req, context) => {
 
   /* Geändertes Angebot neu senden: neue Fassung, neuer Link (alter bleibt gültig) */
   if (body.action === 'neueFassung') {
-    if (a.status !== 'fix') return json({ ok: false, grund: 'nicht-fix' }, 400);
+    if (a.status !== 'fix' && a.status !== 'erledigt') return json({ ok: false, grund: 'nicht-fix' }, 400);
     await fassungSpeichern(st, a);
     await st.setJSON(PREFIX + id, a);
     return json({ ok: true, anfrage: anreichern(req, a) });
