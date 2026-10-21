@@ -49,7 +49,7 @@
     '.ak-box{display:flex;gap:12px;align-items:flex-start;margin:0 0 18px;padding:14px 16px;border-radius:12px;border:1.5px solid #C2410C;background:rgba(194,65,12,.07);font-size:.95rem;line-height:1.45}' +
     '.ak-box .ak-i{font-size:1.35rem;line-height:1}' +
     '.ak-box b{font-weight:800}' +
-    '.ak-streifen{display:flex;align-items:center;gap:12px;margin:14px 0 4px;padding:10px 12px;border-radius:12px;background:#0B6B6F;color:#fff;text-decoration:none;max-width:560px;box-shadow:0 6px 18px rgba(8,79,82,.25)}' +
+    '.ak-streifen{display:flex;align-items:center;gap:12px;margin:14px 0 18px;padding:10px 12px;border-radius:12px;background:#0B6B6F;color:#fff;text-decoration:none;max-width:560px;box-shadow:0 6px 18px rgba(8,79,82,.25)}' +
     '.ak-streifen:hover{background:#084F52}' +
     '.ak-s-pill{flex:none;background:#fff;color:#C2410C;font-weight:800;font-size:1.05rem;border-radius:8px;padding:6px 9px;line-height:1}' +
     '.ak-s-txt{flex:1;min-width:0;font-size:.9rem;line-height:1.35}' +
