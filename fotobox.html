@@ -53,9 +53,9 @@
   --paper-ink:#16150F;
   --paper-mute:#6B6659;
 
-  --brass:#C9954A;
-  --brass-lt:#E6C08A;
-  --brass-dim:rgba(201,149,74,.30);
+  --brass:#3A9A9D;
+  --brass-lt:#9FD3D4;
+  --brass-dim:rgba(11,107,111,0.18);
 
   --fog:#A8A49B;
   --fog-2:#726F68;
@@ -158,7 +158,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,s
 .hero::before{
   content:"";position:absolute;top:-30%;left:50%;transform:translateX(-50%);
   width:min(1000px,140%);height:760px;pointer-events:none;
-  background:radial-gradient(ellipse at center, rgba(201,149,74,.16), rgba(201,149,74,.05) 42%, transparent 68%);
+  background:radial-gradient(ellipse at center, rgba(11,107,111,0.096), rgba(11,107,111,0.03) 42%, transparent 68%);
 }
 .hero-in{
   position:relative;z-index:2;max-width:var(--max);margin:0 auto;
@@ -340,7 +340,7 @@ section[id],[id]{scroll-margin-top:72px;}
 
 .speed{
   display:flex;gap:13px;align-items:flex-start;
-  background:rgba(201,149,74,.10);border-left:2px solid var(--brass);
+  background:rgba(11,107,111,0.06);border-left:2px solid var(--brass);
   padding:15px 18px;font-size:.9rem;color:#4A4234;line-height:1.65;
 }
 .speed b{color:var(--paper-ink);}
@@ -358,7 +358,7 @@ section[id],[id]{scroll-margin-top:72px;}
 }
 .opt input{position:absolute;opacity:0;pointer-events:none;}
 .opt:hover{border-color:rgba(22,21,15,.4);}
-.opt.on{border-color:var(--brass);background:rgba(201,149,74,.12);box-shadow:inset 0 0 0 1px var(--brass);}
+.opt.on{border-color:var(--brass);background:rgba(11,107,111,0.072);box-shadow:inset 0 0 0 1px var(--brass);}
 .opt-n{font-family:var(--sans);font-weight:700;font-size:.95rem;}
 .opt-p{font-family:var(--serif);font-size:1.5rem;line-height:1;}
 .opt-d{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-mute);}
@@ -375,7 +375,7 @@ section[id],[id]{scroll-margin-top:72px;}
   transition:border-color .18s,box-shadow .18s;-webkit-appearance:none;appearance:none;
 }
 .f input:focus,.f select:focus,.f textarea:focus{
-  outline:none;border-color:var(--brass);box-shadow:0 0 0 3px rgba(201,149,74,.18);
+  outline:none;border-color:var(--brass);box-shadow:0 0 0 3px rgba(11,107,111,0.108);
 }
 .f textarea{min-height:104px;resize:vertical;line-height:1.65;}
 .f select{
@@ -505,6 +505,8 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
   font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
   color:var(--fog);border:1px solid var(--line-2);border-radius:2px;padding:8px 12px;
 }
+a.ort{text-decoration:none;transition:border-color .2s,color .2s;}
+a.ort:hover{border-color:var(--brass);color:var(--brass-lt);}
 
 
 /* ── Fotorahmen nach Paket ────────────────────────────────── */
@@ -583,7 +585,7 @@ footer{padding:52px 0 40px;position:relative;z-index:2;}
 }
 /* ═══ HELL & ÜBERSICHTLICH (Fotobox-Seiten) ═══ */
 :root{--void:#EAE2D2;--void-2:#E0D6C3;--void-3:#D3C7B0;--paper:#1A1813;--paper-2:#E6DECF;--paper-ink:#FAF7F1;--paper-mute:#6B6659;
-  --brass:#7A5518;--brass-lt:#74501A;--brass-dim:rgba(156,114,47,.35);--fog:#46413A;--fog-2:#5E584C;
+  --brass:#0B6B6F;--brass-lt:#0A6266;--brass-dim:rgba(11,107,111,0.35);--fog:#46413A;--fog-2:#5E584C;
   --line:rgba(26,24,19,.13);--line-2:rgba(26,24,19,.24);--card:#F5F0E5;--cta:#0B6B6F;--cta-h:#084F52;}
 .grain{display:none;}
 body{background:var(--void);color:var(--paper);}
@@ -608,7 +610,7 @@ body{background:var(--void);color:var(--paper);}
 .topbar{background:rgba(247,243,235,.95);border-bottom:1px solid var(--line);}
 .top-nav a{font-family:var(--sans);font-size:.92rem;font-weight:700;letter-spacing:0;text-transform:none;color:var(--fog);}
 .hero{background:linear-gradient(180deg,#F7F3EB 0%,#EFE8DB 100%);}
-.hero::before{background:radial-gradient(ellipse at center,rgba(201,149,74,.13),rgba(201,149,74,.04) 42%,transparent 68%);}
+.hero::before{background:radial-gradient(ellipse at center,rgba(11,107,111,0.078),rgba(11,107,111,0.024) 42%,transparent 68%);}
 .hero-kicker{border-radius:20px;background:rgba(255,255,255,.5);}
 .hero-meta{font-family:var(--sans);font-size:.88rem;letter-spacing:0;color:var(--fog-2);gap:6px 18px;}
 .hero-meta b{color:var(--paper);font-weight:700;}
@@ -699,13 +701,13 @@ footer{background:var(--void-2);}
 }
 .pw-chosen{margin-top:14px;padding:12px 14px;border-radius:8px;background:#fff;border:1px solid var(--line-2);font-size:.95rem;color:var(--fog);}
 .pw-chosen b{color:#1A1813;}
-.pw-chosen a{margin-left:6px;font-weight:700;color:#6B4A12;text-decoration:underline;}
+.pw-chosen a{margin-left:6px;font-weight:700;color:#084F52;text-decoration:underline;}
 .form-head p b{color:#1A1813;}
 /* Wichtiges stärker */
 .hero .lede{color:var(--paper);font-weight:500;}
 .hero .lede b,.hero .lede strong{font-weight:700;}
 h1,h2{font-weight:500;}
-.hero-cta .btn-solid,#submitBtn{min-height:56px;font-size:1rem;box-shadow:0 10px 24px -14px rgba(122,85,24,.8);}
+.hero-cta .btn-solid,#submitBtn{min-height:56px;font-size:1rem;box-shadow:0 10px 24px -14px rgba(11,107,111,0.8);}
 /* Handy: Rahmen und Fotos kompakter (3 nebeneinander) statt endlos scrollen */
 @media(max-width:679px){
   .rahmen-grid,.fotos{grid-template-columns:repeat(3,minmax(0,1fr)) !important;gap:8px !important;}
@@ -1623,20 +1625,22 @@ document.addEventListener('DOMContentLoaded',function(){
       <p class="lede">Wir starten in Glödnitz und liefern von dort im ganzen Bundesland. Jeder Kilometer kostet 0,55 € — gerechnet auf vier Fahrten, weil wir die Box bringen und wieder abholen. Wer uns weiterempfiehlt, bekommt 30 € Rabatt auf die Anreise.</p>
     </div>
     <div class="orte rise">
-      <span class="ort">Klagenfurt</span>
-      <span class="ort">Villach</span>
-      <span class="ort">St. Veit an der Glan</span>
-      <span class="ort">Feldkirchen</span>
-      <span class="ort">Friesach</span>
+      <a class="ort" href="fotobox-mieten-klagenfurt.html">Klagenfurt</a>
+      <a class="ort" href="fotobox-mieten-villach.html">Villach</a>
+      <a class="ort" href="fotobox-mieten-st-veit.html">St. Veit an der Glan</a>
+      <a class="ort" href="fotobox-mieten-feldkirchen.html">Feldkirchen</a>
+      <a class="ort" href="fotobox-mieten-friesach.html">Friesach</a>
       <span class="ort">Gurk</span>
       <span class="ort">Straßburg</span>
-      <span class="ort">Althofen</span>
-      <span class="ort">Wolfsberg</span>
-      <span class="ort">Spittal an der Drau</span>
+      <a class="ort" href="fotobox-mieten-althofen.html">Althofen</a>
+      <a class="ort" href="fotobox-mieten-wolfsberg.html">Wolfsberg</a>
+      <a class="ort" href="fotobox-mieten-spittal.html">Spittal an der Drau</a>
       <span class="ort">Velden</span>
       <span class="ort">Moosburg</span>
       <span class="ort">Hüttenberg</span>
       <span class="ort">Weitensfeld</span>
+      <a class="ort" href="fotobox-mieten-voelkermarkt.html">Völkermarkt</a>
+      <a class="ort" href="fotobox-mieten-hermagor.html">Hermagor</a>
     </div>
     <p class="rahmen-note rise">Dein Ort ist nicht dabei? Kein Problem — schreib ihn einfach ins Formular, dann rechne ich dir die Anfahrt aus. Auch weitere Strecken sind machbar.</p>
   </div>
