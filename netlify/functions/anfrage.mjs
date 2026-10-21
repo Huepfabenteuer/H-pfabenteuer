@@ -264,6 +264,51 @@ export default async (req, context) => {
     await st.setJSON('meta/katalog', { stand: new Date().toISOString(), liste });
     return json({ ok: true, katalog: liste });
   }
+  /* ── Alle verschickten Angebote (eingefrorene Fassungen) ── */
+  if (body.action === 'angebote') {
+    /* Ältere Angebote ohne Fassung einmal einfrieren */
+    for (const a of await alleAnfragen(st)) {
+      if (!a.nr || a.pdfToken) continue;
+      const k = VERS + a.id + '/' + a.token;
+      const da = await st.get(k, { type: 'json' }).catch(() => null);
+      if (!da) await st.setJSON(k, { ...a, gesendetAm: a.angenommenAm || a.erstellt });
+    }
+    const { blobs } = await st.list({ prefix: VERS });
+    const liste = (await Promise.all(blobs.map(async b => {
+      const v = await st.get(b.key, { type: 'json' }).catch(() => null);
+      if (!v) return null;
+      const t = b.key.split('/')[2];
+      return { id: v.id, token: t, nr: v.nr, kunde: v.kunde, adresse: v.adresse, datum: v.datum, datumEnde: v.datumEnde,
+        positionen: v.positionen, anzahlung: v.anzahlung, anrede: v.anrede || '', summen: summen(v),
+        gesendetAm: v.gesendetAm, bearbeitetAm: v.bearbeitetAm || null, waNummer: waNummer(v.kunde && v.kunde.telefon),
+        pdf: siteUrl(req) + '/angebot/' + v.id + '/' + t };
+    }))).filter(Boolean);
+    return json({ ok: true, angebote: liste });
+  }
+  /* Verschicktes Angebot bewusst ändern: der Link beim Kunden zeigt danach die neue Fassung */
+  if (body.action === 'angebotSpeichern') {
+    const vid = String(body.id || ''), vt = String(body.token || '');
+    if (!/^[a-z0-9]{4,40}$/.test(vid) || !/^[a-z0-9]{4,40}$/.test(vt)) return json({ ok: false, grund: 'id' }, 400);
+    const key = VERS + vid + '/' + vt;
+    const v = await st.get(key, { type: 'json' });
+    if (!v) return json({ ok: false, grund: 'nicht-gefunden' }, 404);
+    const p = body.patch || {};
+    const sauber = saeubere({ ...v, positionen: Array.isArray(p.positionen) ? p.positionen : v.positionen });
+    v.positionen = sauber.positionen;
+    if ('anzahlung' in p) v.anzahlung = (p.anzahlung === '' || p.anzahlung == null || isNaN(Number(p.anzahlung))) ? null : Math.round(Number(p.anzahlung) * 100) / 100;
+    if ('anrede' in p) v.anrede = ['herr', 'frau', ''].includes(p.anrede) ? p.anrede : '';
+    v.bearbeitetAm = new Date().toISOString();
+    await st.setJSON(key, v);
+    /* Ist das die aktuelle Fassung der Anfrage, dort auch übernehmen */
+    const live = await st.get(PREFIX + vid, { type: 'json' }).catch(() => null);
+    if (live && (live.pdfToken || live.token) === vt) {
+      live.positionen = v.positionen; live.anzahlung = v.anzahlung; live.anrede = v.anrede;
+      live.geaendertNachVersand = false; live.geaendert = v.bearbeitetAm;
+      await st.setJSON(PREFIX + vid, live);
+    }
+    return json({ ok: true, angebot: { id: vid, token: vt, summen: summen(v), bearbeitetAm: v.bearbeitetAm } });
+  }
+
   /* Anfrage selbst anlegen (Telefon, WhatsApp) */
   if (body.action === 'anlegen') {
     const daten = saeubere({ ...body.daten, quelle: (body.daten && body.daten.quelle) || 'Telefon/WhatsApp' });

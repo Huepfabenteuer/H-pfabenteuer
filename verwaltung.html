@@ -1128,18 +1128,90 @@ var IC_MENUE = {
 $('menue').addEventListener('click', function(){
   oeffneSheet('<h3>Menü</h3>' +
     '<button class="menue-p" data-m="neu">' + IC_MENUE.neu + '<span>Neue Anfrage<small>Für Kunden per Telefon oder WhatsApp</small></span></button>' +
+    '<button class="menue-p" data-m="angebote"><svg class="i" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg><span>Alle Angebote<small>Verschickte PDFs ansehen und nachträglich ändern</small></span></button>' +
     '<button class="menue-p" data-m="preise">' + IC_MENUE.preis + '<span>Angebote &amp; Preise<small>Alle Burgen, Fotoboxen und Extras bearbeiten</small></span></button>' +
     '<button class="menue-p" data-m="geld">' + IC_MENUE.geld + '<span>Einnahmen<small>Umsatz pro Monat und Gerät, Excel</small></span></button>' +
     '<button class="menue-p" data-m="raus" style="border-bottom:none;color:var(--nein)">' + IC_MENUE.raus + '<span>Abmelden</span></button>');
   $('sheetIn').querySelectorAll('[data-m]').forEach(function(b){ b.onclick = function(){
     var m = b.dataset.m;
     if(m === 'raus'){ schliesseSheet(); abmelden(''); return; }
-    schliesseSheetDann(function(){ if(m === 'neu') neuSheet(); else if(m === 'preise') preiseSheet(); else einnahmenSheet(); });
+    schliesseSheetDann(function(){ if(m === 'neu') neuSheet(); else if(m === 'angebote') angeboteSheet(); else if(m === 'preise') preiseSheet(); else einnahmenSheet(); });
   }; });
 });
 $('neuAnlegen').addEventListener('click', function(){ neuSheet(); });
 /* Sheet schließen und danach ein neues öffnen (History sauber halten) */
 function schliesseSheetDann(fn){ schliesseSheet(); setTimeout(fn, 320); }
+
+/* ── Alle verschickten Angebote ── */
+var angebotListe = [];
+function angeboteSheet(suche){
+  oeffneSheetOderErsetzen('<h3>Alle Angebote</h3><p>Wird geladen …</p>');
+  api('angebote').then(function(d){
+    angebotListe = (d.angebote || []).sort(function(a, b){ return (b.gesendetAm || '').localeCompare(a.gesendetAm || ''); });
+    zeichneAngebote(suche || '');
+  }).catch(function(e){ if(e.message !== '401') toast('Konnte die Angebote nicht laden.'); });
+}
+function zeichneAngebote(suche){
+  var q = suche.toLowerCase().trim();
+  var l = angebotListe.filter(function(v){ return !q || [v.nr, v.kunde && v.kunde.vorname, v.kunde && v.kunde.nachname, v.adresse && v.adresse.ort].join(' ').toLowerCase().indexOf(q) !== -1; });
+  var gezaehlt = {};
+  var h = '<h3>Alle Angebote</h3><div class="feld" style="margin-bottom:6px"><input id="agSuche" placeholder="Suchen: Name, Ort oder Nr." value="' + esc(suche) + '"/></div>';
+  if(!l.length) h += '<div class="leer" style="padding:30px 10px"><b>Keine Angebote</b>Angenommene Anfragen erscheinen hier.</div>';
+  h += l.map(function(v, i){
+    gezaehlt[v.nr] = (gezaehlt[v.nr] || 0) + 1;
+    var name = ((v.kunde && v.kunde.vorname || '') + ' ' + (v.kunde && v.kunde.nachname || '')).trim();
+    return '<button class="menue-p" data-ag="' + angebotListe.indexOf(v) + '" style="padding:12px 2px"><span style="flex:1"><b style="font-size:1rem">Nr. ' + esc(v.nr || '–') + ' · ' + esc(name) + '</b>' +
+      '<small>' + esc(datumKurz(v.datum)) + (v.adresse && v.adresse.ort ? ' · ' + esc(v.adresse.ort) : '') + ' · gesendet ' + esc(new Date(v.gesendetAm).toLocaleDateString('de-AT')) + (v.bearbeitetAm ? ' · geändert ' + esc(new Date(v.bearbeitetAm).toLocaleDateString('de-AT')) : '') + '</small></span>' +
+      '<span style="font-weight:800">' + eur(v.summen && v.summen.gesamt) + '</span></button>';
+  }).join('');
+  $('sheetIn').innerHTML = h;
+  var inp = $('agSuche'); inp.oninput = function(){ var pos = inp.selectionStart; zeichneAngebote(inp.value); var n = $('agSuche'); n.focus(); try{ n.setSelectionRange(pos, pos); }catch(e){} };
+  $('sheetIn').querySelectorAll('[data-ag]').forEach(function(b){ b.onclick = function(){ angebotBearbeiten(angebotListe[+b.dataset.ag]); }; });
+}
+function angebotBearbeiten(v0){
+  var v = JSON.parse(JSON.stringify(v0)), geaendert = false;
+  function sum(){ return summen(v); }
+  function zeichne(){
+    var s = sum(), name = ((v.kunde.vorname || '') + ' ' + (v.kunde.nachname || '')).trim();
+    var h = '<button class="pos-neu" id="agZurueck" style="margin:-6px 0 4px">‹ Alle Angebote</button>' +
+      '<h3>Angebot ' + esc(v.nr || '') + '</h3><p style="margin-bottom:6px">' + esc(name) + ' · ' + esc(datumLang(v.datum)) + '</p>' +
+      '<div class="hinweis gelb" style="margin-bottom:10px">Änderungen hier gelten auch für den Link, den der Kunde schon hat.</div><div id="agPos">';
+    (v.positionen || []).forEach(function(p, i){
+      h += '<div class="pos" data-i="' + i + '"><input class="p-t" value="' + esc(p.titel) + '" data-f="titel"/><input class="p-b" value="' + (p.betrag == null ? '' : esc(String(p.betrag).replace('.', ','))) + '" data-f="betrag" inputmode="decimal" placeholder="€"/>' +
+        '<button class="weg" data-weg="' + i + '" aria-label="Entfernen"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button><input class="p-x" value="' + esc(p.text || '') + '" data-f="text" placeholder="Beschreibung (optional)"/></div>';
+    });
+    h += '</div><button class="pos-neu" id="agNeuPos">' + IC_MENUE.neu + 'Position hinzufügen</button>' +
+      '<div class="summe"><div class="zeile"><span>Gesamt</span><span id="agGes">' + eur(s.gesamt, true) + '</span></div>' +
+      '<div class="zeile"><span>Anzahlung</span><span class="anz"><input id="agAnz" inputmode="decimal" value="' + (v.anzahlung != null ? esc(String(v.anzahlung).replace('.', ',')) : '') + '" placeholder="' + esc(String(s.autoAnz)) + '"/> €</span></div>' +
+      '<div class="zeile"><span>Rest</span><span id="agRest">' + eur(s.rest, true) + '</span></div></div>' +
+      '<button class="btn btn-p btn-w" id="agSpeichern" style="margin-top:12px">Speichern</button>' +
+      '<div class="aktionen"><a class="btn btn-g" href="' + esc(v.pdf) + '" target="_blank" rel="noopener">PDF ansehen</a>' +
+      (v.waNummer ? '<a class="btn btn-wa" id="agWa" href="#" target="_blank" rel="noopener">Kunde informieren</a>' : '') + '</div>';
+    $('sheetIn').innerHTML = h;
+    var neuRechnen = function(){ var s2 = sum(); $('agGes').textContent = eur(s2.gesamt, true); $('agRest').textContent = eur(s2.rest, true); geaendert = true; };
+    $('agPos').querySelectorAll('input').forEach(function(inp){ inp.oninput = function(){
+      var p = v.positionen[+inp.closest('.pos').dataset.i], f = inp.dataset.f;
+      if(f === 'betrag'){ var x = inp.value.replace(/\s/g,'').replace(',', '.'); p.betrag = x === '' ? null : (isNaN(Number(x)) ? p.betrag : Number(x)); } else p[f] = inp.value;
+      neuRechnen();
+    }; });
+    $('agPos').querySelectorAll('[data-weg]').forEach(function(b){ b.onclick = function(){ v.positionen.splice(+b.dataset.weg, 1); geaendert = true; zeichne(); }; });
+    $('agNeuPos').onclick = function(){ v.positionen.push({art:'extra', titel:'Neue Position', text:'', betrag:null}); geaendert = true; zeichne(); };
+    $('agAnz').oninput = function(){ var x = this.value.replace(',', '.').trim(); v.anzahlung = x === '' ? null : (isNaN(Number(x)) ? v.anzahlung : Number(x)); neuRechnen(); };
+    $('agZurueck').onclick = function(){ if(geaendert && !confirmLeise('Änderungen verwerfen?')) return; zeichneAngebote(''); };
+    if($('agWa')) $('agWa').onclick = function(){ this.href = waLink(v.waNummer, 'Hallo ' + (v.kunde.vorname || '') + ', ich hab dein Angebot ' + (v.nr || '') + ' angepasst. Neuer Gesamtbetrag: ' + eur(sum().gesamt) + '.\nDu findest es wie gewohnt hier: ' + v.pdf + '\n\nLG Alexander – Hüpfabenteuer'); if(geaendert) toast('Tipp: zuerst speichern, dann informieren.'); };
+    $('agSpeichern').onclick = function(){
+      var b = this; b.disabled = true; b.textContent = 'Speichert …';
+      api('angebotSpeichern', {id: v.id, token: v.token, patch: {positionen: v.positionen, anzahlung: v.anzahlung, anrede: v.anrede}}).then(function(d){
+        geaendert = false; v.bearbeitetAm = d.angebot.bearbeitetAm; v.summen = d.angebot.summen;
+        var i = angebotListe.findIndex(function(x){ return x.id === v.id && x.token === v.token; }); if(i !== -1) angebotListe[i] = JSON.parse(JSON.stringify(v));
+        b.disabled = false; b.textContent = 'Gespeichert ✓'; setTimeout(function(){ if($('agSpeichern')) $('agSpeichern').textContent = 'Speichern'; }, 1500);
+        toast('Gespeichert. Der Link zeigt jetzt die neue Fassung.');
+        laden(true).catch(function(){});
+      }).catch(function(e){ b.disabled = false; b.textContent = 'Speichern'; if(e.message !== '401') toast('Speichern hat nicht geklappt.'); });
+    };
+  }
+  zeichne();
+}
 
 /* ── Angebote & Preise ── */
 function preiseSheet(){
