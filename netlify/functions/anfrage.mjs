@@ -50,7 +50,23 @@ function zufall(n) {
 function siteUrl(req) {
   return (process.env.URL || new URL(req.url).origin).replace(/\/$/, '');
 }
-function pdfLink(req, a) { return siteUrl(req) + '/angebot/' + a.id + '/' + a.token; }
+function pdfLink(req, a) { return siteUrl(req) + '/angebot/' + a.id + '/' + (a.pdfToken || a.token); }
+
+/* ── Gesendete Angebote einfrieren ──
+   Jedes verschickte Angebot wird als eigene Fassung gespeichert (v/<id>/<token>).
+   Der Link im WhatsApp-Chat zeigt immer genau diese Fassung, auch wenn die
+   Anfrage danach geändert oder gelöscht wird. */
+const VERS = 'v/';
+const PDF_FELDER = ['positionen', 'anrede', 'anzahlung', 'empfehlung', 'kunde', 'adresse', 'datum', 'datumEnde', 'anlass'];
+function pdfStand(a) { return JSON.stringify(PDF_FELDER.map(f => a[f] ?? null)); }
+async function fassungSpeichern(st, a, token) {
+  const t = token || zufall(20);
+  const { versionen, ...rest } = a;
+  await st.setJSON(VERS + a.id + '/' + t, { ...rest, gesendetAm: new Date().toISOString() });
+  a.pdfToken = t;
+  a.versionen = [...(a.versionen || []), { token: t, am: new Date().toISOString() }];
+  a.geaendertNachVersand = false;
+}
 
 /* Für die Verwaltung: Eintrag + fertige Zusatzinfos */
 function anreichern(req, a) {
@@ -143,9 +159,21 @@ export default async (req, context) => {
   if (req.method === 'GET' && pdfId) {
     try {
       const st = await store();
-      const a = await st.get(PREFIX + pdfId, { type: 'json' });
       const admin = istAdmin(req);
-      if (!a || (!admin && (!pdfToken || pdfToken !== a.token)) || (!a.nr && !admin)) {
+      const sicher = /^[a-z0-9]{4,40}$/;
+      let a = null;
+      if (pdfToken && sicher.test(pdfId) && sicher.test(pdfToken)) {
+        try { a = await st.get(VERS + pdfId + '/' + pdfToken, { type: 'json' }); } catch (e) {}
+      }
+      if (!a) {
+        const live = await st.get(PREFIX + pdfId, { type: 'json' });
+        if (live && pdfToken && pdfToken === live.token && live.nr) {
+          /* Ältere Angebote ohne Fassung: jetzt einfrieren */
+          await st.setJSON(VERS + live.id + '/' + live.token, { ...live, gesendetAm: live.angenommenAm || new Date().toISOString() });
+          a = live;
+        } else if (live && admin && !pdfToken) a = live;   /* Entwurf für Alex */
+      }
+      if (!a || (!a.nr && !admin)) {
         return new Response('Angebot nicht gefunden.', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
       }
       const bytes = await erstelleAngebotPdf(a);
@@ -227,6 +255,7 @@ export default async (req, context) => {
     }
     if ('anzahlung' in p) neu.anzahlung = (p.anzahlung === '' || p.anzahlung == null || isNaN(Number(p.anzahlung))) ? null : Math.round(Number(p.anzahlung) * 100) / 100;
     neu.geaendert = new Date().toISOString();
+    if (neu.status === 'fix' && neu.pdfToken && pdfStand(neu) !== pdfStand(a)) neu.geaendertNachVersand = true;
     await st.setJSON(PREFIX + id, neu);
     await belegtNeuBerechnen(st);
     return json({ ok: true, anfrage: anreichern(req, neu) });
@@ -236,6 +265,7 @@ export default async (req, context) => {
     if (!a.nr) a.nr = await naechsteNr(st);
     a.status = 'fix';
     a.angenommenAm = a.angenommenAm || new Date().toISOString();
+    if (!a.pdfToken) await fassungSpeichern(st, a);
     await st.setJSON(PREFIX + id, a);
     await belegtNeuBerechnen(st);
     return json({ ok: true, anfrage: anreichern(req, a) });
@@ -266,6 +296,14 @@ export default async (req, context) => {
     else if (body.schritt === 'zuruecksetzen') { delete b.erhalten; delete b.angefragtAm; delete b.erinnertAm; }
     else return json({ ok: false, grund: 'schritt' }, 400);
     a.bewertung = b;
+    await st.setJSON(PREFIX + id, a);
+    return json({ ok: true, anfrage: anreichern(req, a) });
+  }
+
+  /* Geändertes Angebot neu senden: neue Fassung, neuer Link (alter bleibt gültig) */
+  if (body.action === 'neueFassung') {
+    if (a.status !== 'fix') return json({ ok: false, grund: 'nicht-fix' }, 400);
+    await fassungSpeichern(st, a);
     await st.setJSON(PREFIX + id, a);
     return json({ ok: true, anfrage: anreichern(req, a) });
   }

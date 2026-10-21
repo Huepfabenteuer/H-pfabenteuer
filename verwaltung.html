@@ -520,6 +520,7 @@ function zeichneDetail(){
     h += '<div class="hinweis rot"><b>Achtung:</b> ' + esc(produkte(a)) + ' ist an dem Tag schon fix vergeben (' +
       k.map(function(b){ return esc((b.kunde.vorname || '') + ' ' + (b.kunde.nachname || '')).trim() + (b.nr ? ', Angebot ' + b.nr : ''); }).join('; ') + ').</div>';
   }
+  if(a.status === 'fix' && a.geaendertNachVersand) h += '<div class="hinweis gelb" id="hGeaendert"><b>Geändert nach dem Senden.</b> Das PDF, das der Kunde schon hat, bleibt so wie es war. Soll er die neue Version bekommen, tipp unten auf „Neues Angebot senden“.</div>';
   if(a.status === 'fix') h += '<div class="hinweis gruen">Termin ist fix. Angebot ' + esc(a.nr) + ' wurde ' + (a.angenommenAm ? 'am ' + new Date(a.angenommenAm).toLocaleDateString('de-AT') + ' ' : '') + 'erstellt.</div>';
 
   /* Bewertung */
@@ -561,7 +562,7 @@ function zeichneDetail(){
 
   /* Angebot */
   var gesperrt = a.status === 'fix';
-  h += '<div class="block"><h3>Angebot' + (gesperrt ? ' (fix, Änderungen gelten fürs PDF)' : '') + '</h3><div id="posListe">';
+  h += '<div class="block"><h3>Angebot' + (gesperrt ? ' (fix · gesendetes PDF bleibt gleich)' : '') + '</h3><div id="posListe">';
   (a.positionen || []).forEach(function(p, i){
     var leer = p.betrag == null || p.betrag === '';
     h += '<div class="pos" data-i="' + i + '">' +
@@ -647,7 +648,10 @@ function zeichneLeiste(){
   if(a.status === 'ausstehend'){
     h = '<button class="btn btn-n" id="lAblehnen">Absagen</button><button class="btn btn-p" id="lAnnehmen"><svg class="i" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Annehmen</button>';
     L.className = 'leiste-in';
-  } else if(a.status === 'fix'){
+  } else if(a.status === 'fix' && a.geaendertNachVersand){
+    h = '<a class="btn btn-g" id="lPdf" href="' + esc(a.pdf) + '" target="_blank" rel="noopener">Altes PDF</a><button class="btn btn-wa" id="lNeu"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>Neues Angebot senden</button>';
+    L.className = 'leiste-in';
+} else if(a.status === 'fix'){
     h = '<a class="btn btn-g" id="lPdf" href="' + esc(a.pdf) + '" target="_blank" rel="noopener">PDF</a><a class="btn btn-wa" id="lWa" href="' + esc(waLink(a.waNummer, a.waText)) + '" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>Per WhatsApp senden</a>';
     L.className = 'leiste-in';
   } else {
@@ -657,7 +661,13 @@ function zeichneLeiste(){
   $('leiste').style.visibility = h ? 'visible' : 'hidden';
   if($('lAnnehmen')) $('lAnnehmen').addEventListener('click', annehmen);
   if($('lAblehnen')) $('lAblehnen').addEventListener('click', function(){ absageSheet(); });
-  if($('lWa')) $('lWa').addEventListener('click', function(){ /* PDF aktuell halten */ sofortSpeichern(); });
+  if($('lNeu')) $('lNeu').addEventListener('click', function(){
+    var b = this; b.disabled = true;
+    Promise.resolve(sofortSpeichern()).then(function(){ return api('neueFassung', {id: aktuell.id}); }).then(function(d){
+      var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
+      aktuell = JSON.parse(JSON.stringify(d.anfrage)); zeichneDetail(); zeichneListe(); erfolgSheet(d.anfrage);
+    }).catch(function(e){ b.disabled = false; if(e.message !== '401') toast('Hat nicht geklappt. Versuch es nochmal.'); });
+  });
 }
 
 function verbindeDetail(){
@@ -732,7 +742,7 @@ function sofortSpeichern(){
   var patch = {positionen: a.positionen, anrede: a.anrede || '', notiz: a.notiz || '', anzahlung: a.anzahlung, empfehlung: a.empfehlung || {aktiv:false, code:''}};
   speichertGerade = api('speichern', {id: a.id, patch: patch}).then(function(d){
     var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
-    if(aktuell && aktuell.id === d.anfrage.id){ aktuell.pdf = d.anfrage.pdf; aktuell.waText = d.anfrage.waText; aktuell.waAbsage = d.anfrage.waAbsage; aktuell.empfehlung = d.anfrage.empfehlung; if($('empInfo') && d.anfrage.empfehlung && d.anfrage.empfehlung.aktiv && d.anfrage.empfehlung.code) $('empInfo').textContent = 'Code ' + d.anfrage.empfehlung.code + ' · Link steht in der WhatsApp-Nachricht'; if(aktuell.status === 'fix' && $('lWa')) $('lWa').href = waLink(aktuell.waNummer, aktuell.waText); }
+    if(aktuell && aktuell.id === d.anfrage.id){ aktuell.pdf = d.anfrage.pdf; aktuell.waText = d.anfrage.waText; aktuell.waAbsage = d.anfrage.waAbsage; aktuell.empfehlung = d.anfrage.empfehlung; if(!!d.anfrage.geaendertNachVersand !== !!aktuell.geaendertNachVersand){ aktuell.geaendertNachVersand = d.anfrage.geaendertNachVersand; zeichneLeiste(); if(!$('hGeaendert') && aktuell.geaendertNachVersand) toast('Geändert. Das gesendete PDF bleibt gleich.'); } if($('empInfo') && d.anfrage.empfehlung && d.anfrage.empfehlung.aktiv && d.anfrage.empfehlung.code) $('empInfo').textContent = 'Code ' + d.anfrage.empfehlung.code + ' · Link steht in der WhatsApp-Nachricht'; if(aktuell.status === 'fix' && $('lWa')) $('lWa').href = waLink(aktuell.waNummer, aktuell.waText); }
     $('dGespeichert').textContent = 'Gespeichert';
     setTimeout(function(){ if($('dGespeichert').textContent === 'Gespeichert') $('dGespeichert').textContent = ''; }, 1500);
   }).catch(function(e){ if(e.message !== '401'){ $('dGespeichert').textContent = 'Nicht gespeichert'; toast('Speichern hat nicht geklappt.'); } })
@@ -763,7 +773,7 @@ function annehmen(){
 function erfolgSheet(a){
   oeffneSheet(
     '<div class="haken"><svg class="i" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>' +
-    '<h3>Termin ist fix</h3><p>Angebot ' + esc(a.nr) + ' für ' + esc(a.kunde.vorname || '') + ' ist erstellt. Schick es jetzt per WhatsApp, die Nachricht ist schon fertig.</p>' +
+    '<h3>' + ((a.versionen||[]).length > 1 ? 'Neues Angebot fertig' : 'Termin ist fix') + '</h3><p>Angebot ' + esc(a.nr) + ' für ' + esc(a.kunde.vorname || '') + ' ist erstellt. Schick es jetzt per WhatsApp, die Nachricht ist schon fertig.</p>' +
     '<div class="vorschau">' + esc(a.waText) + '</div>' +
     (a.waNummer ? '<a class="btn btn-wa btn-w" id="sWa" href="' + esc(waLink(a.waNummer, a.waText)) + '" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>An ' + esc(a.kunde.vorname || 'Kunde') + ' senden</a>' : '<div class="hinweis gelb">Keine Handynummer vorhanden. Kopier den Text und schick ihn selbst.</div>') +
     '<a class="btn btn-g btn-w" href="' + esc(a.pdf) + '" target="_blank" rel="noopener">Angebot als PDF ansehen</a>' +
