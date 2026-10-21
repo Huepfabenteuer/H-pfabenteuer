@@ -578,6 +578,7 @@ function zeichneDetail(){
        '</div><div style="color:var(--mute);font-size:.85rem;margin-top:8px" id="anredeVorschau"></div></div>';
 
   if(a.nachricht) h += '<div class="block"><h3>Nachricht vom Kunden</h3><div class="nachricht">' + esc(a.nachricht) + '</div></div>';
+  if(a.fotoFreigabe) h += '<div class="block"><h3>📸 Fotos</h3><div class="nachricht">Kunde ist einverstanden, dass du Fotos der Fotobox von diesem Fest zeigst (nur Bilder, auf denen alle einverstanden sind).</div></div>';
 
   var extra = [];
   if(a.paket) extra.push(['Paket', a.paket]);

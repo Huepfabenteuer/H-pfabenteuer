@@ -136,6 +136,7 @@ export function saeubere(roh) {
     empfehlung: { aktiv: !!(r.empfehlung && r.empfehlung.aktiv), code: str(r.empfehlung && r.empfehlung.code, 40) },
     empfohlenVon: str(r.empfohlenVon, 40),
     partner: str(r.partner, 40),
+    fotoFreigabe: !!r.fotoFreigabe,
     positionen: pos
   };
 }

@@ -5,6 +5,7 @@
 <script src="ref.js?v=202610191900"></script>
 <script src="nav.js?v=202610171625" defer></script>
 <script src="anreise.js?v=202610192130"></script>
+<script src="aktion.js?v=202610211900"></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light"/>
 <meta name="theme-color" content="#0B0B0E"/>
@@ -1766,6 +1767,8 @@ function updateOrderSummary(){
   if(selectedFoto){
     rows.push({label: '' + selectedFoto, val: selectedFotoPrice + ' €'});
     total += selectedFotoPrice;
+    var _akRb = window.hbAktion ? hbAktion.rabatt(selectedFotoPrice) : 0;
+    if(_akRb){ rows.push({label: hbAktion.info.name + ' −' + hbAktion.info.prozent + '\u00A0%', val: '−' + _akRb + ' €', rabatt: true}); total -= _akRb; }
   }
 
   // Auf- & Abbau
@@ -1830,6 +1833,7 @@ function updateOrderSummary(){
     _pos.push({art:'miete', titel: selectedName, text: 'Hüpfburg ' + selectedName + ' – Vermietung' + (days > 1 ? ' (' + days + ' Tage)' : '') + (selectedName === 'Hochzeitsburg' ? ' inkl. Deko' : ''), betrag: _bp});
   }
   if(selectedFoto){ _pos.push({art:'miete', titel: selectedFoto, text: 'Fotobox mit Sofortdruck, ganzer Abend, Auf- und Abbau inklusive', betrag: selectedFotoPrice || null}); }
+  if(selectedFoto && window.hbAktion){ var _akPos = hbAktion.position(selectedFotoPrice); if(_akPos) _pos.push(_akPos); }
   if(aufbauOn && currentModus !== 'foto'){ _pos.push({art:'extra', titel:'Auf- und Abbau', text:'Aufbau und Abbau durch Hüpfabenteuer', betrag:50}); }
   if(extrasVal && extrasVal !== 'Keine Extras'){
     var _ex = extrasVal.indexOf('Zuckerwatte + Popcorn') !== -1 ? ['Zuckerwatte + Popcorn',100] : extrasVal.indexOf('Zuckerwatte') !== -1 ? ['Zuckerwatte',45] : ['Popcorn',60];
@@ -2377,7 +2381,7 @@ function submitAnfrage(){
   if(email)     fd.append('E-Mail',        email);
   if(adresse)   fd.append('Adresse',       adresse);
   if(selectedFoto){
-    fd.append('Fotobox-Paket', selectedFoto + ' (' + selectedFotoPrice + ' \u20ac)');
+    fd.append('Fotobox-Paket', selectedFoto + ' (' + (window.hbAktion ? hbAktion.preisText(selectedFotoPrice) : selectedFotoPrice + ' \u20ac') + ')');
   }
   fd.append('Anfrage-Typ', currentModus === 'foto' ? 'Nur Fotobox' : (currentModus === 'hochzeit' ? 'Hochzeitspaket (H\u00fcpfburg + Fotobox)' : (selectedFoto ? 'H\u00fcpfburg + Fotobox' : 'H\u00fcpfburg')));
   var _pkF = document.querySelector('#anfrage-form input[name="Paket"]');
