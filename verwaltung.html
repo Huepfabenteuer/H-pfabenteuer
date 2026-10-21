@@ -197,6 +197,12 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .fb-z{width:100%;min-width:0;min-height:44px;border:1px solid var(--line-2);border-radius:10px;padding:6px 8px;background:#fff;font-size:16px;text-align:center;}
 .fb-z:focus,.fb-d:focus{outline:none;border-color:var(--petrol);}
 .fb-z.blink{background:var(--fix-l);border-color:var(--fix);}
+.fb-st{display:grid;grid-template-columns:68px repeat(3,minmax(0,1fr));gap:5px;align-items:start;padding-top:6px;margin-top:4px;border-top:1px dashed var(--line);}
+.fb-st>span{font-size:.88rem;font-weight:700;color:var(--ink-2);padding-top:12px;}
+.fb-s{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.fb-s small{font-size:.7rem;color:var(--mute);}
+.fb-sn{width:100%;min-width:0;min-height:44px;border:1px solid var(--line-2);border-radius:10px;padding:6px 4px;background:#fff;font-size:16px;text-align:center;}
+.fb-sn:focus{outline:none;border-color:var(--petrol);}
 .fb-km{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-weight:700;font-size:.92rem;}
 .fb-km input{width:90px;text-align:right;border:1px solid var(--line-2);border-radius:8px;padding:8px;font-size:16px;font-weight:800;background:#fff;}
 @media(min-width:520px){.fb-monate{grid-template-columns:repeat(12,1fr);}}
@@ -868,9 +874,10 @@ function fbKm(a){
 function fbDaten(a){
   var f = a.fahrten || {};
   var leer = function(){ return {ab:'', an:''}; };
-  function e(x, datum){ x = x || {}; return {datum: x.datum || datum, hin: x.hin || leer(), rueck: x.rueck || leer()}; }
-  return {liefer: e(f.liefer, a.datum), abhol: e(f.abhol, plusTag(a.datumEnde || a.datum, 1)), km: fbKm(a), notiz: f.notiz || ''};
+  function e(x, datum){ x = x || {}; return {datum: x.datum || datum, hin: x.hin || leer(), rueck: x.rueck || leer(), stand: x.stand || {start:null, kunde:null, ende:null}}; }
+  return {liefer: e(f.liefer, a.datum), abhol: e(f.abhol, plusTag(a.datumEnde || a.datum, 1)), km: fbKm(a), notiz: f.notiz || '', fahrzeug: f.fahrzeug || fbFahrzeugMerk()};
 }
+function fbFahrzeugMerk(){ try{ return localStorage.getItem('hb_fahrzeug') || ''; }catch(e){ return ''; } }
 function fbZiel(a){ return [a.adresse && a.adresse.strasse, ((a.adresse && a.adresse.plz) || '') + ' ' + ((a.adresse && a.adresse.ort) || '')].filter(function(x){ return x && x.trim(); }).join(', ') || 'Kunde'; }
 function fbFelder(f){ return [f.liefer.hin.ab, f.liefer.hin.an, f.liefer.rueck.ab, f.liefer.rueck.an, f.abhol.hin.ab, f.abhol.hin.an, f.abhol.rueck.ab, f.abhol.rueck.an]; }
 function fbFertig(f){ return fbFelder(f).filter(Boolean).length; }
@@ -882,8 +889,9 @@ function fbZeilen(jahr){
     var f = fbDaten(a), ziel = fbZiel(a), wer = ((a.kunde.vorname || '') + ' ' + (a.kunde.nachname || '')).trim();
     [['liefer','Lieferung'],['abhol','Abholung']].forEach(function(e){
       var x = f[e[0]]; if(!x.datum || x.datum.slice(0,4) !== String(jahr)) return;
-      out.push({datum:x.datum, ab:x.hin.ab, an:x.hin.an, von:START, nach:ziel, zweck:e[1] + ' ' + produkte(a) + ' (Hinfahrt)', kunde:wer, nr:a.nr || '', km:f.km});
-      out.push({datum:x.datum, ab:x.rueck.ab, an:x.rueck.an, von:ziel, nach:START, zweck:e[1] + ' ' + produkte(a) + ' (Rückfahrt)', kunde:wer, nr:a.nr || '', km:f.km});
+      var st = x.stand || {}, d1 = (st.start != null && st.kunde != null) ? st.kunde - st.start : null, d2 = (st.kunde != null && st.ende != null) ? st.ende - st.kunde : null;
+      out.push({datum:x.datum, ab:x.hin.ab, an:x.hin.an, von:START, nach:ziel, zweck:e[1] + ' ' + produkte(a) + ' (Hinfahrt)', kunde:wer, nr:a.nr || '', km: d1 != null && d1 >= 0 ? d1 : f.km, kmA: st.start, kmE: st.kunde, fz: f.fahrzeug});
+      out.push({datum:x.datum, ab:x.rueck.ab, an:x.rueck.an, von:ziel, nach:START, zweck:e[1] + ' ' + produkte(a) + ' (Rückfahrt)', kunde:wer, nr:a.nr || '', km: d2 != null && d2 >= 0 ? d2 : f.km, kmA: st.kunde, kmE: st.ende, fz: f.fahrzeug});
     });
   });
   return out.sort(function(x, y){ return (x.datum + (x.ab || '99')).localeCompare(y.datum + (y.ab || '99')); });
@@ -925,18 +933,21 @@ function fahrtenSheet(id){
   var a = alle.filter(function(x){ return x.id === id; })[0]; if(!a) return;
   var f = fbDaten(a);
   function zeit(pfad, wert){ return '<input type="time" class="fb-z" data-p="' + pfad + '" value="' + esc(wert) + '"/>'; }
+  function stand(pfad, wert, lbl){ return '<label class="fb-s"><input type="number" inputmode="numeric" class="fb-sn" data-p="' + pfad + '" value="' + (wert == null ? '' : esc(String(wert))) + '" placeholder="–"/><small>' + lbl + '</small></label>'; }
   function einsatz(key, titel, datumFix){
     var x = f[key];
     return '<div class="fb-e"><div class="fb-e-k"><b>' + titel + '</b>' +
       (datumFix ? '<span>' + esc(datumLang(x.datum)) + '</span>' : '<input type="date" class="fb-d" data-p="' + key + '.datum" value="' + esc(x.datum) + '"/>') + '</div>' +
       '<div class="fb-r"><span>Hinfahrt</span>' + zeit(key + '.hin.ab', x.hin.ab) + '<i>bis</i>' + zeit(key + '.hin.an', x.hin.an) + '</div>' +
-      '<div class="fb-r"><span>Rückfahrt</span>' + zeit(key + '.rueck.ab', x.rueck.ab) + '<i>bis</i>' + zeit(key + '.rueck.an', x.rueck.an) + '</div></div>';
+      '<div class="fb-r"><span>Rückfahrt</span>' + zeit(key + '.rueck.ab', x.rueck.ab) + '<i>bis</i>' + zeit(key + '.rueck.an', x.rueck.an) + '</div>' +
+      '<div class="fb-st"><span>km-Stand</span>' + stand(key + '.stand.start', x.stand.start, 'Abfahrt') + stand(key + '.stand.kunde', x.stand.kunde, 'beim Kunden') + stand(key + '.stand.ende', x.stand.ende, 'zurück') + '</div></div>';
   }
   oeffneSheet(
     '<h3>Fahrtenbuch</h3><p style="margin-bottom:10px">' + esc(produkte(a)) + ' · ' + esc(fbZiel(a)) + '</p>' +
     '<button class="btn btn-p btn-w" id="fbJetzt"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>Jetzt eintragen</button>' +
     '<div class="fb-tipp" id="fbTipp"></div>' +
     einsatz('liefer', 'Lieferung', true) + einsatz('abhol', 'Abholung', false) +
+    '<div class="fb-km"><span>Fahrzeug</span><input type="text" id="fbFz" value="' + esc(f.fahrzeug) + '" placeholder="z. B. VW Caddy · SP-123AB" style="width:62%;text-align:left;font-weight:700"/></div>' +
     '<div class="fb-km"><span>Kilometer pro Strecke</span><input type="number" inputmode="decimal" id="fbKmIn" value="' + esc(String(f.km)) + '"/></div>' +
     '<div class="gespeichert" id="fbGesp" style="text-align:center;padding-top:8px"></div>'
   );
@@ -959,6 +970,14 @@ function fahrtenSheet(id){
     }, 500);
   }
   $('sheetIn').querySelectorAll('.fb-z,.fb-d').forEach(function(inp){ inp.addEventListener('change', function(){ setze(inp.dataset.p, inp.value); tipp(); speichern(); }); });
+  $('sheetIn').querySelectorAll('.fb-sn').forEach(function(inp){ inp.addEventListener('change', function(){
+    var v = inp.value === '' ? null : Math.round(Number(inp.value)); setze(inp.dataset.p, isFinite(v) ? v : null);
+    /* nächsten Stand vorschlagen: + km pro Strecke */
+    var alleS = [].slice.call($('sheetIn').querySelectorAll('.fb-sn')), i = alleS.indexOf(inp), n = alleS[i + 1];
+    if(v != null && n && !n.value && n.closest('.fb-e') === inp.closest('.fb-e')) n.placeholder = String(v + Math.round(Number(f.km) || 0));
+    speichern();
+  }); });
+  $('fbFz').addEventListener('change', function(){ f.fahrzeug = this.value.trim(); try{ localStorage.setItem('hb_fahrzeug', f.fahrzeug); }catch(e){} speichern(); });
   $('fbKmIn').addEventListener('change', function(){ var v = Number(String(this.value).replace(',', '.')); f.km = isFinite(v) && v >= 0 ? v : 0; speichern(); });
   $('fbJetzt').addEventListener('click', function(){
     var n = naechstes(); if(!n) return;
@@ -984,11 +1003,11 @@ function excelExport(jahr){
     MONATE.forEach(function(name, m){
       var z = zeilen.filter(function(r){ return +r.datum.slice(5,7) === m + 1; });
       var km = z.reduce(function(s, r){ return s + (Number(r.km) || 0); }, 0);
-      var daten = [['Fahrtenbuch ' + name + ' ' + jahr + ' – Hüpfabenteuer'], [], ['Datum', 'Abfahrt', 'Ankunft', 'Von', 'Nach', 'Zweck', 'Kunde', 'Angebot-Nr.', 'km']];
-      z.forEach(function(r){ daten.push([datumKurz(r.datum), r.ab, r.an, r.von, r.nach, r.zweck, r.kunde, r.nr, Number(r.km) || 0]); });
-      daten.push([]); daten.push(['', '', '', '', '', '', '', 'Summe km', Math.round(km * 10) / 10]);
+      var daten = [['Fahrtenbuch ' + name + ' ' + jahr + ' – Hüpfabenteuer'], [], ['Datum', 'Abfahrt', 'Ankunft', 'Fahrzeug', 'km-Stand Beginn', 'km-Stand Ende', 'Von', 'Nach', 'Zweck', 'Kunde', 'Angebot-Nr.', 'km']];
+      z.forEach(function(r){ daten.push([datumKurz(r.datum), r.ab, r.an, r.fz || '', r.kmA == null ? '' : r.kmA, r.kmE == null ? '' : r.kmE, r.von, r.nach, r.zweck, r.kunde, r.nr, Number(r.km) || 0]); });
+      daten.push([]); daten.push(['', '', '', '', '', '', '', '', '', '', 'Summe km', Math.round(km * 10) / 10]);
       var ws = X.utils.aoa_to_sheet(daten);
-      ws['!cols'] = [{wch:11},{wch:8},{wch:8},{wch:30},{wch:30},{wch:38},{wch:20},{wch:11},{wch:8}];
+      ws['!cols'] = [{wch:11},{wch:8},{wch:8},{wch:20},{wch:14},{wch:14},{wch:30},{wch:30},{wch:38},{wch:20},{wch:11},{wch:8}];
       X.utils.book_append_sheet(wb, ws, name);
       uebersicht.push([name, z.length, Math.round(km * 10) / 10]); summe += km; anz += z.length;
     });

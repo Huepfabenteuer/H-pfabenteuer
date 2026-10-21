@@ -308,12 +308,15 @@ export default async (req, context) => {
     const zeit = v => /^\d{2}:\d{2}$/.test(v || '') ? v : '';
     const tag = v => /^\d{4}-\d{2}-\d{2}$/.test(v || '') ? v : '';
     const fahrt = x => ({ ab: zeit(x && x.ab), an: zeit(x && x.an) });
-    const einsatz = x => ({ datum: tag(x && x.datum), hin: fahrt(x && x.hin), rueck: fahrt(x && x.rueck) });
+    const stand = v => { const n = Number(v); return v !== '' && v != null && isFinite(n) && n >= 0 && n < 10000000 ? Math.round(n) : null; };
+    const einsatz = x => ({ datum: tag(x && x.datum), hin: fahrt(x && x.hin), rueck: fahrt(x && x.rueck),
+      stand: { start: stand(x && x.stand && x.stand.start), kunde: stand(x && x.stand && x.stand.kunde), ende: stand(x && x.stand && x.stand.ende) } });
     const km = Number(f.km);
     a.fahrten = {
       liefer: einsatz(f.liefer), abhol: einsatz(f.abhol),
       km: isFinite(km) && km >= 0 && km < 2000 ? Math.round(km * 10) / 10 : null,
-      notiz: String(f.notiz || '').slice(0, 300)
+      notiz: String(f.notiz || '').slice(0, 300),
+      fahrzeug: String(f.fahrzeug || '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, 40)
     };
     await st.setJSON(PREFIX + id, a);
     return json({ ok: true, anfrage: anreichern(req, a) });
