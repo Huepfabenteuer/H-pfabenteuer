@@ -5,6 +5,7 @@
 <script src="ref.js?v=202610191900"></script>
 <script src="nav.js?v=202610171625" defer></script>
 <script src="anreise.js?v=202610192130"></script>
+<script src="aktion.js?v=202610211950"></script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta name="color-scheme" content="light"/>
 <meta name="theme-color" content="#0B0B0E"/>
@@ -980,6 +981,11 @@ document.addEventListener('DOMContentLoaded', function(){
 #fotobox-form .fb-send:hover{background:#084F52 !important;}
 #fotobox-form .fb-send:disabled{opacity:.7;}
 </style>
+<style id="foto-ok-css">
+.foto-ok{display:flex;gap:12px;align-items:flex-start;margin:4px 0 18px;padding:12px 14px;border:1px solid var(--line-2,rgba(0,0,0,.15));border-radius:10px;font-size:.88rem;line-height:1.45;cursor:pointer;}
+.foto-ok input{width:20px;height:20px;min-height:0;margin-top:1px;flex:none;accent-color:#0B6B6F;}
+.foto-ok b{font-weight:700;}
+</style>
 </head>
 <body>
 <div class="grain" aria-hidden="true"></div>
@@ -1156,6 +1162,7 @@ document.addEventListener('DOMContentLoaded',function(){
   var chosen=document.getElementById('pwChosen'), cta=document.getElementById('pwCta');
   if(!tabs.length) return;
   var preis={Digital:'199 €',Standard:'299 €',Premium:'349 €'};
+  if(window.hbAktion && hbAktion.aktiv()) preis={Digital:hbAktion.preisText(199),Standard:hbAktion.preisText(299),Premium:hbAktion.preisText(349)};
   function sel(name,user){
     tabs.forEach(function(t){ var on=t.getAttribute('data-p')===name; t.classList.toggle('on',on); t.setAttribute('aria-selected',on?'true':'false'); });
     panels.forEach(function(p){ p.hidden = p.getAttribute('data-p')!==name; });
@@ -1409,6 +1416,10 @@ document.addEventListener('DOMContentLoaded',function(){
           </div>
         </div>
 
+        <label class="foto-ok">
+          <input type="checkbox" id="fotoFreigabe" name="Fotofreigabe" value="Ja"/>
+          <span><b>📸 Ihr dürft Fotos der Fotobox von unserem Fest zeigen</b> (Website, Instagram). Freiwillig, gilt nur für Bilder, auf denen alle Abgebildeten einverstanden sind, und kann jederzeit widerrufen werden.</span>
+        </label>
         <div class="summary" id="summary">
           <div class="sum-t">Deine Auswahl</div>
           <div id="sumRows"></div>
@@ -2038,12 +2049,14 @@ document.addEventListener('DOMContentLoaded',function(){
       return;
     }
 
+    var _rb = window.hbAktion ? hbAktion.rabatt(selectedPrice) : 0, _np = selectedPrice - _rb;
+    var akZeile = _rb ? '<div class="sum-row sum-rabatt"><span>' + hbAktion.info.name + ' −' + hbAktion.info.prozent + '\u00A0%</span><span>−' + _rb + ' €</span></div>' : '';
     rows.innerHTML =
       '<div class="sum-row"><span>Fotobox ' + selectedName + '</span><span>' + selectedPrice + ' €</span></div>' +
-      rahmenZeile + empfZeile +
-      '<div class="sum-row total"><span>' + (_an ? 'Gesamt inkl. Anreise' : 'Gesamt, geschätzt') + '<small class="sum-sub">' + (_an ? 'geschätzt · mit Empfehlung ca. ' + (selectedPrice + _an.mitEmpfehlung) + ' €' : 'zzgl. Anreise') + '</small></span><span class="sum-total">' + (selectedPrice + (_an ? _an.anreise : 0)) + ' €</span></div>';
+      akZeile + rahmenZeile + empfZeile +
+      '<div class="sum-row total"><span>' + (_an ? 'Gesamt inkl. Anreise' : 'Gesamt, geschätzt') + '<small class="sum-sub">' + (_an ? 'geschätzt · mit Empfehlung ca. ' + (_np + _an.mitEmpfehlung) + ' €' : 'zzgl. Anreise') + '</small></span><span class="sum-total">' + (_np + (_an ? _an.anreise : 0)) + ' €</span></div>';
 
-    var anz = selectedPrice >= 300 ? 100 : (selectedPrice >= 220 ? 50 : 30);
+    var anz = _np >= 300 ? 100 : (_np >= 220 ? 50 : 30);
     note.innerHTML = 'Anzahlung ' + anz + ' €, Restbetrag am Eventtag. ' + (window.hbAnreiseWert ? 'Die Anreise ist im Gesamtpreis schon eingerechnet.' : 'Die Anreise rechnen wir aus, sobald du die Lieferadresse eingibst: 0,55 € pro Kilometer auf vier Fahrten.') + ' Die genaue Rechnung steht auf deinem Angebot.';
     box.classList.add('on');
   }
@@ -2141,9 +2154,12 @@ document.addEventListener('DOMContentLoaded',function(){
     }
     if(window.hbAnreise && window.hbAnreise.text()) fd.append('Anreise (berechnet)', window.hbAnreise.text());
     fd.append('Quelle', 'Hochzeit-Landingpage');
+    if(window.hbAktion && hbAktion.aktiv() && selectedPrice) fd.append('Aktion', hbAktion.info.name + ': ' + hbAktion.preisText(selectedPrice));
+    if(document.getElementById('fotoFreigabe') && document.getElementById('fotoFreigabe').checked) fd.append('Fotos verwenden', 'Ja, Kunde ist einverstanden');
     try {
       var _an = window.hbAnreiseWert, _rw = rahmenWert();
       var _posV = [{art:'miete', titel: selectedPrice ? 'Fotobox ' + selectedName : 'Fotobox (Paket noch offen)', text: 'Fotobox mit allem Zubehör, ganzer Abend, Auf- und Abbau inklusive' + (_rw ? ' · Rahmen: ' + _rw : ''), betrag: selectedPrice || null}];
+      if(window.hbAktion && selectedPrice){ var _akP = hbAktion.position(selectedPrice); if(_akP) _posV.push(_akP); }
       _posV.push({art:'lieferung', titel:'Lieferung & Abholung', text:'Glödnitz – ' + ort + (_an ? ' · 4 Fahrten à ' + _an.km + ' km × 0,55 €' : ''), betrag: _an ? _an.anreise : null});
       var _verw = {
         typ: 'hochzeit', quelle: 'Hochzeit-Landingpage',
@@ -2154,6 +2170,7 @@ document.addEventListener('DOMContentLoaded',function(){
         empfehlung: {aktiv: !!empfAktiv, code: empfCode || ''},
         empfohlenVon: (window.hbEmpfehlung && window.hbEmpfehlung()) || '',
         partner: (window.hbPartner && window.hbPartner()) || '',
+        fotoFreigabe: !!(document.getElementById('fotoFreigabe') && document.getElementById('fotoFreigabe').checked),
         positionen: _posV
       };
       fetch('/.netlify/functions/anfrage', {method:'POST', keepalive:true, headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'neu', daten:_verw})}).catch(function(){});
@@ -2234,6 +2251,10 @@ document.addEventListener('DOMContentLoaded',function(){
   window.addEventListener('resize', anstossen, {passive:true});
   pruefen();
 })();
+</script>
+<script src="verfuegbar.js?v=202610211800"></script>
+<script>
+if(window.hbFrei) hbFrei.watch({datum:'datumFoto', geraet:function(){return 'fotobox';}, name:function(){return 'die Fotobox';}});
 </script>
 </body>
 </html>

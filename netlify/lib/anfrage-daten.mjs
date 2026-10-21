@@ -75,6 +75,38 @@ export function waNummer(tel) {
   return t.replace(/\D/g, '');
 }
 
+/* ── Verfügbarkeit: welche Geräte sind an welchen Tagen fix vergeben ── */
+const GERAETE = ['candyburg', 'feuerwehrburg', 'piratenburg', 'ritterburg', 'alienburg', 'hochzeitsburg'];
+
+/* Schlüssel der gemieteten Geräte, z. B. ['fotobox'] oder ['alienburg'] */
+export function geraeteSchluessel(a) {
+  const out = new Set();
+  for (const p of (a.positionen || [])) {
+    if (!p || p.art !== 'miete') continue;
+    const t = String(p.titel || '').toLowerCase();
+    if (t.includes('fotobox')) out.add('fotobox');
+    for (const g of GERAETE) if (t.includes(g)) out.add(g);
+  }
+  if (!out.size && (a.typ === 'foto' || a.typ === 'hochzeit')) out.add('fotobox');
+  return [...out];
+}
+
+/* Alle Tage von datum bis datumEnde (höchstens 14) als JJJJ-MM-TT */
+export function tageDerBuchung(a) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/;
+  if (!m.test(a.datum || '')) return [];
+  const start = new Date(a.datum + 'T12:00:00Z');
+  const ende = m.test(a.datumEnde || '') && a.datumEnde >= a.datum ? new Date(a.datumEnde + 'T12:00:00Z') : start;
+  const tage = [];
+  for (let d = new Date(start); d <= ende && tage.length < 14; d.setUTCDate(d.getUTCDate() + 1)) tage.push(d.toISOString().slice(0, 10));
+  return tage;
+}
+
+/* Gilt die Anfrage als feste Buchung? (fix, oder fix und danach archiviert) */
+export function istFix(a) {
+  return a.status === 'fix' || (a.status === 'archiv' && a.vorherStatus === 'fix');
+}
+
 /* ── Eingehende Anfrage prüfen und säubern ── */
 const str = (v, n = 200) => String(v == null ? '' : v).replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, n);
 const num = v => { const x = Number(v); return isFinite(x) ? Math.round(x * 100) / 100 : null; };
@@ -104,6 +136,7 @@ export function saeubere(roh) {
     empfehlung: { aktiv: !!(r.empfehlung && r.empfehlung.aktiv), code: str(r.empfehlung && r.empfehlung.code, 40) },
     empfohlenVon: str(r.empfohlenVon, 40),
     partner: str(r.partner, 40),
+    fotoFreigabe: !!r.fotoFreigabe,
     positionen: pos
   };
 }
