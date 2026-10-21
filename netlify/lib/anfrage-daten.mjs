@@ -107,6 +107,16 @@ export function istFix(a) {
   return a.status === 'fix' || (a.status === 'archiv' && a.vorherStatus === 'fix');
 }
 
+/* Persönlicher Empfehlungscode, z. B. MUSTER-K7Q */
+export function empfehlungscode(nachname, vorname) {
+  const basis = String(nachname || vorname || 'KUNDE').toUpperCase()
+    .replace(/Ä/g, 'AE').replace(/Ö/g, 'OE').replace(/Ü/g, 'UE').replace(/ß/g, 'SS')
+    .replace(/[^A-Z0-9]/g, '').slice(0, 10) || 'KUNDE';
+  const abc = 'ACDEFGHJKLMNPQRTUVWXY2346789';
+  const b = new Uint8Array(3); crypto.getRandomValues(b);
+  return basis + '-' + Array.from(b, x => abc[x % abc.length]).join('');
+}
+
 /* ── Eingehende Anfrage prüfen und säubern ── */
 const str = (v, n = 200) => String(v == null ? '' : v).replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, n);
 const num = v => { const x = Number(v); return isFinite(x) ? Math.round(x * 100) / 100 : null; };
@@ -144,6 +154,15 @@ export function saeubere(roh) {
 /* ── WhatsApp-Texte ── */
 function eur(n) { const v = Math.round((Number(n) || 0) * 100) / 100; return v.toLocaleString('de-AT', { minimumFractionDigits: v % 1 ? 2 : 0, maximumFractionDigits: 2 }); }
 
+function empfehlungsZeilen(a) {
+  if (!a.empfehlung || !a.empfehlung.aktiv || !a.empfehlung.code) return [];
+  return [
+    '💡 Spar dir 30 € bei der Anreise: Schick diesen Link an Freunde, Familie oder in die Gemeinde-Gruppe. Bucht jemand darüber, ziehen wir dir 30 € ab:',
+    'https://huepfabenteuer.at/?empfehlung=' + encodeURIComponent(a.empfehlung.code),
+    ''
+  ];
+}
+
 export function waZusage(a, link) {
   const s = summen(a);
   const adr = [a.adresse.strasse, ((a.adresse.plz || '') + ' ' + (a.adresse.ort || '')).trim()].filter(Boolean).join(', ');
@@ -152,7 +171,16 @@ export function waZusage(a, link) {
   const fuer = pr.length ? pr.map(t => 'die ' + t).join(' und ') : 'deine Feier';
   const betrag = v => (v == null || v === '') ? 'nach Vereinbarung' : (Number(v) === 0 ? 'gratis' : eur(v) + ' €');
   const posZeilen = (a.positionen || []).filter(p => p && p.titel).map(p => {
-    if (istLieferung(p)) return 'Lieferung' + (adr ? ' nach ' + adr : '') + ': ' + betrag(p.betrag);
+    if (istLieferung(p)) {
+      let z = 'Lieferung' + (adr ? ' nach ' + adr : '') + ': ' + betrag(p.betrag);
+      const b = Number(p.betrag);
+      if (b > 0) {
+        const kmA = a.anreise && Number(a.anreise.km);
+        const km = kmA && Math.abs(kmA * 4 * 0.55 - b) < 1.5 ? kmA : Math.round(b / 2.2);
+        z += '\n(2× hin und retour für Lieferung und Abholung = 4 Fahrten × ' + eur(km) + ' km × 0,55 €)';
+      }
+      return z;
+    }
     if (p.art === 'rabatt') return p.titel + ': −' + eur(Math.abs(Number(p.betrag) || 0)) + ' €';
     return p.titel + ': ' + betrag(p.betrag);
   });
@@ -173,6 +201,7 @@ export function waZusage(a, link) {
     '',
     'Restbetrag (' + eur(s.rest) + ' €) am Veranstaltungstag.',
     '',
+    ...empfehlungsZeilen(a),
     'Angebot als PDF: ' + link,
     '',
     'LG ' + 'Alexander – ' + FIRMA.name,

@@ -115,6 +115,8 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .hinweis.rot{background:var(--nein-l);color:#7E321D;}
 .hinweis.gelb{background:var(--offen-l);color:#7A5113;}
 .hinweis.gruen{background:var(--fix-l);color:#155A38;}
+.emp-sw{display:flex;gap:12px;align-items:flex-start;font-size:.95rem;line-height:1.4;cursor:pointer;}
+.emp-sw input{width:22px;height:22px;flex:none;margin-top:1px;accent-color:var(--petrol);}
 .nachricht{white-space:pre-wrap;color:var(--ink-2);font-size:.95rem;}
 
 /* Positionen */
@@ -577,6 +579,11 @@ function zeichneDetail(){
        ['', 'herr', 'frau'].map(function(v){ return '<button data-v="' + v + '" class="' + ((a.anrede || '') === v ? 'on' : '') + '">' + (v === '' ? 'Neutral' : v === 'herr' ? 'Herr' : 'Frau') + '</button>'; }).join('') +
        '</div><div style="color:var(--mute);font-size:.85rem;margin-top:8px" id="anredeVorschau"></div></div>';
 
+  var _em = a.empfehlung && a.empfehlung.aktiv;
+  h += '<div class="block"><h3>Empfehlungs-Deal (−30 €)</h3>' +
+       '<label class="emp-sw"><input type="checkbox" id="empAn"' + (_em ? ' checked' : '') + '/><span>Im Angebot anbieten: Kunde bekommt seinen Link und 30 € weniger, sobald jemand darüber bucht</span></label>' +
+       '<div style="color:var(--mute);font-size:.85rem;margin-top:8px" id="empInfo">' + (_em && a.empfehlung.code ? 'Code ' + esc(a.empfehlung.code) + ' · Link steht in der WhatsApp-Nachricht' : (a.quelle ? '' : 'Für Anfragen per Telefon oder WhatsApp einfach anhaken.')) + '</div></div>';
+
   if(a.nachricht) h += '<div class="block"><h3>Nachricht vom Kunden</h3><div class="nachricht">' + esc(a.nachricht) + '</div></div>';
   if(a.fotoFreigabe) h += '<div class="block"><h3>📸 Fotos</h3><div class="nachricht">Kunde ist einverstanden, dass du Fotos der Fotobox von diesem Fest zeigst (nur Bilder, auf denen alle einverstanden sind).</div></div>';
 
@@ -584,7 +591,6 @@ function zeichneDetail(){
   if(a.paket) extra.push(['Paket', a.paket]);
   if(a.rahmen) extra.push(['Fotorahmen', a.rahmen]);
   if(a.gutschein) extra.push(['Gutschein', a.gutschein]);
-  if(a.empfehlung && a.empfehlung.aktiv) extra.push(['Empfehlungs-Deal', 'Ja, Code ' + (a.empfehlung.code || '–') + ' (30 € weniger, sobald jemand darüber bucht)']);
   if(a.empfohlenVon) extra.push(['Empfohlen von', a.empfohlenVon + ' – dieser Kunde bekommt 30 € gutgeschrieben']);
   if(a.partner) extra.push(['Partner', a.partner]);
   extra.push(['Eingegangen', new Date(a.erstellt).toLocaleString('de-AT', {dateStyle:'medium', timeStyle:'short'}) + (a.quelle ? ' über ' + a.quelle : '')]);
@@ -684,6 +690,11 @@ function verbindeDetail(){
     var idx = li === -1 ? aktuell.positionen.length - 1 : li;
     var el = document.querySelector('.pos[data-i="' + idx + '"] .p-t'); if(el){ el.focus(); el.select(); }
   });
+  if($('empAn')) $('empAn').addEventListener('change', function(){
+    aktuell.empfehlung = {aktiv: this.checked, code: (aktuell.empfehlung && aktuell.empfehlung.code) || ''};
+    $('empInfo').textContent = this.checked ? 'Wird gespeichert, der Link kommt in die WhatsApp-Nachricht …' : 'Nicht im Angebot.';
+    planeSpeichern();
+  });
   $('anrede').querySelectorAll('button').forEach(function(b){
     b.addEventListener('click', function(){ aktuell.anrede = b.dataset.v; $('anrede').querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x === b); }); zeichneAnrede(); planeSpeichern(); });
   });
@@ -718,10 +729,10 @@ function sofortSpeichern(){
   if(!speicherTimer || !aktuell) return speichertGerade || Promise.resolve();
   clearTimeout(speicherTimer); speicherTimer = null;
   var a = aktuell;
-  var patch = {positionen: a.positionen, anrede: a.anrede || '', notiz: a.notiz || '', anzahlung: a.anzahlung};
+  var patch = {positionen: a.positionen, anrede: a.anrede || '', notiz: a.notiz || '', anzahlung: a.anzahlung, empfehlung: a.empfehlung || {aktiv:false, code:''}};
   speichertGerade = api('speichern', {id: a.id, patch: patch}).then(function(d){
     var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
-    if(aktuell && aktuell.id === d.anfrage.id){ aktuell.pdf = d.anfrage.pdf; aktuell.waText = d.anfrage.waText; aktuell.waAbsage = d.anfrage.waAbsage; if(aktuell.status === 'fix' && $('lWa')) $('lWa').href = waLink(aktuell.waNummer, aktuell.waText); }
+    if(aktuell && aktuell.id === d.anfrage.id){ aktuell.pdf = d.anfrage.pdf; aktuell.waText = d.anfrage.waText; aktuell.waAbsage = d.anfrage.waAbsage; aktuell.empfehlung = d.anfrage.empfehlung; if($('empInfo') && d.anfrage.empfehlung && d.anfrage.empfehlung.aktiv && d.anfrage.empfehlung.code) $('empInfo').textContent = 'Code ' + d.anfrage.empfehlung.code + ' · Link steht in der WhatsApp-Nachricht'; if(aktuell.status === 'fix' && $('lWa')) $('lWa').href = waLink(aktuell.waNummer, aktuell.waText); }
     $('dGespeichert').textContent = 'Gespeichert';
     setTimeout(function(){ if($('dGespeichert').textContent === 'Gespeichert') $('dGespeichert').textContent = ''; }, 1500);
   }).catch(function(e){ if(e.message !== '401'){ $('dGespeichert').textContent = 'Nicht gespeichert'; toast('Speichern hat nicht geklappt.'); } })

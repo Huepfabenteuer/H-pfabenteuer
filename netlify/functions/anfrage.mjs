@@ -27,7 +27,7 @@
    ═══════════════════════════════════════════════════════════════════════ */
 
 import { FIRMA } from '../lib/firma.mjs';
-import { saeubere, summen, waZusage, waAbsage, waNummer, datumKurz, waBewertung, waBewertungErinnerung, geraeteSchluessel, tageDerBuchung, istFix } from '../lib/anfrage-daten.mjs';
+import { saeubere, summen, waZusage, waAbsage, waNummer, datumKurz, waBewertung, waBewertungErinnerung, geraeteSchluessel, tageDerBuchung, istFix, empfehlungscode } from '../lib/anfrage-daten.mjs';
 import { erstelleAngebotPdf } from '../lib/angebot-pdf.mjs';
 
 const STORE = 'anfragen';
@@ -221,6 +221,10 @@ export default async (req, context) => {
     const neu = { ...a, ...sauber };
     if ('anrede' in p) neu.anrede = ['herr', 'frau', ''].includes(p.anrede) ? p.anrede : '';
     if ('notiz' in p) neu.notiz = String(p.notiz || '').slice(0, 2000);
+    if ('empfehlung' in p) {
+      const aktiv = !!(p.empfehlung && p.empfehlung.aktiv);
+      neu.empfehlung = { aktiv, code: (a.empfehlung && a.empfehlung.code) || (aktiv ? empfehlungscode(neu.kunde.nachname, neu.kunde.vorname) : '') };
+    }
     if ('anzahlung' in p) neu.anzahlung = (p.anzahlung === '' || p.anzahlung == null || isNaN(Number(p.anzahlung))) ? null : Math.round(Number(p.anzahlung) * 100) / 100;
     neu.geaendert = new Date().toISOString();
     await st.setJSON(PREFIX + id, neu);
