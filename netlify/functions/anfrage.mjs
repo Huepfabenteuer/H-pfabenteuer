@@ -6,6 +6,9 @@
           → speichert eine neue Anfrage (Status „ausstehend“)
      GET  /angebot/<id>/<token>
           → PDF-Angebot für den Kunden (nur mit geheimem Token)
+     GET  /.netlify/functions/anfrage?verfuegbar=1
+          → belegte Tage je Gerät { "2026-12-05": ["fotobox"] }
+            (nur fixe Buchungen, ohne Namen oder Adressen)
 
    Nur für Alex (Header  x-admin-key: <ADMIN_KEY>):
      POST { action:"liste" }
@@ -24,7 +27,7 @@
    ═══════════════════════════════════════════════════════════════════════ */
 
 import { FIRMA } from '../lib/firma.mjs';
-import { saeubere, summen, waZusage, waAbsage, waNummer, datumKurz, waBewertung, waBewertungErinnerung } from '../lib/anfrage-daten.mjs';
+import { saeubere, summen, waZusage, waAbsage, waNummer, datumKurz, waBewertung, waBewertungErinnerung, geraeteSchluessel, tageDerBuchung, istFix } from '../lib/anfrage-daten.mjs';
 import { erstelleAngebotPdf } from '../lib/angebot-pdf.mjs';
 
 const STORE = 'anfragen';
@@ -96,6 +99,32 @@ function istAdmin(req) {
   return diff === 0;
 }
 
+/* ── Belegte Tage (öffentlich, nur Datum + Gerät, keine Kundendaten) ── */
+const BELEGT = 'meta/belegt';
+async function alleAnfragen(st) {
+  const { blobs } = await st.list({ prefix: PREFIX });
+  return (await Promise.all(blobs.map(b => st.get(b.key, { type: 'json' }).catch(() => null)))).filter(Boolean);
+}
+function heuteWien() {
+  return new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Vienna' });
+}
+async function belegtNeuBerechnen(st, liste) {
+  const heute = heuteWien();
+  const tage = {};
+  for (const a of (liste || await alleAnfragen(st))) {
+    if (!istFix(a)) continue;
+    const g = geraeteSchluessel(a);
+    if (!g.length) continue;
+    for (const t of tageDerBuchung(a)) {
+      if (t < heute) continue;
+      tage[t] = [...new Set([...(tage[t] || []), ...g])].sort();
+    }
+  }
+  const daten = { stand: new Date().toISOString(), tage };
+  try { await st.setJSON(BELEGT, daten); } catch (e) {}
+  return daten;
+}
+
 async function naechsteNr(st) {
   let akt = null;
   try { akt = await st.get('meta/nr', { type: 'json' }); } catch (e) {}
@@ -130,6 +159,21 @@ export default async (req, context) => {
     }
   }
 
+  /* ── Belegte Tage für die Formulare (öffentlich) ── */
+  if (req.method === 'GET' && url.searchParams.has('verfuegbar')) {
+    try {
+      const st = await store();
+      let b = null;
+      try { b = await st.get(BELEGT, { type: 'json' }); } catch (e) {}
+      if (!b || Date.now() - new Date(b.stand).getTime() > 6 * 3600 * 1000) b = await belegtNeuBerechnen(st);
+      const heute = heuteWien();
+      const tage = Object.fromEntries(Object.entries(b.tage || {}).filter(([t]) => t >= heute));
+      return new Response(JSON.stringify({ ok: true, tage }), {
+        status: 200, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=60' }
+      });
+    } catch (e) { return json({ ok: false, tage: {} }, 200); }
+  }
+
   if (req.method !== 'POST') return json({ ok: false, grund: 'methode' }, 405);
 
   let body;
@@ -162,8 +206,8 @@ export default async (req, context) => {
   if (!istAdmin(req)) return json({ ok: false, grund: process.env.ADMIN_KEY ? 'passwort' : 'kein-admin-key' }, 401);
 
   if (body.action === 'liste') {
-    const { blobs } = await st.list({ prefix: PREFIX });
-    const alle = (await Promise.all(blobs.map(b => st.get(b.key, { type: 'json' }).catch(() => null)))).filter(Boolean);
+    const alle = await alleAnfragen(st);
+    await belegtNeuBerechnen(st, alle);
     return json({ ok: true, anfragen: alle.map(a => anreichern(req, a)) });
   }
 
@@ -180,6 +224,7 @@ export default async (req, context) => {
     if ('anzahlung' in p) neu.anzahlung = (p.anzahlung === '' || p.anzahlung == null || isNaN(Number(p.anzahlung))) ? null : Math.round(Number(p.anzahlung) * 100) / 100;
     neu.geaendert = new Date().toISOString();
     await st.setJSON(PREFIX + id, neu);
+    await belegtNeuBerechnen(st);
     return json({ ok: true, anfrage: anreichern(req, neu) });
   }
 
@@ -188,6 +233,7 @@ export default async (req, context) => {
     a.status = 'fix';
     a.angenommenAm = a.angenommenAm || new Date().toISOString();
     await st.setJSON(PREFIX + id, a);
+    await belegtNeuBerechnen(st);
     return json({ ok: true, anfrage: anreichern(req, a) });
   }
   if (['ablehnen', 'zuruecksetzen', 'archivieren', 'papierkorb', 'wiederherstellen'].includes(body.action)) {
@@ -202,6 +248,7 @@ export default async (req, context) => {
     if (body.action === 'wiederherstellen') delete a.geloeschtAm;
     a.geaendert = new Date().toISOString();
     await st.setJSON(PREFIX + id, a);
+    await belegtNeuBerechnen(st);
     return json({ ok: true, anfrage: anreichern(req, a) });
   }
 
@@ -223,6 +270,7 @@ export default async (req, context) => {
   if (body.action === 'loeschen') {
     if (a.status !== 'papierkorb') return json({ ok: false, grund: 'erst-papierkorb' }, 400);
     await st.delete(PREFIX + id);
+    await belegtNeuBerechnen(st);
     return json({ ok: true, geloescht: id });
   }
 
