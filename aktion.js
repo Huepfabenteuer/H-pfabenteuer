@@ -50,7 +50,6 @@
     '.ak-box .ak-i{font-size:1.35rem;line-height:1}' +
     '.ak-box b{font-weight:800}' +
     '.ak-karte{display:block;margin:4px 0 26px;padding:20px 20px 18px;border-radius:18px;background:linear-gradient(135deg,#0B6B6F,#084F52);color:#fff;text-decoration:none;box-shadow:0 14px 40px rgba(8,79,82,.35);position:relative;overflow:hidden;max-width:560px}' +
-    '.ak-karte::after{content:"❄";position:absolute;right:-6px;top:-18px;font-size:7rem;opacity:.12;line-height:1}' +
     '.ak-k-top{font-family:"Karla","Helvetica Neue",Arial,sans-serif;font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;opacity:.92}' +
     '.ak-k-big{font-family:"Karla","Helvetica Neue",Arial,sans-serif;font-weight:800;font-size:clamp(1.9rem,8vw,2.6rem);line-height:1.05;margin:6px 0 4px}' +
     '.ak-k-big span{background:#fff;color:#C2410C;border-radius:10px;padding:0 10px;margin-right:6px;display:inline-block}' +
@@ -84,7 +83,7 @@
     /* Band ganz oben */
     var band = document.createElement('a');
     band.className = 'ak-band'; band.href = (location.pathname.indexOf('fotobox') !== -1 && document.getElementById('pakete')) ? '#pakete' : 'fotobox.html#pakete';
-    band.innerHTML = '<span class="ak-pill">−' + AKTION.prozent + '\u00A0%</span><span>❄️ <b>' + AKTION.kurz + ':</b> ' + AKTION.prozent + '\u00A0% auf alle Fotobox-Pakete</span><span class="ak-zeit">· ' + zeitText() + ', bis ' + AKTION.bisText + '</span>';
+    band.innerHTML = '<span class="ak-pill">−' + AKTION.prozent + '\u00A0%</span><span><b>' + AKTION.kurz + ':</b> ' + AKTION.prozent + '\u00A0% auf alle Fotobox-Pakete</span><span class="ak-zeit">· ' + zeitText() + ', bis ' + AKTION.bisText + '</span>';
     var top = document.querySelector('.topbar');
     if (document.getElementById('akHero')) band = null;   /* Startseite hat die große Karte */
     else if (top && top.parentNode) top.parentNode.insertBefore(band, top.nextSibling); else document.body.insertBefore(band, document.body.firstChild);
@@ -109,7 +108,7 @@
     var platz = document.getElementById('akHero');
     if (platz) {
       platz.innerHTML = '<a class="ak-karte" href="fotobox.html#pakete">' +
-        '<div class="ak-k-top">❄️ ' + AKTION.kurz + ' · nur bis ' + AKTION.bisText + '</div>' +
+        '<div class="ak-k-top">' + AKTION.kurz + ' · nur bis ' + AKTION.bisText + '</div>' +
         '<div class="ak-k-big"><span>−' + AKTION.prozent + '\u00A0%</span>auf alle Fotoboxen</div>' +
         '<div class="ak-k-sub">Ganzer Abend, Auf- und Abbau inklusive, Sofortdruck ab Standard.</div>' +
         '<div class="ak-k-preise">' + [['Digital', 199], ['Standard', 299], ['Premium', 349]].map(function (x) {
@@ -122,7 +121,7 @@
     /* Hinweis über dem Anfrageformular */
     var kopf = document.querySelector('#fotobox-form .form-head');
     if (kopf && !document.querySelector('.ak-box')) {
-      kopf.insertAdjacentHTML('beforeend', '<div class="ak-box"><span class="ak-i" aria-hidden="true">❄️</span><span><b>' + AKTION.name + ': −' + AKTION.prozent + '\u00A0% auf alle Pakete.</b> Gilt für alle Anfragen, die bis ' + AKTION.bisText + ' bei uns eingehen. ' + zeitText().replace(/^n/, 'N') + '.</span></div>');
+      kopf.insertAdjacentHTML('beforeend', '<div class="ak-box"><span><b>' + AKTION.name + ': −' + AKTION.prozent + '\u00A0% auf alle Pakete.</b> Gilt für alle Anfragen, die bis ' + AKTION.bisText + ' bei uns eingehen. ' + zeitText().replace(/^n/, 'N') + '.</span></div>');
     }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', los); else los();
