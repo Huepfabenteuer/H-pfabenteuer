@@ -21,6 +21,8 @@
      POST { action:"wiederherstellen", id }
      POST { action:"loeschen", id }        → endgültig (nur aus dem Papierkorb)
      POST { action:"bewertung", id, schritt:"angefragt"|"erinnert"|"erhalten"|"zuruecksetzen" }
+     POST { action:"fahrten", id, fahrten:{ liefer, abhol, km } }   → Fahrtenbuch
+     POST { action:"neueFassung", id }   → geändertes Angebot neu senden
 
    Braucht in Netlify die Umgebungsvariable ADMIN_KEY (dein Passwort für
    die Verwaltung). Gespeichert wird in Netlify Blobs („anfragen“).
@@ -296,6 +298,23 @@ export default async (req, context) => {
     else if (body.schritt === 'zuruecksetzen') { delete b.erhalten; delete b.angefragtAm; delete b.erinnertAm; }
     else return json({ ok: false, grund: 'schritt' }, 400);
     a.bewertung = b;
+    await st.setJSON(PREFIX + id, a);
+    return json({ ok: true, anfrage: anreichern(req, a) });
+  }
+
+  /* Fahrtenbuch zu einer Buchung speichern (ändert das Angebot nicht) */
+  if (body.action === 'fahrten') {
+    const f = body.fahrten || {};
+    const zeit = v => /^\d{2}:\d{2}$/.test(v || '') ? v : '';
+    const tag = v => /^\d{4}-\d{2}-\d{2}$/.test(v || '') ? v : '';
+    const fahrt = x => ({ ab: zeit(x && x.ab), an: zeit(x && x.an) });
+    const einsatz = x => ({ datum: tag(x && x.datum), hin: fahrt(x && x.hin), rueck: fahrt(x && x.rueck) });
+    const km = Number(f.km);
+    a.fahrten = {
+      liefer: einsatz(f.liefer), abhol: einsatz(f.abhol),
+      km: isFinite(km) && km >= 0 && km < 2000 ? Math.round(km * 10) / 10 : null,
+      notiz: String(f.notiz || '').slice(0, 300)
+    };
     await st.setJSON(PREFIX + id, a);
     return json({ ok: true, anfrage: anreichern(req, a) });
   }

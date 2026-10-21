@@ -176,6 +176,30 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .toast.auf{pointer-events:auto;}
 .toast{position:fixed;left:50%;bottom:calc(96px + var(--safe-b));transform:translate(-50%,20px);z-index:80;background:var(--ink);color:#fff;padding:11px 16px;border-radius:12px;font-weight:700;font-size:.92rem;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:calc(100% - 32px);text-align:center;}
 .toast.auf{opacity:1;transform:translate(-50%,0);}
+.fb-kopf{display:flex;align-items:center;gap:4px;padding:4px 2px 0;}
+.fb-kopf b{font-size:1.15rem;min-width:52px;text-align:center;}
+.fb-xls{margin-left:auto;min-height:42px;padding:8px 14px;font-size:.92rem;}
+.fb-monate{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;}
+.fb-m{background:var(--paper);border:1px solid var(--line);border-radius:10px;min-height:52px;font-weight:800;font-size:.9rem;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;}
+.fb-m small{font-weight:600;font-size:.7rem;color:var(--mute);}
+.fb-m.on{background:var(--petrol);border-color:var(--petrol);color:#fff;}
+.fb-m.on small{color:rgba(255,255,255,.8);}
+.fb-stand{font-weight:800;font-size:.85rem;color:var(--offen);background:var(--offen-l);padding:4px 10px;border-radius:99px;}
+.fb-stand.ok{color:var(--fix);background:var(--fix-l);}
+.fb-tipp{text-align:center;font-size:.85rem;color:var(--mute);margin:8px 0 4px;min-height:1.2em;}
+.fb-e{border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:10px;}
+.fb-e-k{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;}
+.fb-e-k span{font-size:.88rem;color:var(--ink-2);}
+.fb-d{border:1px solid var(--line-2);border-radius:8px;padding:6px 8px;background:#fff;font-size:16px;}
+.fb-r{display:grid;grid-template-columns:68px minmax(0,1fr) 16px minmax(0,1fr);align-items:center;gap:5px;padding:4px 0;}
+.fb-r span{font-size:.88rem;font-weight:700;color:var(--ink-2);}
+.fb-r i{font-style:normal;text-align:center;color:var(--mute);font-size:.82rem;}
+.fb-z{width:100%;min-width:0;min-height:44px;border:1px solid var(--line-2);border-radius:10px;padding:6px 8px;background:#fff;font-size:16px;text-align:center;}
+.fb-z:focus,.fb-d:focus{outline:none;border-color:var(--petrol);}
+.fb-z.blink{background:var(--fix-l);border-color:var(--fix);}
+.fb-km{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-weight:700;font-size:.92rem;}
+.fb-km input{width:90px;text-align:right;border:1px solid var(--line-2);border-radius:8px;padding:8px;font-size:16px;font-weight:800;background:#fff;}
+@media(min-width:520px){.fb-monate{grid-template-columns:repeat(12,1fr);}}
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important;}}
 </style>
 </head>
@@ -206,6 +230,7 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
     <nav class="tabs" role="tablist">
       <button class="tab on" data-t="ausstehend" role="tab">Offen <span class="zahl" id="z-ausstehend">0</span></button>
       <button class="tab" data-t="fix" role="tab">Fix <span class="zahl" id="z-fix">0</span><span class="stern" id="z-stern" hidden>★</span></button>
+      <button class="tab" data-t="fahrten" role="tab"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M3 16V8h11v8M14 11h4l3 3v2h-7"/><circle cx="7" cy="17" r="1.8"/><circle cx="17" cy="17" r="1.8"/></svg>Fahrten</button>
       <button class="tab" data-t="abgelehnt" role="tab">Abgesagt <span class="zahl" id="z-abgelehnt">0</span></button>
       <button class="tab" data-t="archiv" role="tab">Archiv <span class="zahl" id="z-archiv">0</span></button>
       <button class="tab" data-t="papierkorb" role="tab" aria-label="Papierkorb"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg><span class="zahl" id="z-papierkorb">0</span></button>
@@ -399,6 +424,7 @@ function zeichneListe(){
   var nStern = alle.filter(function(a){ var b = bewertungStatus(a); return b === 'faellig' || b === 'erinnern'; }).length;
   $('z-stern').hidden = !nStern; $('z-stern').textContent = '★ ' + nStern;
   Object.keys(z).forEach(function(k){ var el = $('z-' + k); el.textContent = z[k]; el.classList.toggle('voll', z[k] > 0); el.hidden = (k === 'papierkorb' || k === 'archiv') && !z[k]; });
+  if(tab === 'fahrten'){ zeichneFahrten(); return; }
   var l = alle.filter(function(a){ return a.status === tab; }), html = '';
   if(tab === 'ausstehend'){
     l.sort(function(a,b){ return (b.erstellt || '').localeCompare(a.erstellt || ''); });
@@ -823,6 +849,156 @@ function schliesseSheet(){
   try{ if(history.state && history.state.sheet) history.back(); }catch(e){}
 }
 $('schleier').addEventListener('click', schliesseSheet);
+
+/* ══════════ Fahrtenbuch ══════════
+   Jede fixe Buchung hat zwei Einsätze: Lieferung (Datum = Festtag) und
+   Abholung (Datum frei, Standard: Tag danach). Pro Einsatz Hin- und Rückfahrt
+   mit Abfahrt und Ankunft. Daraus wird die Excel-Liste je Monat gebaut. */
+var MONATE = ['Jänner','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+var START = 'Glödnitz, Schulstraße 3';
+var fbJahr = new Date().getFullYear(), fbMonat = new Date().getMonth();
+function istFixA(a){ return a.status === 'fix' || (a.status === 'archiv' && a.vorherStatus === 'fix'); }
+function plusTag(iso, n){ var d = tagDatum(iso); if(!d) return ''; d.setDate(d.getDate() + n); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
+function fbKm(a){
+  if(a.fahrten && a.fahrten.km != null) return a.fahrten.km;
+  if(a.anreise && a.anreise.km) return a.anreise.km;
+  var l = (a.positionen || []).filter(function(p){ return p.art === 'lieferung' && Number(p.betrag) > 0; })[0];
+  return l ? Math.round(Number(l.betrag) / 2.2) : 0;
+}
+function fbDaten(a){
+  var f = a.fahrten || {};
+  var leer = function(){ return {ab:'', an:''}; };
+  function e(x, datum){ x = x || {}; return {datum: x.datum || datum, hin: x.hin || leer(), rueck: x.rueck || leer()}; }
+  return {liefer: e(f.liefer, a.datum), abhol: e(f.abhol, plusTag(a.datumEnde || a.datum, 1)), km: fbKm(a), notiz: f.notiz || ''};
+}
+function fbZiel(a){ return [a.adresse && a.adresse.strasse, ((a.adresse && a.adresse.plz) || '') + ' ' + ((a.adresse && a.adresse.ort) || '')].filter(function(x){ return x && x.trim(); }).join(', ') || 'Kunde'; }
+function fbFelder(f){ return [f.liefer.hin.ab, f.liefer.hin.an, f.liefer.rueck.ab, f.liefer.rueck.an, f.abhol.hin.ab, f.abhol.hin.an, f.abhol.rueck.ab, f.abhol.rueck.an]; }
+function fbFertig(f){ return fbFelder(f).filter(Boolean).length; }
+
+/* Alle Fahrten (Zeilen) eines Jahres */
+function fbZeilen(jahr){
+  var out = [];
+  alle.filter(istFixA).forEach(function(a){
+    var f = fbDaten(a), ziel = fbZiel(a), wer = ((a.kunde.vorname || '') + ' ' + (a.kunde.nachname || '')).trim();
+    [['liefer','Lieferung'],['abhol','Abholung']].forEach(function(e){
+      var x = f[e[0]]; if(!x.datum || x.datum.slice(0,4) !== String(jahr)) return;
+      out.push({datum:x.datum, ab:x.hin.ab, an:x.hin.an, von:START, nach:ziel, zweck:e[1] + ' ' + produkte(a) + ' (Hinfahrt)', kunde:wer, nr:a.nr || '', km:f.km});
+      out.push({datum:x.datum, ab:x.rueck.ab, an:x.rueck.an, von:ziel, nach:START, zweck:e[1] + ' ' + produkte(a) + ' (Rückfahrt)', kunde:wer, nr:a.nr || '', km:f.km});
+    });
+  });
+  return out.sort(function(x, y){ return (x.datum + (x.ab || '99')).localeCompare(y.datum + (y.ab || '99')); });
+}
+
+function zeichneFahrten(){
+  var zeilen = fbZeilen(fbJahr);
+  var proMonat = MONATE.map(function(_, m){ return zeilen.filter(function(z){ return +z.datum.slice(5,7) === m + 1; }); });
+  var html = '<div class="fb-kopf"><button class="ikon" id="fbVor" aria-label="Jahr zurück"><svg class="i" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><b>' + fbJahr + '</b><button class="ikon" id="fbNach" aria-label="Jahr vor"><svg class="i" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>' +
+    '<button class="btn btn-p fb-xls" id="fbXls"><svg class="i" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Excel ' + fbJahr + '</button></div>';
+  html += '<div class="fb-monate">' + MONATE.map(function(n, m){
+    var km = proMonat[m].reduce(function(s, z){ return s + (Number(z.km) || 0); }, 0);
+    return '<button class="fb-m' + (m === fbMonat ? ' on' : '') + '" data-m="' + m + '">' + n.slice(0,3) + (km ? '<small>' + Math.round(km) + ' km</small>' : '<small>–</small>') + '</button>';
+  }).join('') + '</div>';
+  var buchungen = alle.filter(istFixA).filter(function(a){
+    var f = fbDaten(a);
+    return [f.liefer.datum, f.abhol.datum].some(function(d){ return d && +d.slice(0,4) === fbJahr && +d.slice(5,7) === fbMonat + 1; });
+  }).sort(function(a, b){ return (a.datum || '').localeCompare(b.datum || ''); });
+  var kmM = proMonat[fbMonat].reduce(function(s, z){ return s + (Number(z.km) || 0); }, 0);
+  html += '<div class="gruppe">' + MONATE[fbMonat] + ' ' + fbJahr + (kmM ? ' · ' + Math.round(kmM) + ' km' : '') + '</div>';
+  if(!buchungen.length) html += '<div class="leer"><b>Keine Fahrten</b>Fixe Buchungen in diesem Monat erscheinen hier automatisch.</div>';
+  html += buchungen.map(function(a){
+    var f = fbDaten(a), n = fbFertig(f), d = tagDatum(a.datum);
+    return '<button class="karte fb-karte" data-fb="' + esc(a.id) + '">' +
+      '<span class="tag" style="background:var(--petrol-l);color:var(--petrol)">' + (d ? '<span class="tag-w">' + WT[d.getDay()] + '</span><span class="tag-d">' + d.getDate() + '</span><span class="tag-m">' + MO[d.getMonth()] + '</span>' : '') + '</span>' +
+      '<span class="k-mitte"><span class="k-prod">' + esc(produkte(a)) + '</span><span class="k-wer">' + esc(fbZiel(a)) + '</span>' +
+      '<span class="k-info">Abholung ' + esc(datumKurz(f.abhol.datum)) + ' · 4 × ' + esc(String(f.km).replace('.', ',')) + ' km</span></span>' +
+      '<span class="k-rechts"><span class="fb-stand' + (n === 8 ? ' ok' : '') + '">' + (n === 8 ? '✓ fertig' : n + '/8') + '</span></span></button>';
+  }).join('');
+  $('liste').innerHTML = html;
+  $('fbVor').onclick = function(){ fbJahr--; zeichneFahrten(); };
+  $('fbNach').onclick = function(){ fbJahr++; zeichneFahrten(); };
+  $('fbXls').onclick = function(){ excelExport(fbJahr); };
+  $('liste').querySelectorAll('.fb-m').forEach(function(b){ b.onclick = function(){ fbMonat = +b.dataset.m; zeichneFahrten(); }; });
+  $('liste').querySelectorAll('[data-fb]').forEach(function(b){ b.onclick = function(){ fahrtenSheet(b.dataset.fb); }; });
+}
+
+function fahrtenSheet(id){
+  var a = alle.filter(function(x){ return x.id === id; })[0]; if(!a) return;
+  var f = fbDaten(a);
+  function zeit(pfad, wert){ return '<input type="time" class="fb-z" data-p="' + pfad + '" value="' + esc(wert) + '"/>'; }
+  function einsatz(key, titel, datumFix){
+    var x = f[key];
+    return '<div class="fb-e"><div class="fb-e-k"><b>' + titel + '</b>' +
+      (datumFix ? '<span>' + esc(datumLang(x.datum)) + '</span>' : '<input type="date" class="fb-d" data-p="' + key + '.datum" value="' + esc(x.datum) + '"/>') + '</div>' +
+      '<div class="fb-r"><span>Hinfahrt</span>' + zeit(key + '.hin.ab', x.hin.ab) + '<i>bis</i>' + zeit(key + '.hin.an', x.hin.an) + '</div>' +
+      '<div class="fb-r"><span>Rückfahrt</span>' + zeit(key + '.rueck.ab', x.rueck.ab) + '<i>bis</i>' + zeit(key + '.rueck.an', x.rueck.an) + '</div></div>';
+  }
+  oeffneSheet(
+    '<h3>Fahrtenbuch</h3><p style="margin-bottom:10px">' + esc(produkte(a)) + ' · ' + esc(fbZiel(a)) + '</p>' +
+    '<button class="btn btn-p btn-w" id="fbJetzt"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>Jetzt eintragen</button>' +
+    '<div class="fb-tipp" id="fbTipp"></div>' +
+    einsatz('liefer', 'Lieferung', true) + einsatz('abhol', 'Abholung', false) +
+    '<div class="fb-km"><span>Kilometer pro Strecke</span><input type="number" inputmode="decimal" id="fbKmIn" value="' + esc(String(f.km)) + '"/></div>' +
+    '<div class="gespeichert" id="fbGesp" style="text-align:center;padding-top:8px"></div>'
+  );
+  var T;
+  function setze(pfad, wert){ var t = pfad.split('.'), o = f; for(var i = 0; i < t.length - 1; i++) o = o[t[i]]; o[t[t.length-1]] = wert; }
+  function naechstes(){ return [].filter.call($('sheetIn').querySelectorAll('.fb-z'), function(i){ return !i.value; })[0]; }
+  function tipp(){
+    var n = naechstes(), r = n && n.closest('.fb-r'), e = n && n.closest('.fb-e');
+    $('fbTipp').textContent = n ? 'Als Nächstes: ' + e.querySelector('b').textContent + ', ' + r.querySelector('span').textContent + (n === r.querySelectorAll('.fb-z')[0] ? ' Abfahrt' : ' Ankunft') : 'Alle Zeiten eingetragen ✓';
+    $('fbJetzt').disabled = !n;
+  }
+  function speichern(){
+    $('fbGesp').textContent = 'Speichert …'; clearTimeout(T);
+    T = setTimeout(function(){
+      api('fahrten', {id: id, fahrten: f}).then(function(d){
+        var i = alle.findIndex(function(x){ return x.id === id; }); if(i !== -1) alle[i] = d.anfrage;
+        $('fbGesp').textContent = 'Gespeichert';
+        if(tab === 'fahrten') zeichneFahrten();
+      }).catch(function(e){ if(e.message !== '401'){ $('fbGesp').textContent = 'Nicht gespeichert'; toast('Speichern hat nicht geklappt.'); } });
+    }, 500);
+  }
+  $('sheetIn').querySelectorAll('.fb-z,.fb-d').forEach(function(inp){ inp.addEventListener('change', function(){ setze(inp.dataset.p, inp.value); tipp(); speichern(); }); });
+  $('fbKmIn').addEventListener('change', function(){ var v = Number(String(this.value).replace(',', '.')); f.km = isFinite(v) && v >= 0 ? v : 0; speichern(); });
+  $('fbJetzt').addEventListener('click', function(){
+    var n = naechstes(); if(!n) return;
+    var d = new Date(); n.value = ('0'+d.getHours()).slice(-2) + ':' + ('0'+d.getMinutes()).slice(-2);
+    setze(n.dataset.p, n.value); tipp(); speichern();
+    n.classList.add('blink'); setTimeout(function(){ n.classList.remove('blink'); }, 700);
+  });
+  tipp();
+}
+
+/* Excel: ein Blatt pro Monat + Übersicht */
+function ladeXlsx(){
+  if(window.XLSX) return Promise.resolve(window.XLSX);
+  return new Promise(function(ok, nein){
+    var s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+    s.onload = function(){ ok(window.XLSX); }; s.onerror = nein; document.head.appendChild(s);
+  });
+}
+function excelExport(jahr){
+  var b = $('fbXls'); if(b){ b.disabled = true; b.lastChild.textContent = 'Wird erstellt …'; }
+  ladeXlsx().then(function(X){
+    var zeilen = fbZeilen(jahr), wb = X.utils.book_new(), uebersicht = [['Monat', 'Fahrten', 'Kilometer']], summe = 0, anz = 0;
+    MONATE.forEach(function(name, m){
+      var z = zeilen.filter(function(r){ return +r.datum.slice(5,7) === m + 1; });
+      var km = z.reduce(function(s, r){ return s + (Number(r.km) || 0); }, 0);
+      var daten = [['Fahrtenbuch ' + name + ' ' + jahr + ' – Hüpfabenteuer'], [], ['Datum', 'Abfahrt', 'Ankunft', 'Von', 'Nach', 'Zweck', 'Kunde', 'Angebot-Nr.', 'km']];
+      z.forEach(function(r){ daten.push([datumKurz(r.datum), r.ab, r.an, r.von, r.nach, r.zweck, r.kunde, r.nr, Number(r.km) || 0]); });
+      daten.push([]); daten.push(['', '', '', '', '', '', '', 'Summe km', Math.round(km * 10) / 10]);
+      var ws = X.utils.aoa_to_sheet(daten);
+      ws['!cols'] = [{wch:11},{wch:8},{wch:8},{wch:30},{wch:30},{wch:38},{wch:20},{wch:11},{wch:8}];
+      X.utils.book_append_sheet(wb, ws, name);
+      uebersicht.push([name, z.length, Math.round(km * 10) / 10]); summe += km; anz += z.length;
+    });
+    uebersicht.push([]); uebersicht.push(['Gesamt ' + jahr, anz, Math.round(summe * 10) / 10]);
+    var wu = X.utils.aoa_to_sheet(uebersicht); wu['!cols'] = [{wch:14},{wch:9},{wch:11}];
+    X.utils.book_append_sheet(wb, wu, 'Übersicht');
+    X.writeFile(wb, 'Fahrtenbuch_' + jahr + '_Huepfabenteuer.xlsx');
+  }).catch(function(){ toast('Excel konnte nicht geladen werden. Prüf die Verbindung.'); })
+    .finally(function(){ if($('fbXls')){ $('fbXls').disabled = false; $('fbXls').lastChild.textContent = 'Excel ' + jahr; } });
+}
 
 /* ── Start ── */
 schluessel = lsGet();
