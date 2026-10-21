@@ -983,9 +983,6 @@ document.addEventListener('DOMContentLoaded', function(){
 </style>
 
 <style id="fruehbucher-css">
-.fb-frueh{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:14px 16px;border:1px solid var(--brass);border-radius:12px;background:rgba(11,107,111,.14);color:var(--paper);text-decoration:none;font-size:.95rem;line-height:1.45;max-width:560px;margin-bottom:18px;}
-.fb-frueh:hover{background:rgba(11,107,111,.22);}
-.fb-frueh-i{font-size:1.3rem;line-height:1;}
 .fb-eng{margin-top:10px;font-size:.95rem;line-height:1.5;}
 .fb-eng b{font-weight:800;}
 </style>
@@ -1046,10 +1043,6 @@ document.addEventListener('DOMContentLoaded', function(){
       <div class="hero-cta">
         <a href="#pakete" class="btn btn-solid">Termin anfragen</a>
       </div>
-      <a href="#anfrage" class="fb-frueh" data-bis="2026-11-15">
-        <span class="fb-frueh-i" aria-hidden="true">🎁</span>
-        <span><b>Frühbucher bis 15. November:</b> Weihnachtsfeier jetzt fix buchen und der Fotorahmen mit eurem Firmenlogo ist gratis.</span>
-      </a>
       <div class="hero-meta">
         <span><b>Logo</b> im Rahmen bei Premium</span>
         <span><b>3</b> Pakete ab 199 €</span>
@@ -1203,7 +1196,6 @@ document.addEventListener('DOMContentLoaded',function(){
         <h2>Ist euer Feiertermin noch frei?</h2>
         <p><b>Unverbindlich und in einer Minute erledigt.</b> Du bekommst ein fixes Angebot mit allen Kosten, meistens innerhalb einer Stunde.</p>
         <p class="fb-eng">⏳ <b>Dezember-Wochenenden sind die gefragtesten Termine des Jahres.</b> Wer jetzt im Oktober anfragt, hat noch die freie Wahl. Im November wird's eng.</p>
-        <p class="fb-eng fb-frueh-k" data-bis="2026-11-15">🎁 <b>Frühbucher bis 15. November:</b> Fotorahmen mit eurem Firmenlogo gratis, schon ab dem Standard-Paket mit Sofortdruck.</p>
         <div class="pw-chosen" id="pwChosen" hidden></div>
       </div>
 
@@ -2142,13 +2134,9 @@ document.addEventListener('DOMContentLoaded',function(){
     fd.append('Quelle', 'Weihnachtsfeier-Landingpage');
     if(window.hbAktion && hbAktion.aktiv() && selectedPrice) fd.append('Aktion', hbAktion.info.name + ': ' + hbAktion.preisText(selectedPrice));
     if(document.getElementById('fotoFreigabe') && document.getElementById('fotoFreigabe').checked) fd.append('Fotos verwenden', 'Ja, Kunde ist einverstanden');
-    if(window.hbFruehbucher && hbFruehbucher()) fd.append('Frühbucher', 'Ja – Fotorahmen mit Firmenlogo gratis (ab Standard)');
     try {
       var _an = window.hbAnreiseWert, _rw = rahmenWert();
       var _posV = [{art:'miete', titel: selectedPrice ? 'Fotobox ' + selectedName : 'Fotobox (Paket noch offen)', text: 'Fotobox mit allem Zubehör, ganzer Abend, Auf- und Abbau inklusive' + (_rw ? ' · Rahmen: ' + _rw : ''), betrag: selectedPrice || null}];
-      if(window.hbFruehbucher && hbFruehbucher() && selectedName === 'Standard'){
-        _posV.push({art:'extra', titel:'Fotorahmen mit Firmenlogo (Frühbucher)', text:'Gratis bei Buchung bis 15.11.2026', betrag:0});
-      }
       if(window.hbAktion && selectedPrice){ var _akP = hbAktion.position(selectedPrice); if(_akP) _posV.push(_akP); }
       _posV.push({art:'lieferung', titel:'Lieferung & Abholung', text:'Glödnitz – ' + ort + (_an ? ' · 4 Fahrten à ' + _an.km + ' km × 0,55 €' : ''), betrag: _an ? _an.anreise : null});
       var _verw = {
@@ -2241,11 +2229,6 @@ document.addEventListener('DOMContentLoaded',function(){
   window.addEventListener('resize', anstossen, {passive:true});
   pruefen();
 })();
-</script>
-<script>
-/* Frühbucher-Aktion: nach Ablauf automatisch ausblenden */
-window.hbFruehbucher = function(){ return new Date().toLocaleDateString('sv-SE',{timeZone:'Europe/Vienna'}) <= '2026-11-15'; };
-if(!hbFruehbucher()) document.querySelectorAll('[data-bis]').forEach(function(el){ el.remove(); });
 </script>
 <script src="verfuegbar.js?v=202610211800"></script>
 <script>
