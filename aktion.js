@@ -49,18 +49,14 @@
     '.ak-box{display:flex;gap:12px;align-items:flex-start;margin:0 0 18px;padding:14px 16px;border-radius:12px;border:1.5px solid #C2410C;background:rgba(194,65,12,.07);font-size:.95rem;line-height:1.45}' +
     '.ak-box .ak-i{font-size:1.35rem;line-height:1}' +
     '.ak-box b{font-weight:800}' +
-    '.ak-karte{display:block;margin:4px 0 26px;padding:20px 20px 18px;border-radius:18px;background:linear-gradient(135deg,#0B6B6F,#084F52);color:#fff;text-decoration:none;box-shadow:0 14px 40px rgba(8,79,82,.35);position:relative;overflow:hidden;max-width:560px}' +
-    '.ak-k-top{font-family:"Karla","Helvetica Neue",Arial,sans-serif;font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;opacity:.92}' +
-    '.ak-k-big{font-family:"Karla","Helvetica Neue",Arial,sans-serif;font-weight:800;font-size:clamp(1.9rem,8vw,2.6rem);line-height:1.05;margin:6px 0 4px}' +
-    '.ak-k-big span{background:#fff;color:#C2410C;border-radius:10px;padding:0 10px;margin-right:6px;display:inline-block}' +
-    '.ak-k-sub{font-size:1rem;opacity:.95}' +
-    '.ak-k-preise{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}' +
-    '.ak-k-preise div{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:8px 6px;text-align:center;font-size:.78rem;line-height:1.25}' +
-    '.ak-k-preise s{display:block;opacity:.7}' +
-    '.ak-k-preise b{display:block;font-size:1.2rem;font-weight:800}' +
-    '.ak-k-cta{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}' +
-    '.ak-k-btn{background:#fff;color:#084F52;font-weight:800;border-radius:10px;padding:11px 16px;font-size:.98rem}' +
-    '.ak-k-zeit{font-size:.88rem;font-weight:700}';
+    '.ak-streifen{display:flex;align-items:center;gap:12px;margin:14px 0 4px;padding:10px 12px;border-radius:12px;background:#0B6B6F;color:#fff;text-decoration:none;max-width:560px;box-shadow:0 6px 18px rgba(8,79,82,.25)}' +
+    '.ak-streifen:hover{background:#084F52}' +
+    '.ak-s-pill{flex:none;background:#fff;color:#C2410C;font-weight:800;font-size:1.05rem;border-radius:8px;padding:6px 9px;line-height:1}' +
+    '.ak-s-txt{flex:1;min-width:0;font-size:.9rem;line-height:1.35}' +
+    '.ak-s-txt b{font-weight:800}' +
+    '.ak-s-txt s{opacity:.7;margin-right:3px}' +
+    '.ak-s-txt small{display:block;font-size:.78rem;opacity:.85}' +
+    '.ak-s-pf{flex:none;font-size:1.2rem;font-weight:800}';
 
   function zeitText() {
     var t = tageNoch();
@@ -104,18 +100,14 @@
       }
     });
 
-    /* Große Aktionskarte (Startseite: <div id="akHero"></div>) */
+    /* Aktionsstreifen (Startseite: <div id="akHero"></div>) */
     var platz = document.getElementById('akHero');
     if (platz) {
-      platz.innerHTML = '<a class="ak-karte" href="fotobox.html#pakete">' +
-        '<div class="ak-k-top">' + AKTION.kurz + ' · nur bis ' + AKTION.bisText + '</div>' +
-        '<div class="ak-k-big"><span>−' + AKTION.prozent + '\u00A0%</span>auf alle Fotoboxen</div>' +
-        '<div class="ak-k-sub">Ganzer Abend, Auf- und Abbau inklusive, Sofortdruck ab Standard.</div>' +
-        '<div class="ak-k-preise">' + [['Digital', 199], ['Standard', 299], ['Premium', 349]].map(function (x) {
-          return '<div>' + x[0] + '<s>' + x[1] + ' €</s><b>' + neu(x[1]) + ' €</b></div>';
-        }).join('') + '</div>' +
-        '<div class="ak-k-cta"><span class="ak-k-btn">Jetzt Termin sichern →</span><span class="ak-k-zeit">⏳ ' + zeitText().replace(/^n/, 'N') + '</span></div>' +
-        '</a>';
+      platz.innerHTML = '<a class="ak-streifen" href="fotobox.html#pakete">' +
+        '<span class="ak-s-pill">−' + AKTION.prozent + '\u00A0%</span>' +
+        '<span class="ak-s-txt"><b>' + AKTION.kurz + ':</b> Fotobox ab <s>199 €</s><b>' + neu(199) + ' €</b>' +
+        '<small>Alle Pakete −' + AKTION.prozent + '\u00A0% · ' + zeitText() + ', bis ' + AKTION.bisText + '</small></span>' +
+        '<span class="ak-s-pf" aria-hidden="true">→</span></a>';
     }
 
     /* Hinweis über dem Anfrageformular */
