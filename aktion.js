@@ -48,7 +48,20 @@
     '.ak-tag{display:inline-block;margin-left:6px;background:#C2410C;color:#fff;font-size:.62rem;font-weight:800;letter-spacing:.04em;border-radius:999px;padding:2px 7px;vertical-align:middle;white-space:nowrap}' +
     '.ak-box{display:flex;gap:12px;align-items:flex-start;margin:0 0 18px;padding:14px 16px;border-radius:12px;border:1.5px solid #C2410C;background:rgba(194,65,12,.07);font-size:.95rem;line-height:1.45}' +
     '.ak-box .ak-i{font-size:1.35rem;line-height:1}' +
-    '.ak-box b{font-weight:800}';
+    '.ak-box b{font-weight:800}' +
+    '.ak-karte{display:block;margin:4px 0 26px;padding:20px 20px 18px;border-radius:18px;background:linear-gradient(135deg,#0B6B6F,#084F52);color:#fff;text-decoration:none;box-shadow:0 14px 40px rgba(8,79,82,.35);position:relative;overflow:hidden;max-width:560px}' +
+    '.ak-karte::after{content:"❄";position:absolute;right:-6px;top:-18px;font-size:7rem;opacity:.12;line-height:1}' +
+    '.ak-k-top{font-family:"Karla","Helvetica Neue",Arial,sans-serif;font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;opacity:.92}' +
+    '.ak-k-big{font-family:"Karla","Helvetica Neue",Arial,sans-serif;font-weight:800;font-size:clamp(1.9rem,8vw,2.6rem);line-height:1.05;margin:6px 0 4px}' +
+    '.ak-k-big span{background:#fff;color:#C2410C;border-radius:10px;padding:0 10px;margin-right:6px;display:inline-block}' +
+    '.ak-k-sub{font-size:1rem;opacity:.95}' +
+    '.ak-k-preise{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}' +
+    '.ak-k-preise div{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:8px 6px;text-align:center;font-size:.78rem;line-height:1.25}' +
+    '.ak-k-preise s{display:block;opacity:.7}' +
+    '.ak-k-preise b{display:block;font-size:1.2rem;font-weight:800}' +
+    '.ak-k-cta{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}' +
+    '.ak-k-btn{background:#fff;color:#084F52;font-weight:800;border-radius:10px;padding:11px 16px;font-size:.98rem}' +
+    '.ak-k-zeit{font-size:.88rem;font-weight:700}';
 
   function zeitText() {
     var t = tageNoch();
@@ -73,10 +86,11 @@
     band.className = 'ak-band'; band.href = (location.pathname.indexOf('fotobox') !== -1 && document.getElementById('pakete')) ? '#pakete' : 'fotobox.html#pakete';
     band.innerHTML = '<span class="ak-pill">−' + AKTION.prozent + '\u00A0%</span><span>❄️ <b>' + AKTION.kurz + ':</b> ' + AKTION.prozent + '\u00A0% auf alle Fotobox-Pakete</span><span class="ak-zeit">· ' + zeitText() + ', bis ' + AKTION.bisText + '</span>';
     var top = document.querySelector('.topbar');
-    if (top && top.parentNode) top.parentNode.insertBefore(band, top.nextSibling); else document.body.insertBefore(band, document.body.firstChild);
+    if (document.getElementById('akHero')) band = null;   /* Startseite hat die große Karte */
+    else if (top && top.parentNode) top.parentNode.insertBefore(band, top.nextSibling); else document.body.insertBefore(band, document.body.firstChild);
 
     /* Preise auf der Seite */
-    ['.pw-p', '.opt-p', '.pw-head b', '.ov-p', '.tier-p', '.fbx-prices b', '.foto-price'].forEach(function (sel) {
+    ['.pw-p', '.opt-p', '.pw-head b', '.ov-p', '.tier-p', '.fbx-prices b', '.foto-price', '.fp .p', '.fp-go', '.offer-p'].forEach(function (sel) {
       [].forEach.call(document.querySelectorAll(sel), deko);
     });
     [].forEach.call(document.querySelectorAll('.pw-tab'), function (t) {
@@ -90,6 +104,20 @@
         el.innerHTML = el.innerHTML.replace(/199(<span class="u">)?(\s|&nbsp;)*€(<\/span>)?/, '<span class="ak-alt">199 €</span><span class="ak-neu">' + neu(199) + ' €</span>');
       }
     });
+
+    /* Große Aktionskarte (Startseite: <div id="akHero"></div>) */
+    var platz = document.getElementById('akHero');
+    if (platz) {
+      platz.innerHTML = '<a class="ak-karte" href="fotobox.html#pakete">' +
+        '<div class="ak-k-top">❄️ ' + AKTION.kurz + ' · nur bis ' + AKTION.bisText + '</div>' +
+        '<div class="ak-k-big"><span>−' + AKTION.prozent + '\u00A0%</span>auf alle Fotoboxen</div>' +
+        '<div class="ak-k-sub">Ganzer Abend, Auf- und Abbau inklusive, Sofortdruck ab Standard.</div>' +
+        '<div class="ak-k-preise">' + [['Digital', 199], ['Standard', 299], ['Premium', 349]].map(function (x) {
+          return '<div>' + x[0] + '<s>' + x[1] + ' €</s><b>' + neu(x[1]) + ' €</b></div>';
+        }).join('') + '</div>' +
+        '<div class="ak-k-cta"><span class="ak-k-btn">Jetzt Termin sichern →</span><span class="ak-k-zeit">⏳ ' + zeitText().replace(/^n/, 'N') + '</span></div>' +
+        '</a>';
+    }
 
     /* Hinweis über dem Anfrageformular */
     var kopf = document.querySelector('#fotobox-form .form-head');
