@@ -684,7 +684,7 @@ function zeichneDetail(){
        '<div class="zeile" style="margin-top:8px;align-items:center"><span>Rechnungsnr.</span><span class="anz"><input id="dRechnung" value="' + esc(a.rechnungNr || '') + '" placeholder="' + esc(a.nr ? String(a.nr) : 'z. B. 26-060') + '" style="width:120px"/></span></div><div class="bew-status" id="dReInfo" style="font-size:.85rem"></div></div>';
 
   /* Kunde */
-  h += '<div class="block"><h3>Kunde</h3>' +
+  h += '<div class="block"><h3 style="display:flex;justify-content:space-between;align-items:center">Kunde<button class="pos-neu" id="dBearb" style="margin:0;padding:0;font-size:.85rem">✎ Kunde, Termin &amp; Text bearbeiten</button></h3>' +
        '<div style="font-weight:800;font-size:1.05rem">' + esc(name) + '</div>' +
        '<div style="color:var(--ink-2)">' + esc(a.kunde.telefon || 'keine Nummer') + (a.kunde.email ? '<br>' + esc(a.kunde.email) : '') + '</div>' +
        (adr ? '<div style="margin-top:8px">' + esc(adr) + '</div>' : '') +
@@ -919,6 +919,7 @@ function verbindeDetail(){
       planeSpeichern(); zeichneDetail();
     }); });
   }
+  if($('dBearb')) $('dBearb').addEventListener('click', bearbeitenSheet);
   if($('dDatKopie')) $('dDatKopie').addEventListener('click', function(){ var a = aktuell; kopieren(datumKurz(a.datum) + (a.datumEnde && a.datumEnde !== a.datum ? ' – ' + datumKurz(a.datumEnde) : ''), 'Datum kopiert'); });
   if($('dKm')) $('dKm').addEventListener('input', function(){
     var km = Number(this.value.replace(',', '.').trim());
@@ -1005,6 +1006,40 @@ function erfolgSheet(a){
   );
   $('sKopie').addEventListener('click', function(){ kopieren(a.waText); });
   if($('sWa')) $('sWa').addEventListener('click', function(){ setTimeout(schliesseSheet, 400); });
+}
+
+/* Kunde, Adresse, Termin und Text nachträglich ändern (auch bei fixen Buchungen) */
+function bearbeitenSheet(){
+  var a = aktuell, k = a.kunde || {}, ad = a.adresse || {};
+  function f(id, lbl, wert, typ, extra){ return '<div class="feld"><label>' + lbl + '</label><input id="' + id + '" type="' + (typ || 'text') + '" value="' + esc(wert || '') + '"' + (extra || '') + '/></div>'; }
+  oeffneSheet('<h3>Bearbeiten</h3>' +
+    (a.pdfToken ? '<p style="margin-bottom:8px;font-size:.85rem">Das schon verschickte PDF bleibt gleich. Willst du dem Kunden die neue Version schicken, tipp danach auf „Neues Angebot senden“.</p>' : '') +
+    '<div class="grid2">' + f('bVn', 'Vorname', k.vorname) + f('bNn', 'Nachname', k.nachname) + '</div>' +
+    '<div class="grid2">' + f('bTel', 'Handynummer', k.telefon, 'tel') + f('bMail', 'E-Mail', k.email, 'email') + '</div>' +
+    '<div class="grid2">' + f('bDat', 'Datum', a.datum, 'date') + f('bEnd', 'Bis (optional)', a.datumEnde, 'date') + '</div>' +
+    f('bStr', 'Straße &amp; Nr.', ad.strasse) +
+    '<div class="grid2">' + f('bPlz', 'PLZ', ad.plz, 'text', ' inputmode="numeric"') + f('bOrt', 'Ort', ad.ort) + '</div>' +
+    f('bAnl', 'Anlass', a.anlass, 'text', ' placeholder="z. B. Kindergeburtstag"') +
+    '<div class="feld"><label>Nachricht / Beschreibung</label><textarea id="bTxt" rows="4">' + esc(a.nachricht || '') + '</textarea></div>' +
+    '<button class="btn btn-p btn-w" id="bOk">Speichern</button><div class="fehler" id="bFehler"></div>');
+  function v(id){ return ($(id).value || '').trim(); }
+  $('bOk').onclick = function(){
+    if(!v('bVn') && !v('bNn')){ $('bFehler').textContent = 'Bitte einen Namen eintragen.'; return; }
+    if(v('bEnd') && v('bDat') && v('bEnd') < v('bDat')){ $('bFehler').textContent = '„Bis“ liegt vor dem Datum.'; return; }
+    var b = this; b.disabled = true; b.textContent = 'Speichert …';
+    var ortAlt = ad.ort || '';
+    Promise.resolve(sofortSpeichern()).then(function(){ return api('speichern', {id: a.id, patch: {
+      kunde: {vorname: v('bVn'), nachname: v('bNn'), telefon: v('bTel'), email: v('bMail')},
+      adresse: {strasse: v('bStr'), plz: v('bPlz'), ort: v('bOrt')},
+      datum: v('bDat'), datumEnde: v('bEnd'), anlass: v('bAnl'), nachricht: ($('bTxt').value || '').trim()
+    }}); }).then(function(d){
+      var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
+      aktuell = JSON.parse(JSON.stringify(d.anfrage));
+      schliesseSheet(); zeichneDetail(); zeichneListe(); zeichneLeiste && zeichneLeiste();
+      toast('Gespeichert');
+      if((d.anfrage.adresse.ort || '') !== ortAlt) fbSyncBuchung(d.anfrage);
+    }).catch(function(e){ b.disabled = false; b.textContent = 'Speichern'; if(e.message !== '401') $('bFehler').textContent = 'Hat nicht geklappt.'; });
+  };
 }
 
 function absageSheet(){
