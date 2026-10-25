@@ -220,6 +220,11 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .fb-tabelle td:nth-child(n+6),.fb-tabelle th:nth-child(n+6){text-align:right;}
 .fb-tabelle tbody tr:nth-child(even){background:#FBF8F2;}
 .fb-tabelle tr[data-ez]{cursor:pointer;}
+.fb-ok{display:inline-flex;width:20px;height:20px;border:2px solid var(--line-2);border-radius:5px;vertical-align:middle;margin-right:6px;align-items:center;justify-content:center;background:#fff;cursor:pointer;font-size:13px;font-weight:900;color:#fff;flex:none;}
+.fb-ok.on{background:var(--fix);border-color:var(--fix);}
+.fb-g{display:inline-block;width:8px;height:8px;border-radius:50%;background:#E8892B;margin-left:4px;vertical-align:middle;}
+.ez-g label::after{content:' · geschätzt';color:#C06A12;font-weight:700;}
+.ez-g input{border-color:#E8892B !important;background:#FFF6EC !important;}
 .fb-tabelle tfoot td{font-weight:800;background:#F5F0E5;text-align:right;}
 .fb-tabelle tfoot td:first-child{text-align:left;}
 .fb-tab{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
@@ -398,6 +403,7 @@ function anzBadge(a){
 function tageSeit(iso){ return iso ? Math.floor((Date.now() - new Date(iso).getTime())/864e5) : 0; }
 function bewertungStatus(a){
   if(a.status !== 'fix' && a.status !== 'erledigt') return null;
+  if(a.rueckdatiert && !(a.bewertung && a.bewertung.erhalten)) return null;   /* nachgetragene alte Buchungen nicht nachfragen */
   var ende = tagDatum(a.datumEnde || a.datum); if(!ende || ende >= heute()) return null;
   var b = a.bewertung || {};
   if(b.erhalten) return 'erhalten';
@@ -501,7 +507,14 @@ function zeichneListe(){
   Object.keys(z).forEach(function(k){ var el = $('z-' + k); el.textContent = z[k]; el.classList.toggle('voll', z[k] > 0); el.hidden = (k === 'papierkorb' || k === 'archiv') && !z[k]; });
   if(tab === 'fahrten'){ zeichneFahrten(); return; }
   if(tab === 'erledigt'){
-    var le = alle.filter(function(a){ return a.status === 'erledigt'; }).sort(function(a,b){ return (b.datum || '').localeCompare(a.datum || ''); });
+    /* nach Rechnungsnummer (26-001, 26-002 …), Buchungen ohne Nummer danach nach Datum */
+    var reKey = function(a){ var m = /(\d+)\D+(\d+)\s*$/.exec(a.rechnungNr || ''); if(m) return [+m[1], +m[2]]; var n = /^\s*(\d+)\s*$/.exec(a.rechnungNr || ''); return n ? [0, +n[1]] : null; };
+    var le = alle.filter(function(a){ return a.status === 'erledigt'; }).sort(function(a,b){
+      var x = reKey(a), y = reKey(b);
+      if(x && y) return x[0] - y[0] || x[1] - y[1] || (a.datum || '').localeCompare(b.datum || '');
+      if(x) return -1; if(y) return 1;
+      return (a.datum || '').localeCompare(b.datum || '');
+    });
     var jahr = String(new Date().getFullYear());
     var uJ = 0, uG = 0, nJ = 0;
     le.forEach(function(a){ var g = summen(a).gesamt; uG += g; if((a.datum || '').slice(0,4) === jahr){ uJ += g; nJ++; } });
@@ -1216,6 +1229,27 @@ function fbAusAngebot(a, extra, erzwingen){
   });
   return L;
 }
+/* Erledigt-Kästchen: antippen speichert sofort */
+function fbOkVerbinden(){
+  $('liste').querySelectorAll('[data-ok]').forEach(function(el){ el.addEventListener('click', function(e){
+    e.stopPropagation(); e.preventDefault();
+    var f = (einzelFahrten || []).filter(function(x){ return x.id === el.dataset.ok; })[0]; if(!f) return;
+    var y = Object.assign({}, f, {ok: !f.ok}); delete y.verlauf;
+    el.classList.toggle('on', y.ok); el.setAttribute('aria-checked', y.ok ? 'true' : 'false');
+    api('fahrtenBatch', {fahrten: [y]}).then(function(d){ var n = d.fahrten[0], i = einzelFahrten.findIndex(function(x){ return x.id === n.id; }); if(i !== -1) einzelFahrten[i] = n; })
+      .catch(function(e){ el.classList.toggle('on', !!f.ok); if(e.message !== '401') toast('Nicht gespeichert.'); });
+  }); });
+}
+function fbMin(t){ var m = /^(\d{2}):(\d{2})$/.exec(t || ''); return m ? (+m[1]) * 60 + (+m[2]) : null; }
+/* Fahrzeit aus einer Fahrt derselben Buchung (gleiche Richtung) mit echten Zeiten */
+function fbDauerVorschlag(f){
+  var re = fahrtRe(f); if(!re) return null;
+  var rueck = /^r(ü|ue)ck/i.test(f.zweck || '');
+  var L = (einzelFahrten || []).filter(function(x){ return x.id !== f.id && rnGleich(fahrtRe(x), re) && !x.abG && !x.anG && fbMin(x.ab) != null && fbMin(x.an) != null && fbMin(x.an) > fbMin(x.ab); });
+  var gleich = L.filter(function(x){ return /^r(ü|ue)ck/i.test(x.zweck || '') === rueck; });
+  var q = (gleich.length ? gleich : L).sort(function(x, y){ return /lieferung/i.test(y.zweck || '') - /lieferung/i.test(x.zweck || ''); })[0];
+  return q ? fbMin(q.an) - fbMin(q.ab) : null;
+}
 function fbZeitPlus(hhmm, min){ var t = hhmm.split(':'), m = (+t[0]) * 60 + (+t[1]) + min; m = Math.min(m, 23 * 60 + 59); return ('0' + Math.floor(m / 60)).slice(-2) + ':' + ('0' + (m % 60)).slice(-2); }
 /* Beim Fixieren: 4 Fahrten (Liefern, zurück, Abholen, zurück) ins Fahrtenbuch */
 function fbFahrtenAnlegen(a, still){
@@ -1230,7 +1264,7 @@ function fbFahrtenAnlegen(a, still){
       var heute = new Date().toISOString().slice(0, 10);
       if(a.datum && a.datum < heute && !confirmLeise('Zu Re. ' + re + ' gibt es noch keine Fahrten. 4 neue Fahrten anlegen?\n\n(Gibt es die Fahrten schon unter einer anderen Nummer: Abbrechen und zuerst die Rechnungsnr. eintragen.)')) return 0;
       var dauer = Math.max(5, Math.round(km * 1.1 / 5) * 5), abD = plusTag(a.datumEnde || a.datum, 1);
-      function f(datum, ab, zweck, rueck){ return {id: fbNeueId(), datum: datum, ab: ab, an: fbZeitPlus(ab, dauer), von: rueck ? ort : 'Glödnitz', nach: rueck ? 'Glödnitz' : ort, zweck: zweck + ' (Re. ' + re + ')', km: km, kmAngebot: km, kmA: null, kmE: null, fz: fz, rechnung: re, anfrage: a.id}; }
+      function f(datum, ab, zweck, rueck){ return {id: fbNeueId(), datum: datum, ab: ab, an: fbZeitPlus(ab, dauer), von: rueck ? ort : 'Glödnitz', nach: rueck ? 'Glödnitz' : ort, zweck: zweck + ' (Re. ' + re + ')', abG: true, anG: true, km: km, kmAngebot: km, kmA: null, kmE: null, fz: fz, rechnung: re, anfrage: a.id}; }
       var l1 = '08:00', l2 = fbZeitPlus(l1, dauer + 45), h1 = '09:00', h2 = fbZeitPlus(h1, dauer + 45);
       liste = [f(a.datum, l1, 'Lieferung ' + prod, false), f(a.datum, l2, 'Rückfahrt von Lieferung', true), f(abD, h1, 'Abholung ' + prod, false), f(abD, h2, 'Rückfahrt von Abholung', true)];
     }
@@ -1262,7 +1296,7 @@ function fbZeilen(jahr){
   (einzelFahrten || []).forEach(function(f){
     if((f.datum || '').slice(0,4) !== String(jahr)) return;
     var bu = f.anfrage ? alle.filter(function(a){ return a.id === f.anfrage; })[0] : null;
-    out.push({datum:f.datum, ab:f.ab, an:f.an, von:f.von, nach:f.nach, zweck:f.zweck, kunde: bu ? ((bu.kunde.vorname || '') + ' ' + (bu.kunde.nachname || '')).trim() : '', nr:fahrtRe(f), km:f.km, kmA:f.kmA, kmE:f.kmE, fz:f.fz, einzel:f.id});
+    out.push({datum:f.datum, ab:f.ab, an:f.an, von:f.von, nach:f.nach, zweck:f.zweck, kunde: bu ? ((bu.kunde.vorname || '') + ' ' + (bu.kunde.nachname || '')).trim() : '', nr:fahrtRe(f), km:f.km, kmA:f.kmA, kmE:f.kmE, fz:f.fz, einzel:f.id, ok:!!f.ok, abG:!!f.abG, anG:!!f.anG});
   });
   return out.sort(function(x, y){ return (x.datum + (x.ab || '99')).localeCompare(y.datum + (y.ab || '99')); });
 }
@@ -1294,7 +1328,7 @@ function zeichneFahrten(){
   }
   if(zM.length && fbAnsicht === 'tabelle'){
     html += '<div class="fb-tabelle"><table><thead><tr><th>Datum</th><th>Abf.</th><th>Ank.</th><th>Reiseweg</th><th>Zweck der Fahrt</th><th>km Abf.</th><th>km Ank.</th><th>km</th></tr></thead><tbody>' +
-      zM.map(function(z){ return '<tr' + (z.einzel ? ' data-ez="' + esc(z.einzel) + '"' : '') + '><td>' + esc(datumKurz(z.datum).slice(0,6)) + '</td><td>' + esc(z.ab || '') + '</td><td>' + esc(z.an || '') + '</td><td>' + esc((z.von || '').split(',')[0] + '–' + (z.nach || '').split(',')[0]) + '</td><td>' + esc(z.zweck || '') + '</td><td>' + esc(z.kmA == null ? '' : String(z.kmA)) + '</td><td>' + esc(z.kmE == null ? '' : String(z.kmE)) + '</td><td>' + esc(String(z.km || 0)) + '</td></tr>'; }).join('') +
+      zM.map(function(z){ return '<tr' + (z.einzel ? ' data-ez="' + esc(z.einzel) + '"' : '') + '><td>' + (z.einzel ? '<span class="fb-ok' + (z.ok ? ' on' : '') + '" data-ok="' + esc(z.einzel) + '" role="checkbox" aria-checked="' + (z.ok ? 'true' : 'false') + '" aria-label="Erledigt">✓</span>' : '') + esc(datumKurz(z.datum).slice(0,6)) + '</td><td>' + esc(z.ab || '') + (z.abG ? '<span class="fb-g" title="geschätzt"></span>' : '') + '</td><td>' + esc(z.an || '') + (z.anG ? '<span class="fb-g" title="geschätzt"></span>' : '') + '</td><td>' + esc((z.von || '').split(',')[0] + '–' + (z.nach || '').split(',')[0]) + '</td><td>' + esc(z.zweck || '') + '</td><td>' + esc(z.kmA == null ? '' : String(z.kmA)) + '</td><td>' + esc(z.kmE == null ? '' : String(z.kmE)) + '</td><td>' + esc(String(z.km || 0)) + '</td></tr>'; }).join('') +
       '</tbody><tfoot><tr><td colspan="7">Summe ' + esc(MONATE[fbMonat]) + '</td><td>' + Math.round(kmM) + '</td></tr><tr><td colspan="7">Kilometergeld (0,50 €/km)</td><td>' + esc(eur(Math.round(kmM * 50) / 100)) + '</td></tr></tfoot></table></div>' +
       '<button class="btn btn-g btn-w" id="fbXlsM" style="margin-top:10px"><svg class="i" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Excel ' + esc(MONATE[fbMonat]) + '</button>' +
       '<button class="btn btn-g btn-w" id="fbNeu" style="margin-top:8px"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Fahrt eintragen</button>';
@@ -1302,6 +1336,7 @@ function zeichneFahrten(){
     fbVerbinden();
     $('fbXlsM').onclick = function(){ excelExport(fbJahr, fbMonat); };
     $('liste').querySelectorAll('tr[data-ez]').forEach(function(tr){ tr.onclick = function(){ einzelFahrtSheet(tr.dataset.ez); }; });
+    fbOkVerbinden();
     return;
   }
   var einzelM = (einzelFahrten || []).filter(function(f){ return +(f.datum || '').slice(0,4) === fbJahr && +(f.datum || '').slice(5,7) === fbMonat + 1; })
@@ -1319,7 +1354,7 @@ function zeichneFahrten(){
   }).join('');
   if(einzelM.length) html += '<div class="gruppe">Fahrten</div><div class="fb-tab">' + einzelM.map(function(f){
     var d = tagDatum(f.datum);
-    return '<button class="fb-zeile" data-ez="' + esc(f.id) + '"><span class="fb-z1"><b>' + (d ? WT[d.getDay()] + ' ' + d.getDate() + '.' : '') + '</b><small>' + esc(f.ab || '–') + '–' + esc(f.an || '–') + '</small></span>' +
+    return '<button class="fb-zeile" data-ez="' + esc(f.id) + '"><span class="fb-z1"><b><span class="fb-ok' + (f.ok ? ' on' : '') + '" data-ok="' + esc(f.id) + '" role="checkbox" aria-checked="' + (f.ok ? 'true' : 'false') + '" aria-label="Erledigt">✓</span>' + (d ? WT[d.getDay()] + ' ' + d.getDate() + '.' : '') + '</b><small>' + esc(f.ab || '–') + (f.abG ? '<span class="fb-g"></span>' : '') + '–' + esc(f.an || '–') + (f.anG ? '<span class="fb-g"></span>' : '') + '</small></span>' +
       '<span class="fb-z2"><b>' + esc((f.von || '') + ' → ' + (f.nach || '')) + '</b><small>' + esc(f.zweck || '') + '</small></span>' +
       '<span class="fb-z3">' + esc(String(f.km || 0)) + ' km' + (f.kmA != null ? '<small>' + esc(String(f.kmA)) + '–' + esc(String(f.kmE == null ? '' : f.kmE)) + '</small>' : '') + '</span></button>';
   }).join('') + '</div>';
@@ -1328,6 +1363,7 @@ function zeichneFahrten(){
   fbVerbinden();
   $('fbNeu').onclick = function(){ var t = new Date(); einzelFahrtSheet(null, (t.getFullYear() === fbJahr && t.getMonth() === fbMonat) ? null : fbJahr + '-' + ('0' + (fbMonat + 1)).slice(-2) + '-01'); };
   $('liste').querySelectorAll('[data-ez]').forEach(function(b){ b.onclick = function(){ einzelFahrtSheet(b.dataset.ez); }; });
+  fbOkVerbinden();
   $('fbVor').onclick = function(){ fbJahr--; zeichneFahrten(); };
   $('fbNach').onclick = function(){ fbJahr++; zeichneFahrten(); };
   $('fbXls').onclick = function(){ excelExport(fbJahr); };
@@ -1406,7 +1442,8 @@ function einzelFahrtSheet(id, datumVor){
   oeffneSheet('<h3>' + (alt ? 'Fahrt ändern' : 'Fahrt eintragen') + '</h3>' +
     (alt && alt.geaendert ? '<p style="margin-bottom:8px;font-size:.85rem">Zuletzt geändert am ' + new Date(alt.geaendert).toLocaleDateString('de-AT') + '.</p>' : '') +
     feld('datum', 'Datum', 'date') +
-    '<div class="grid2">' + feld('ab', 'Abfahrt', 'time') + feld('an', 'Ankunft', 'time') + '</div>' +
+    '<div class="grid2"><div id="ezAbW">' + feld('ab', 'Abfahrt', 'time') + '</div><div id="ezAnW">' + feld('an', 'Ankunft', 'time') + '</div></div>' +
+    '<div class="bew-status" id="ezDauer" style="margin:-6px 0 8px;font-size:.82rem"></div>' +
     '<div class="grid2">' + feld('von', 'Von') + feld('nach', 'Nach') + '</div>' +
     feld('zweck', 'Zweck der Fahrt', 'text', ' placeholder="z. B. Lieferung Alienburg (Re. 26-060)"') +
     '<div class="feld"><label>Rechnungsnr.</label><input id="ez_rechnung" type="text" inputmode="text" value="' + esc(alt ? fahrtRe(alt) : '') + '" placeholder="z. B. 20 oder 26-020"/></div>' +
@@ -1419,6 +1456,19 @@ function einzelFahrtSheet(id, datumVor){
     (alt ? '<button class="btn btn-n btn-w" id="ezWeg">Fahrt löschen</button>' : '') +
     '<div class="fehler" id="ezFehler"></div>');
   function wert(k){ return ($('ez_' + k).value || '').trim(); }
+  var abG = !!(alt && alt.abG), anG = !!(alt && alt.anG);
+  function gMark(){ $('ezAbW').classList.toggle('ez-g', abG && !!wert('ab')); $('ezAnW').classList.toggle('ez-g', anG && !!wert('an')); }
+  function dauerSetzen(){
+    var a = fbMin(wert('ab')); if(a == null) return;
+    if(wert('an') && !anG) return;
+    var d = fbDauerVorschlag({id: alt ? alt.id : '', zweck: wert('zweck'), rechnung: wert('rechnung')});
+    if(d == null){ $('ezDauer').textContent = ''; return; }
+    $('ez_an').value = fbZeitPlus(wert('ab'), d); anG = true; gMark();
+    $('ezDauer').textContent = 'Ankunft geschätzt: gleiche Fahrzeit wie bei der anderen Fahrt dieser Buchung (' + d + ' min). Bitte prüfen.';
+  }
+  $('ez_ab').addEventListener('input', function(){ abG = false; dauerSetzen(); gMark(); });
+  $('ez_an').addEventListener('input', function(){ anG = false; $('ezDauer').textContent = ''; gMark(); });
+  gMark();
   /* km-Stand Ankunft folgt aus Abfahrt + km, km aus den Ständen */
   $('ez_km').addEventListener('input', function(){ if(wert('kmA') && wert('km') !== '') $('ez_kmE').value = Math.round((Number(wert('kmA')) + Number(wert('km').replace(',', '.'))) * 10) / 10; vorschau(); });
   $('ez_kmA').addEventListener('input', function(){ if(wert('km') !== '') $('ez_kmE').value = Math.round((Number(wert('kmA')) + Number(wert('km').replace(',', '.'))) * 10) / 10; vorschau(); });
@@ -1470,7 +1520,7 @@ function einzelFahrtSheet(id, datumVor){
     L.forEach(function(x){ if(sk(x) > sk(neu)){ x.kmA = rund(x.kmA + km); x.kmE = rund(x.kmE + km); geaendert[x.id] = x; } });
     return {neu: neu, andere: Object.keys(geaendert).map(function(k){ return geaendert[k]; }).filter(function(x){ var o = einzelFahrten.filter(function(y){ return y.id === x.id; })[0]; return !o || o.kmA !== x.kmA; }), delta: null};
   }
-  function eingabe(){ return {id: alt ? alt.id : '', datum: wert('datum'), ab: wert('ab'), an: wert('an'), von: wert('von'), nach: wert('nach'), zweck: wert('zweck'), rechnung: wert('rechnung'), kmAngebot: alt ? alt.kmAngebot : null, anfrage: alt && alt.anfrage && rnGleich(fahrtRe(alt), wert('rechnung')) ? alt.anfrage : '', kmA: wert('kmA'), kmE: wert('kmE'), km: wert('km').replace(',', '.'), fz: wert('fz')}; }
+  function eingabe(){ return {id: alt ? alt.id : '', datum: wert('datum'), ab: wert('ab'), an: wert('an'), von: wert('von'), nach: wert('nach'), zweck: wert('zweck'), abG: abG && !!wert('ab'), anG: anG && !!wert('an'), ok: !!(alt && alt.ok), rechnung: wert('rechnung'), kmAngebot: alt ? alt.kmAngebot : null, anfrage: alt && alt.anfrage && rnGleich(fahrtRe(alt), wert('rechnung')) ? alt.anfrage : '', kmA: wert('kmA'), kmE: wert('kmE'), km: wert('km').replace(',', '.'), fz: wert('fz')}; }
   function vorschau(){
     if(!$('ezKette').checked){ $('ezVorschau').textContent = ''; return; }
     var r = kette(eingabe());
