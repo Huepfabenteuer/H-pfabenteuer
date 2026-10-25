@@ -211,6 +211,15 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .fb-m small{font-weight:600;font-size:.7rem;color:var(--mute);}
 .fb-m.on{background:var(--petrol);border-color:var(--petrol);color:#fff;}
 .fb-m.on small{color:rgba(255,255,255,.8);}
+.fb-tab{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+.fb-zeile{display:grid;grid-template-columns:84px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;padding:10px 12px;border-top:1px solid var(--line);}
+.fb-zeile:first-child{border-top:none;}
+.fb-zeile:active{background:#fff;}
+.fb-zeile b{display:block;font-size:.9rem;font-weight:800;line-height:1.25;}
+.fb-zeile small{display:block;font-size:.76rem;color:var(--mute);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fb-z2{min-width:0;}
+.fb-z2 b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fb-z3{font-weight:800;font-size:.9rem;text-align:right;white-space:nowrap;}
 .fb-stand{font-weight:800;font-size:.85rem;color:var(--offen);background:var(--offen-l);padding:4px 10px;border-radius:99px;}
 .fb-stand.ok{color:var(--fix);background:var(--fix-l);}
 .fb-tipp{text-align:center;font-size:.85rem;color:var(--mute);margin:8px 0 4px;min-height:1.2em;}
@@ -970,7 +979,10 @@ function fbDaten(a){
   function e(x, datum){ x = x || {}; return {datum: x.datum || datum, hin: x.hin || leer(), rueck: x.rueck || leer(), stand: x.stand || {start:null, kunde:null, ende:null}}; }
   return {liefer: e(f.liefer, a.datum), abhol: e(f.abhol, plusTag(a.datumEnde || a.datum, 1)), km: fbKm(a), notiz: f.notiz || '', fahrzeug: f.fahrzeug || fbFahrzeugMerk()};
 }
-function fbFahrzeugMerk(){ try{ return localStorage.getItem('hb_fahrzeug') || ''; }catch(e){ return ''; } }
+var FZ_STANDARD = 'BMW 340d · SV 698EX';
+function fbFahrzeugMerk(){ try{ return localStorage.getItem('hb_fahrzeug') || FZ_STANDARD; }catch(e){ return FZ_STANDARD; } }
+var einzelFahrten = null;
+function ladeEinzelFahrten(){ return api('fahrtenListe').then(function(d){ einzelFahrten = d.fahrten || []; }); }
 function fbZiel(a){ return [a.adresse && a.adresse.strasse, ((a.adresse && a.adresse.plz) || '') + ' ' + ((a.adresse && a.adresse.ort) || '')].filter(function(x){ return x && x.trim(); }).join(', ') || 'Kunde'; }
 function fbFelder(f){ return [f.liefer.hin.ab, f.liefer.hin.an, f.liefer.rueck.ab, f.liefer.rueck.an, f.abhol.hin.ab, f.abhol.hin.an, f.abhol.rueck.ab, f.abhol.rueck.an]; }
 function fbFertig(f){ return fbFelder(f).filter(Boolean).length; }
@@ -987,10 +999,19 @@ function fbZeilen(jahr){
       out.push({datum:x.datum, ab:x.rueck.ab, an:x.rueck.an, von:ziel, nach:START, zweck:e[1] + ' ' + produkte(a) + ' (Rückfahrt)', kunde:wer, nr:a.nr || '', km: d2 != null && d2 >= 0 ? d2 : f.km, kmA: st.kunde, kmE: st.ende, fz: f.fahrzeug});
     });
   });
+  (einzelFahrten || []).forEach(function(f){
+    if((f.datum || '').slice(0,4) !== String(jahr)) return;
+    out.push({datum:f.datum, ab:f.ab, an:f.an, von:f.von, nach:f.nach, zweck:f.zweck, kunde:'', nr:(/Re\.\s*([\w-]+)/.exec(f.zweck || '') || [])[1] || '', km:f.km, kmA:f.kmA, kmE:f.kmE, fz:f.fz, einzel:f.id});
+  });
   return out.sort(function(x, y){ return (x.datum + (x.ab || '99')).localeCompare(y.datum + (y.ab || '99')); });
 }
 
 function zeichneFahrten(){
+  if(einzelFahrten === null){
+    $('liste').innerHTML = '<div class="leer"><b>Fahrten werden geladen …</b></div>';
+    ladeEinzelFahrten().then(function(){ if(tab === 'fahrten') zeichneFahrten(); }).catch(function(e){ einzelFahrten = []; if(e.message !== '401') toast('Fahrten konnten nicht geladen werden.'); if(tab === 'fahrten') zeichneFahrten(); });
+    return;
+  }
   var zeilen = fbZeilen(fbJahr);
   var proMonat = MONATE.map(function(_, m){ return zeilen.filter(function(z){ return +z.datum.slice(5,7) === m + 1; }); });
   var html = '<div class="fb-kopf"><button class="ikon" id="fbVor" aria-label="Jahr zurück"><svg class="i" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><b>' + fbJahr + '</b><button class="ikon" id="fbNach" aria-label="Jahr vor"><svg class="i" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>' +
@@ -1005,7 +1026,11 @@ function zeichneFahrten(){
   }).sort(function(a, b){ return (a.datum || '').localeCompare(b.datum || ''); });
   var kmM = proMonat[fbMonat].reduce(function(s, z){ return s + (Number(z.km) || 0); }, 0);
   html += '<div class="gruppe">' + MONATE[fbMonat] + ' ' + fbJahr + (kmM ? ' · ' + Math.round(kmM) + ' km' : '') + '</div>';
-  if(!buchungen.length) html += '<div class="leer"><b>Keine Fahrten</b>Fixe Buchungen in diesem Monat erscheinen hier automatisch.</div>';
+  var einzelM = (einzelFahrten || []).filter(function(f){ return +(f.datum || '').slice(0,4) === fbJahr && +(f.datum || '').slice(5,7) === fbMonat + 1; })
+    .sort(function(x, y){ return (x.datum + (x.ab || '99')).localeCompare(y.datum + (y.ab || '99')); });
+  var fzM = {}; zeilen.forEach(function(z){ if(+z.datum.slice(5,7) === fbMonat + 1 && z.fz) fzM[z.fz] = 1; });
+  if(Object.keys(fzM).length) html += '<div class="k-info" style="padding:0 6px 4px">Fahrzeug: ' + esc(Object.keys(fzM).join(', ')) + '</div>';
+  if(!buchungen.length && !einzelM.length) html += '<div class="leer"><b>Keine Fahrten</b>Fixe Buchungen erscheinen hier automatisch. Andere Fahrten trägst du unten mit „Fahrt eintragen“ ein.</div>';
   html += buchungen.map(function(a){
     var f = fbDaten(a), n = fbFertig(f), d = tagDatum(a.datum);
     return '<button class="karte fb-karte" data-fb="' + esc(a.id) + '">' +
@@ -1014,7 +1039,16 @@ function zeichneFahrten(){
       '<span class="k-info">Abholung ' + esc(datumKurz(f.abhol.datum)) + ' · 4 × ' + esc(String(f.km).replace('.', ',')) + ' km</span></span>' +
       '<span class="k-rechts"><span class="fb-stand' + (n === 8 ? ' ok' : '') + '">' + (n === 8 ? '✓ fertig' : n + '/8') + '</span></span></button>';
   }).join('');
+  if(einzelM.length) html += '<div class="gruppe">Fahrten</div><div class="fb-tab">' + einzelM.map(function(f){
+    var d = tagDatum(f.datum);
+    return '<button class="fb-zeile" data-ez="' + esc(f.id) + '"><span class="fb-z1"><b>' + (d ? WT[d.getDay()] + ' ' + d.getDate() + '.' : '') + '</b><small>' + esc(f.ab || '–') + '–' + esc(f.an || '–') + '</small></span>' +
+      '<span class="fb-z2"><b>' + esc((f.von || '') + ' → ' + (f.nach || '')) + '</b><small>' + esc(f.zweck || '') + '</small></span>' +
+      '<span class="fb-z3">' + esc(String(f.km || 0)) + ' km' + (f.kmA != null ? '<small>' + esc(String(f.kmA)) + '–' + esc(String(f.kmE == null ? '' : f.kmE)) + '</small>' : '') + '</span></button>';
+  }).join('') + '</div>';
+  html += '<button class="btn btn-g btn-w" id="fbNeu" style="margin-top:10px">' + '<svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Fahrt eintragen</button>';
   $('liste').innerHTML = html;
+  $('fbNeu').onclick = function(){ var t = new Date(); einzelFahrtSheet(null, (t.getFullYear() === fbJahr && t.getMonth() === fbMonat) ? null : fbJahr + '-' + ('0' + (fbMonat + 1)).slice(-2) + '-01'); };
+  $('liste').querySelectorAll('[data-ez]').forEach(function(b){ b.onclick = function(){ einzelFahrtSheet(b.dataset.ez); }; });
   $('fbVor').onclick = function(){ fbJahr--; zeichneFahrten(); };
   $('fbNach').onclick = function(){ fbJahr++; zeichneFahrten(); };
   $('fbXls').onclick = function(){ excelExport(fbJahr); };
@@ -1081,6 +1115,47 @@ function fahrtenSheet(id){
   tipp();
 }
 
+/* Einzelne Fahrt eintragen oder ändern */
+function einzelFahrtSheet(id, datumVor){
+  var alt = id ? (einzelFahrten || []).filter(function(f){ return f.id === id; })[0] : null;
+  var letzte = (einzelFahrten || []).slice().sort(function(x, y){ return ((y.datum || '') + (y.an || '')).localeCompare((x.datum || '') + (x.an || '')); })[0];
+  var heuteIso = (function(){ var d = new Date(); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); })();
+  var f = alt ? JSON.parse(JSON.stringify(alt)) : {datum: datumVor || heuteIso, ab:'', an:'', von:'Glödnitz', nach:'', zweck:'', kmA: letzte && letzte.kmE != null && letzte.fz === fbFahrzeugMerk() ? letzte.kmE : null, kmE:null, km:0, fz: fbFahrzeugMerk()};
+  function feld(k, lbl, typ, extra){ return '<div class="feld"><label>' + lbl + '</label><input id="ez_' + k + '" type="' + (typ || 'text') + '" value="' + esc(f[k] == null ? '' : String(f[k])) + '"' + (extra || '') + '/></div>'; }
+  oeffneSheet('<h3>' + (alt ? 'Fahrt ändern' : 'Fahrt eintragen') + '</h3>' +
+    (alt && alt.quelle === 'Word-Fahrtenbuch' ? '<p style="margin-bottom:8px;font-size:.85rem">Übernommen aus dem Word-Fahrtenbuch.' + (alt.geaendert ? ' Zuletzt geändert am ' + new Date(alt.geaendert).toLocaleDateString('de-AT') + '.' : '') + '</p>' : (alt && alt.geaendert ? '<p style="margin-bottom:8px;font-size:.85rem">Zuletzt geändert am ' + new Date(alt.geaendert).toLocaleDateString('de-AT') + '.</p>' : '')) +
+    feld('datum', 'Datum', 'date') +
+    '<div class="grid2">' + feld('ab', 'Abfahrt', 'time') + feld('an', 'Ankunft', 'time') + '</div>' +
+    '<div class="grid2">' + feld('von', 'Von') + feld('nach', 'Nach') + '</div>' +
+    feld('zweck', 'Zweck der Fahrt', 'text', ' placeholder="z. B. Lieferung Alienburg (Re. 26-060)"') +
+    '<div class="grid2">' + feld('kmA', 'km-Stand Abfahrt', 'number', ' inputmode="numeric"') + feld('kmE', 'km-Stand Ankunft', 'number', ' inputmode="numeric"') + '</div>' +
+    '<div class="grid2">' + feld('km', 'Gefahrene km', 'number', ' inputmode="decimal"') + feld('fz', 'Fahrzeug') + '</div>' +
+    '<button class="btn btn-p btn-w" id="ezSpeichern">Speichern</button>' +
+    (alt ? '<button class="btn btn-n btn-w" id="ezWeg">Fahrt löschen</button>' : '') +
+    '<div class="fehler" id="ezFehler"></div>');
+  function wert(k){ return ($('ez_' + k).value || '').trim(); }
+  function kmRechnen(){ var a = Number(wert('kmA')), e = Number(wert('kmE')); if(wert('kmA') && wert('kmE') && e >= a) $('ez_km').value = e - a; }
+  $('ez_kmA').addEventListener('input', kmRechnen); $('ez_kmE').addEventListener('input', kmRechnen);
+  $('ezSpeichern').onclick = function(){
+    var b = this, neu = {id: alt ? alt.id : '', datum: wert('datum'), ab: wert('ab'), an: wert('an'), von: wert('von'), nach: wert('nach'), zweck: wert('zweck'), kmA: wert('kmA'), kmE: wert('kmE'), km: wert('km'), fz: wert('fz')};
+    if(!neu.datum){ $('ezFehler').textContent = 'Bitte ein Datum eintragen.'; return; }
+    if(neu.kmA && neu.kmE && Number(neu.kmE) < Number(neu.kmA)){ $('ezFehler').textContent = 'km-Stand Ankunft ist kleiner als bei Abfahrt.'; return; }
+    b.disabled = true;
+    api('fahrtSpeichern', {fahrt: neu}).then(function(d){
+      var i = (einzelFahrten || []).findIndex(function(x){ return x.id === d.fahrt.id; });
+      if(i === -1) einzelFahrten.push(d.fahrt); else einzelFahrten[i] = d.fahrt;
+      if(neu.fz && !alt){ try{ localStorage.setItem('hb_fahrzeug', neu.fz); }catch(e){} }
+      var dd = tagDatum(d.fahrt.datum); if(dd){ fbJahr = dd.getFullYear(); fbMonat = dd.getMonth(); }
+      schliesseSheet(); zeichneFahrten(); toast('Fahrt gespeichert');
+    }).catch(function(e){ b.disabled = false; if(e.message !== '401') $('ezFehler').textContent = 'Speichern hat nicht geklappt.'; });
+  };
+  if($('ezWeg')) $('ezWeg').onclick = function(){
+    if(!confirmLeise('Diese Fahrt löschen?')) return;
+    api('fahrtLoeschen', {id: alt.id}).then(function(){ einzelFahrten = einzelFahrten.filter(function(x){ return x.id !== alt.id; }); schliesseSheet(); zeichneFahrten(); toast('Fahrt gelöscht'); })
+      .catch(function(e){ if(e.message !== '401') toast('Löschen hat nicht geklappt.'); });
+  };
+}
+
 /* Excel: ein Blatt pro Monat + Übersicht */
 function ladeXlsx(){
   if(window.XLSX) return Promise.resolve(window.XLSX);
@@ -1092,19 +1167,20 @@ function ladeXlsx(){
 function excelExport(jahr){
   var b = $('fbXls'); if(b){ b.disabled = true; b.lastChild.textContent = 'Wird erstellt …'; }
   ladeXlsx().then(function(X){
-    var zeilen = fbZeilen(jahr), wb = X.utils.book_new(), uebersicht = [['Monat', 'Fahrten', 'Kilometer']], summe = 0, anz = 0;
+    var zeilen = fbZeilen(jahr), wb = X.utils.book_new(), uebersicht = [['Monat', 'Fahrten', 'Kilometer', 'Kilometergeld (€)']], summe = 0, anz = 0;
     MONATE.forEach(function(name, m){
       var z = zeilen.filter(function(r){ return +r.datum.slice(5,7) === m + 1; });
       var km = z.reduce(function(s, r){ return s + (Number(r.km) || 0); }, 0);
       var daten = [['Fahrtenbuch ' + name + ' ' + jahr + ' – Hüpfabenteuer'], [], ['Datum', 'Abfahrt', 'Ankunft', 'Fahrzeug', 'km-Stand Beginn', 'km-Stand Ende', 'Von', 'Nach', 'Zweck', 'Kunde', 'Angebot-Nr.', 'km']];
       z.forEach(function(r){ daten.push([datumKurz(r.datum), r.ab, r.an, r.fz || '', r.kmA == null ? '' : r.kmA, r.kmE == null ? '' : r.kmE, r.von, r.nach, r.zweck, r.kunde, r.nr, Number(r.km) || 0]); });
       daten.push([]); daten.push(['', '', '', '', '', '', '', '', '', '', 'Summe km', Math.round(km * 10) / 10]);
+      daten.push(['', '', '', '', '', '', '', '', '', '', 'Kilometergeld (0,50 €/km)', Math.round(km * 0.5 * 100) / 100]);
       var ws = X.utils.aoa_to_sheet(daten);
       ws['!cols'] = [{wch:11},{wch:8},{wch:8},{wch:20},{wch:14},{wch:14},{wch:30},{wch:30},{wch:38},{wch:20},{wch:11},{wch:8}];
       X.utils.book_append_sheet(wb, ws, name);
-      uebersicht.push([name, z.length, Math.round(km * 10) / 10]); summe += km; anz += z.length;
+      uebersicht.push([name, z.length, Math.round(km * 10) / 10, Math.round(km * 0.5 * 100) / 100]); summe += km; anz += z.length;
     });
-    uebersicht.push([]); uebersicht.push(['Gesamt ' + jahr, anz, Math.round(summe * 10) / 10]);
+    uebersicht.push([]); uebersicht.push(['Gesamt ' + jahr, anz, Math.round(summe * 10) / 10, Math.round(summe * 0.5 * 100) / 100]);
     var wu = X.utils.aoa_to_sheet(uebersicht); wu['!cols'] = [{wch:14},{wch:9},{wch:11}];
     X.utils.book_append_sheet(wb, wu, 'Übersicht');
     X.writeFile(wb, 'Fahrtenbuch_' + jahr + '_Huepfabenteuer.xlsx');

@@ -22,6 +22,7 @@
      POST { action:"loeschen", id }        → endgültig (nur aus dem Papierkorb)
      POST { action:"bewertung", id, schritt:"angefragt"|"erinnert"|"erhalten"|"zuruecksetzen" }
      POST { action:"fahrten", id, fahrten:{ liefer, abhol, km } }   → Fahrtenbuch
+     POST { action:"fahrtenListe" | "fahrtSpeichern" | "fahrtLoeschen" }   → einzelne Fahrten
      POST { action:"neueFassung", id }   → geändertes Angebot neu senden
 
    Braucht in Netlify die Umgebungsvariable ADMIN_KEY (dein Passwort für
@@ -31,6 +32,7 @@
 import { FIRMA } from '../lib/firma.mjs';
 import { saeubere, summen, waZusage, waAbsage, waNummer, datumKurz, waBewertung, waBewertungErinnerung, geraeteSchluessel, tageDerBuchung, istFix, empfehlungscode, waAnzahlung, KATALOG_STANDARD, saeubereKatalog, fristDatum } from '../lib/anfrage-daten.mjs';
 import { erstelleAngebotPdf } from '../lib/angebot-pdf.mjs';
+import { FAHRTEN_ALT } from '../lib/fahrten-alt.mjs';
 
 const STORE = 'anfragen';
 const PREFIX = 'a/';
@@ -252,6 +254,47 @@ export default async (req, context) => {
     const alle = await alleAnfragen(st);
     await belegtNeuBerechnen(st, alle);
     return json({ ok: true, anfragen: alle.map(a => anreichern(req, a)) });
+  }
+
+  /* ── Fahrtenbuch: einzelne Fahrten (unabhängig von Anfragen) ── */
+  if (body.action === 'fahrtenListe') {
+    let imp = null; try { imp = await st.get('meta/fahrtenImport', { type: 'json' }); } catch (e) {}
+    if (!imp) {
+      for (const f of FAHRTEN_ALT) await st.setJSON('f/' + f.id, { ...f, angelegt: new Date().toISOString() });
+      await st.setJSON('meta/fahrtenImport', { am: new Date().toISOString(), anzahl: FAHRTEN_ALT.length });
+    }
+    const { blobs } = await st.list({ prefix: 'f/' });
+    const fahrten = (await Promise.all(blobs.map(b => st.get(b.key, { type: 'json' }).catch(() => null)))).filter(Boolean);
+    return json({ ok: true, fahrten });
+  }
+  if (body.action === 'fahrtSpeichern') {
+    const f = body.fahrt || {};
+    const zeit = v => /^\d{2}:\d{2}$/.test(v || '') ? v : '';
+    const zahl = v => (v === '' || v == null || !isFinite(Number(v))) ? null : Math.round(Number(v) * 10) / 10;
+    const t = s => String(s == null ? '' : s).replace(/[\u0000-\u001f]/g, ' ').trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(f.datum || '')) return json({ ok: false, grund: 'datum' }, 400);
+    const fid = /^[a-z0-9]{4,40}$/.test(f.id || '') ? f.id : 'm' + Date.now().toString(36) + zufall(4);
+    const alt = await st.get('f/' + fid, { type: 'json' }).catch(() => null);
+    const neu = {
+      id: fid, datum: f.datum, ab: zeit(f.ab), an: zeit(f.an),
+      von: t(f.von).slice(0, 80), nach: t(f.nach).slice(0, 80), zweck: t(f.zweck).slice(0, 120),
+      kmA: zahl(f.kmA), kmE: zahl(f.kmE), km: zahl(f.km) || 0, privat: zahl(f.privat) || 0,
+      fz: t(f.fz).slice(0, 40), quelle: (alt && alt.quelle) || 'Verwaltung',
+      angelegt: (alt && alt.angelegt) || new Date().toISOString()
+    };
+    if (alt) {
+      const { verlauf, ...vorher } = alt;
+      neu.verlauf = [...(verlauf || []), { am: new Date().toISOString(), vorher }].slice(-20);
+      neu.geaendert = new Date().toISOString();
+    }
+    await st.setJSON('f/' + fid, neu);
+    return json({ ok: true, fahrt: neu });
+  }
+  if (body.action === 'fahrtLoeschen') {
+    const fid = String(body.id || '');
+    if (!/^[a-z0-9]{4,40}$/.test(fid)) return json({ ok: false, grund: 'id' }, 400);
+    await st.delete('f/' + fid);
+    return json({ ok: true });
   }
 
   if (body.action === 'katalog') {
