@@ -1644,7 +1644,7 @@ function aktionAktiv(){ return new Date().toLocaleDateString('sv-SE', {timeZone:
 function neuSheet(){
   oeffneSheet('<h3>Neue Anfrage</h3><p>Wird geladen …</p>');
   ladeKatalog().then(function(k){
-    var gewaehlt = {}, anreise = null, anrNr = 0;
+    var gewaehlt = {}, preisNeu = {}, mengeNeu = {}, anreise = null, anrNr = 0;
     var chips = GRUPPEN.map(function(g){
       var l = k.filter(function(x){ return x.gruppe === g[0] && x.aktiv !== false; });
       return l.length ? '<div class="kat-g">' + g[1] + '</div><div class="neu-chips">' + l.map(function(x){ return '<button type="button" class="neu-chip" data-id="' + esc(x.id) + '">' + esc(x.titel) + '<small>' + eur(x.preis) + '</small></button>'; }).join('') + '</div>' : '';
@@ -1659,6 +1659,7 @@ function neuSheet(){
       '<div id="nAnr" class="bew-status" style="margin:-4px 0 6px;min-height:2.9em">Adresse eingeben, dann wird die Anreise berechnet.</div>' +
       '<div class="zeile" style="align-items:center;margin-bottom:6px"><span>km pro Strecke</span><span class="anz"><input id="nKm" inputmode="decimal" placeholder="auto"/> km</span></div>' +
       chips +
+      '<div id="nGew" style="margin-top:8px"></div>' +
       '<label class="emp-sw" style="margin-top:14px" id="nAkW" hidden><input type="checkbox" id="nAk" checked/><span>Winter-Rabatt −' + AKTION_PROZENT + ' % auf die Fotobox</span></label>' +
       '<label class="emp-sw" style="margin-top:10px"><input type="checkbox" id="nEmp"/><span>Empfehlungs-Deal (−30 €) anbieten</span></label>' +
       '<label class="emp-sw" style="margin-top:10px"><input type="checkbox" id="nSelbst"/><span>Holt selbst ab (keine Lieferung)</span></label>' +
@@ -1668,14 +1669,32 @@ function neuSheet(){
     function v(id){ return ($(id).value || '').trim(); }
     function positionen(){
       var pos = [];
-      k.forEach(function(x){ if(gewaehlt[x.id]) pos.push({art: x.gruppe === 'extra' ? 'extra' : 'miete', titel: x.titel, text: x.text || '', betrag: x.preis}); });
+      k.forEach(function(x){ if(gewaehlt[x.id]) pos.push({art: x.gruppe === 'extra' ? 'extra' : 'miete', titel: x.titel, text: x.text || '', menge: mengeNeu[x.id] || 1, betrag: preisVon(x)}); });
       if($('nAk').checked && aktionAktiv()){
-        k.forEach(function(x){ if(gewaehlt[x.id] && x.gruppe === 'foto'){ var r = x.preis - Math.floor(x.preis * (100 - AKTION_PROZENT) / 100); if(r > 0) pos.push({art:'rabatt', titel:'Start-in-den-Winter-Rabatt (−' + AKTION_PROZENT + ' %)', text:'Aktion bis 15. November auf alle Fotobox-Pakete', betrag:-r}); } });
+        k.forEach(function(x){ if(gewaehlt[x.id] && x.gruppe === 'foto'){ var pr = preisVon(x), r = pr - Math.floor(pr * (100 - AKTION_PROZENT) / 100); if(r > 0) pos.push({art:'rabatt', titel:'Start-in-den-Winter-Rabatt (−' + AKTION_PROZENT + ' %)', text:'Aktion bis 15. November auf alle Fotobox-Pakete', betrag:-r}); } });
       }
       if(!$('nSelbst').checked){
         pos.push({art:'lieferung', titel:'Lieferung & Abholung', text:'Glödnitz – ' + (v('nOrt') || 'Kunde') + (anreise ? ' · 4 Fahrten à ' + anreise.km + ' km × 0,55 €' : ''), betrag: anreise ? anreise.anreise : null});
       }
       return pos;
+    }
+    function preisVon(x){ return preisNeu[x.id] != null ? preisNeu[x.id] : Math.round(x.preis * (mengeNeu[x.id] || 1) * 100) / 100; }
+    /* Gewählte Angebote: Menge und Preis selbst eintragen */
+    function zeichneGew(){
+      var l = k.filter(function(x){ return gewaehlt[x.id]; });
+      $('nGew').innerHTML = l.length ? '<div class="kat-g">Preise für dieses Angebot</div>' + l.map(function(x){
+        return '<div class="pos" style="grid-template-columns:1fr 46px 86px"><span class="p-t" style="padding:7px 0">' + esc(x.titel) + '</span>' +
+          '<input class="p-m" data-gm="' + esc(x.id) + '" value="' + (mengeNeu[x.id] || 1) + '" inputmode="numeric" aria-label="Menge" style="border:1px solid var(--line-2);background:#fff"/>' +
+          '<input class="p-b" data-gp="' + esc(x.id) + '" value="' + String(preisVon(x)).replace('.', ',') + '" inputmode="decimal" aria-label="Preis in Euro" style="border:1px solid var(--line-2);background:#fff"/></div>';
+      }).join('') + '<div class="bew-status" style="font-size:.8rem">Menge × Katalogpreis wird vorgeschlagen, du kannst den Preis frei ändern.</div>' : '';
+      $('nGew').querySelectorAll('[data-gm]').forEach(function(i){ i.addEventListener('input', function(){
+        var m = parseInt(i.value.replace(/\D/g, ''), 10); if(!m || m < 1) return; mengeNeu[i.dataset.gm] = Math.min(99, m); delete preisNeu[i.dataset.gm];
+        var x = k.filter(function(y){ return y.id === i.dataset.gm; })[0], pi = $('nGew').querySelector('[data-gp="' + i.dataset.gm + '"]'); if(pi) pi.value = String(preisVon(x)).replace('.', ',');
+        summe();
+      }); });
+      $('nGew').querySelectorAll('[data-gp]').forEach(function(i){ i.addEventListener('input', function(){
+        var v = Number(i.value.replace(/\s/g, '').replace(',', '.')); if(i.value.trim() === '' || !isFinite(v)) return; preisNeu[i.dataset.gp] = Math.round(v * 100) / 100; summe();
+      }); });
     }
     function summe(){
       var fotoDa = k.some(function(x){ return gewaehlt[x.id] && x.gruppe === 'foto'; });
@@ -1709,7 +1728,7 @@ function neuSheet(){
       $('nAnr').textContent = km + ' km pro Strecke (selbst eingetragen) · Anreise ' + eur(anreise.anreise);
       summe();
     });
-    $('sheetIn').querySelectorAll('.neu-chip').forEach(function(c){ c.onclick = function(){ gewaehlt[c.dataset.id] = !gewaehlt[c.dataset.id]; c.classList.toggle('on', !!gewaehlt[c.dataset.id]); summe(); }; });
+    $('sheetIn').querySelectorAll('.neu-chip').forEach(function(c){ c.onclick = function(){ gewaehlt[c.dataset.id] = !gewaehlt[c.dataset.id]; c.classList.toggle('on', !!gewaehlt[c.dataset.id]); zeichneGew(); summe(); }; });
     summe();
     $('nGo').onclick = function(){
       $('nFehler').textContent = '';
