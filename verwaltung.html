@@ -222,6 +222,8 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .fb-tabelle tr[data-ez]{cursor:pointer;}
 .fb-ok{display:inline-flex;width:20px;height:20px;border:2px solid var(--line-2);border-radius:5px;vertical-align:middle;margin-right:6px;align-items:center;justify-content:center;background:#fff;cursor:pointer;font-size:13px;font-weight:900;color:#fff;flex:none;}
 .fb-ok.on{background:var(--fix);border-color:var(--fix);}
+.fb-ok.g{border-color:#E8892B;background:#FFF1E0;}
+.fb-ok.g.on{background:var(--fix);border-color:#E8892B;box-shadow:0 0 0 2px #F6C58F;}
 .fb-g{display:inline-block;width:8px;height:8px;border-radius:50%;background:#E8892B;margin-left:4px;vertical-align:middle;}
 .ez-g label::after{content:' · geschätzt';color:#C06A12;font-weight:700;}
 .ez-g input{border-color:#E8892B !important;background:#FFF6EC !important;}
@@ -1251,6 +1253,30 @@ function fbDauerVorschlag(f){
   var q = (gleich.length ? gleich : L).sort(function(x, y){ return /lieferung/i.test(y.zweck || '') - /lieferung/i.test(x.zweck || ''); })[0];
   return q ? fbMin(q.an) - fbMin(q.ab) : null;
 }
+/* Echte Zeiten einer Fahrt auf die anderen Fahrten derselben Buchung übertragen (nur leere/geschätzte Ankünfte) */
+function fbZeitenUebertragen(f, schonDa, ueberschreiben){
+  var re = fahrtRe(f), a = fbMin(f.ab), e = fbMin(f.an);
+  if(!re || a == null || e == null || e <= a || f.anG || f.abG) return [];
+  var dauer = e - a, rueck = /^r(ü|ue)ck/i.test(f.zweck || ''), out = [];
+  var echt = function(x){ return !x.abG && !x.anG && fbMin(x.ab) != null && fbMin(x.an) != null && fbMin(x.an) > fbMin(x.ab); };
+  var geschw = (einzelFahrten || []).filter(function(x){ return x.id !== f.id && rnGleich(fahrtRe(x), re); });
+  geschw.forEach(function(x0){
+    var x = (schonDa && schonDa[x0.id]) || x0;
+    if(fbMin(x.ab) == null || x.ok) return;   /* abgehakte Fahrten bleiben, wie sie sind */
+    var xr = /^r(ü|ue)ck/i.test(x.zweck || '');
+    /* gleiche Richtung: überschreiben (wenn gewünscht); andere Richtung nur, wenn dort noch nichts Echtes steht */
+    if(x.an && !x.anG && !(ueberschreiben && xr === rueck)) return;
+    var d = dauer;
+    if(xr !== rueck){
+      /* andere Richtung: lieber eine echte Fahrt derselben Richtung nehmen, sonst dieselbe Dauer */
+      var q = geschw.filter(function(y){ return y.id !== x.id && echt(y) && /^r(ü|ue)ck/i.test(y.zweck || '') === xr; })[0];
+      if(q) d = fbMin(q.an) - fbMin(q.ab);
+    }
+    var y = Object.assign({}, x, {an: fbZeitPlus(x.ab, d), anG: true}); delete y.verlauf;
+    if(y.an !== x0.an || !x0.anG) out.push(y);
+  });
+  return out;
+}
 function fbZeitPlus(hhmm, min){ var t = hhmm.split(':'), m = (+t[0]) * 60 + (+t[1]) + min; m = Math.min(m, 23 * 60 + 59); return ('0' + Math.floor(m / 60)).slice(-2) + ':' + ('0' + (m % 60)).slice(-2); }
 /* Beim Fixieren: 4 Fahrten (Liefern, zurück, Abholen, zurück) ins Fahrtenbuch */
 function fbFahrtenAnlegen(a, still){
@@ -1329,7 +1355,7 @@ function zeichneFahrten(){
   }
   if(zM.length && fbAnsicht === 'tabelle'){
     html += '<div class="fb-tabelle"><table><thead><tr><th>Datum</th><th>Abf.</th><th>Ank.</th><th>Reiseweg</th><th>Zweck der Fahrt</th><th>km Abf.</th><th>km Ank.</th><th>km</th></tr></thead><tbody>' +
-      zM.map(function(z){ return '<tr' + (z.einzel ? ' data-ez="' + esc(z.einzel) + '"' : '') + '><td>' + (z.einzel ? '<span class="fb-ok' + (z.ok ? ' on' : '') + '" data-ok="' + esc(z.einzel) + '" role="checkbox" aria-checked="' + (z.ok ? 'true' : 'false') + '" aria-label="Erledigt">✓</span>' : '') + esc(datumKurz(z.datum).slice(0,6)) + '</td><td>' + esc(z.ab || '') + (z.abG ? '<span class="fb-g" title="geschätzt"></span>' : '') + '</td><td>' + esc(z.an || '') + (z.anG ? '<span class="fb-g" title="geschätzt"></span>' : '') + '</td><td>' + esc((z.von || '').split(',')[0] + '–' + (z.nach || '').split(',')[0]) + '</td><td>' + esc(z.zweck || '') + '</td><td>' + esc(z.kmA == null ? '' : String(z.kmA)) + '</td><td>' + esc(z.kmE == null ? '' : String(z.kmE)) + '</td><td>' + esc(String(z.km || 0)) + '</td></tr>'; }).join('') +
+      zM.map(function(z){ return '<tr' + (z.einzel ? ' data-ez="' + esc(z.einzel) + '"' : '') + '><td>' + (z.einzel ? '<span class="fb-ok' + (z.ok ? ' on' : '') + (z.abG || z.anG ? ' g' : '') + '" data-ok="' + esc(z.einzel) + '" role="checkbox" aria-checked="' + (z.ok ? 'true' : 'false') + '" aria-label="Erledigt">✓</span>' : '') + esc(datumKurz(z.datum).slice(0,6)) + '</td><td>' + esc(z.ab || '') + (z.abG ? '<span class="fb-g" title="geschätzt"></span>' : '') + '</td><td>' + esc(z.an || '') + (z.anG ? '<span class="fb-g" title="geschätzt"></span>' : '') + '</td><td>' + esc((z.von || '').split(',')[0] + '–' + (z.nach || '').split(',')[0]) + '</td><td>' + esc(z.zweck || '') + '</td><td>' + esc(z.kmA == null ? '' : String(z.kmA)) + '</td><td>' + esc(z.kmE == null ? '' : String(z.kmE)) + '</td><td>' + esc(String(z.km || 0)) + '</td></tr>'; }).join('') +
       '</tbody><tfoot><tr><td colspan="7">Summe ' + esc(MONATE[fbMonat]) + '</td><td>' + Math.round(kmM) + '</td></tr><tr><td colspan="7">Kilometergeld (0,50 €/km)</td><td>' + esc(eur(Math.round(kmM * 50) / 100)) + '</td></tr></tfoot></table></div>' +
       '<button class="btn btn-g btn-w" id="fbXlsM" style="margin-top:10px"><svg class="i" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Excel ' + esc(MONATE[fbMonat]) + '</button>' +
       '<button class="btn btn-g btn-w" id="fbNeu" style="margin-top:8px"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Fahrt eintragen</button>';
@@ -1355,7 +1381,7 @@ function zeichneFahrten(){
   }).join('');
   if(einzelM.length) html += '<div class="gruppe">Fahrten</div><div class="fb-tab">' + einzelM.map(function(f){
     var d = tagDatum(f.datum);
-    return '<button class="fb-zeile" data-ez="' + esc(f.id) + '"><span class="fb-z1"><b><span class="fb-ok' + (f.ok ? ' on' : '') + '" data-ok="' + esc(f.id) + '" role="checkbox" aria-checked="' + (f.ok ? 'true' : 'false') + '" aria-label="Erledigt">✓</span>' + (d ? WT[d.getDay()] + ' ' + d.getDate() + '.' : '') + '</b><small>' + esc(f.ab || '–') + (f.abG ? '<span class="fb-g"></span>' : '') + '–' + esc(f.an || '–') + (f.anG ? '<span class="fb-g"></span>' : '') + '</small></span>' +
+    return '<button class="fb-zeile" data-ez="' + esc(f.id) + '"><span class="fb-z1"><b><span class="fb-ok' + (f.ok ? ' on' : '') + (f.abG || f.anG ? ' g' : '') + '" data-ok="' + esc(f.id) + '" role="checkbox" aria-checked="' + (f.ok ? 'true' : 'false') + '" aria-label="Erledigt">✓</span>' + (d ? WT[d.getDay()] + ' ' + d.getDate() + '.' : '') + '</b><small>' + esc(f.ab || '–') + (f.abG ? '<span class="fb-g"></span>' : '') + '–' + esc(f.an || '–') + (f.anG ? '<span class="fb-g"></span>' : '') + '</small></span>' +
       '<span class="fb-z2"><b>' + esc((f.von || '') + ' → ' + (f.nach || '')) + '</b><small>' + esc(f.zweck || '') + '</small></span>' +
       '<span class="fb-z3">' + esc(String(f.km || 0)) + ' km' + (f.kmA != null ? '<small>' + esc(String(f.kmA)) + '–' + esc(String(f.kmE == null ? '' : f.kmE)) + '</small>' : '') + '</span></button>';
   }).join('') + '</div>';
@@ -1445,6 +1471,7 @@ function einzelFahrtSheet(id, datumVor){
     feld('datum', 'Datum', 'date') +
     '<div class="grid2"><div id="ezAbW">' + feld('ab', 'Abfahrt', 'time') + '</div><div id="ezAnW">' + feld('an', 'Ankunft', 'time') + '</div></div>' +
     '<div class="bew-status" id="ezDauer" style="margin:-6px 0 8px;font-size:.82rem"></div>' +
+    '<label class="emp-sw" style="margin:0 0 8px"><input type="checkbox" id="ezZeitAlle" checked/><span>Fahrzeit auf die anderen Fahrten dieser Buchung übertragen (Lieferung ↔ Abholung, orange markiert)</span></label>' +
     '<div class="grid2">' + feld('von', 'Von') + feld('nach', 'Nach') + '</div>' +
     feld('zweck', 'Zweck der Fahrt', 'text', ' placeholder="z. B. Lieferung Alienburg (Re. 26-060)"') +
     '<div class="feld"><label>Rechnungsnr.</label><input id="ez_rechnung" type="text" inputmode="text" value="' + esc(alt ? fahrtRe(alt) : '') + '" placeholder="z. B. 20 oder 26-020"/></div>' +
@@ -1530,6 +1557,9 @@ function einzelFahrtSheet(id, datumVor){
   $('ezSpeichern').onclick = function(){
     var b = this, neu = eingabe(), andere = [];
     if($('ezKette').checked && neu.datum){ var r = kette(neu); neu = r.neu; andere = r.andere; }
+    var schonDa = {}; andere.forEach(function(x){ schonDa[x.id] = x; });
+    var zeiten = fbZeitenUebertragen(neu, schonDa, $('ezZeitAlle') && $('ezZeitAlle').checked);
+    zeiten.forEach(function(z){ if(schonDa[z.id]){ schonDa[z.id].an = z.an; schonDa[z.id].anG = true; } else andere.push(z); });
     if(!neu.datum){ $('ezFehler').textContent = 'Bitte ein Datum eintragen.'; return; }
     if(neu.kmA && neu.kmE && Number(neu.kmE) < Number(neu.kmA)){ $('ezFehler').textContent = 'km-Stand Ankunft ist kleiner als bei Abfahrt.'; return; }
     b.disabled = true;
@@ -1537,7 +1567,7 @@ function einzelFahrtSheet(id, datumVor){
       (d.fahrten || []).forEach(function(f){ var i = (einzelFahrten || []).findIndex(function(x){ return x.id === f.id; }); if(i === -1) einzelFahrten.push(f); else einzelFahrten[i] = f; });
       if(neu.fz && !alt){ try{ localStorage.setItem('hb_fahrzeug', neu.fz); }catch(e){} }
       var dd = tagDatum(d.fahrt.datum); if(dd){ fbJahr = dd.getFullYear(); fbMonat = dd.getMonth(); }
-      schliesseSheet(); zeichneFahrten(); toast(andere.length ? 'Gespeichert, ' + andere.length + ' weitere Fahrten angepasst' : 'Fahrt gespeichert');
+      schliesseSheet(); zeichneFahrten(); toast(zeiten.length ? 'Gespeichert, Fahrzeit auf ' + zeiten.length + ' weitere Fahrt' + (zeiten.length === 1 ? '' : 'en') + ' übertragen (orange)' : (andere.length ? 'Gespeichert, ' + andere.length + ' weitere Fahrten angepasst' : 'Fahrt gespeichert'));
     }).catch(function(e){ b.disabled = false; if(e.message !== '401') $('ezFehler').textContent = 'Speichern hat nicht geklappt.'; });
   };
   if($('ezWeg')) $('ezWeg').onclick = function(){
