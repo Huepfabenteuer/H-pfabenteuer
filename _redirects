@@ -18,6 +18,31 @@
 /druck/*                    /404   404!
 
 # ─────────────────────────────────────────────────────────────
+# ALTE DOMAIN FOTOABENTEUER.COM → FOTOBOX-SEITE
+# Die frühere Fotobox-Seite lief auf Webador. Alle Adressen
+# werden dauerhaft (301) auf die passende neue Seite geleitet,
+# damit Besucher und Google-Bewertung erhalten bleiben.
+# ─────────────────────────────────────────────────────────────
+https://fotoabenteuer.com/fotoboxdigital*      https://huepfabenteuer.at/fotobox.html?paket=digital    301!
+https://www.fotoabenteuer.com/fotoboxdigital*  https://huepfabenteuer.at/fotobox.html?paket=digital    301!
+https://fotoabenteuer.com/fotobox-standard*    https://huepfabenteuer.at/fotobox.html?paket=standard   301!
+https://www.fotoabenteuer.com/fotobox-standard* https://huepfabenteuer.at/fotobox.html?paket=standard  301!
+https://fotoabenteuer.com/fotobox-bestseller*  https://huepfabenteuer.at/fotobox.html?paket=premium    301!
+https://www.fotoabenteuer.com/fotobox-bestseller* https://huepfabenteuer.at/fotobox.html?paket=premium 301!
+https://fotoabenteuer.com/*hochzeit*           https://huepfabenteuer.at/fotobox-hochzeit.html         301!
+https://www.fotoabenteuer.com/*hochzeit*       https://huepfabenteuer.at/fotobox-hochzeit.html         301!
+https://fotoabenteuer.com/*kontakt*            https://huepfabenteuer.at/kontakt.html                  301!
+https://www.fotoabenteuer.com/*kontakt*        https://huepfabenteuer.at/kontakt.html                  301!
+https://fotoabenteuer.com/*impressum*          https://huepfabenteuer.at/impressum.html                301!
+https://www.fotoabenteuer.com/*impressum*      https://huepfabenteuer.at/impressum.html                301!
+https://fotoabenteuer.com/*datenschutz*        https://huepfabenteuer.at/datenschutz.html              301!
+https://www.fotoabenteuer.com/*datenschutz*    https://huepfabenteuer.at/datenschutz.html              301!
+https://fotoabenteuer.com/*                    https://huepfabenteuer.at/fotobox.html                  301!
+https://www.fotoabenteuer.com/*                https://huepfabenteuer.at/fotobox.html                  301!
+http://fotoabenteuer.com/*                     https://huepfabenteuer.at/fotobox.html                  301!
+http://www.fotoabenteuer.com/*                 https://huepfabenteuer.at/fotobox.html                  301!
+
+# ─────────────────────────────────────────────────────────────
 # WWW → HAUPTDOMAIN
 # www.huepfabenteuer.at liefert dieselben Seiten aus wie die
 # Hauptdomain. Google kennt beide Varianten, dadurch verteilt

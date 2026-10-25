@@ -79,6 +79,33 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .karte:active{background:#fff;}
 .tag{flex:none;width:62px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 0;background:var(--offen-l);color:var(--offen);}
 .karte[data-s="fix"] .tag{background:var(--fix-l);color:var(--fix);}
+.karte[data-s="erledigt"] .tag{background:var(--petrol-l);color:var(--petrol);}
+.chip.erledigt{background:var(--petrol-l);color:var(--petrol);}
+.anz-badge{display:inline-flex;align-items:center;font-size:.72rem;font-weight:800;padding:2px 8px;border-radius:99px;background:var(--offen-l);color:#8A5A12;}
+.anz-badge.rot{background:var(--nein-l);color:var(--nein);}
+.anz-badge.ok{background:var(--fix-l);color:var(--fix);}
+.umsatz{background:var(--petrol);color:#fff;border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;}
+.umsatz b{display:block;font-size:1.45rem;line-height:1.1;}
+.umsatz span{font-size:.8rem;opacity:.85;}
+.ikon-plus{background:var(--petrol);color:#fff;}
+.ikon-plus:active{background:var(--petrol-d);}
+.menue-p{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:14px 4px;border-bottom:1px solid var(--line);font-weight:800;font-size:1.02rem;}
+.menue-p small{display:block;font-weight:500;color:var(--mute);font-size:.82rem;}
+.menue-p svg{color:var(--petrol);}
+.kat-g{font-size:.8rem;font-weight:800;color:var(--mute);text-transform:uppercase;letter-spacing:.08em;margin:16px 0 4px;}
+.kat-r{display:grid;grid-template-columns:1fr 84px 34px;gap:6px;align-items:center;padding:4px 0;}
+.kat-r input{width:100%;min-width:0;border:1px solid var(--line-2);border-radius:8px;padding:9px 8px;background:#fff;font-size:16px;}
+.kat-r .kp{text-align:right;font-weight:800;}
+.kat-r .weg{width:34px;height:38px;color:var(--mute);display:flex;align-items:center;justify-content:center;}
+.neu-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.neu-chip{border:1px solid var(--line-2);background:#fff;border-radius:99px;padding:8px 12px;font-weight:700;font-size:.9rem;}
+.neu-chip.on{background:var(--petrol);border-color:var(--petrol);color:#fff;}
+.neu-chip small{font-weight:500;opacity:.8;margin-left:4px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ein-t{width:100%;border-collapse:collapse;font-size:.9rem;}
+.ein-t td,.ein-t th{padding:7px 4px;border-bottom:1px solid var(--line);text-align:right;}
+.ein-t td:first-child,.ein-t th:first-child{text-align:left;}
+.ein-t th{font-size:.75rem;color:var(--mute);font-weight:800;}
 .karte[data-s="abgelehnt"] .tag,.karte[data-s="archiv"] .tag{background:rgba(26,24,19,.06);color:var(--mute);}
 .tag-w{font-size:.75rem;font-weight:700;}
 .tag-d{font-family:var(--serif);font-size:2rem;line-height:1;color:var(--ink);}
@@ -115,15 +142,18 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .hinweis.rot{background:var(--nein-l);color:#7E321D;}
 .hinweis.gelb{background:var(--offen-l);color:#7A5113;}
 .hinweis.gruen{background:var(--fix-l);color:#155A38;}
+.emp-sw{display:flex;gap:12px;align-items:flex-start;font-size:.95rem;line-height:1.4;cursor:pointer;}
+.emp-sw input{width:22px;height:22px;flex:none;margin-top:1px;accent-color:var(--petrol);}
 .nachricht{white-space:pre-wrap;color:var(--ink-2);font-size:.95rem;}
 
 /* Positionen */
-.pos{border-top:1px solid var(--line);padding:10px 0;display:grid;grid-template-columns:1fr 78px 30px;gap:4px 6px;align-items:center;}
+.pos{border-top:1px solid var(--line);padding:10px 0;display:grid;grid-template-columns:1fr 46px 78px 30px;gap:4px 6px;align-items:center;}
+.pos .p-m{text-align:center;font-weight:700;color:var(--ink-2);padding:7px 2px !important;}
 .pos:first-of-type{border-top:none;padding-top:0;}
 .pos input{width:100%;border:1px solid transparent;background:transparent;border-radius:8px;padding:7px 8px;font-size:16px;}
 .pos input:focus{outline:none;border-color:var(--petrol);background:#fff;}
 .pos .p-t{font-weight:800;font-size:15px;text-overflow:ellipsis;}
-.pos .p-x{grid-column:1 / 3;color:var(--mute);font-size:.86rem;padding-top:2px;padding-bottom:2px;}
+.pos .p-x{grid-column:1 / 4;color:var(--mute);font-size:.86rem;padding-top:2px;padding-bottom:2px;}
 .pos .p-b{text-align:right;font-weight:800;}
 .pos .p-b.leer{border-color:var(--offen);background:var(--offen-l);}
 .pos .weg{width:30px;height:34px;border-radius:9px;color:var(--mute);display:flex;align-items:center;justify-content:center;}
@@ -174,6 +204,62 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .toast.auf{pointer-events:auto;}
 .toast{position:fixed;left:50%;bottom:calc(96px + var(--safe-b));transform:translate(-50%,20px);z-index:80;background:var(--ink);color:#fff;padding:11px 16px;border-radius:12px;font-weight:700;font-size:.92rem;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:calc(100% - 32px);text-align:center;}
 .toast.auf{opacity:1;transform:translate(-50%,0);}
+.fb-kopf{display:flex;align-items:center;gap:4px;padding:4px 2px 0;}
+.fb-kopf b{font-size:1.15rem;min-width:52px;text-align:center;}
+.fb-xls{margin-left:auto;min-height:42px;padding:8px 14px;font-size:.92rem;}
+.fb-monate{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px;}
+.fb-m{background:var(--paper);border:1px solid var(--line);border-radius:10px;min-height:52px;font-weight:800;font-size:.9rem;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;}
+.fb-m small{font-weight:600;font-size:.7rem;color:var(--mute);}
+.fb-m.on{background:var(--petrol);border-color:var(--petrol);color:#fff;}
+.fb-m.on small{color:rgba(255,255,255,.8);}
+.fb-tabelle{background:#fff;border:1px solid var(--line);border-radius:12px;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.fb-tabelle table{border-collapse:collapse;font-size:.78rem;min-width:720px;width:100%;}
+.fb-tabelle th{position:sticky;top:0;background:#F5F0E5;font-weight:800;text-align:left;padding:7px 8px;border-bottom:1px solid var(--line-2);white-space:nowrap;}
+.fb-tabelle td{padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap;}
+.fb-tabelle td:nth-child(5){white-space:normal;min-width:200px;}
+.fb-tabelle td:nth-child(n+6),.fb-tabelle th:nth-child(n+6){text-align:right;}
+.fb-tabelle tbody tr:nth-child(even){background:#FBF8F2;}
+.fb-tabelle tr[data-ez]{cursor:pointer;}
+.fb-ok{display:inline-flex;width:20px;height:20px;border:2px solid var(--line-2);border-radius:5px;vertical-align:middle;margin-right:6px;align-items:center;justify-content:center;background:#fff;cursor:pointer;font-size:13px;font-weight:900;color:#fff;flex:none;}
+.fb-ok.on{background:var(--fix);border-color:var(--fix);}
+.fb-ok.g{border-color:#E8892B;background:#FFF1E0;}
+.fb-ok.g.on{background:var(--fix);border-color:#E8892B;box-shadow:0 0 0 2px #F6C58F;}
+.fb-g{display:inline-block;width:8px;height:8px;border-radius:50%;background:#E8892B;margin-left:4px;vertical-align:middle;}
+.ez-g label::after{content:' · geschätzt';color:#C06A12;font-weight:700;}
+.ez-g input{border-color:#E8892B !important;background:#FFF6EC !important;}
+.fb-tabelle tfoot td{font-weight:800;background:#F5F0E5;text-align:right;}
+.fb-tabelle tfoot td:first-child{text-align:left;}
+.fb-tab{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
+.fb-zeile{display:grid;grid-template-columns:84px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;padding:10px 12px;border-top:1px solid var(--line);}
+.fb-zeile:first-child{border-top:none;}
+.fb-zeile:active{background:#fff;}
+.fb-zeile b{display:block;font-size:.9rem;font-weight:800;line-height:1.25;}
+.fb-zeile small{display:block;font-size:.76rem;color:var(--mute);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fb-z2{min-width:0;}
+.fb-z2 b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fb-z3{font-weight:800;font-size:.9rem;text-align:right;white-space:nowrap;}
+.fb-stand{font-weight:800;font-size:.85rem;color:var(--offen);background:var(--offen-l);padding:4px 10px;border-radius:99px;}
+.fb-stand.ok{color:var(--fix);background:var(--fix-l);}
+.fb-tipp{text-align:center;font-size:.85rem;color:var(--mute);margin:8px 0 4px;min-height:1.2em;}
+.fb-e{border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:10px;}
+.fb-e-k{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;}
+.fb-e-k span{font-size:.88rem;color:var(--ink-2);}
+.fb-d{border:1px solid var(--line-2);border-radius:8px;padding:6px 8px;background:#fff;font-size:16px;}
+.fb-r{display:grid;grid-template-columns:68px minmax(0,1fr) 16px minmax(0,1fr);align-items:center;gap:5px;padding:4px 0;}
+.fb-r span{font-size:.88rem;font-weight:700;color:var(--ink-2);}
+.fb-r i{font-style:normal;text-align:center;color:var(--mute);font-size:.82rem;}
+.fb-z{width:100%;min-width:0;min-height:44px;border:1px solid var(--line-2);border-radius:10px;padding:6px 8px;background:#fff;font-size:16px;text-align:center;}
+.fb-z:focus,.fb-d:focus{outline:none;border-color:var(--petrol);}
+.fb-z.blink{background:var(--fix-l);border-color:var(--fix);}
+.fb-st{display:grid;grid-template-columns:68px repeat(3,minmax(0,1fr));gap:5px;align-items:start;padding-top:6px;margin-top:4px;border-top:1px dashed var(--line);}
+.fb-st>span{font-size:.88rem;font-weight:700;color:var(--ink-2);padding-top:12px;}
+.fb-s{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.fb-s small{font-size:.7rem;color:var(--mute);}
+.fb-sn{width:100%;min-width:0;min-height:44px;border:1px solid var(--line-2);border-radius:10px;padding:6px 4px;background:#fff;font-size:16px;text-align:center;}
+.fb-sn:focus{outline:none;border-color:var(--petrol);}
+.fb-km{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-weight:700;font-size:.92rem;}
+.fb-km input{width:90px;text-align:right;border:1px solid var(--line-2);border-radius:8px;padding:8px;font-size:16px;font-weight:800;background:#fff;}
+@media(min-width:520px){.fb-monate{grid-template-columns:repeat(12,1fr);}}
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important;}}
 </style>
 </head>
@@ -199,11 +285,15 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
     <div class="kopf-z">
       <h1>Anfragen</h1>
       <button class="ikon" id="neuLaden" aria-label="Neu laden"><svg class="i" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg></button>
-      <button class="ikon" id="abmelden" aria-label="Abmelden"><svg class="i" viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l-5-5 5-5"/><path d="M5 12h11"/></svg></button>
+      <button class="ikon ikon-plus" id="neuAnlegen" aria-label="Neue Anfrage anlegen"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+      <button class="ikon" id="menue" aria-label="Menü"><svg class="i" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button id="abmelden" hidden></button>
     </div>
     <nav class="tabs" role="tablist">
       <button class="tab on" data-t="ausstehend" role="tab">Offen <span class="zahl" id="z-ausstehend">0</span></button>
       <button class="tab" data-t="fix" role="tab">Fix <span class="zahl" id="z-fix">0</span><span class="stern" id="z-stern" hidden>★</span></button>
+      <button class="tab" data-t="erledigt" role="tab">Erledigt <span class="zahl" id="z-erledigt">0</span></button>
+      <button class="tab" data-t="fahrten" role="tab"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M3 16V8h11v8M14 11h4l3 3v2h-7"/><circle cx="7" cy="17" r="1.8"/><circle cx="17" cy="17" r="1.8"/></svg>Fahrten</button>
       <button class="tab" data-t="abgelehnt" role="tab">Abgesagt <span class="zahl" id="z-abgelehnt">0</span></button>
       <button class="tab" data-t="archiv" role="tab">Archiv <span class="zahl" id="z-archiv">0</span></button>
       <button class="tab" data-t="papierkorb" role="tab" aria-label="Papierkorb"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg><span class="zahl" id="z-papierkorb">0</span></button>
@@ -282,7 +372,7 @@ function konflikte(a){
   var tg = tageVon(a), pr = produktSchluessel(a);
   if(!tg.length || !pr.length) return [];
   return alle.filter(function(b){
-    if(b.id === a.id || b.status !== 'fix') return false;
+    if(b.id === a.id || (b.status !== 'fix' && b.status !== 'erledigt')) return false;
     var tb = tageVon(b); if(!tb.some(function(x){ return tg.indexOf(x) !== -1; })) return false;
     return produktSchluessel(b).some(function(x){ return pr.indexOf(x) !== -1; });
   });
@@ -299,9 +389,23 @@ function summen(a){
   var anz = (a.anzahlung != null && a.anzahlung !== '' && !isNaN(Number(a.anzahlung))) ? Number(a.anzahlung) : autoAnz;
   return {miete:miete, liefer:liefer, gesamt:gesamt, anzahlung:anz, autoAnz:autoAnz, rest:Math.round((gesamt-anz)*100)/100, offen:offen};
 }
+function anzStatus(a){
+  if(a.status !== 'fix') return null;
+  if(a.anzahlungErhaltenAm) return 'ok';
+  var d = tagDatum(a.datum); if(!d) return 'offen';
+  var frist = new Date(d); frist.setDate(frist.getDate() - 3);
+  return heute() > frist ? 'ueberfaellig' : 'offen';
+}
+function anzBadge(a){
+  var s = anzStatus(a);
+  if(s === 'offen') return '<span class="anz-badge">Anzahlung offen</span>';
+  if(s === 'ueberfaellig') return '<span class="anz-badge rot">Anzahlung fehlt!</span>';
+  return '';
+}
 function tageSeit(iso){ return iso ? Math.floor((Date.now() - new Date(iso).getTime())/864e5) : 0; }
 function bewertungStatus(a){
-  if(a.status !== 'fix') return null;
+  if(a.status !== 'fix' && a.status !== 'erledigt') return null;
+  if(a.rueckdatiert && !(a.bewertung && a.bewertung.erhalten)) return null;   /* nachgetragene alte Buchungen nicht nachfragen */
   var ende = tagDatum(a.datumEnde || a.datum); if(!ende || ende >= heute()) return null;
   var b = a.bewertung || {};
   if(b.erhalten) return 'erhalten';
@@ -324,6 +428,7 @@ function api(action, extra){
   return fetch(API, {method:'POST', headers:{'Content-Type':'application/json','x-admin-key': schluessel}, body: JSON.stringify(body)})
     .then(function(r){ return r.json().catch(function(){ return {ok:false, grund:'antwort'}; }).then(function(d){ d._status = r.status; return d; }); })
     .then(function(d){
+      if(d._status === 429){ abmelden('Zu viele falsche Versuche. Bitte in 30 Minuten nochmal probieren.'); throw new Error('401'); }
       if(d._status === 401){ abmelden(d.grund === 'kein-admin-key' ? 'In Netlify fehlt noch die Variable ADMIN_KEY.' : 'Das Passwort stimmt nicht.'); throw new Error('401'); }
       if(!d.ok) throw new Error(d.grund || 'fehler');
       return d;
@@ -347,6 +452,9 @@ function laden(still){
   return api('liste').then(function(d){
     alle = d.anfragen || [];
     $('login').hidden = true; $('app').hidden = false;
+    if(alle.some(function(a){ return a.rueckdatiert && a.nr; })){
+      api('nachgetrageneOhneNr').then(function(r){ if(r.entfernt){ toast('Angebotsnummer bei ' + r.entfernt + ' nachgetragenen Buchungen entfernt'); laden(true).catch(function(){}); } }).catch(function(){});
+    }
     zeichneListe();
     if(aktuell){ var n = alle.filter(function(a){ return a.id === aktuell.id; })[0]; if(n && !speicherTimer){ aktuell = n; zeichneDetail(); } }
   }).catch(function(e){ if(e.message !== '401' && !still) toast('Laden hat nicht geklappt. Prüf die Verbindung.'); throw e; })
@@ -363,20 +471,22 @@ var IK = {
   absagen: '<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7"/></svg>',
   archiv: '<svg class="i" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="4" rx="1"/><path d="M5 8.5V19a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8.5M10 12.5h4"/></svg>',
   muell: '<svg class="i" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg>',
-  zurueck: '<svg class="i" viewBox="0 0 24 24"><path d="M9 14l-5-5 5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg>'
+  zurueck: '<svg class="i" viewBox="0 0 24 24"><path d="M9 14l-5-5 5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg>',
+  haken: '<svg class="i" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>'
 };
 function wischAktionen(a){
   var b = function(cls, act, ik, txt){ return '<button class="' + cls + '" data-act="' + act + '" data-id="' + esc(a.id) + '">' + IK[ik] + txt + '</button>'; };
   if(a.status === 'ausstehend') return b('wa-gelb','ablehnen','absagen','Absagen') + b('wa-rot','papierkorb','muell','Löschen');
   if(a.status === 'archiv') return b('wa-gruen','wiederherstellen','zurueck','Zurück') + b('wa-rot','papierkorb','muell','Löschen');
   if(a.status === 'papierkorb') return b('wa-gruen','wiederherstellen','zurueck','Zurück') + b('wa-rot','loeschen','muell','Weg');
+  if(a.status === 'fix') return b('wa-gruen','abschliessen','haken','Erledigt') + b('wa-rot','papierkorb','muell','Löschen');
   return b('wa-grau','archivieren','archiv','Archiv') + b('wa-rot','papierkorb','muell','Löschen');
 }
 function karte(a){
   var d = tagDatum(a.datum), s = summen(a), k = a.status === 'ausstehend' ? konflikte(a) : [];
   var ort = (a.adresse && a.adresse.ort) || '';
   var km = a.anreise && a.anreise.km ? a.anreise.km + ' km' : '';
-  var info = a.status === 'ausstehend' ? 'Eingegangen ' + wannEingegangen(a.erstellt) : (a.nr ? 'Angebot ' + a.nr + (d ? ', ' + inTagen(a.datum) : '') : '');
+  var info = a.status === 'ausstehend' ? 'Eingegangen ' + wannEingegangen(a.erstellt) : (a.nr ? 'Angebot ' + a.nr + (d ? ', ' + inTagen(a.datum) : '') : (a.rechnungNr ? 'Re. ' + a.rechnungNr : (a.rueckdatiert ? 'Nachgetragen' : '')));
   if(a.status === 'papierkorb' && a.geloeschtAm) info = 'Gelöscht ' + wannEingegangen(a.geloeschtAm);
   if(a.status === 'archiv') info = 'Archiviert' + (a.vorherStatus === 'fix' && a.nr ? ', Angebot ' + a.nr : '');
   return '<div class="wisch" data-id="' + esc(a.id) + '"><div class="wisch-akt">' + wischAktionen(a) + '</div><button class="karte" data-id="' + esc(a.id) + '" data-s="' + esc(a.status) + '">' +
@@ -387,16 +497,40 @@ function karte(a){
     '<span class="k-rechts"><span class="k-preis">' + (s.offen && !s.gesamt ? 'offen' : eur(s.gesamt)) + '</span>' +
     (k.length ? '<span class="warn"><svg class="i" viewBox="0 0 24 24" style="width:14px;height:14px"><path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.5"/></svg>Schon fix</span>' : '') +
     (s.offen && s.gesamt ? '<span class="warn" style="color:var(--offen)">Betrag fehlt</span>' : '') +
+    anzBadge(a) +
     (bewertungStatus(a) === 'faellig' ? '<span class="stern-badge">★ Bewertung</span>' : bewertungStatus(a) === 'erinnern' ? '<span class="stern-badge">★ Erinnern</span>' : '') +
     '</span></button></div>';
 }
 
 function zeichneListe(){
-  var z = {ausstehend:0, fix:0, abgelehnt:0, archiv:0, papierkorb:0};
+  var z = {ausstehend:0, fix:0, erledigt:0, abgelehnt:0, archiv:0, papierkorb:0};
   alle.forEach(function(a){ if(z[a.status] != null) z[a.status]++; });
   var nStern = alle.filter(function(a){ var b = bewertungStatus(a); return b === 'faellig' || b === 'erinnern'; }).length;
   $('z-stern').hidden = !nStern; $('z-stern').textContent = '★ ' + nStern;
   Object.keys(z).forEach(function(k){ var el = $('z-' + k); el.textContent = z[k]; el.classList.toggle('voll', z[k] > 0); el.hidden = (k === 'papierkorb' || k === 'archiv') && !z[k]; });
+  if(tab === 'fahrten'){ zeichneFahrten(); return; }
+  if(tab === 'erledigt'){
+    /* nach Rechnungsnummer von hoch nach niedrig (26-005, 26-004 …), ohne Nummer danach nach Datum */
+    var reKey = function(a){ var m = /(\d+)\D+(\d+)\s*$/.exec(a.rechnungNr || ''); if(m) return [+m[1], +m[2]]; var n = /^\s*(\d+)\s*$/.exec(a.rechnungNr || ''); return n ? [0, +n[1]] : null; };
+    var le = alle.filter(function(a){ return a.status === 'erledigt'; }).sort(function(a,b){
+      var x = reKey(a), y = reKey(b);
+      if(x && y) return y[0] - x[0] || y[1] - x[1] || (b.datum || '').localeCompare(a.datum || '');
+      if(x) return -1; if(y) return 1;
+      return (b.datum || '').localeCompare(a.datum || '');
+    });
+    var jahr = String(new Date().getFullYear());
+    var uJ = 0, uG = 0, nJ = 0;
+    le.forEach(function(a){ var g = summen(a).gesamt; uG += g; if((a.datum || '').slice(0,4) === jahr){ uJ += g; nJ++; } });
+    var gepl = alle.filter(function(a){ return a.status === 'fix'; }).reduce(function(x, a){ return x + summen(a).gesamt; }, 0);
+    var h2 = '<div class="umsatz"><div><span>Umsatz ' + jahr + '</span><b>' + eur(uJ) + '</b></div><div><span>Feste ' + jahr + '</span><b>' + nJ + '</b></div>' +
+      '<div><span>Umsatz gesamt</span><b>' + eur(uG) + '</b></div><div><span>Noch fix geplant</span><b>' + eur(gepl) + '</b></div></div>';
+    var mon = null;
+    le.forEach(function(a){ var d = tagDatum(a.datum), m = d ? ['Jänner','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'][d.getMonth()] + ' ' + d.getFullYear() : 'Ohne Datum';
+      if(m !== mon){ var su = le.filter(function(x){ var dx = tagDatum(x.datum); return dx && d && dx.getMonth() === d.getMonth() && dx.getFullYear() === d.getFullYear(); }).reduce(function(t, x){ return t + summen(x).gesamt; }, 0); h2 += '<div class="gruppe">' + esc(m) + ' · ' + eur(su) + '</div>'; mon = m; }
+      h2 += karte(a); });
+    if(!le.length) h2 += '<div class="leer"><b>Noch nichts erledigt</b>Wenn ein Fest vorbei und bezahlt ist, wisch die Buchung bei „Fix“ nach links und tipp auf „Erledigt“.</div>';
+    $('liste').innerHTML = h2; verbindeListe(); return;
+  }
   var l = alle.filter(function(a){ return a.status === tab; }), html = '';
   if(tab === 'ausstehend'){
     l.sort(function(a,b){ return (b.erstellt || '').localeCompare(a.erstellt || ''); });
@@ -424,7 +558,10 @@ function zeichneListe(){
   }
   if(l.length && !html.includes('wisch-tipp') && !lsTipp()) html = '<div class="wisch-tipp">Tipp: Karte nach links wischen für mehr Aktionen</div>' + html;
   $('liste').innerHTML = html;
-  $('liste').querySelectorAll('.karte').forEach(function(b){ b.addEventListener('click', function(e){ if(b.dataset.gewischt){ delete b.dataset.gewischt; e.preventDefault(); return; } if(offen && offen !== b.parentNode){ zuWisch(); return; } if(b.parentNode.classList.contains('offen')){ zuWisch(); return; } oeffneDetail(b.dataset.id); }); });
+  verbindeListe();
+}
+function verbindeListe(){
+  $('liste').querySelectorAll('.karte:not(.fb-karte)').forEach(function(b){ b.addEventListener('click', function(e){ if(b.dataset.gewischt){ delete b.dataset.gewischt; e.preventDefault(); return; } if(offen && offen !== b.parentNode){ zuWisch(); return; } if(b.parentNode.classList.contains('offen')){ zuWisch(); return; } oeffneDetail(b.dataset.id); }); });
   $('liste').querySelectorAll('.wisch').forEach(wischbar);
   $('liste').querySelectorAll('.wisch-akt button').forEach(function(b){ b.addEventListener('click', function(e){ e.stopPropagation(); aktionAusListe(b.dataset.act, b.dataset.id); }); });
   if($('leeren')) $('leeren').addEventListener('click', papierkorbLeeren);
@@ -456,8 +593,8 @@ function wischbar(w){
 }
 document.addEventListener('touchstart', function(e){ if(offen && !offen.contains(e.target)) zuWisch(); }, {passive:true});
 
-var MELDUNG = {ablehnen:'Abgesagt', archivieren:'Ins Archiv verschoben', papierkorb:'In den Papierkorb verschoben', wiederherstellen:'Wiederhergestellt', loeschen:'Endgültig gelöscht'};
-var GEGEN = {ablehnen:'zuruecksetzen', archivieren:'wiederherstellen', papierkorb:'wiederherstellen'};
+var MELDUNG = {abschliessen:'Als erledigt abgelegt', wiederoeffnen:'Wieder bei Fix', ablehnen:'Abgesagt', archivieren:'Ins Archiv verschoben', papierkorb:'In den Papierkorb verschoben', wiederherstellen:'Wiederhergestellt', loeschen:'Endgültig gelöscht'};
+var GEGEN = {ablehnen:'zuruecksetzen', archivieren:'wiederherstellen', papierkorb:'wiederherstellen', abschliessen:'wiederoeffnen'};
 function aktionAusListe(act, id, gefragt){
   if(act === 'loeschen' && !gefragt && !confirmLeise('Endgültig löschen? Das kann man nicht rückgängig machen.')) return;
   zuWisch();
@@ -468,7 +605,7 @@ function aktionAusListe(act, id, gefragt){
     zeichneListe();
     var gegen = GEGEN[act];
     toast(MELDUNG[act], gegen && vorher ? function(){
-      var ziel = act === 'ablehnen' ? 'zuruecksetzen' : 'wiederherstellen';
+      var ziel = GEGEN[act];
       api(ziel, {id: id}).then(function(d2){ var i = alle.findIndex(function(x){ return x.id === id; }); if(i !== -1) alle[i] = d2.anfrage; zeichneListe(); toast('Rückgängig gemacht'); }).catch(function(){});
     } : null);
   }).catch(function(e){ if(e.message !== '401') toast('Das hat nicht geklappt. Versuch es nochmal.'); });
@@ -504,7 +641,7 @@ window.addEventListener('popstate', function(e){
   if($('detail').classList.contains('auf') && !st.detail && !st.sheet) schliesseDetail(true);
 });
 
-var STATUS_TEXT = {ausstehend:'Offen', fix:'Fix', abgelehnt:'Abgesagt', archiv:'Archiv', papierkorb:'Papierkorb'};
+var STATUS_TEXT = {ausstehend:'Offen', fix:'Fix', erledigt:'Erledigt', abgelehnt:'Abgesagt', archiv:'Archiv', papierkorb:'Papierkorb'};
 
 function zeichneDetail(){
   var a = aktuell, s = summen(a), k = konflikte(a);
@@ -518,7 +655,9 @@ function zeichneDetail(){
     h += '<div class="hinweis rot"><b>Achtung:</b> ' + esc(produkte(a)) + ' ist an dem Tag schon fix vergeben (' +
       k.map(function(b){ return esc((b.kunde.vorname || '') + ' ' + (b.kunde.nachname || '')).trim() + (b.nr ? ', Angebot ' + b.nr : ''); }).join('; ') + ').</div>';
   }
-  if(a.status === 'fix') h += '<div class="hinweis gruen">Termin ist fix. Angebot ' + esc(a.nr) + ' wurde ' + (a.angenommenAm ? 'am ' + new Date(a.angenommenAm).toLocaleDateString('de-AT') + ' ' : '') + 'erstellt.</div>';
+  if(a.status === 'fix' && a.geaendertNachVersand) h += '<div class="hinweis gelb" id="hGeaendert"><b>Geändert nach dem Senden.</b> Das PDF, das der Kunde schon hat, bleibt so wie es war. Soll er die neue Version bekommen, tipp unten auf „Neues Angebot senden“.</div>';
+  if(a.status === 'fix' && !a.nr) h += '<div class="hinweis gruen">Termin ist fix. Nachgetragen, ohne Angebotsnummer' + (a.rechnungNr ? ' · Re. ' + esc(a.rechnungNr) : '') + '.</div>';
+  else if(a.status === 'fix') h += '<div class="hinweis gruen">Termin ist fix. Angebot ' + esc(a.nr) + ' wurde ' + (a.angenommenAm ? 'am ' + new Date(a.angenommenAm).toLocaleDateString('de-AT') + ' ' : '') + 'erstellt.</div>';
 
   /* Bewertung */
   var bs = bewertungStatus(a), bw = a.bewertung || {};
@@ -539,13 +678,29 @@ function zeichneDetail(){
     h += '</div>';
   }
 
+  /* Anzahlung */
+  if(a.status === 'fix' || a.status === 'erledigt'){
+    var as = anzStatus(a), sA = summen(a);
+    h += '<div class="block"><h3>Anzahlung ' + eur(sA.anzahlung) + '</h3>';
+    if(a.anzahlungErhaltenAm){
+      h += '<div class="hinweis gruen">✓ Erhalten am ' + new Date(a.anzahlungErhaltenAm).toLocaleDateString('de-AT') + '</div><button class="pos-neu" id="anzZurueck" style="color:var(--mute)">Doch nicht erhalten</button>';
+    } else {
+      h += '<div class="bew-status">Frist: <b>' + esc(a.anzahlungFrist || '') + '</b>' + (as === 'ueberfaellig' ? ' · <span style="color:var(--nein);font-weight:800">überfällig</span>' : '') + (a.anzahlungErinnertAm ? '<br>Erinnert am ' + new Date(a.anzahlungErinnertAm).toLocaleDateString('de-AT') : '') + '</div>' +
+        '<button class="btn btn-p btn-w" id="anzOk"><svg class="i" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Anzahlung ist da</button>' +
+        (a.waNummer ? '<a class="btn btn-g btn-w" style="margin-top:8px" id="anzErinnern" href="' + esc(waLink(a.waNummer, a.waAnzahlung)) + '" target="_blank" rel="noopener">Per WhatsApp erinnern</a>' : '');
+    }
+    h += '</div>';
+  }
+
   /* Termin */
-  h += '<div class="block"><div class="gross">' + esc(datumLang(a.datum)) + '</div>' +
+  h += '<div class="block"><div class="gross" style="user-select:text;-webkit-user-select:text">' + esc(datumLang(a.datum)) + '</div>' +
+       (a.datum ? '<button class="pos-neu" id="dDatKopie" style="margin:4px 0 0;padding:0">📋 Datum kopieren (' + esc(datumKurz(a.datum)) + (a.datumEnde && a.datumEnde !== a.datum ? '–' + esc(datumKurz(a.datumEnde)) : '') + ')</button>' : '') +
        (a.datumEnde && a.datumEnde !== a.datum ? '<div style="color:var(--ink-2);margin-top:2px">bis ' + esc(datumLang(a.datumEnde)) + '</div>' : '') +
-       '<div style="color:var(--mute);margin-top:6px;font-size:.9rem">' + esc(inTagen(a.datum)) + (a.anlass ? ', ' + esc(a.anlass) : '') + '</div></div>';
+       '<div style="color:var(--mute);margin-top:6px;font-size:.9rem">' + esc(inTagen(a.datum)) + (a.anlass ? ', ' + esc(a.anlass) : '') + '</div>' +
+       '<div class="zeile" style="margin-top:8px;align-items:center"><span>Rechnungsnr.</span><span class="anz"><input id="dRechnung" value="' + esc(a.rechnungNr || '') + '" placeholder="' + esc(a.nr ? String(a.nr) : 'z. B. 26-060') + '" style="width:120px"/></span></div><div class="bew-status" id="dReInfo" style="font-size:.85rem"></div></div>';
 
   /* Kunde */
-  h += '<div class="block"><h3>Kunde</h3>' +
+  h += '<div class="block"><h3 style="display:flex;justify-content:space-between;align-items:center">Kunde<button class="pos-neu" id="dBearb" style="margin:0;padding:0;font-size:.85rem">✎ Kunde, Termin &amp; Text bearbeiten</button></h3>' +
        '<div style="font-weight:800;font-size:1.05rem">' + esc(name) + '</div>' +
        '<div style="color:var(--ink-2)">' + esc(a.kunde.telefon || 'keine Nummer') + (a.kunde.email ? '<br>' + esc(a.kunde.email) : '') + '</div>' +
        (adr ? '<div style="margin-top:8px">' + esc(adr) + '</div>' : '') +
@@ -554,16 +709,21 @@ function zeichneDetail(){
          (a.waNummer ? '<a class="btn btn-g" target="_blank" rel="noopener" href="https://wa.me/' + esc(a.waNummer) + '"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>WhatsApp</a>' : '') +
          (adr ? '<a class="btn btn-g" style="grid-column:1/-1" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(adr) + '"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Route in Google Maps</a>' : '') +
        '</div>' +
-       (a.anreise && a.anreise.km ? '<div style="color:var(--mute);font-size:.88rem;margin-top:10px">' + esc(a.anreise.km) + ' km ab Glödnitz, Anreise berechnet mit ca. ' + eur(a.anreise.betrag) + '</div>' : '') +
+       '<div class="zeile" style="margin-top:10px;align-items:center"><span>km pro Strecke ab Glödnitz</span><span class="anz"><input id="dKm" inputmode="decimal" value="' + esc(a.anreise && a.anreise.km != null ? String(a.anreise.km).replace('.', ',') : '') + '" placeholder="km"/> km</span></div>' +
+       '<div style="color:var(--mute);font-size:.82rem" id="dKmInfo">' + (a.anreise && a.anreise.km ? '4 Fahrten × ' + esc(String(a.anreise.km).replace('.', ',')) + ' km × 0,55 € = ' + eur(Math.round(4 * a.anreise.km * 0.55)) + (gesperrtK(a) ? ' · Preis im fixen Angebot bleibt gleich' : '') : 'Selbst eintragen, wenn nichts berechnet wurde.') + '</div>' +
+       '<div style="margin-top:12px;font-weight:700;font-size:.9rem">Übergabe</div>' +
+       '<div class="seg" id="dUeb" style="grid-template-columns:1fr 1fr;margin-top:4px"><button data-v="liefern" class="' + (uebergabe(a) === 'liefern' ? 'on' : '') + '">🚚 Wir liefern</button><button data-v="selbst" class="' + (uebergabe(a) === 'selbst' ? 'on' : '') + '">Holt selbst ab</button></div>' +
+       '<div id="dUebInfo" style="font-size:.82rem;margin-top:6px"></div>' +
        '</div>';
 
   /* Angebot */
-  var gesperrt = a.status === 'fix';
-  h += '<div class="block"><h3>Angebot' + (gesperrt ? ' (fix, Änderungen gelten fürs PDF)' : '') + '</h3><div id="posListe">';
+  var gesperrt = a.status === 'fix' || a.status === 'erledigt';
+  h += '<div class="block"><h3>Angebot' + (gesperrt ? ' (fix · gesendetes PDF bleibt gleich)' : '') + '</h3><div id="posListe">';
   (a.positionen || []).forEach(function(p, i){
     var leer = p.betrag == null || p.betrag === '';
     h += '<div class="pos" data-i="' + i + '">' +
       '<input class="p-t" value="' + esc(p.titel) + '" data-f="titel" aria-label="Bezeichnung"/>' +
+      '<input class="p-m" value="' + esc(String(p.menge || 1)) + '×" data-f="menge" inputmode="numeric" aria-label="Menge" title="Menge"/>' +
       '<input class="p-b' + (leer ? ' leer' : '') + '" value="' + (leer ? '' : esc(String(p.betrag).replace('.', ','))) + '" data-f="betrag" inputmode="decimal" placeholder="€" aria-label="Betrag in Euro"/>' +
       '<button class="weg" data-weg="' + i + '" aria-label="Position entfernen"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
       '<input class="p-x" value="' + esc(p.text) + '" data-f="text" placeholder="Beschreibung (optional)" aria-label="Beschreibung"/>' +
@@ -577,6 +737,11 @@ function zeichneDetail(){
        ['', 'herr', 'frau'].map(function(v){ return '<button data-v="' + v + '" class="' + ((a.anrede || '') === v ? 'on' : '') + '">' + (v === '' ? 'Neutral' : v === 'herr' ? 'Herr' : 'Frau') + '</button>'; }).join('') +
        '</div><div style="color:var(--mute);font-size:.85rem;margin-top:8px" id="anredeVorschau"></div></div>';
 
+  var _em = a.empfehlung && a.empfehlung.aktiv;
+  h += '<div class="block"><h3>Empfehlungs-Deal (−30 €)</h3>' +
+       '<label class="emp-sw"><input type="checkbox" id="empAn"' + (_em ? ' checked' : '') + '/><span>Im Angebot anbieten: Kunde bekommt seinen Link und 30 € weniger, sobald jemand darüber bucht</span></label>' +
+       '<div style="color:var(--mute);font-size:.85rem;margin-top:8px" id="empInfo">' + (_em && a.empfehlung.code ? 'Code ' + esc(a.empfehlung.code) + ' · Link steht in der WhatsApp-Nachricht' : (a.quelle ? '' : 'Für Anfragen per Telefon oder WhatsApp einfach anhaken.')) + '</div></div>';
+
   if(a.nachricht) h += '<div class="block"><h3>Nachricht vom Kunden</h3><div class="nachricht">' + esc(a.nachricht) + '</div></div>';
   if(a.fotoFreigabe) h += '<div class="block"><h3>📸 Fotos</h3><div class="nachricht">Kunde ist einverstanden, dass du Fotos der Fotobox von diesem Fest zeigst (nur Bilder, auf denen alle einverstanden sind).</div></div>';
 
@@ -584,18 +749,22 @@ function zeichneDetail(){
   if(a.paket) extra.push(['Paket', a.paket]);
   if(a.rahmen) extra.push(['Fotorahmen', a.rahmen]);
   if(a.gutschein) extra.push(['Gutschein', a.gutschein]);
-  if(a.empfehlung && a.empfehlung.aktiv) extra.push(['Empfehlungs-Deal', 'Ja, Code ' + (a.empfehlung.code || '–') + ' (30 € weniger, sobald jemand darüber bucht)']);
   if(a.empfohlenVon) extra.push(['Empfohlen von', a.empfohlenVon + ' – dieser Kunde bekommt 30 € gutgeschrieben']);
   if(a.partner) extra.push(['Partner', a.partner]);
-  extra.push(['Eingegangen', new Date(a.erstellt).toLocaleString('de-AT', {dateStyle:'medium', timeStyle:'short'}) + (a.quelle ? ' über ' + a.quelle : '')]);
-  h += '<div class="block"><h3>Weitere Infos</h3>' + extra.map(function(x){ return '<div class="zeile"><span>' + esc(x[0]) + '</span><span style="text-align:right">' + esc(x[1]) + '</span></div>'; }).join('') + '</div>';
+  if(!a.manuell) extra.push(['Eingegangen', new Date(a.erstellt).toLocaleString('de-AT', {dateStyle:'medium', timeStyle:'short'}) + (a.quelle ? ' über ' + a.quelle : '')]);
+  h += '<div class="block"><h3>Weitere Infos</h3>' + extra.map(function(x){ return '<div class="zeile"><span>' + esc(x[0]) + '</span><span style="text-align:right">' + esc(x[1]) + '</span></div>'; }).join('') +
+    (a.manuell ? '<div class="zeile" style="align-items:center"><span>Angefragt am' + (a.quelle ? ' (' + esc(a.quelle) + ')' : '') + '</span><span class="anz"><input type="date" id="dAm" value="' + esc(String(a.erstellt || '').slice(0, 10)) + '" style="width:150px;text-align:left"/></span></div>' : '') + '</div>';
 
   h += '<div class="block"><h3>Notiz für dich</h3><div class="feld" style="margin:0"><textarea id="notiz" rows="3" placeholder="z. B. Aufbau im Garten, Strom vorhanden">' + esc(a.notiz || '') + '</textarea></div></div>';
 
   /* Weitere Aktionen */
   if(a.status === 'fix'){
+    h += '<div class="block"><h3>Fest vorbei?</h3><button class="btn btn-p btn-w" id="abschliessen"><svg class="i" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Abgeschlossen</button>' +
+         '<div style="color:var(--mute);font-size:.85rem;margin-top:8px">Kommt zu „Erledigt“ und zählt zum Umsatz.</div></div>';
     h += '<div class="block"><h3>Termin ändern</h3><div class="aktionen">' +
          '<button class="btn btn-g" id="zurOffen">Wieder öffnen</button><button class="btn btn-n" id="absagenFix">Absagen</button></div></div>';
+  } else if(a.status === 'erledigt'){
+    h += '<div class="block"><div class="hinweis gruen" style="margin-bottom:10px">Abgeschlossen' + (a.abgeschlossenAm ? ' am ' + new Date(a.abgeschlossenAm).toLocaleDateString('de-AT') : '') + '. Zählt zum Umsatz.</div><button class="btn btn-g btn-w" id="wiederFix">Zurück zu Fix</button></div>';
   } else if(a.status === 'abgelehnt'){
     h += '<div class="block"><div class="aktionen"><button class="btn btn-g" id="zurOffen" style="grid-column:1/-1">Wieder auf offen setzen</button></div></div>';
   }
@@ -641,7 +810,10 @@ function zeichneLeiste(){
   if(a.status === 'ausstehend'){
     h = '<button class="btn btn-n" id="lAblehnen">Absagen</button><button class="btn btn-p" id="lAnnehmen"><svg class="i" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Annehmen</button>';
     L.className = 'leiste-in';
-  } else if(a.status === 'fix'){
+  } else if((a.status === 'fix' || a.status === 'erledigt') && a.geaendertNachVersand && a.nr){
+    h = '<a class="btn btn-g" id="lPdf" href="' + esc(a.pdf) + '" target="_blank" rel="noopener">Altes PDF</a><button class="btn btn-wa" id="lNeu"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>Neues Angebot senden</button>';
+    L.className = 'leiste-in';
+} else if((a.status === 'fix' || a.status === 'erledigt') && a.nr){
     h = '<a class="btn btn-g" id="lPdf" href="' + esc(a.pdf) + '" target="_blank" rel="noopener">PDF</a><a class="btn btn-wa" id="lWa" href="' + esc(waLink(a.waNummer, a.waText)) + '" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>Per WhatsApp senden</a>';
     L.className = 'leiste-in';
   } else {
@@ -651,7 +823,13 @@ function zeichneLeiste(){
   $('leiste').style.visibility = h ? 'visible' : 'hidden';
   if($('lAnnehmen')) $('lAnnehmen').addEventListener('click', annehmen);
   if($('lAblehnen')) $('lAblehnen').addEventListener('click', function(){ absageSheet(); });
-  if($('lWa')) $('lWa').addEventListener('click', function(){ /* PDF aktuell halten */ sofortSpeichern(); });
+  if($('lNeu')) $('lNeu').addEventListener('click', function(){
+    var b = this; b.disabled = true;
+    Promise.resolve(sofortSpeichern()).then(function(){ return api('neueFassung', {id: aktuell.id}); }).then(function(d){
+      var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
+      aktuell = JSON.parse(JSON.stringify(d.anfrage)); zeichneDetail(); zeichneListe(); erfolgSheet(d.anfrage);
+    }).catch(function(e){ b.disabled = false; if(e.message !== '401') toast('Hat nicht geklappt. Versuch es nochmal.'); });
+  });
 }
 
 function verbindeDetail(){
@@ -659,7 +837,15 @@ function verbindeDetail(){
   box.querySelectorAll('input').forEach(function(inp){
     inp.addEventListener('input', function(){
       var i = +inp.closest('.pos').dataset.i, f = inp.dataset.f, p = aktuell.positionen[i];
-      if(f === 'betrag'){
+      if(f === 'menge'){
+        var m = parseInt(inp.value.replace(/\D/g, ''), 10); if(!m || m < 1) return; m = Math.min(99, m);
+        var alt = p.menge || 1;
+        if(p.betrag != null && p.betrag !== '' && m !== alt){
+          p.betrag = Math.round(Number(p.betrag) / alt * m * 100) / 100;
+          var bi = inp.closest('.pos').querySelector('.p-b'); if(bi) bi.value = String(p.betrag).replace('.', ',');
+        }
+        p.menge = m; zeichneSumme();
+      } else if(f === 'betrag'){
         var v = inp.value.replace(/\s/g,'').replace(',', '.');
         p.betrag = v === '' ? null : (isNaN(Number(v)) ? p.betrag : Number(v));
         inp.classList.toggle('leer', v === '');
@@ -667,6 +853,10 @@ function verbindeDetail(){
       } else { p[f] = inp.value; }
       planeSpeichern();
     });
+  });
+  box.querySelectorAll('.p-m').forEach(function(inp){
+    inp.addEventListener('focus', function(){ inp.value = String(parseInt(inp.value, 10) || 1); inp.select(); });
+    inp.addEventListener('blur', function(){ inp.value = (parseInt(inp.value, 10) || 1) + '×'; });
   });
   box.querySelectorAll('[data-weg]').forEach(function(b){
     b.addEventListener('click', function(){
@@ -683,6 +873,11 @@ function verbindeDetail(){
     planeSpeichern(); zeichneDetail();
     var idx = li === -1 ? aktuell.positionen.length - 1 : li;
     var el = document.querySelector('.pos[data-i="' + idx + '"] .p-t'); if(el){ el.focus(); el.select(); }
+  });
+  if($('empAn')) $('empAn').addEventListener('change', function(){
+    aktuell.empfehlung = {aktiv: this.checked, code: (aktuell.empfehlung && aktuell.empfehlung.code) || ''};
+    $('empInfo').textContent = this.checked ? 'Wird gespeichert, der Link kommt in die WhatsApp-Nachricht …' : 'Nicht im Angebot.';
+    planeSpeichern();
   });
   $('anrede').querySelectorAll('button').forEach(function(b){
     b.addEventListener('click', function(){ aktuell.anrede = b.dataset.v; $('anrede').querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x === b); }); zeichneAnrede(); planeSpeichern(); });
@@ -705,6 +900,71 @@ function verbindeDetail(){
     Promise.resolve(sofortSpeichern()).then(function(){ schliesseDetail(); aktionAusListe(act, id, true); });
   }); });
   if($('absagenFix')) $('absagenFix').addEventListener('click', function(){ absageSheet(); });
+  if($('abschliessen')) $('abschliessen').addEventListener('click', function(){ statusAendern('abschliessen', 'Als erledigt abgelegt'); });
+  if($('wiederFix')) $('wiederFix').addEventListener('click', function(){ statusAendern('wiederoeffnen', 'Wieder bei Fix'); });
+  var anzSchritt = function(daten, meldung){
+    api('anzahlung', Object.assign({id: aktuell.id}, daten)).then(function(d){
+      var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
+      aktuell = JSON.parse(JSON.stringify(d.anfrage)); zeichneDetail(); zeichneListe(); if(meldung) toast(meldung);
+    }).catch(function(e){ if(e.message !== '401') toast('Das hat nicht geklappt.'); });
+  };
+  function uebInfo(){
+    var a = aktuell, el = $('dUebInfo'); if(!el) return;
+    if(uebergabe(a) !== 'selbst' || einzelFahrten === null){ el.innerHTML = ''; return; }
+    var L = fahrtenZuBuchung(a);
+    el.innerHTML = L.length ? '<div class="bew-status">Im Fahrtenbuch stehen noch ' + L.length + ' Fahrten zu dieser Buchung.</div><button class="pos-neu" id="dUebWeg" style="color:var(--nein);padding:4px 0">Diese ' + L.length + ' Fahrten löschen (km-Stände danach rücken nach)</button>' : '<div class="bew-status">Keine Fahrten im Fahrtenbuch, Kunde holt selbst ab.</div>';
+    if($('dUebWeg')) $('dUebWeg').onclick = function(){
+      if(!confirmLeise(L.length + ' Fahrten aus dem Fahrtenbuch löschen?')) return;
+      var weg = {}; L.forEach(function(f){ weg[f.id] = 1; });
+      var folge = fbNeuRechnen(L.map(function(f){ var y = JSON.parse(JSON.stringify(f)); y.km = 0; return y; })).filter(function(f){ return !weg[f.id]; });
+      L.reduce(function(pr, f){ return pr.then(function(){ return api('fahrtLoeschen', {id: f.id}); }); }, Promise.resolve())
+        .then(function(){ einzelFahrten = einzelFahrten.filter(function(x){ return !weg[x.id]; }); return fbSpeichern(folge); })
+        .then(function(){ toast(L.length + ' Fahrten gelöscht, km-Stände angepasst'); uebInfo(); })
+        .catch(function(e){ if(e.message !== '401') toast('Löschen hat nicht geklappt.'); });
+    };
+  }
+  if($('dUeb')){
+    (einzelFahrten === null ? ladeEinzelFahrten().catch(function(){}) : Promise.resolve()).then(uebInfo);
+    $('dUeb').querySelectorAll('button').forEach(function(b){ b.addEventListener('click', function(){
+      var a = aktuell, v = b.dataset.v; if(uebergabe(a) === v) return;
+      a.uebergabe = v;
+      if(!gesperrtK(a)){
+        if(v === 'selbst') a.positionen = (a.positionen || []).filter(function(p){ return p.art !== 'lieferung'; });
+        else if(!(a.positionen || []).some(function(p){ return p.art === 'lieferung'; })) (a.positionen = a.positionen || []).push({art:'lieferung', titel:'Lieferung & Abholung', text:'Glödnitz – ' + ((a.adresse && a.adresse.ort) || 'Kunde') + (a.anreise && a.anreise.km ? ' · 4 Fahrten à ' + String(a.anreise.km).replace('.', ',') + ' km × 0,55 €' : ''), betrag: a.anreise && a.anreise.betrag != null ? a.anreise.betrag : null});
+      }
+      planeSpeichern(); zeichneDetail();
+    }); });
+  }
+  if($('dBearb')) $('dBearb').addEventListener('click', bearbeitenSheet);
+  if($('dDatKopie')) $('dDatKopie').addEventListener('click', function(){ var a = aktuell; kopieren(datumKurz(a.datum) + (a.datumEnde && a.datumEnde !== a.datum ? ' – ' + datumKurz(a.datumEnde) : ''), 'Datum kopiert'); });
+  if($('dKm')) $('dKm').addEventListener('input', function(){
+    var km = Number(this.value.replace(',', '.').trim());
+    if(this.value.trim() === '' || !isFinite(km) || km < 0 || km > 2000) return;
+    km = Math.round(km * 10) / 10;
+    var betrag = Math.round(4 * km * 0.55), a = aktuell;
+    a.anreise = {km: km, betrag: betrag, ort: (a.anreise && a.anreise.ort) || (a.adresse && a.adresse.ort) || ''};
+    var fest = gesperrtK(a);
+    if(!fest) (a.positionen || []).forEach(function(p){ if(p.art === 'lieferung'){ p.betrag = betrag; p.text = 'Glödnitz – ' + ((a.adresse && a.adresse.ort) || 'Kunde') + ' · 4 Fahrten à ' + String(km).replace('.', ',') + ' km × 0,55 €'; } });
+    $('dKmInfo').textContent = '4 Fahrten × ' + String(km).replace('.', ',') + ' km × 0,55 € = ' + eur(betrag) + (fest ? ' · Preis im fixen Angebot bleibt gleich' : '');
+    if(!fest){ var pi = (a.positionen || []).findIndex(function(p){ return p.art === 'lieferung'; }); var inp = pi !== -1 && document.querySelector('.pos[data-i="' + pi + '"] .p-b'); if(inp){ inp.value = String(betrag).replace('.', ','); inp.classList.remove('leer'); } zeichneSumme(); }
+    planeSpeichern();
+  });
+  if($('dAm')) $('dAm').addEventListener('change', function(){
+    var w = this.value; if(!w) return;
+    Promise.resolve(sofortSpeichern()).then(function(){ return api('speichern', {id: aktuell.id, patch: {erstelltAm: w}}); }).then(function(d){
+      var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
+      aktuell = JSON.parse(JSON.stringify(d.anfrage)); zeichneDetail(); zeichneListe(); toast('Datum überall geändert');
+    }).catch(function(e){ if(e.message !== '401') toast('Hat nicht geklappt.'); });
+  });
+  if($('dRechnung')){
+    $('dRechnung').addEventListener('input', function(){ aktuell.rechnungNr = this.value.trim(); planeSpeichern(); });
+    /* Fahrten erst anpassen, wenn die Nummer fertig eingetippt ist (Feld verlassen) */
+    $('dRechnung').addEventListener('change', function(){ var id = aktuell.id; Promise.resolve(sofortSpeichern()).then(function(){ var a = alle.filter(function(x){ return x.id === id; })[0]; if(a) fbSyncBuchung(a); }); });
+    (einzelFahrten === null ? ladeEinzelFahrten().catch(function(){}) : Promise.resolve()).then(function(){ if($('dReInfo') && aktuell) $('dReInfo').textContent = fbReText(aktuell); });
+  }
+  if($('anzOk')) $('anzOk').addEventListener('click', function(){ anzSchritt({erhalten:true}, '✓ Anzahlung abgehakt'); });
+  if($('anzZurueck')) $('anzZurueck').addEventListener('click', function(){ anzSchritt({erhalten:false}, 'Zurückgesetzt'); });
+  if($('anzErinnern')) $('anzErinnern').addEventListener('click', function(){ setTimeout(function(){ anzSchritt({erhalten:false, erinnert:true}, 'Erinnerung vermerkt'); }, 300); });
 }
 function confirmLeise(t){ try{ return window.confirm(t); }catch(e){ return true; } }
 
@@ -718,11 +978,12 @@ function sofortSpeichern(){
   if(!speicherTimer || !aktuell) return speichertGerade || Promise.resolve();
   clearTimeout(speicherTimer); speicherTimer = null;
   var a = aktuell;
-  var patch = {positionen: a.positionen, anrede: a.anrede || '', notiz: a.notiz || '', anzahlung: a.anzahlung};
+  var patch = {positionen: a.positionen, anrede: a.anrede || '', notiz: a.notiz || '', anzahlung: a.anzahlung, rechnungNr: a.rechnungNr || '', anreise: a.anreise || null, uebergabe: a.uebergabe || '', empfehlung: a.empfehlung || {aktiv:false, code:''}};
   speichertGerade = api('speichern', {id: a.id, patch: patch}).then(function(d){
     var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
-    if(aktuell && aktuell.id === d.anfrage.id){ aktuell.pdf = d.anfrage.pdf; aktuell.waText = d.anfrage.waText; aktuell.waAbsage = d.anfrage.waAbsage; if(aktuell.status === 'fix' && $('lWa')) $('lWa').href = waLink(aktuell.waNummer, aktuell.waText); }
+    if(aktuell && aktuell.id === d.anfrage.id){ aktuell.pdf = d.anfrage.pdf; aktuell.waText = d.anfrage.waText; aktuell.waAbsage = d.anfrage.waAbsage; aktuell.empfehlung = d.anfrage.empfehlung; if(!!d.anfrage.geaendertNachVersand !== !!aktuell.geaendertNachVersand){ aktuell.geaendertNachVersand = d.anfrage.geaendertNachVersand; zeichneLeiste(); if(!$('hGeaendert') && aktuell.geaendertNachVersand) toast('Geändert. Das gesendete PDF bleibt gleich.'); } if($('empInfo') && d.anfrage.empfehlung && d.anfrage.empfehlung.aktiv && d.anfrage.empfehlung.code) $('empInfo').textContent = 'Code ' + d.anfrage.empfehlung.code + ' · Link steht in der WhatsApp-Nachricht'; if((aktuell.status === 'fix' || aktuell.status === 'erledigt') && $('lWa')) $('lWa').href = waLink(aktuell.waNummer, aktuell.waText); }
     $('dGespeichert').textContent = 'Gespeichert';
+    if(!(document.activeElement && document.activeElement.id === 'dRechnung')) fbSyncBuchung(d.anfrage);
     setTimeout(function(){ if($('dGespeichert').textContent === 'Gespeichert') $('dGespeichert').textContent = ''; }, 1500);
   }).catch(function(e){ if(e.message !== '401'){ $('dGespeichert').textContent = 'Nicht gespeichert'; toast('Speichern hat nicht geklappt.'); } })
     .finally(function(){ speichertGerade = null; });
@@ -745,14 +1006,15 @@ function annehmen(){
     var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
     aktuell = JSON.parse(JSON.stringify(d.anfrage));
     zeichneDetail(); zeichneListe();
-    erfolgSheet(d.anfrage);
+    if(d.anfrage.nr) erfolgSheet(d.anfrage); else toast('Nachgetragen, ohne Angebotsnummer');
+    fbFahrtenAnlegen(d.anfrage, true);
   }).catch(function(e){ if(e.message !== '401') toast('Annehmen hat nicht geklappt. Versuch es nochmal.'); if($('lAnnehmen')){ $('lAnnehmen').disabled = false; $('lAnnehmen').textContent = 'Annehmen'; } });
 }
 
 function erfolgSheet(a){
   oeffneSheet(
     '<div class="haken"><svg class="i" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>' +
-    '<h3>Termin ist fix</h3><p>Angebot ' + esc(a.nr) + ' für ' + esc(a.kunde.vorname || '') + ' ist erstellt. Schick es jetzt per WhatsApp, die Nachricht ist schon fertig.</p>' +
+    '<h3>' + ((a.versionen||[]).length > 1 ? 'Neues Angebot fertig' : 'Termin ist fix') + '</h3><p>Angebot ' + esc(a.nr) + ' für ' + esc(a.kunde.vorname || '') + ' ist erstellt. Schick es jetzt per WhatsApp, die Nachricht ist schon fertig.</p>' +
     '<div class="vorschau">' + esc(a.waText) + '</div>' +
     (a.waNummer ? '<a class="btn btn-wa btn-w" id="sWa" href="' + esc(waLink(a.waNummer, a.waText)) + '" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>An ' + esc(a.kunde.vorname || 'Kunde') + ' senden</a>' : '<div class="hinweis gelb">Keine Handynummer vorhanden. Kopier den Text und schick ihn selbst.</div>') +
     '<a class="btn btn-g btn-w" href="' + esc(a.pdf) + '" target="_blank" rel="noopener">Angebot als PDF ansehen</a>' +
@@ -760,6 +1022,40 @@ function erfolgSheet(a){
   );
   $('sKopie').addEventListener('click', function(){ kopieren(a.waText); });
   if($('sWa')) $('sWa').addEventListener('click', function(){ setTimeout(schliesseSheet, 400); });
+}
+
+/* Kunde, Adresse, Termin und Text nachträglich ändern (auch bei fixen Buchungen) */
+function bearbeitenSheet(){
+  var a = aktuell, k = a.kunde || {}, ad = a.adresse || {};
+  function f(id, lbl, wert, typ, extra){ return '<div class="feld"><label>' + lbl + '</label><input id="' + id + '" type="' + (typ || 'text') + '" value="' + esc(wert || '') + '"' + (extra || '') + '/></div>'; }
+  oeffneSheet('<h3>Bearbeiten</h3>' +
+    (a.pdfToken ? '<p style="margin-bottom:8px;font-size:.85rem">Das schon verschickte PDF bleibt gleich. Willst du dem Kunden die neue Version schicken, tipp danach auf „Neues Angebot senden“.</p>' : '') +
+    '<div class="grid2">' + f('bVn', 'Vorname', k.vorname) + f('bNn', 'Nachname', k.nachname) + '</div>' +
+    '<div class="grid2">' + f('bTel', 'Handynummer', k.telefon, 'tel') + f('bMail', 'E-Mail', k.email, 'email') + '</div>' +
+    '<div class="grid2">' + f('bDat', 'Datum', a.datum, 'date') + f('bEnd', 'Bis (optional)', a.datumEnde, 'date') + '</div>' +
+    f('bStr', 'Straße &amp; Nr.', ad.strasse) +
+    '<div class="grid2">' + f('bPlz', 'PLZ', ad.plz, 'text', ' inputmode="numeric"') + f('bOrt', 'Ort', ad.ort) + '</div>' +
+    f('bAnl', 'Anlass', a.anlass, 'text', ' placeholder="z. B. Kindergeburtstag"') +
+    '<div class="feld"><label>Nachricht / Beschreibung</label><textarea id="bTxt" rows="4">' + esc(a.nachricht || '') + '</textarea></div>' +
+    '<button class="btn btn-p btn-w" id="bOk">Speichern</button><div class="fehler" id="bFehler"></div>');
+  function v(id){ return ($(id).value || '').trim(); }
+  $('bOk').onclick = function(){
+    if(!v('bVn') && !v('bNn')){ $('bFehler').textContent = 'Bitte einen Namen eintragen.'; return; }
+    if(v('bEnd') && v('bDat') && v('bEnd') < v('bDat')){ $('bFehler').textContent = '„Bis“ liegt vor dem Datum.'; return; }
+    var b = this; b.disabled = true; b.textContent = 'Speichert …';
+    var ortAlt = ad.ort || '';
+    Promise.resolve(sofortSpeichern()).then(function(){ return api('speichern', {id: a.id, patch: {
+      kunde: {vorname: v('bVn'), nachname: v('bNn'), telefon: v('bTel'), email: v('bMail')},
+      adresse: {strasse: v('bStr'), plz: v('bPlz'), ort: v('bOrt')},
+      datum: v('bDat'), datumEnde: v('bEnd'), anlass: v('bAnl'), nachricht: ($('bTxt').value || '').trim()
+    }}); }).then(function(d){
+      var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
+      aktuell = JSON.parse(JSON.stringify(d.anfrage));
+      schliesseSheet(); zeichneDetail(); zeichneListe(); zeichneLeiste && zeichneLeiste();
+      toast('Gespeichert');
+      if((d.anfrage.adresse.ort || '') !== ortAlt) fbSyncBuchung(d.anfrage);
+    }).catch(function(e){ b.disabled = false; b.textContent = 'Speichern'; if(e.message !== '401') $('bFehler').textContent = 'Hat nicht geklappt.'; });
+  };
 }
 
 function absageSheet(){
@@ -784,8 +1080,10 @@ function statusAendern(action, meldung){
   }).catch(function(e){ if(e.message !== '401') toast('Das hat nicht geklappt. Versuch es nochmal.'); });
 }
 
-function kopieren(t){
-  function ok(){ toast('Text kopiert'); }
+function uebergabe(a){ return a.uebergabe || ((a.positionen || []).some(function(p){ return p.art === 'lieferung'; }) ? 'liefern' : 'selbst'); }
+function gesperrtK(a){ return (a.status === 'fix' || a.status === 'erledigt') && !!a.nr; }
+function kopieren(t, meldung){
+  function ok(){ toast(meldung || 'Text kopiert'); }
   if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok, alt); } else alt();
   function alt(){ var ta = document.createElement('textarea'); ta.value = t; ta.style.cssText = 'position:fixed;top:0;opacity:0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); ok(); }catch(e){} document.body.removeChild(ta); }
 }
@@ -802,6 +1100,832 @@ function schliesseSheet(){
   try{ if(history.state && history.state.sheet) history.back(); }catch(e){}
 }
 $('schleier').addEventListener('click', schliesseSheet);
+
+/* ══════════ Fahrtenbuch ══════════
+   Jede fixe Buchung hat zwei Einsätze: Lieferung (Datum = Festtag) und
+   Abholung (Datum frei, Standard: Tag danach). Pro Einsatz Hin- und Rückfahrt
+   mit Abfahrt und Ankunft. Daraus wird die Excel-Liste je Monat gebaut. */
+var MONATE = ['Jänner','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+var START = 'Glödnitz, Schulstraße 3';
+var fbJahr = new Date().getFullYear(), fbMonat = new Date().getMonth();
+function istFixA(a){ return a.status === 'fix' || a.status === 'erledigt' || (a.status === 'archiv' && (a.vorherStatus === 'fix' || a.vorherStatus === 'erledigt')); }
+function plusTag(iso, n){ var d = tagDatum(iso); if(!d) return ''; d.setDate(d.getDate() + n); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
+function fbKm(a){
+  if(a.anreise && a.anreise.km) return a.anreise.km;
+  if(a.fahrten && a.fahrten.km != null) return a.fahrten.km;
+  var l = (a.positionen || []).filter(function(p){ return p.art === 'lieferung' && Number(p.betrag) > 0; })[0];
+  return l ? Math.round(Number(l.betrag) / 2.2) : 0;
+}
+function fbDaten(a){
+  var f = a.fahrten || {};
+  var leer = function(){ return {ab:'', an:''}; };
+  function e(x, datum){ x = x || {}; return {datum: x.datum || datum, hin: x.hin || leer(), rueck: x.rueck || leer(), stand: x.stand || {start:null, kunde:null, ende:null}}; }
+  return {liefer: e(f.liefer, a.datum), abhol: e(f.abhol, plusTag(a.datumEnde || a.datum, 1)), km: fbKm(a), notiz: f.notiz || '', fahrzeug: f.fahrzeug || fbFahrzeugMerk()};
+}
+var FZ_STANDARD = 'BMW 340d · SV 698EX';
+function fbFahrzeugMerk(){ try{ return localStorage.getItem('hb_fahrzeug') || FZ_STANDARD; }catch(e){ return FZ_STANDARD; } }
+var einzelFahrten = null, fbAnsicht = 'tabelle';
+function fbVerbinden(){
+  $('fbVor').onclick = function(){ fbJahr--; zeichneFahrten(); };
+  $('fbNach').onclick = function(){ fbJahr++; zeichneFahrten(); };
+  $('fbXls').onclick = function(){ excelExport(fbJahr); };
+  $('liste').querySelectorAll('.fb-m').forEach(function(b){ b.onclick = function(){ fbMonat = +b.dataset.m; zeichneFahrten(); }; });
+  if($('fbAnsicht')) $('fbAnsicht').querySelectorAll('button').forEach(function(b){ b.onclick = function(){ fbAnsicht = b.dataset.a; zeichneFahrten(); }; });
+  if($('fbNeu')) $('fbNeu').onclick = function(){ var t = new Date(); einzelFahrtSheet(null, (t.getFullYear() === fbJahr && t.getMonth() === fbMonat) ? null : fbJahr + '-' + ('0' + (fbMonat + 1)).slice(-2) + '-01'); };
+}
+/* ── Rechnungsnummern: Fahrten ↔ Buchungen ── */
+function rnTeile(x){ var v = String(x || '').replace(/^\s*re\.?\s*/i, '').trim().toLowerCase().replace(/\s+/g, ''); var m = v.match(/\d+/g); return {voll: v, zahl: m ? +m[m.length - 1] : null, nurZahl: /^\d+$/.test(v)}; }
+function rnGleich(a, b){
+  var x = rnTeile(a), y = rnTeile(b); if(!x.voll || !y.voll) return false;
+  if(x.voll === y.voll) return true;
+  return (x.nurZahl || y.nurZahl) && x.zahl != null && x.zahl === y.zahl;
+}
+function fahrtRe(f){ return ((/Re\.\s*([\w-]+)/.exec(f.zweck || '') || [])[1]) || f.rechnung || ''; }
+function buchungRe(a){ return a.rechnungNr || (a.nr ? String(a.nr) : ''); }
+function buchungZuRe(re, datum){
+  if(!rnTeile(re).voll) return null;
+  var t = tagDatum(datum || ''), c = alle.filter(function(a){ return a.status !== 'papierkorb' && (rnGleich(a.rechnungNr, re) || rnGleich(a.nr ? String(a.nr) : '', re)); });
+  c.sort(function(x, y){ if(!t) return 0; return Math.abs((tagDatum(x.datum) || t) - t) - Math.abs((tagDatum(y.datum) || t) - t); });
+  return c[0] || null;
+}
+function fahrtenZuBuchung(a){
+  var nr = a.nr ? String(a.nr) : '';
+  /* Die Nummer im Zweck der Fahrt zählt; die Verknüpfung über die ID nur bei Fahrten ohne Nummer */
+  return (einzelFahrten || []).filter(function(f){
+    var r = fahrtRe(f);
+    if(!r) return f.anfrage === a.id;
+    return a.rechnungNr ? rnGleich(r, a.rechnungNr) : !!(nr && rnTeile(r).voll === nr);
+  });
+}
+/* Buchung gespeichert: verknüpfte Fahrten an das Angebot anpassen (nur wenn sich was ändert) */
+function fbSyncBuchung(a){
+  if(!a || a.status === 'papierkorb' || uebergabe(a) === 'selbst') return Promise.resolve(0);
+  return (einzelFahrten === null ? ladeEinzelFahrten() : Promise.resolve()).then(function(){
+    var L = fbAusAngebot(a); if(!L.length) return 0;
+    var diff = L.some(function(f){ var o = einzelFahrten.filter(function(y){ return y.id === f.id; })[0]; return !o || o.km !== f.km || o.von !== f.von || o.nach !== f.nach || o.anfrage !== f.anfrage || o.rechnung !== f.rechnung; });
+    if(!diff) return 0;
+    var alles = fbNeuRechnen(L);
+    return fbSpeichern(alles).then(function(){
+      toast(L.length + ' Fahrten zu Re. ' + buchungRe(a) + ' angepasst, km-Stände neu berechnet');
+      if($('dReInfo') && aktuell && aktuell.id === a.id) $('dReInfo').textContent = fbReText(a);
+      if(tab === 'fahrten') zeichneFahrten();
+      return L.length;
+    });
+  }).catch(function(e){ if(e && e.message !== '401') toast('Fahrten konnten nicht angepasst werden.'); });
+}
+function fbReText(a){
+  if(einzelFahrten === null) return '';
+  var n = fahrtenZuBuchung(a).length;
+  return n ? n + ' Fahrt' + (n === 1 ? '' : 'en') + ' im Fahrtenbuch verknüpft · ' + String(fbKm(a)).replace('.', ',') + ' km pro Strecke' : (a.rechnungNr ? 'Noch keine Fahrten mit dieser Nummer im Fahrtenbuch.' : '');
+}
+function fbVerknuepft(a){ return einzelFahrten && fahrtenZuBuchung(a).length > 0; }
+function fbOrt(a){ return (a.adresse && a.adresse.ort) || fbZiel(a); }
+function fbSk(x){ return (x.datum || '') + ' ' + (x.ab || '99:99'); }
+function fbRund(v){ return Math.round(v * 10) / 10; }
+function fbNeueId(){ return 'm' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+/* Geänderte/neue Fahrten einsetzen und die km-Stände aller folgenden Fahrten (gleiches Auto) neu durchrechnen.
+   Abstände zwischen den Fahrten (Privatfahrten dazwischen) bleiben gleich. */
+function fbNeuRechnen(neue){
+  var map = {}, out = {};
+  neue.forEach(function(n){ if(!n.id) n.id = fbNeueId(); map[n.id] = n; });
+  var fzs = {}; neue.forEach(function(n){ fzs[n.fz || ''] = 1; });
+  Object.keys(fzs).forEach(function(fz){
+    var L = (einzelFahrten || []).filter(function(x){ return (x.fz || '') === fz && !map[x.id]; })
+      .concat(neue.filter(function(n){ return (n.fz || '') === fz; })).sort(function(x, y){ return fbSk(x).localeCompare(fbSk(y)); });
+    var off = 0, prevE = null;
+    L.forEach(function(x){
+      var o = (einzelFahrten || []).filter(function(y){ return y.id === x.id; })[0], neu = !!map[x.id];
+      var y = neu ? x : JSON.parse(JSON.stringify(x)), km = Number(y.km) || 0;
+      if(o && o.kmA != null && o.kmE != null){
+        var nA = fbRund(o.kmA + off);
+        if(neu){ y.kmA = nA; y.kmE = fbRund(nA + km); off = fbRund(off + km - (o.kmE - o.kmA)); }
+        else { y.kmA = nA; y.kmE = fbRund(o.kmE + off); }
+      } else if(neu){
+        if(prevE != null) y.kmA = prevE;
+        y.kmE = y.kmA != null && y.kmA !== '' ? fbRund(Number(y.kmA) + km) : null;
+        if(y.kmE != null) off = fbRund(off + km);
+      }
+      if(y.kmE != null) prevE = y.kmE;
+      if(neu || o.kmA !== y.kmA || o.kmE !== y.kmE) out[y.id] = y;
+    });
+  });
+  return Object.keys(out).map(function(k){ return out[k]; });
+}
+function fbSpeichern(liste){
+  var teile = []; for(var i = 0; i < liste.length; i += 250) teile.push(liste.slice(i, i + 250));
+  return teile.reduce(function(p, t){ return p.then(function(){ return api('fahrtenBatch', {fahrten: t.map(function(x){ var y = Object.assign({}, x); delete y.verlauf; return y; })}).then(function(d){
+    (d.fahrten || []).forEach(function(f){ var j = einzelFahrten.findIndex(function(x){ return x.id === f.id; }); if(j === -1) einzelFahrten.push(f); else einzelFahrten[j] = f; });
+  }); }); }, Promise.resolve()).then(function(){ return liste.length; });
+}
+/* Werte aus dem Angebot in alle Fahrten zu dieser Rechnung übernehmen */
+function fbAusAngebot(a, extra, erzwingen){
+  var re = buchungRe(a), km = fbKm(a), ort = fbOrt(a);
+  var L = fahrtenZuBuchung(a).filter(function(f){ return !extra || f.id !== extra.id; }).map(function(f){ return JSON.parse(JSON.stringify(f)); });
+  if(extra) L.push(extra);
+  L.forEach(function(f){
+    var rueck = /^r(ü|ue)ck/i.test(f.zweck || '');
+    f.von = rueck ? ort : 'Glödnitz'; f.nach = rueck ? 'Glödnitz' : ort;
+    var selbst = !erzwingen && f.anfrage === a.id && f.kmAngebot != null && Number(f.km) !== Number(f.kmAngebot);
+    if(km && !selbst){ f.km = km; f.kmAngebot = km; }
+    f.anfrage = a.id; f.rechnung = re;
+    if(!/Re\./.test(f.zweck || '')) f.zweck = ((f.zweck || 'Fahrt') + ' (Re. ' + re + ')').trim();
+  });
+  return L;
+}
+/* Erledigt-Kästchen: antippen speichert sofort */
+function fbOkVerbinden(){
+  $('liste').querySelectorAll('[data-ok]').forEach(function(el){ el.addEventListener('click', function(e){
+    e.stopPropagation(); e.preventDefault();
+    var f = (einzelFahrten || []).filter(function(x){ return x.id === el.dataset.ok; })[0]; if(!f) return;
+    var y = Object.assign({}, f, {ok: !f.ok}); delete y.verlauf;
+    el.classList.toggle('on', y.ok); el.setAttribute('aria-checked', y.ok ? 'true' : 'false');
+    api('fahrtenBatch', {fahrten: [y]}).then(function(d){ var n = d.fahrten[0], i = einzelFahrten.findIndex(function(x){ return x.id === n.id; }); if(i !== -1) einzelFahrten[i] = n; })
+      .catch(function(e){ el.classList.toggle('on', !!f.ok); if(e.message !== '401') toast('Nicht gespeichert.'); });
+  }); });
+}
+function fbMin(t){ var m = /^(\d{2}):(\d{2})$/.exec(t || ''); return m ? (+m[1]) * 60 + (+m[2]) : null; }
+/* Fahrzeit aus einer Fahrt derselben Buchung (gleiche Richtung) mit echten Zeiten */
+function fbDauerVorschlag(f){
+  var re = fahrtRe(f); if(!re) return null;
+  var rueck = /^r(ü|ue)ck/i.test(f.zweck || '');
+  var L = (einzelFahrten || []).filter(function(x){ return x.id !== f.id && rnGleich(fahrtRe(x), re) && !x.abG && !x.anG && fbMin(x.ab) != null && fbMin(x.an) != null && fbMin(x.an) > fbMin(x.ab); });
+  var gleich = L.filter(function(x){ return /^r(ü|ue)ck/i.test(x.zweck || '') === rueck; });
+  var q = (gleich.length ? gleich : L).sort(function(x, y){ return /lieferung/i.test(y.zweck || '') - /lieferung/i.test(x.zweck || ''); })[0];
+  return q ? fbMin(q.an) - fbMin(q.ab) : null;
+}
+/* Echte Zeiten einer Fahrt auf die anderen Fahrten derselben Buchung übertragen (nur leere/geschätzte Ankünfte) */
+function fbZeitenUebertragen(f, schonDa, ueberschreiben){
+  /* Strecke ist hin wie retour gleich lang: dieselbe Fahrzeit für alle anderen Fahrten der Buchung */
+  var re = fahrtRe(f), a = fbMin(f.ab), e = fbMin(f.an);
+  if(!re || a == null || e == null || e <= a || f.anG || f.abG) return [];
+  if(!/^lieferung/i.test(f.zweck || '')) return [];   /* nur die Lieferung gibt die Fahrzeit vor */
+  var dauer = e - a, out = [];
+  (einzelFahrten || []).filter(function(x){ return x.id !== f.id && rnGleich(fahrtRe(x), re); }).forEach(function(x0){
+    var x = (schonDa && schonDa[x0.id]) || x0;
+    if(fbMin(x.ab) == null || x.ok) return;              /* abgehakte Fahrten bleiben, wie sie sind */
+    if(x.an && !x.anG && !ueberschreiben) return;
+    var y = Object.assign({}, x, {an: fbZeitPlus(x.ab, dauer), anG: true}); delete y.verlauf;
+    if(y.an !== x0.an || !x0.anG) out.push(y);
+  });
+  return out;
+}
+function fbZeitPlus(hhmm, min){ var t = hhmm.split(':'), m = (+t[0]) * 60 + (+t[1]) + min; m = Math.min(m, 23 * 60 + 59); return ('0' + Math.floor(m / 60)).slice(-2) + ':' + ('0' + (m % 60)).slice(-2); }
+/* Beim Fixieren: 4 Fahrten (Liefern, zurück, Abholen, zurück) ins Fahrtenbuch */
+function fbFahrtenAnlegen(a, still){
+  if(uebergabe(a) === 'selbst') return Promise.resolve(0);
+  return (einzelFahrten === null ? ladeEinzelFahrten() : Promise.resolve()).then(function(){
+    var re = buchungRe(a), km = fbKm(a), ort = fbOrt(a), prod = produkte(a), fz = fbFahrzeugMerk();
+    var vorhanden = fahrtenZuBuchung(a);
+    var liste;
+    if(vorhanden.length){
+      liste = fbAusAngebot(a);
+    } else {
+      var heute = new Date().toISOString().slice(0, 10);
+      if(a.datum && a.datum < heute && !confirmLeise('Zu Re. ' + re + ' gibt es noch keine Fahrten. 4 neue Fahrten anlegen?\n\n(Gibt es die Fahrten schon unter einer anderen Nummer: Abbrechen und zuerst die Rechnungsnr. eintragen.)')) return 0;
+      var dauer = Math.max(5, Math.round(km * 1.1 / 5) * 5), abD = plusTag(a.datumEnde || a.datum, 1);
+      function f(datum, ab, zweck, rueck){ return {id: fbNeueId(), datum: datum, ab: ab, an: fbZeitPlus(ab, dauer), von: rueck ? ort : 'Glödnitz', nach: rueck ? 'Glödnitz' : ort, zweck: zweck + ' (Re. ' + re + ')', abG: true, anG: true, km: km, kmAngebot: km, kmA: null, kmE: null, fz: fz, rechnung: re, anfrage: a.id}; }
+      var l1 = '08:00', l2 = fbZeitPlus(l1, dauer + 45), h1 = '09:00', h2 = fbZeitPlus(h1, dauer + 45);
+      liste = [f(a.datum, l1, 'Lieferung ' + prod, false), f(a.datum, l2, 'Rückfahrt von Lieferung', true), f(abD, h1, 'Abholung ' + prod, false), f(abD, h2, 'Rückfahrt von Abholung', true)];
+    }
+    var alles = fbNeuRechnen(liste);
+    return fbSpeichern(alles).then(function(n){
+      if(!still || n) toast(vorhanden.length ? 'Fahrten zu Re. ' + re + ' an das Angebot angepasst' : '4 Fahrten ins Fahrtenbuch eingetragen');
+      if(tab === 'fahrten') zeichneFahrten();
+      return n;
+    });
+  }).catch(function(e){ if(e && e.message !== '401') toast('Fahrten konnten nicht eingetragen werden.'); });
+}
+function ladeEinzelFahrten(){ return api('fahrtenListe').then(function(d){ einzelFahrten = d.fahrten || []; }); }
+function fbZiel(a){ return [a.adresse && a.adresse.strasse, ((a.adresse && a.adresse.plz) || '') + ' ' + ((a.adresse && a.adresse.ort) || '')].filter(function(x){ return x && x.trim(); }).join(', ') || 'Kunde'; }
+function fbFelder(f){ return [f.liefer.hin.ab, f.liefer.hin.an, f.liefer.rueck.ab, f.liefer.rueck.an, f.abhol.hin.ab, f.abhol.hin.an, f.abhol.rueck.ab, f.abhol.rueck.an]; }
+function fbFertig(f){ return fbFelder(f).filter(Boolean).length; }
+
+/* Alle Fahrten (Zeilen) eines Jahres */
+function fbZeilen(jahr){
+  var out = [];
+  alle.filter(istFixA).filter(function(a){ return !fbVerknuepft(a) && uebergabe(a) !== 'selbst'; }).forEach(function(a){
+    var f = fbDaten(a), ziel = fbZiel(a), wer = ((a.kunde.vorname || '') + ' ' + (a.kunde.nachname || '')).trim();
+    [['liefer','Lieferung'],['abhol','Abholung']].forEach(function(e){
+      var x = f[e[0]]; if(!x.datum || x.datum.slice(0,4) !== String(jahr)) return;
+      var st = x.stand || {}, d1 = (st.start != null && st.kunde != null) ? st.kunde - st.start : null, d2 = (st.kunde != null && st.ende != null) ? st.ende - st.kunde : null;
+      out.push({datum:x.datum, ab:x.hin.ab, an:x.hin.an, von:START, nach:ziel, zweck:e[1] + ' ' + produkte(a) + ' (Hinfahrt)', kunde:wer, nr:a.nr || '', km: d1 != null && d1 >= 0 ? d1 : f.km, kmA: st.start, kmE: st.kunde, fz: f.fahrzeug});
+      out.push({datum:x.datum, ab:x.rueck.ab, an:x.rueck.an, von:ziel, nach:START, zweck:e[1] + ' ' + produkte(a) + ' (Rückfahrt)', kunde:wer, nr:a.nr || '', km: d2 != null && d2 >= 0 ? d2 : f.km, kmA: st.kunde, kmE: st.ende, fz: f.fahrzeug});
+    });
+  });
+  (einzelFahrten || []).forEach(function(f){
+    if((f.datum || '').slice(0,4) !== String(jahr)) return;
+    var bu = f.anfrage ? alle.filter(function(a){ return a.id === f.anfrage; })[0] : null;
+    out.push({datum:f.datum, ab:f.ab, an:f.an, von:f.von, nach:f.nach, zweck:f.zweck, kunde: bu ? ((bu.kunde.vorname || '') + ' ' + (bu.kunde.nachname || '')).trim() : '', nr:fahrtRe(f), km:f.km, kmA:f.kmA, kmE:f.kmE, fz:f.fz, einzel:f.id, ok:!!f.ok, abG:!!f.abG, anG:!!f.anG});
+  });
+  return out.sort(function(x, y){ return (x.datum + (x.ab || '99')).localeCompare(y.datum + (y.ab || '99')); });
+}
+
+function zeichneFahrten(){
+  if(einzelFahrten === null){
+    $('liste').innerHTML = '<div class="leer"><b>Fahrten werden geladen …</b></div>';
+    ladeEinzelFahrten().then(function(){ if(tab === 'fahrten') zeichneFahrten(); }).catch(function(e){ einzelFahrten = []; if(e.message !== '401') toast('Fahrten konnten nicht geladen werden.'); if(tab === 'fahrten') zeichneFahrten(); });
+    return;
+  }
+  var zeilen = fbZeilen(fbJahr);
+  var proMonat = MONATE.map(function(_, m){ return zeilen.filter(function(z){ return +z.datum.slice(5,7) === m + 1; }); });
+  var html = '<div class="fb-kopf"><button class="ikon" id="fbVor" aria-label="Jahr zurück"><svg class="i" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><b>' + fbJahr + '</b><button class="ikon" id="fbNach" aria-label="Jahr vor"><svg class="i" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>' +
+    '<button class="btn btn-p fb-xls" id="fbXls"><svg class="i" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Excel ' + fbJahr + '</button></div>';
+  html += '<div class="fb-monate">' + MONATE.map(function(n, m){
+    var km = proMonat[m].reduce(function(s, z){ return s + (Number(z.km) || 0); }, 0);
+    return '<button class="fb-m' + (m === fbMonat ? ' on' : '') + '" data-m="' + m + '">' + n.slice(0,3) + (km ? '<small>' + Math.round(km) + ' km</small>' : '<small>–</small>') + '</button>';
+  }).join('') + '</div>';
+  var buchungen = alle.filter(istFixA).filter(function(a){
+    if(fbVerknuepft(a) || uebergabe(a) === 'selbst') return false;
+    var f = fbDaten(a);
+    return [f.liefer.datum, f.abhol.datum].some(function(d){ return d && +d.slice(0,4) === fbJahr && +d.slice(5,7) === fbMonat + 1; });
+  }).sort(function(a, b){ return (a.datum || '').localeCompare(b.datum || ''); });
+  var kmM = proMonat[fbMonat].reduce(function(s, z){ return s + (Number(z.km) || 0); }, 0);
+  html += '<div class="gruppe">' + MONATE[fbMonat] + ' ' + fbJahr + (kmM ? ' · ' + Math.round(kmM) + ' km · ' + eur(Math.round(kmM * 50) / 100) + ' Kilometergeld' : '') + '</div>';
+  var zM = zeilen.filter(function(z){ return +z.datum.slice(5,7) === fbMonat + 1; });
+  if(zM.length){
+    html += '<div class="seg" id="fbAnsicht" style="grid-template-columns:1fr 1fr;margin:4px 0 10px"><button data-a="liste" class="' + (fbAnsicht === 'liste' ? 'on' : '') + '">Liste</button><button data-a="tabelle" class="' + (fbAnsicht === 'tabelle' ? 'on' : '') + '">Tabelle</button></div>';
+  }
+  if(zM.length && fbAnsicht === 'tabelle'){
+    html += '<div class="fb-tabelle"><table><thead><tr><th>Datum</th><th>Abf.</th><th>Ank.</th><th>Reiseweg</th><th>Zweck der Fahrt</th><th>km Abf.</th><th>km Ank.</th><th>km</th></tr></thead><tbody>' +
+      zM.map(function(z){ return '<tr' + (z.einzel ? ' data-ez="' + esc(z.einzel) + '"' : '') + '><td>' + (z.einzel ? '<span class="fb-ok' + (z.ok ? ' on' : '') + (z.abG || z.anG ? ' g' : '') + '" data-ok="' + esc(z.einzel) + '" role="checkbox" aria-checked="' + (z.ok ? 'true' : 'false') + '" aria-label="Erledigt">✓</span>' : '') + esc(datumKurz(z.datum).slice(0,6)) + '</td><td>' + esc(z.ab || '') + (z.abG ? '<span class="fb-g" title="geschätzt"></span>' : '') + '</td><td>' + esc(z.an || '') + (z.anG ? '<span class="fb-g" title="geschätzt"></span>' : '') + '</td><td>' + esc((z.von || '').split(',')[0] + '–' + (z.nach || '').split(',')[0]) + '</td><td>' + esc(z.zweck || '') + '</td><td>' + esc(z.kmA == null ? '' : String(z.kmA)) + '</td><td>' + esc(z.kmE == null ? '' : String(z.kmE)) + '</td><td>' + esc(String(z.km || 0)) + '</td></tr>'; }).join('') +
+      '</tbody><tfoot><tr><td colspan="7">Summe ' + esc(MONATE[fbMonat]) + '</td><td>' + Math.round(kmM) + '</td></tr><tr><td colspan="7">Kilometergeld (0,50 €/km)</td><td>' + esc(eur(Math.round(kmM * 50) / 100)) + '</td></tr></tfoot></table></div>' +
+      '<button class="btn btn-g btn-w" id="fbXlsM" style="margin-top:10px"><svg class="i" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Excel ' + esc(MONATE[fbMonat]) + '</button>' +
+      '<button class="btn btn-g btn-w" id="fbNeu" style="margin-top:8px"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Fahrt eintragen</button>';
+    $('liste').innerHTML = html;
+    fbVerbinden();
+    $('fbXlsM').onclick = function(){ excelExport(fbJahr, fbMonat); };
+    $('liste').querySelectorAll('tr[data-ez]').forEach(function(tr){ tr.onclick = function(){ einzelFahrtSheet(tr.dataset.ez); }; });
+    fbOkVerbinden();
+    return;
+  }
+  var einzelM = (einzelFahrten || []).filter(function(f){ return +(f.datum || '').slice(0,4) === fbJahr && +(f.datum || '').slice(5,7) === fbMonat + 1; })
+    .sort(function(x, y){ return (x.datum + (x.ab || '99')).localeCompare(y.datum + (y.ab || '99')); });
+  var fzM = {}; zeilen.forEach(function(z){ if(+z.datum.slice(5,7) === fbMonat + 1 && z.fz) fzM[z.fz] = 1; });
+  if(Object.keys(fzM).length) html += '<div class="k-info" style="padding:0 6px 4px">Fahrzeug: ' + esc(Object.keys(fzM).join(', ')) + '</div>';
+  if(!buchungen.length && !einzelM.length) html += '<div class="leer"><b>Keine Fahrten</b>Fixe Buchungen erscheinen hier automatisch. Andere Fahrten trägst du unten mit „Fahrt eintragen“ ein.</div>';
+  html += buchungen.map(function(a){
+    var f = fbDaten(a), n = fbFertig(f), d = tagDatum(a.datum);
+    return '<button class="karte fb-karte" data-fb="' + esc(a.id) + '">' +
+      '<span class="tag" style="background:var(--petrol-l);color:var(--petrol)">' + (d ? '<span class="tag-w">' + WT[d.getDay()] + '</span><span class="tag-d">' + d.getDate() + '</span><span class="tag-m">' + MO[d.getMonth()] + '</span>' : '') + '</span>' +
+      '<span class="k-mitte"><span class="k-prod">' + esc(produkte(a)) + '</span><span class="k-wer">' + esc(fbZiel(a)) + '</span>' +
+      '<span class="k-info">Abholung ' + esc(datumKurz(f.abhol.datum)) + ' · 4 × ' + esc(String(f.km).replace('.', ',')) + ' km</span></span>' +
+      '<span class="k-rechts"><span class="fb-stand' + (n === 8 ? ' ok' : '') + '">' + (n === 8 ? '✓ fertig' : n + '/8') + '</span></span></button>';
+  }).join('');
+  if(einzelM.length) html += '<div class="gruppe">Fahrten</div><div class="fb-tab">' + einzelM.map(function(f){
+    var d = tagDatum(f.datum);
+    return '<button class="fb-zeile" data-ez="' + esc(f.id) + '"><span class="fb-z1"><b><span class="fb-ok' + (f.ok ? ' on' : '') + (f.abG || f.anG ? ' g' : '') + '" data-ok="' + esc(f.id) + '" role="checkbox" aria-checked="' + (f.ok ? 'true' : 'false') + '" aria-label="Erledigt">✓</span>' + (d ? WT[d.getDay()] + ' ' + d.getDate() + '.' : '') + '</b><small>' + esc(f.ab || '–') + (f.abG ? '<span class="fb-g"></span>' : '') + '–' + esc(f.an || '–') + (f.anG ? '<span class="fb-g"></span>' : '') + '</small></span>' +
+      '<span class="fb-z2"><b>' + esc((f.von || '') + ' → ' + (f.nach || '')) + '</b><small>' + esc(f.zweck || '') + '</small></span>' +
+      '<span class="fb-z3">' + esc(String(f.km || 0)) + ' km' + (f.kmA != null ? '<small>' + esc(String(f.kmA)) + '–' + esc(String(f.kmE == null ? '' : f.kmE)) + '</small>' : '') + '</span></button>';
+  }).join('') + '</div>';
+  html += '<button class="btn btn-g btn-w" id="fbNeu" style="margin-top:10px">' + '<svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Fahrt eintragen</button>';
+  $('liste').innerHTML = html;
+  fbVerbinden();
+  $('fbNeu').onclick = function(){ var t = new Date(); einzelFahrtSheet(null, (t.getFullYear() === fbJahr && t.getMonth() === fbMonat) ? null : fbJahr + '-' + ('0' + (fbMonat + 1)).slice(-2) + '-01'); };
+  $('liste').querySelectorAll('[data-ez]').forEach(function(b){ b.onclick = function(){ einzelFahrtSheet(b.dataset.ez); }; });
+  fbOkVerbinden();
+  $('fbVor').onclick = function(){ fbJahr--; zeichneFahrten(); };
+  $('fbNach').onclick = function(){ fbJahr++; zeichneFahrten(); };
+  $('fbXls').onclick = function(){ excelExport(fbJahr); };
+  $('liste').querySelectorAll('.fb-m').forEach(function(b){ b.onclick = function(){ fbMonat = +b.dataset.m; zeichneFahrten(); }; });
+  $('liste').querySelectorAll('[data-fb]').forEach(function(b){ b.onclick = function(){ fahrtenSheet(b.dataset.fb); }; });
+}
+
+function fahrtenSheet(id){
+  var a = alle.filter(function(x){ return x.id === id; })[0]; if(!a) return;
+  var f = fbDaten(a);
+  function zeit(pfad, wert){ return '<input type="time" class="fb-z" data-p="' + pfad + '" value="' + esc(wert) + '"/>'; }
+  function stand(pfad, wert, lbl){ return '<label class="fb-s"><input type="number" inputmode="numeric" class="fb-sn" data-p="' + pfad + '" value="' + (wert == null ? '' : esc(String(wert))) + '" placeholder="–"/><small>' + lbl + '</small></label>'; }
+  function einsatz(key, titel, datumFix){
+    var x = f[key];
+    return '<div class="fb-e"><div class="fb-e-k"><b>' + titel + '</b>' +
+      (datumFix ? '<span>' + esc(datumLang(x.datum)) + '</span>' : '<input type="date" class="fb-d" data-p="' + key + '.datum" value="' + esc(x.datum) + '"/>') + '</div>' +
+      '<div class="fb-r"><span>Hinfahrt</span>' + zeit(key + '.hin.ab', x.hin.ab) + '<i>bis</i>' + zeit(key + '.hin.an', x.hin.an) + '</div>' +
+      '<div class="fb-r"><span>Rückfahrt</span>' + zeit(key + '.rueck.ab', x.rueck.ab) + '<i>bis</i>' + zeit(key + '.rueck.an', x.rueck.an) + '</div>' +
+      '<div class="fb-st"><span>km-Stand</span>' + stand(key + '.stand.start', x.stand.start, 'Abfahrt') + stand(key + '.stand.kunde', x.stand.kunde, 'beim Kunden') + stand(key + '.stand.ende', x.stand.ende, 'zurück') + '</div></div>';
+  }
+  oeffneSheet(
+    '<h3>Fahrtenbuch</h3><p style="margin-bottom:10px">' + esc(produkte(a)) + ' · ' + esc(fbZiel(a)) + '</p>' +
+    '<button class="btn btn-g btn-w" id="fbUebern" style="margin-bottom:8px">Als 4 Fahrten ins Fahrtenbuch übernehmen</button>' +
+    '<button class="btn btn-p btn-w" id="fbJetzt"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>Jetzt eintragen</button>' +
+    '<div class="fb-tipp" id="fbTipp"></div>' +
+    einsatz('liefer', 'Lieferung', true) + einsatz('abhol', 'Abholung', false) +
+    '<div class="fb-km"><span>Fahrzeug</span><input type="text" id="fbFz" value="' + esc(f.fahrzeug) + '" placeholder="z. B. VW Caddy · SP-123AB" style="width:62%;text-align:left;font-weight:700"/></div>' +
+    '<div class="fb-km"><span>Kilometer pro Strecke</span><input type="number" inputmode="decimal" id="fbKmIn" value="' + esc(String(f.km)) + '"/></div>' +
+    '<div class="gespeichert" id="fbGesp" style="text-align:center;padding-top:8px"></div>'
+  );
+  var T;
+  function setze(pfad, wert){ var t = pfad.split('.'), o = f; for(var i = 0; i < t.length - 1; i++) o = o[t[i]]; o[t[t.length-1]] = wert; }
+  function naechstes(){ return [].filter.call($('sheetIn').querySelectorAll('.fb-z'), function(i){ return !i.value; })[0]; }
+  function tipp(){
+    var n = naechstes(), r = n && n.closest('.fb-r'), e = n && n.closest('.fb-e');
+    $('fbTipp').textContent = n ? 'Als Nächstes: ' + e.querySelector('b').textContent + ', ' + r.querySelector('span').textContent + (n === r.querySelectorAll('.fb-z')[0] ? ' Abfahrt' : ' Ankunft') : 'Alle Zeiten eingetragen ✓';
+    $('fbJetzt').disabled = !n;
+  }
+  function speichern(){
+    $('fbGesp').textContent = 'Speichert …'; clearTimeout(T);
+    T = setTimeout(function(){
+      api('fahrten', {id: id, fahrten: f}).then(function(d){
+        var i = alle.findIndex(function(x){ return x.id === id; }); if(i !== -1) alle[i] = d.anfrage;
+        $('fbGesp').textContent = 'Gespeichert';
+        if(tab === 'fahrten') zeichneFahrten();
+      }).catch(function(e){ if(e.message !== '401'){ $('fbGesp').textContent = 'Nicht gespeichert'; toast('Speichern hat nicht geklappt.'); } });
+    }, 500);
+  }
+  $('sheetIn').querySelectorAll('.fb-z,.fb-d').forEach(function(inp){ inp.addEventListener('change', function(){ setze(inp.dataset.p, inp.value); tipp(); speichern(); }); });
+  $('sheetIn').querySelectorAll('.fb-sn').forEach(function(inp){ inp.addEventListener('change', function(){
+    var v = inp.value === '' ? null : Math.round(Number(inp.value)); setze(inp.dataset.p, isFinite(v) ? v : null);
+    /* nächsten Stand vorschlagen: + km pro Strecke */
+    var alleS = [].slice.call($('sheetIn').querySelectorAll('.fb-sn')), i = alleS.indexOf(inp), n = alleS[i + 1];
+    if(v != null && n && !n.value && n.closest('.fb-e') === inp.closest('.fb-e')) n.placeholder = String(v + Math.round(Number(f.km) || 0));
+    speichern();
+  }); });
+  $('fbFz').addEventListener('change', function(){ f.fahrzeug = this.value.trim(); try{ localStorage.setItem('hb_fahrzeug', f.fahrzeug); }catch(e){} speichern(); });
+  $('fbKmIn').addEventListener('change', function(){ var v = Number(String(this.value).replace(',', '.')); f.km = isFinite(v) && v >= 0 ? v : 0; speichern(); });
+  $('fbUebern').addEventListener('click', function(){ schliesseSheet(); fbFahrtenAnlegen(a); });
+  $('fbJetzt').addEventListener('click', function(){
+    var n = naechstes(); if(!n) return;
+    var d = new Date(); n.value = ('0'+d.getHours()).slice(-2) + ':' + ('0'+d.getMinutes()).slice(-2);
+    setze(n.dataset.p, n.value); tipp(); speichern();
+    n.classList.add('blink'); setTimeout(function(){ n.classList.remove('blink'); }, 700);
+  });
+  tipp();
+}
+
+/* Einzelne Fahrt eintragen oder ändern */
+function einzelFahrtSheet(id, datumVor){
+  var alt = id ? (einzelFahrten || []).filter(function(f){ return f.id === id; })[0] : null;
+  var letzte = (einzelFahrten || []).slice().sort(function(x, y){ return ((y.datum || '') + (y.an || '')).localeCompare((x.datum || '') + (x.an || '')); })[0];
+  var heuteIso = (function(){ var d = new Date(); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); })();
+  var f = alt ? JSON.parse(JSON.stringify(alt)) : {datum: datumVor || heuteIso, ab:'', an:'', von:'Glödnitz', nach:'', zweck:'', kmA: letzte && letzte.kmE != null && letzte.fz === fbFahrzeugMerk() ? letzte.kmE : null, kmE:null, km:0, fz: fbFahrzeugMerk()};
+  function feld(k, lbl, typ, extra){ return '<div class="feld"><label>' + lbl + '</label><input id="ez_' + k + '" type="' + (typ || 'text') + '" value="' + esc(f[k] == null ? '' : String(f[k])) + '"' + (extra || '') + '/></div>'; }
+  oeffneSheet('<h3>' + (alt ? 'Fahrt ändern' : 'Fahrt eintragen') + '</h3>' +
+    (alt && alt.geaendert ? '<p style="margin-bottom:8px;font-size:.85rem">Zuletzt geändert am ' + new Date(alt.geaendert).toLocaleDateString('de-AT') + '.</p>' : '') +
+    feld('datum', 'Datum', 'date') +
+    '<div class="grid2"><div id="ezAbW">' + feld('ab', 'Abfahrt', 'time') + '</div><div id="ezAnW">' + feld('an', 'Ankunft', 'time') + '</div></div>' +
+    '<div class="bew-status" id="ezDauer" style="margin:-6px 0 8px;font-size:.82rem"></div>' +
+    (/^lieferung/i.test(f.zweck || '') ? '<label class="emp-sw" style="margin:0 0 8px"><input type="checkbox" id="ezZeitAlle" checked/><span>Fahrzeit auf die anderen Fahrten dieser Buchung übertragen (alle Hin- und Rückfahrten, orange markiert)</span></label>' : '') +
+    '<div class="grid2">' + feld('von', 'Von') + feld('nach', 'Nach') + '</div>' +
+    feld('zweck', 'Zweck der Fahrt', 'text', ' placeholder="z. B. Lieferung Alienburg (Re. 26-060)"') +
+    '<div class="feld"><label>Rechnungsnr.</label><input id="ez_rechnung" type="text" inputmode="text" value="' + esc(alt ? fahrtRe(alt) : '') + '" placeholder="z. B. 20 oder 26-020"/></div>' +
+    '<div id="ezRe" style="margin:-4px 0 10px"></div>' +
+    '<div class="grid2">' + feld('kmA', 'km-Stand Abfahrt', 'number', ' inputmode="numeric"') + feld('kmE', 'km-Stand Ankunft', 'number', ' inputmode="numeric"') + '</div>' +
+    '<div class="grid2">' + feld('km', 'Gefahrene km', 'number', ' inputmode="decimal"') + feld('fz', 'Fahrzeug') + '</div>' +
+    '<label class="emp-sw" style="margin:6px 0 4px"><input type="checkbox" id="ezKette" checked/><span>Folgende Fahrten mit diesem Auto automatisch mit anpassen (km-Stände)</span></label>' +
+    '<div class="bew-status" id="ezVorschau" style="min-height:1.2em;margin-bottom:4px"></div>' +
+    '<button class="btn btn-p btn-w" id="ezSpeichern">Speichern</button>' +
+    (alt ? '<button class="btn btn-n btn-w" id="ezWeg">Fahrt löschen</button>' : '') +
+    '<div class="fehler" id="ezFehler"></div>');
+  function wert(k){ return ($('ez_' + k).value || '').trim(); }
+  var abG = !!(alt && alt.abG), anG = !!(alt && alt.anG);
+  function gMark(){ $('ezAbW').classList.toggle('ez-g', abG && !!wert('ab')); $('ezAnW').classList.toggle('ez-g', anG && !!wert('an')); }
+  function dauerSetzen(){
+    var a = fbMin(wert('ab')); if(a == null) return;
+    if(wert('an') && !anG) return;
+    var d = fbDauerVorschlag({id: alt ? alt.id : '', zweck: wert('zweck'), rechnung: wert('rechnung')});
+    if(d == null){ $('ezDauer').textContent = ''; return; }
+    $('ez_an').value = fbZeitPlus(wert('ab'), d); anG = true; gMark();
+    $('ezDauer').textContent = 'Ankunft geschätzt: gleiche Fahrzeit wie bei der anderen Fahrt dieser Buchung (' + d + ' min). Bitte prüfen.';
+  }
+  $('ez_ab').addEventListener('input', function(){ abG = false; dauerSetzen(); gMark(); });
+  $('ez_an').addEventListener('input', function(){ anG = false; $('ezDauer').textContent = ''; gMark(); });
+  gMark();
+  /* km-Stand Ankunft folgt aus Abfahrt + km, km aus den Ständen */
+  $('ez_km').addEventListener('input', function(){ if(wert('kmA') && wert('km') !== '') $('ez_kmE').value = Math.round((Number(wert('kmA')) + Number(wert('km').replace(',', '.'))) * 10) / 10; vorschau(); });
+  $('ez_kmA').addEventListener('input', function(){ if(wert('km') !== '') $('ez_kmE').value = Math.round((Number(wert('kmA')) + Number(wert('km').replace(',', '.'))) * 10) / 10; vorschau(); });
+  $('ez_kmE').addEventListener('input', function(){ var a = Number(wert('kmA')), e = Number(wert('kmE')); if(wert('kmA') && wert('kmE') && e >= a) $('ez_km').value = Math.round((e - a) * 10) / 10; vorschau(); });
+  ['datum','ab','fz'].forEach(function(k){ $('ez_' + k).addEventListener('change', vorschau); });
+  var reBuchung = null;
+  function reInfo(){
+    var re = wert('rechnung'); reBuchung = re ? buchungZuRe(re, wert('datum')) : null;
+    if(!re){ $('ezRe').innerHTML = ''; return; }
+    if(!reBuchung){ $('ezRe').innerHTML = '<div class="bew-status">Keine Buchung mit dieser Nummer gefunden. Trag die Rechnungsnr. zuerst bei der Anfrage ein.</div>'; return; }
+    var n = fahrtenZuBuchung(reBuchung).filter(function(x){ return !alt || x.id !== alt.id; }).length + 1;
+    $('ezRe').innerHTML = '<div class="bew-status"><b>' + esc(((reBuchung.kunde.vorname || '') + ' ' + (reBuchung.kunde.nachname || '')).trim() || 'Kunde') + '</b> · ' + esc(fbOrt(reBuchung)) + ' · ' + esc(String(fbKm(reBuchung)).replace('.', ',')) + ' km pro Strecke laut Angebot</div>' +
+      '<button class="btn btn-g btn-w" id="ezReOk" style="margin-top:6px">Werte aus dem Angebot übernehmen (' + n + ' Fahrt' + (n === 1 ? '' : 'en') + ')</button>';
+    $('ezReOk').onclick = function(){
+      var b = this, ich = eingabe(); ich.rechnung = buchungRe(reBuchung);
+      if(!ich.datum){ $('ezFehler').textContent = 'Bitte ein Datum eintragen.'; return; }
+      var alles = fbNeuRechnen(fbAusAngebot(reBuchung, ich, true));
+      b.disabled = true; b.textContent = 'Speichert …';
+      fbSpeichern(alles).then(function(n){ schliesseSheet(); zeichneFahrten(); toast('Aus dem Angebot übernommen, ' + n + ' Fahrten aktualisiert'); })
+        .catch(function(e){ b.disabled = false; b.textContent = 'Nochmal versuchen'; if(e.message !== '401') $('ezFehler').textContent = 'Speichern hat nicht geklappt.'; });
+    };
+  }
+  $('ez_rechnung').addEventListener('input', reInfo); reInfo();
+  $('ezKette').addEventListener('change', vorschau);
+  function sk(x){ return (x.datum || '') + ' ' + (x.ab || '99:99'); }
+  function nz(v){ return (v === '' || v == null || isNaN(Number(v))) ? null : Number(v); }
+  function rund(v){ return Math.round(v * 10) / 10; }
+  /* Berechnet alle Fahrten, die sich durch die Änderung verschieben */
+  function kette(neu){
+    var fz = neu.fz, L = (einzelFahrten || []).filter(function(x){ return x.fz === fz && (!alt || x.id !== alt.id) && x.kmA != null && x.kmE != null; })
+      .map(function(x){ return JSON.parse(JSON.stringify(x)); }).sort(function(x, y){ return sk(x).localeCompare(sk(y)); });
+    var km = nz(neu.km) || 0, geaendert = {};
+    var gleicherPlatz = alt && alt.fz === fz && L.filter(function(x){ return sk(x) < sk(alt); }).length === L.filter(function(x){ return sk(x) < sk(neu); }).length;
+    if(gleicherPlatz){
+      if(nz(neu.kmA) == null) neu.kmA = alt.kmA;
+      neu.kmE = rund(nz(neu.kmA) + km);
+      var delta = rund(neu.kmE - (nz(alt.kmE) || 0));
+      if(delta) L.forEach(function(x){ if(sk(x) > sk(neu)){ x.kmA = rund(x.kmA + delta); x.kmE = rund(x.kmE + delta); geaendert[x.id] = x; } });
+      return {neu: neu, andere: Object.keys(geaendert).map(function(k){ return geaendert[k]; }), delta: delta};
+    }
+    /* verschoben (andere Uhrzeit/Tag/Auto) oder neu: an alter Stelle rausnehmen, an neuer Stelle einfügen */
+    if(alt && alt.fz === fz && alt.kmA != null && alt.kmE != null){
+      var altKm = rund(alt.kmE - alt.kmA);
+      L.forEach(function(x){ if(sk(x) > sk(alt)){ x.kmA = rund(x.kmA - altKm); x.kmE = rund(x.kmE - altKm); geaendert[x.id] = x; } });
+    }
+    var vor = L.filter(function(x){ return sk(x) < sk(neu); }).pop();
+    if(vor) neu.kmA = vor.kmE; else if(nz(neu.kmA) == null) neu.kmA = 0;
+    neu.kmE = rund(nz(neu.kmA) + km);
+    L.forEach(function(x){ if(sk(x) > sk(neu)){ x.kmA = rund(x.kmA + km); x.kmE = rund(x.kmE + km); geaendert[x.id] = x; } });
+    return {neu: neu, andere: Object.keys(geaendert).map(function(k){ return geaendert[k]; }).filter(function(x){ var o = einzelFahrten.filter(function(y){ return y.id === x.id; })[0]; return !o || o.kmA !== x.kmA; }), delta: null};
+  }
+  function eingabe(){ return {id: alt ? alt.id : '', datum: wert('datum'), ab: wert('ab'), an: wert('an'), von: wert('von'), nach: wert('nach'), zweck: wert('zweck'), abG: abG && !!wert('ab'), anG: anG && !!wert('an'), ok: !!(alt && alt.ok), rechnung: wert('rechnung'), kmAngebot: alt ? alt.kmAngebot : null, anfrage: alt && alt.anfrage && rnGleich(fahrtRe(alt), wert('rechnung')) ? alt.anfrage : '', kmA: wert('kmA'), kmE: wert('kmE'), km: wert('km').replace(',', '.'), fz: wert('fz')}; }
+  function vorschau(){
+    if(!$('ezKette').checked){ $('ezVorschau').textContent = ''; return; }
+    var r = kette(eingabe());
+    $('ezVorschau').textContent = r.andere.length ? r.andere.length + ' weitere Fahrt' + (r.andere.length === 1 ? '' : 'en') + ' werden angepasst' + (r.delta ? ' (' + (r.delta > 0 ? '+' : '') + r.delta + ' km)' : '') + '. km-Stand Abfahrt: ' + r.neu.kmA : '';
+  }
+  $('ezSpeichern').onclick = function(){
+    var b = this, neu = eingabe(), andere = [];
+    if($('ezKette').checked && neu.datum){ var r = kette(neu); neu = r.neu; andere = r.andere; }
+    var schonDa = {}; andere.forEach(function(x){ schonDa[x.id] = x; });
+    var zeiten = fbZeitenUebertragen(neu, schonDa, $('ezZeitAlle') && $('ezZeitAlle').checked);
+    zeiten.forEach(function(z){ if(schonDa[z.id]){ schonDa[z.id].an = z.an; schonDa[z.id].anG = true; } else andere.push(z); });
+    if(!neu.datum){ $('ezFehler').textContent = 'Bitte ein Datum eintragen.'; return; }
+    if(neu.kmA && neu.kmE && Number(neu.kmE) < Number(neu.kmA)){ $('ezFehler').textContent = 'km-Stand Ankunft ist kleiner als bei Abfahrt.'; return; }
+    b.disabled = true;
+    api('fahrtenBatch', {fahrten: [neu].concat(andere)}).then(function(d){
+      (d.fahrten || []).forEach(function(f){ var i = (einzelFahrten || []).findIndex(function(x){ return x.id === f.id; }); if(i === -1) einzelFahrten.push(f); else einzelFahrten[i] = f; });
+      if(neu.fz && !alt){ try{ localStorage.setItem('hb_fahrzeug', neu.fz); }catch(e){} }
+      var dd = tagDatum(d.fahrt.datum); if(dd){ fbJahr = dd.getFullYear(); fbMonat = dd.getMonth(); }
+      schliesseSheet(); zeichneFahrten(); toast(zeiten.length ? 'Gespeichert, Fahrzeit auf ' + zeiten.length + ' weitere Fahrt' + (zeiten.length === 1 ? '' : 'en') + ' übertragen (orange)' : (andere.length ? 'Gespeichert, ' + andere.length + ' weitere Fahrten angepasst' : 'Fahrt gespeichert'));
+    }).catch(function(e){ b.disabled = false; if(e.message !== '401') $('ezFehler').textContent = 'Speichern hat nicht geklappt.'; });
+  };
+  if($('ezWeg')) $('ezWeg').onclick = function(){
+    if(!confirmLeise('Diese Fahrt löschen?')) return;
+    var folge = [];
+    if($('ezKette').checked && alt.kmA != null && alt.kmE != null){
+      var altKm = rund(alt.kmE - alt.kmA);
+      folge = (einzelFahrten || []).filter(function(x){ return x.fz === alt.fz && x.id !== alt.id && x.kmA != null && sk(x) > sk(alt); })
+        .map(function(x){ var y = JSON.parse(JSON.stringify(x)); y.kmA = rund(y.kmA - altKm); y.kmE = rund(y.kmE - altKm); return y; });
+    }
+    api('fahrtLoeschen', {id: alt.id}).then(function(){ return folge.length ? api('fahrtenBatch', {fahrten: folge}) : {fahrten: []}; }).then(function(d){
+      einzelFahrten = einzelFahrten.filter(function(x){ return x.id !== alt.id; });
+      (d.fahrten || []).forEach(function(f){ var i = einzelFahrten.findIndex(function(x){ return x.id === f.id; }); if(i !== -1) einzelFahrten[i] = f; });
+      schliesseSheet(); zeichneFahrten(); toast('Fahrt gelöscht' + (folge.length ? ', ' + folge.length + ' weitere angepasst' : '')); })
+      .catch(function(e){ if(e.message !== '401') toast('Löschen hat nicht geklappt.'); });
+  };
+}
+
+/* Excel: ein Blatt pro Monat + Übersicht */
+function ladeXlsx(){
+  if(window.XLSX) return Promise.resolve(window.XLSX);
+  return new Promise(function(ok, nein){
+    var s = document.createElement('script'); s.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+    s.onload = function(){ ok(window.XLSX); }; s.onerror = nein; document.head.appendChild(s);
+  });
+}
+function excelExport(jahr, nurMonat){
+  var b = $('fbXls'); if(b){ b.disabled = true; b.lastChild.textContent = 'Wird erstellt …'; }
+  ladeXlsx().then(function(X){
+    var zeilen = fbZeilen(jahr), wb = X.utils.book_new(), uebersicht = [['Monat', 'Fahrten', 'Kilometer', 'Kilometergeld (€)']], summe = 0, anz = 0;
+    MONATE.forEach(function(name, m){
+      if(nurMonat != null && m !== nurMonat) return;
+      var z = zeilen.filter(function(r){ return +r.datum.slice(5,7) === m + 1; });
+      var km = z.reduce(function(s, r){ return s + (Number(r.km) || 0); }, 0);
+      var daten = [['Fahrtenbuch ' + name + ' ' + jahr + ' – Hüpfabenteuer'], [], ['Datum', 'Abfahrt', 'Ankunft', 'Fahrzeug', 'km-Stand Beginn', 'km-Stand Ende', 'Von', 'Nach', 'Zweck', 'Kunde', 'Angebot-Nr.', 'km']];
+      z.forEach(function(r){ daten.push([datumKurz(r.datum), r.ab, r.an, r.fz || '', r.kmA == null ? '' : r.kmA, r.kmE == null ? '' : r.kmE, r.von, r.nach, r.zweck, r.kunde, r.nr, Number(r.km) || 0]); });
+      daten.push([]); daten.push(['', '', '', '', '', '', '', '', '', '', 'Summe km', Math.round(km * 10) / 10]);
+      daten.push(['', '', '', '', '', '', '', '', '', '', 'Kilometergeld (0,50 €/km)', Math.round(km * 0.5 * 100) / 100]);
+      var ws = X.utils.aoa_to_sheet(daten);
+      ws['!cols'] = [{wch:11},{wch:8},{wch:8},{wch:20},{wch:14},{wch:14},{wch:30},{wch:30},{wch:38},{wch:20},{wch:11},{wch:8}];
+      X.utils.book_append_sheet(wb, ws, name);
+      uebersicht.push([name, z.length, Math.round(km * 10) / 10, Math.round(km * 0.5 * 100) / 100]); summe += km; anz += z.length;
+    });
+    if(nurMonat == null){ uebersicht.push([]); uebersicht.push(['Gesamt ' + jahr, anz, Math.round(summe * 10) / 10, Math.round(summe * 0.5 * 100) / 100]);
+    var wu = X.utils.aoa_to_sheet(uebersicht); wu['!cols'] = [{wch:14},{wch:9},{wch:11},{wch:16}];
+    X.utils.book_append_sheet(wb, wu, 'Übersicht'); }
+    X.writeFile(wb, 'Fahrtenbuch_' + (nurMonat != null ? MONATE[nurMonat] + '_' : '') + jahr + '_Huepfabenteuer.xlsx');
+  }).catch(function(){ toast('Excel konnte nicht geladen werden. Prüf die Verbindung.'); })
+    .finally(function(){ if($('fbXls')){ $('fbXls').disabled = false; $('fbXls').lastChild.textContent = 'Excel ' + jahr; } });
+}
+
+/* ══════════ Menü, Angebote, Neue Anfrage, Einnahmen ══════════ */
+var katalog = null;
+function ladeKatalog(neu){
+  if(katalog && !neu) return Promise.resolve(katalog);
+  return api('katalog').then(function(d){ katalog = d.katalog || []; return katalog; });
+}
+var GRUPPEN = [['burg','Hüpfburgen'],['foto','Fotobox'],['extra','Extras']];
+var IC_MENUE = {
+  neu: '<svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
+  preis: '<svg class="i" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg>',
+  geld: '<svg class="i" viewBox="0 0 24 24"><path d="M4 19h16M6 16V10M10 16V6M14 16v-4M18 16V8"/></svg>',
+  raus: '<svg class="i" viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l-5-5 5-5"/><path d="M5 12h11"/></svg>'
+};
+$('menue').addEventListener('click', function(){
+  oeffneSheet('<h3>Menü</h3>' +
+    '<button class="menue-p" data-m="neu">' + IC_MENUE.neu + '<span>Neue Anfrage<small>Für Kunden per Telefon oder WhatsApp</small></span></button>' +
+    '<button class="menue-p" data-m="angebote"><svg class="i" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg><span>Alle Angebote<small>Verschickte PDFs ansehen und nachträglich ändern</small></span></button>' +
+    '<button class="menue-p" data-m="preise">' + IC_MENUE.preis + '<span>Angebote &amp; Preise<small>Alle Burgen, Fotoboxen und Extras bearbeiten</small></span></button>' +
+    '<button class="menue-p" data-m="geld">' + IC_MENUE.geld + '<span>Einnahmen<small>Umsatz pro Monat und Gerät, Excel</small></span></button>' +
+    '<button class="menue-p" data-m="backup"><svg class="i" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>Backup herunterladen<small>Alle Anfragen, Angebote und Fahrten als Datei sichern' + (letztesBackup() ? ' · zuletzt ' + letztesBackup() : '') + '</small></span></button>' +
+    '<button class="menue-p" data-m="raus" style="border-bottom:none;color:var(--nein)">' + IC_MENUE.raus + '<span>Abmelden</span></button>');
+  $('sheetIn').querySelectorAll('[data-m]').forEach(function(b){ b.onclick = function(){
+    var m = b.dataset.m;
+    if(m === 'raus'){ schliesseSheet(); abmelden(''); return; }
+    if(m === 'backup'){ schliesseSheet(); backupLaden(); return; }
+    schliesseSheetDann(function(){ if(m === 'neu') neuSheet(); else if(m === 'angebote') angeboteSheet(); else if(m === 'preise') preiseSheet(); else einnahmenSheet(); });
+  }; });
+});
+$('neuAnlegen').addEventListener('click', function(){ neuSheet(); });
+/* ── Backup ── */
+function letztesBackup(){ try{ var d = localStorage.getItem('hb_backup'); return d ? new Date(d).toLocaleDateString('de-AT') : ''; }catch(e){ return ''; } }
+function backupLaden(){
+  toast('Backup wird erstellt …');
+  api('backup').then(function(d){
+    var j = JSON.stringify(d.backup, null, 1), t = new Date(), name = 'Huepfabenteuer-Backup_' + t.getFullYear() + '-' + ('0'+(t.getMonth()+1)).slice(-2) + '-' + ('0'+t.getDate()).slice(-2) + '.json';
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([j], {type:'application/json'})); a.download = name;
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    try{ localStorage.setItem('hb_backup', t.toISOString()); }catch(e){}
+    toast('Backup gespeichert (' + d.backup.anzahl + ' Einträge)');
+  }).catch(function(e){ if(e.message !== '401') toast('Backup hat nicht geklappt.'); });
+}
+/* Sheet schließen und danach ein neues öffnen (History sauber halten) */
+function schliesseSheetDann(fn){ schliesseSheet(); setTimeout(fn, 320); }
+
+/* ── Alle verschickten Angebote ── */
+var angebotListe = [];
+function angeboteSheet(suche){
+  oeffneSheetOderErsetzen('<h3>Alle Angebote</h3><p>Wird geladen …</p>');
+  api('angebote').then(function(d){
+    angebotListe = (d.angebote || []).sort(function(a, b){ return (b.gesendetAm || '').localeCompare(a.gesendetAm || ''); });
+    zeichneAngebote(suche || '');
+  }).catch(function(e){ if(e.message !== '401') toast('Konnte die Angebote nicht laden.'); });
+}
+function zeichneAngebote(suche){
+  var q = suche.toLowerCase().trim();
+  var l = angebotListe.filter(function(v){ return !q || [v.nr, v.kunde && v.kunde.vorname, v.kunde && v.kunde.nachname, v.adresse && v.adresse.ort].join(' ').toLowerCase().indexOf(q) !== -1; });
+  var gezaehlt = {};
+  var h = '<h3>Alle Angebote</h3><div class="feld" style="margin-bottom:6px"><input id="agSuche" placeholder="Suchen: Name, Ort oder Nr." value="' + esc(suche) + '"/></div>';
+  if(!l.length) h += '<div class="leer" style="padding:30px 10px"><b>Keine Angebote</b>Angenommene Anfragen erscheinen hier.</div>';
+  h += l.map(function(v, i){
+    gezaehlt[v.nr] = (gezaehlt[v.nr] || 0) + 1;
+    var name = ((v.kunde && v.kunde.vorname || '') + ' ' + (v.kunde && v.kunde.nachname || '')).trim();
+    return '<button class="menue-p" data-ag="' + angebotListe.indexOf(v) + '" style="padding:12px 2px"><span style="flex:1"><b style="font-size:1rem">Nr. ' + esc(v.nr || '–') + ' · ' + esc(name) + '</b>' +
+      '<small>' + esc(datumKurz(v.datum)) + (v.adresse && v.adresse.ort ? ' · ' + esc(v.adresse.ort) : '') + ' · gesendet ' + esc(new Date(v.gesendetAm).toLocaleDateString('de-AT')) + (v.bearbeitetAm ? ' · geändert ' + esc(new Date(v.bearbeitetAm).toLocaleDateString('de-AT')) : '') + '</small></span>' +
+      '<span style="font-weight:800">' + eur(v.summen && v.summen.gesamt) + '</span></button>';
+  }).join('');
+  $('sheetIn').innerHTML = h;
+  var inp = $('agSuche'); inp.oninput = function(){ var pos = inp.selectionStart; zeichneAngebote(inp.value); var n = $('agSuche'); n.focus(); try{ n.setSelectionRange(pos, pos); }catch(e){} };
+  $('sheetIn').querySelectorAll('[data-ag]').forEach(function(b){ b.onclick = function(){ angebotBearbeiten(angebotListe[+b.dataset.ag]); }; });
+}
+function angebotBearbeiten(v0){
+  var v = JSON.parse(JSON.stringify(v0)), geaendert = false;
+  function sum(){ return summen(v); }
+  function zeichne(){
+    var s = sum(), name = ((v.kunde.vorname || '') + ' ' + (v.kunde.nachname || '')).trim();
+    var h = '<button class="pos-neu" id="agZurueck" style="margin:-6px 0 4px">‹ Alle Angebote</button>' +
+      '<h3>Angebot ' + esc(v.nr || '') + '</h3><p style="margin-bottom:6px">' + esc(name) + ' · ' + esc(datumLang(v.datum)) + '</p>' +
+      '<div class="hinweis gelb" style="margin-bottom:10px">Änderungen hier gelten auch für den Link, den der Kunde schon hat.</div><div id="agPos">';
+    (v.positionen || []).forEach(function(p, i){
+      h += '<div class="pos" data-i="' + i + '"><input class="p-t" value="' + esc(p.titel) + '" data-f="titel"/><span class="p-m" style="text-align:center">' + esc(String(p.menge || 1)) + '×</span><input class="p-b" value="' + (p.betrag == null ? '' : esc(String(p.betrag).replace('.', ','))) + '" data-f="betrag" inputmode="decimal" placeholder="€"/>' +
+        '<button class="weg" data-weg="' + i + '" aria-label="Entfernen"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button><input class="p-x" value="' + esc(p.text || '') + '" data-f="text" placeholder="Beschreibung (optional)"/></div>';
+    });
+    h += '</div><button class="pos-neu" id="agNeuPos">' + IC_MENUE.neu + 'Position hinzufügen</button>' +
+      '<div class="summe"><div class="zeile"><span>Gesamt</span><span id="agGes">' + eur(s.gesamt, true) + '</span></div>' +
+      '<div class="zeile"><span>Anzahlung</span><span class="anz"><input id="agAnz" inputmode="decimal" value="' + (v.anzahlung != null ? esc(String(v.anzahlung).replace('.', ',')) : '') + '" placeholder="' + esc(String(s.autoAnz)) + '"/> €</span></div>' +
+      '<div class="zeile"><span>Rest</span><span id="agRest">' + eur(s.rest, true) + '</span></div></div>' +
+      '<button class="btn btn-p btn-w" id="agSpeichern" style="margin-top:12px">Speichern</button>' +
+      '<div class="aktionen"><a class="btn btn-g" href="' + esc(v.pdf) + '" target="_blank" rel="noopener">PDF ansehen</a>' +
+      (v.waNummer ? '<a class="btn btn-wa" id="agWa" href="#" target="_blank" rel="noopener">Kunde informieren</a>' : '') + '</div>';
+    $('sheetIn').innerHTML = h;
+    var neuRechnen = function(){ var s2 = sum(); $('agGes').textContent = eur(s2.gesamt, true); $('agRest').textContent = eur(s2.rest, true); geaendert = true; };
+    $('agPos').querySelectorAll('input').forEach(function(inp){ inp.oninput = function(){
+      var p = v.positionen[+inp.closest('.pos').dataset.i], f = inp.dataset.f;
+      if(f === 'betrag'){ var x = inp.value.replace(/\s/g,'').replace(',', '.'); p.betrag = x === '' ? null : (isNaN(Number(x)) ? p.betrag : Number(x)); } else p[f] = inp.value;
+      neuRechnen();
+    }; });
+    $('agPos').querySelectorAll('[data-weg]').forEach(function(b){ b.onclick = function(){ v.positionen.splice(+b.dataset.weg, 1); geaendert = true; zeichne(); }; });
+    $('agNeuPos').onclick = function(){ v.positionen.push({art:'extra', titel:'Neue Position', text:'', betrag:null}); geaendert = true; zeichne(); };
+    $('agAnz').oninput = function(){ var x = this.value.replace(',', '.').trim(); v.anzahlung = x === '' ? null : (isNaN(Number(x)) ? v.anzahlung : Number(x)); neuRechnen(); };
+    $('agZurueck').onclick = function(){ if(geaendert && !confirmLeise('Änderungen verwerfen?')) return; zeichneAngebote(''); };
+    if($('agWa')) $('agWa').onclick = function(){ this.href = waLink(v.waNummer, 'Hallo ' + (v.kunde.vorname || '') + ', ich hab dein Angebot ' + (v.nr || '') + ' angepasst. Neuer Gesamtbetrag: ' + eur(sum().gesamt) + '.\nDu findest es wie gewohnt hier: ' + v.pdf + '\n\nLG Alexander – Hüpfabenteuer'); if(geaendert) toast('Tipp: zuerst speichern, dann informieren.'); };
+    $('agSpeichern').onclick = function(){
+      var b = this; b.disabled = true; b.textContent = 'Speichert …';
+      api('angebotSpeichern', {id: v.id, token: v.token, patch: {positionen: v.positionen, anzahlung: v.anzahlung, anrede: v.anrede}}).then(function(d){
+        geaendert = false; v.bearbeitetAm = d.angebot.bearbeitetAm; v.summen = d.angebot.summen;
+        var i = angebotListe.findIndex(function(x){ return x.id === v.id && x.token === v.token; }); if(i !== -1) angebotListe[i] = JSON.parse(JSON.stringify(v));
+        b.disabled = false; b.textContent = 'Gespeichert ✓'; setTimeout(function(){ if($('agSpeichern')) $('agSpeichern').textContent = 'Speichern'; }, 1500);
+        toast('Gespeichert. Der Link zeigt jetzt die neue Fassung.');
+        laden(true).catch(function(){});
+      }).catch(function(e){ b.disabled = false; b.textContent = 'Speichern'; if(e.message !== '401') toast('Speichern hat nicht geklappt.'); });
+    };
+  }
+  zeichne();
+}
+
+/* ── Angebote & Preise ── */
+function preiseSheet(){
+  oeffneSheet('<h3>Angebote &amp; Preise</h3><p>Wird geladen …</p>');
+  ladeKatalog(true).then(function(k){
+    var liste = JSON.parse(JSON.stringify(k));
+    function zeichne(){
+      var h = '<h3>Angebote &amp; Preise</h3><p style="margin-bottom:4px">Diese Liste nutzt du bei „Neue Anfrage“. Änderungen speichern mit dem Knopf unten.</p>';
+      GRUPPEN.forEach(function(g){
+        h += '<div class="kat-g">' + g[1] + '</div>';
+        liste.forEach(function(x, i){ if(x.gruppe !== g[0]) return;
+          h += '<div class="kat-r" data-i="' + i + '"><input class="kt" value="' + esc(x.titel) + '" aria-label="Name"/><input class="kp" inputmode="decimal" value="' + esc(String(x.preis).replace('.', ',')) + '" aria-label="Preis"/><button class="weg" aria-label="Entfernen"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>';
+        });
+        h += '<button class="pos-neu" data-neu="' + g[0] + '">' + IC_MENUE.neu + 'Hinzufügen</button>';
+      });
+      h += '<button class="btn btn-p btn-w" id="katSpeichern" style="margin-top:16px">Speichern</button>';
+      $('sheetIn').innerHTML = h;
+      $('sheetIn').querySelectorAll('.kat-r').forEach(function(r){
+        var x = liste[+r.dataset.i];
+        r.querySelector('.kt').oninput = function(){ x.titel = this.value; };
+        r.querySelector('.kp').oninput = function(){ var v = Number(this.value.replace(',', '.')); if(isFinite(v)) x.preis = v; };
+        r.querySelector('.weg').onclick = function(){ if(confirmLeise('„' + x.titel + '“ entfernen?')){ liste.splice(+r.dataset.i, 1); zeichne(); } };
+      });
+      $('sheetIn').querySelectorAll('[data-neu]').forEach(function(b){ b.onclick = function(){ liste.push({id:'', gruppe:b.dataset.neu, titel:'', preis:0, text:''}); zeichne(); var r = $('sheetIn').querySelectorAll('.kat-r'); r[r.length - 1] && r[r.length - 1].querySelector('.kt').focus(); }; });
+      $('katSpeichern').onclick = function(){
+        var b = this; b.disabled = true;
+        var sauber = liste.filter(function(x){ return (x.titel || '').trim(); });
+        api('katalogSpeichern', {katalog: sauber}).then(function(d){ katalog = d.katalog; toast('Preise gespeichert'); schliesseSheet(); })
+          .catch(function(e){ b.disabled = false; if(e.message !== '401') toast('Speichern hat nicht geklappt.'); });
+      };
+    }
+    zeichne();
+  }).catch(function(e){ if(e.message !== '401') toast('Konnte die Preise nicht laden.'); });
+}
+
+/* ── Neue Anfrage selbst anlegen ── */
+var AKTION_BIS = '2026-11-15', AKTION_PROZENT = 15;
+function aktionAktiv(){ return new Date().toLocaleDateString('sv-SE', {timeZone:'Europe/Vienna'}) <= AKTION_BIS; }
+function neuSheet(){
+  oeffneSheet('<h3>Neue Anfrage</h3><p>Wird geladen …</p>');
+  ladeKatalog().then(function(k){
+    var gewaehlt = {}, preisNeu = {}, mengeNeu = {}, anreise = null, anrNr = 0;
+    var chips = GRUPPEN.map(function(g){
+      var l = k.filter(function(x){ return x.gruppe === g[0] && x.aktiv !== false; });
+      return l.length ? '<div class="kat-g">' + g[1] + '</div><div class="neu-chips">' + l.map(function(x){ return '<button type="button" class="neu-chip" data-id="' + esc(x.id) + '">' + esc(x.titel) + '<small>' + eur(x.preis) + '</small></button>'; }).join('') + '</div>' : '';
+    }).join('');
+    $('sheetIn').innerHTML = '<h3>Neue Anfrage</h3>' +
+      '<div class="grid2"><div class="feld"><label>Vorname</label><input id="nVn" autocomplete="off"/></div><div class="feld"><label>Nachname</label><input id="nNn" autocomplete="off"/></div></div>' +
+      '<div class="feld"><label>Handynummer (WhatsApp)</label><input id="nTel" type="tel" inputmode="tel" placeholder="0664 …"/></div>' +
+      '<div class="grid2"><div class="feld"><label>Datum</label><input id="nDat" type="date"/></div><div class="feld"><label>Bis (optional)</label><input id="nEnd" type="date"/></div></div>' +
+      '<div class="feld"><label>Angefragt am</label><input id="nAm" type="date"/><div class="bew-status" style="font-size:.82rem;margin-top:4px">Wird überall übernommen: Eingang, Angebotsdatum, PDF.</div></div>' +
+      '<div class="feld"><label>Straße &amp; Nr.</label><input id="nStr" autocomplete="off"/></div>' +
+      '<div class="grid2"><div class="feld"><label>PLZ</label><input id="nPlz" inputmode="numeric"/></div><div class="feld"><label>Ort</label><input id="nOrt" autocomplete="off"/></div></div>' +
+      '<div id="nAnr" class="bew-status" style="margin:-4px 0 6px;min-height:2.9em">Adresse eingeben, dann wird die Anreise berechnet.</div>' +
+      '<div class="zeile" style="align-items:center;margin-bottom:6px"><span>km pro Strecke</span><span class="anz"><input id="nKm" inputmode="decimal" placeholder="auto"/> km</span></div>' +
+      chips +
+      '<div id="nGew" style="margin-top:8px"></div>' +
+      '<label class="emp-sw" style="margin-top:14px" id="nAkW" hidden><input type="checkbox" id="nAk" checked/><span>Winter-Rabatt −' + AKTION_PROZENT + ' % auf die Fotobox</span></label>' +
+      '<label class="emp-sw" style="margin-top:10px"><input type="checkbox" id="nEmp"/><span>Empfehlungs-Deal (−30 €) anbieten</span></label>' +
+      '<label class="emp-sw" style="margin-top:10px"><input type="checkbox" id="nSelbst"/><span>Holt selbst ab (keine Lieferung)</span></label>' +
+      '<div class="feld" style="margin-top:12px"><label>Notiz (optional)</label><textarea id="nNotiz" rows="2" placeholder="z. B. 40er, Aufbau im Garten"></textarea></div>' +
+      '<div class="zeile" style="font-weight:800;font-size:1.05rem"><span style="color:var(--ink)">Gesamt</span><span id="nSum">–</span></div>' +
+      '<button class="btn btn-p btn-w" id="nGo">Anlegen</button><div class="fehler" id="nFehler"></div>';
+    function v(id){ return ($(id).value || '').trim(); }
+    function positionen(){
+      var pos = [];
+      k.forEach(function(x){ if(gewaehlt[x.id]) pos.push({art: x.gruppe === 'extra' ? 'extra' : 'miete', titel: x.titel, text: x.text || '', menge: mengeNeu[x.id] || 1, betrag: preisVon(x)}); });
+      if($('nAk').checked && aktionAktiv()){
+        k.forEach(function(x){ if(gewaehlt[x.id] && x.gruppe === 'foto'){ var pr = preisVon(x), r = pr - Math.floor(pr * (100 - AKTION_PROZENT) / 100); if(r > 0) pos.push({art:'rabatt', titel:'Start-in-den-Winter-Rabatt (−' + AKTION_PROZENT + ' %)', text:'Aktion bis 15. November auf alle Fotobox-Pakete', betrag:-r}); } });
+      }
+      if(!$('nSelbst').checked){
+        pos.push({art:'lieferung', titel:'Lieferung & Abholung', text:'Glödnitz – ' + (v('nOrt') || 'Kunde') + (anreise ? ' · 4 Fahrten à ' + anreise.km + ' km × 0,55 €' : ''), betrag: anreise ? anreise.anreise : null});
+      }
+      return pos;
+    }
+    function preisVon(x){ return preisNeu[x.id] != null ? preisNeu[x.id] : Math.round(x.preis * (mengeNeu[x.id] || 1) * 100) / 100; }
+    /* Gewählte Angebote: Menge und Preis selbst eintragen */
+    function zeichneGew(){
+      var l = k.filter(function(x){ return gewaehlt[x.id]; });
+      $('nGew').innerHTML = l.length ? '<div class="kat-g">Preise für dieses Angebot</div>' + l.map(function(x){
+        return '<div class="pos" style="grid-template-columns:1fr 46px 86px"><span class="p-t" style="padding:7px 0">' + esc(x.titel) + '</span>' +
+          '<input class="p-m" data-gm="' + esc(x.id) + '" value="' + (mengeNeu[x.id] || 1) + '" inputmode="numeric" aria-label="Menge" style="border:1px solid var(--line-2);background:#fff"/>' +
+          '<input class="p-b" data-gp="' + esc(x.id) + '" value="' + String(preisVon(x)).replace('.', ',') + '" inputmode="decimal" aria-label="Preis in Euro" style="border:1px solid var(--line-2);background:#fff"/></div>';
+      }).join('') + '<div class="bew-status" style="font-size:.8rem">Menge × Katalogpreis wird vorgeschlagen, du kannst den Preis frei ändern.</div>' : '';
+      $('nGew').querySelectorAll('[data-gm]').forEach(function(i){ i.addEventListener('input', function(){
+        var m = parseInt(i.value.replace(/\D/g, ''), 10); if(!m || m < 1) return; mengeNeu[i.dataset.gm] = Math.min(99, m); delete preisNeu[i.dataset.gm];
+        var x = k.filter(function(y){ return y.id === i.dataset.gm; })[0], pi = $('nGew').querySelector('[data-gp="' + i.dataset.gm + '"]'); if(pi) pi.value = String(preisVon(x)).replace('.', ',');
+        summe();
+      }); });
+      $('nGew').querySelectorAll('[data-gp]').forEach(function(i){ i.addEventListener('input', function(){
+        var v = Number(i.value.replace(/\s/g, '').replace(',', '.')); if(i.value.trim() === '' || !isFinite(v)) return; preisNeu[i.dataset.gp] = Math.round(v * 100) / 100; summe();
+      }); });
+    }
+    function summe(){
+      var fotoDa = k.some(function(x){ return gewaehlt[x.id] && x.gruppe === 'foto'; });
+      $('nAkW').hidden = !(fotoDa && aktionAktiv());
+      var t = positionen().reduce(function(s, p){ return s + (Number(p.betrag) || 0); }, 0);
+      var fehlt = !$('nSelbst').checked && !anreise;
+      $('nSum').textContent = eur(t) + (fehlt ? ' + Anreise' : '');
+    }
+    function anreiseHolen(){
+      var ort = (v('nPlz') + ' ' + v('nOrt')).trim(); if(!ort){ anreise = null; $('nAnr').textContent = ''; summe(); return; }
+      var q = [v('nStr'), ort].filter(Boolean).join(', '), nr = ++anrNr;
+      $('nAnr').textContent = 'Anreise wird berechnet …';
+      fetch('/.netlify/functions/anreise?q=' + encodeURIComponent(q), {headers:{Accept:'application/json'}}).then(function(r){ return r.json(); }).then(function(d){
+        if(nr !== anrNr) return;
+        if(d && d.ok && d.km){ anreise = d; $('nKm').value = String(d.km).replace('.', ','); $('nAnr').textContent = d.km + ' km ab Glödnitz · Anreise ' + eur(d.anreise) + (d.ort ? ' (' + d.ort + ')' : ''); }
+        else { anreise = null; $('nAnr').textContent = 'Adresse nicht gefunden, Anreise bitte im Angebot eintragen.'; }
+        summe();
+      }).catch(function(){ if(nr === anrNr){ anreise = null; $('nAnr').textContent = 'Anreise konnte nicht berechnet werden.'; summe(); } });
+    }
+    ['nStr','nPlz','nOrt'].forEach(function(id){ $(id).addEventListener('change', anreiseHolen); });
+    var heuteN = (function(){ var d = new Date(); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); })(), amAnge = false;
+    $('nAm').value = heuteN; $('nAm').max = heuteN;
+    $('nAm').addEventListener('input', function(){ amAnge = true; });
+    $('nDat').addEventListener('change', function(){ if(amAnge) return; $('nAm').value = (v('nDat') && v('nDat') < heuteN) ? v('nDat') : heuteN; });
+    ['nAk','nSelbst'].forEach(function(id){ $(id).addEventListener('change', summe); });
+    $('nKm').addEventListener('input', function(){
+      var km = Number(this.value.replace(',', '.').trim());
+      if(this.value.trim() === '' || !isFinite(km) || km <= 0){ return; }
+      km = Math.round(km * 10) / 10; anrNr++;
+      anreise = {ok: true, km: km, anreise: Math.round(4 * km * 0.55), ort: (anreise && anreise.ort) || v('nOrt')};
+      $('nAnr').textContent = km + ' km pro Strecke (selbst eingetragen) · Anreise ' + eur(anreise.anreise);
+      summe();
+    });
+    $('sheetIn').querySelectorAll('.neu-chip').forEach(function(c){ c.onclick = function(){ gewaehlt[c.dataset.id] = !gewaehlt[c.dataset.id]; c.classList.toggle('on', !!gewaehlt[c.dataset.id]); zeichneGew(); summe(); }; });
+    summe();
+    $('nGo').onclick = function(){
+      $('nFehler').textContent = '';
+      if(!v('nVn') && !v('nNn')){ $('nFehler').textContent = 'Bitte einen Namen eintragen.'; return; }
+      var pos = positionen();
+      if(!pos.some(function(p){ return p.art !== 'lieferung'; })){ $('nFehler').textContent = 'Bitte mindestens ein Angebot antippen.'; return; }
+      var fotoNur = k.some(function(x){ return gewaehlt[x.id] && x.gruppe === 'foto'; }) && !k.some(function(x){ return gewaehlt[x.id] && x.gruppe === 'burg'; });
+      var b = this; b.disabled = true; b.textContent = 'Wird angelegt …';
+      api('anlegen', {daten: {
+        typ: fotoNur ? 'foto' : 'burg',
+        kunde: {vorname: v('nVn'), nachname: v('nNn'), telefon: v('nTel'), email: ''},
+        adresse: {strasse: v('nStr'), plz: v('nPlz'), ort: v('nOrt')},
+        datum: v('nDat'), datumEnde: v('nEnd'), erstelltAm: v('nAm') && v('nAm') !== heuteN ? v('nAm') : '',
+        anreise: anreise ? {km: anreise.km, betrag: anreise.anreise, ort: anreise.ort} : null,
+        empfehlung: {aktiv: $('nEmp').checked, code: ''},
+        notiz: v('nNotiz'), positionen: pos, uebergabe: $('nSelbst').checked ? 'selbst' : 'liefern'
+      }}).then(function(d){
+        alle.push(d.anfrage); schliesseSheet();
+        tab = 'ausstehend'; document.querySelectorAll('.tab').forEach(function(x){ x.classList.toggle('on', x.dataset.t === 'ausstehend'); });
+        zeichneListe(); setTimeout(function(){ oeffneDetail(d.anfrage.id); }, 330); toast('Anfrage angelegt');
+      }).catch(function(e){ b.disabled = false; b.textContent = 'Anlegen'; if(e.message !== '401') $('nFehler').textContent = 'Hat nicht geklappt. Versuch es nochmal.'; });
+    };
+  }).catch(function(e){ if(e.message !== '401') toast('Konnte die Angebote nicht laden.'); });
+}
+
+/* ── Einnahmen ── */
+var einJahr = new Date().getFullYear();
+function einnahmenDaten(jahr){
+  var l = alle.filter(function(a){ return (a.status === 'fix' || a.status === 'erledigt' || (a.status === 'archiv' && (a.vorherStatus === 'fix' || a.vorherStatus === 'erledigt'))) && (a.datum || '').slice(0,4) === String(jahr); });
+  var monate = MONATE.map(function(){ return {fix:0, erledigt:0, anzahl:0}; }), geraete = {};
+  l.forEach(function(a){
+    var s = summen(a), m = +a.datum.slice(5,7) - 1, erl = a.status !== 'fix';
+    monate[m][erl ? 'erledigt' : 'fix'] += s.gesamt; monate[m].anzahl++;
+    (a.positionen || []).forEach(function(p){ if(p.art !== 'miete' && p.art !== 'extra') return; var t = p.titel || 'Sonstiges'; geraete[t] = geraete[t] || {anzahl:0, summe:0}; geraete[t].anzahl += (p.menge || 1); geraete[t].summe += Number(p.betrag) || 0; });
+  });
+  return {liste: l, monate: monate, geraete: geraete};
+}
+function einnahmenSheet(){
+  var d = einnahmenDaten(einJahr);
+  var sumE = d.monate.reduce(function(s, m){ return s + m.erledigt; }, 0), sumF = d.monate.reduce(function(s, m){ return s + m.fix; }, 0);
+  var h = '<h3>Einnahmen</h3><div class="fb-kopf" style="padding:0 0 8px"><button class="ikon" id="eVor" aria-label="Jahr zurück"><svg class="i" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><b>' + einJahr + '</b><button class="ikon" id="eNach" aria-label="Jahr vor"><svg class="i" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>' +
+    '<button class="btn btn-p fb-xls" id="eXls"><svg class="i" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Excel</button></div>' +
+    '<div class="umsatz" style="margin-bottom:12px"><div><span>Erledigt</span><b>' + eur(sumE) + '</b></div><div><span>Noch fix geplant</span><b>' + eur(sumF) + '</b></div></div>' +
+    '<table class="ein-t"><tr><th>Monat</th><th>Feste</th><th>Erledigt</th><th>Geplant</th></tr>' +
+    d.monate.map(function(m, i){ return m.anzahl ? '<tr><td>' + MONATE[i] + '</td><td>' + m.anzahl + '</td><td>' + eur(m.erledigt) + '</td><td>' + eur(m.fix) + '</td></tr>' : ''; }).join('') +
+    '</table>';
+  var g = Object.keys(d.geraete).sort(function(x, y){ return d.geraete[y].summe - d.geraete[x].summe; });
+  if(g.length) h += '<div class="kat-g">Pro Angebot</div><table class="ein-t"><tr><th>Angebot</th><th>Mal</th><th>Umsatz</th></tr>' + g.map(function(t){ return '<tr><td>' + esc(t) + '</td><td>' + d.geraete[t].anzahl + '</td><td>' + eur(d.geraete[t].summe) + '</td></tr>'; }).join('') + '</table>';
+  if(!d.liste.length) h += '<div class="leer" style="padding:30px 10px"><b>Noch keine Buchungen in ' + einJahr + '</b></div>';
+  oeffneSheetOderErsetzen(h);
+  $('eVor').onclick = function(){ einJahr--; einnahmenSheet(); };
+  $('eNach').onclick = function(){ einJahr++; einnahmenSheet(); };
+  $('eXls').onclick = function(){ einnahmenExcel(einJahr); };
+}
+function oeffneSheetOderErsetzen(h){ if($('sheet').classList.contains('auf')) $('sheetIn').innerHTML = h; else oeffneSheet(h); }
+function einnahmenExcel(jahr){
+  ladeXlsx().then(function(X){
+    var d = einnahmenDaten(jahr), wb = X.utils.book_new();
+    var b = [['Datum', 'Angebot-Nr.', 'Kunde', 'Ort', 'Leistung', 'Miete', 'Anreise', 'Gesamt', 'Anzahlung erhalten', 'Status']];
+    d.liste.slice().sort(function(x, y){ return (x.datum || '').localeCompare(y.datum || ''); }).forEach(function(a){
+      var s = summen(a);
+      b.push([datumKurz(a.datum), a.nr || a.rechnungNr || '', ((a.kunde.vorname || '') + ' ' + (a.kunde.nachname || '')).trim(), (a.adresse && a.adresse.ort) || '', produkte(a), s.miete, s.liefer, s.gesamt, a.anzahlungErhaltenAm ? 'ja' : 'nein', a.status === 'fix' ? 'geplant' : 'erledigt']);
+    });
+    var w1 = X.utils.aoa_to_sheet(b); w1['!cols'] = [{wch:11},{wch:11},{wch:22},{wch:16},{wch:30},{wch:9},{wch:9},{wch:9},{wch:18},{wch:10}];
+    X.utils.book_append_sheet(wb, w1, 'Buchungen');
+    var m = [['Monat', 'Feste', 'Erledigt (€)', 'Geplant (€)']];
+    d.monate.forEach(function(x, i){ m.push([MONATE[i], x.anzahl, Math.round(x.erledigt * 100) / 100, Math.round(x.fix * 100) / 100]); });
+    m.push([]); m.push(['Gesamt', d.liste.length, d.monate.reduce(function(s, x){ return s + x.erledigt; }, 0), d.monate.reduce(function(s, x){ return s + x.fix; }, 0)]);
+    X.utils.book_append_sheet(wb, X.utils.aoa_to_sheet(m), 'Monate');
+    var g = [['Angebot', 'Anzahl', 'Umsatz (€)']];
+    Object.keys(d.geraete).forEach(function(t){ g.push([t, d.geraete[t].anzahl, Math.round(d.geraete[t].summe * 100) / 100]); });
+    X.utils.book_append_sheet(wb, X.utils.aoa_to_sheet(g), 'Pro Angebot');
+    X.writeFile(wb, 'Einnahmen_' + jahr + '_Huepfabenteuer.xlsx');
+  }).catch(function(){ toast('Excel konnte nicht geladen werden.'); });
+}
 
 /* ── Start ── */
 schluessel = lsGet();
