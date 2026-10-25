@@ -893,6 +893,8 @@ function verbindeDetail(){
   });
   if($('dRechnung')){
     $('dRechnung').addEventListener('input', function(){ aktuell.rechnungNr = this.value.trim(); planeSpeichern(); });
+    /* Fahrten erst anpassen, wenn die Nummer fertig eingetippt ist (Feld verlassen) */
+    $('dRechnung').addEventListener('change', function(){ var id = aktuell.id; Promise.resolve(sofortSpeichern()).then(function(){ var a = alle.filter(function(x){ return x.id === id; })[0]; if(a) fbSyncBuchung(a); }); });
     (einzelFahrten === null ? ladeEinzelFahrten().catch(function(){}) : Promise.resolve()).then(function(){ if($('dReInfo') && aktuell) $('dReInfo').textContent = fbReText(aktuell); });
   }
   if($('anzOk')) $('anzOk').addEventListener('click', function(){ anzSchritt({erhalten:true}, '✓ Anzahlung abgehakt'); });
@@ -916,7 +918,7 @@ function sofortSpeichern(){
     var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
     if(aktuell && aktuell.id === d.anfrage.id){ aktuell.pdf = d.anfrage.pdf; aktuell.waText = d.anfrage.waText; aktuell.waAbsage = d.anfrage.waAbsage; aktuell.empfehlung = d.anfrage.empfehlung; if(!!d.anfrage.geaendertNachVersand !== !!aktuell.geaendertNachVersand){ aktuell.geaendertNachVersand = d.anfrage.geaendertNachVersand; zeichneLeiste(); if(!$('hGeaendert') && aktuell.geaendertNachVersand) toast('Geändert. Das gesendete PDF bleibt gleich.'); } if($('empInfo') && d.anfrage.empfehlung && d.anfrage.empfehlung.aktiv && d.anfrage.empfehlung.code) $('empInfo').textContent = 'Code ' + d.anfrage.empfehlung.code + ' · Link steht in der WhatsApp-Nachricht'; if((aktuell.status === 'fix' || aktuell.status === 'erledigt') && $('lWa')) $('lWa').href = waLink(aktuell.waNummer, aktuell.waText); }
     $('dGespeichert').textContent = 'Gespeichert';
-    fbSyncBuchung(d.anfrage);
+    if(!(document.activeElement && document.activeElement.id === 'dRechnung')) fbSyncBuchung(d.anfrage);
     setTimeout(function(){ if($('dGespeichert').textContent === 'Gespeichert') $('dGespeichert').textContent = ''; }, 1500);
   }).catch(function(e){ if(e.message !== '401'){ $('dGespeichert').textContent = 'Nicht gespeichert'; toast('Speichern hat nicht geklappt.'); } })
     .finally(function(){ speichertGerade = null; });
@@ -1038,7 +1040,7 @@ function rnGleich(a, b){
   if(x.voll === y.voll) return true;
   return (x.nurZahl || y.nurZahl) && x.zahl != null && x.zahl === y.zahl;
 }
-function fahrtRe(f){ return f.rechnung || ((/Re\.\s*([\w-]+)/.exec(f.zweck || '') || [])[1]) || ''; }
+function fahrtRe(f){ return ((/Re\.\s*([\w-]+)/.exec(f.zweck || '') || [])[1]) || f.rechnung || ''; }
 function buchungRe(a){ return a.rechnungNr || (a.nr ? String(a.nr) : ''); }
 function buchungZuRe(re, datum){
   if(!rnTeile(re).voll) return null;
@@ -1048,7 +1050,12 @@ function buchungZuRe(re, datum){
 }
 function fahrtenZuBuchung(a){
   var nr = a.nr ? String(a.nr) : '';
-  return (einzelFahrten || []).filter(function(f){ var r = fahrtRe(f); return f.anfrage === a.id || (a.rechnungNr ? rnGleich(r, a.rechnungNr) : (nr && rnTeile(r).voll === nr)); });
+  /* Die Nummer im Zweck der Fahrt zählt; die Verknüpfung über die ID nur bei Fahrten ohne Nummer */
+  return (einzelFahrten || []).filter(function(f){
+    var r = fahrtRe(f);
+    if(!r) return f.anfrage === a.id;
+    return a.rechnungNr ? rnGleich(r, a.rechnungNr) : !!(nr && rnTeile(r).voll === nr);
+  });
 }
 /* Buchung gespeichert: verknüpfte Fahrten an das Angebot anpassen (nur wenn sich was ändert) */
 function fbSyncBuchung(a){
