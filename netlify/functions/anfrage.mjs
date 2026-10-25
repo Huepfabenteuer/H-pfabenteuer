@@ -269,6 +269,18 @@ export default async (req, context) => {
   /* ── Ab hier nur mit Passwort ── */
   if (!istAdmin(req)) return json({ ok: false, grund: process.env.ADMIN_KEY ? 'passwort' : 'kein-admin-key' }, 401);
 
+  /* Komplettes Backup: alles außer Login-Sperren */
+  if (body.action === 'backup') {
+    const daten = {};
+    const { blobs } = await st.list();
+    for (let i = 0; i < blobs.length; i += 25) {
+      const teil = blobs.slice(i, i + 25).filter(b => !b.key.startsWith('meta/login/'));
+      const werte = await Promise.all(teil.map(b => st.get(b.key, { type: 'json' }).catch(() => null)));
+      teil.forEach((b, j) => { if (werte[j] != null) daten[b.key] = werte[j]; });
+    }
+    return json({ ok: true, backup: { erstellt: new Date().toISOString(), anzahl: Object.keys(daten).length, daten } });
+  }
+
   if (body.action === 'liste') {
     const alle = await alleAnfragen(st);
     await belegtNeuBerechnen(st, alle);

@@ -508,13 +508,13 @@ function zeichneListe(){
   Object.keys(z).forEach(function(k){ var el = $('z-' + k); el.textContent = z[k]; el.classList.toggle('voll', z[k] > 0); el.hidden = (k === 'papierkorb' || k === 'archiv') && !z[k]; });
   if(tab === 'fahrten'){ zeichneFahrten(); return; }
   if(tab === 'erledigt'){
-    /* nach Rechnungsnummer (26-001, 26-002 …), Buchungen ohne Nummer danach nach Datum */
+    /* nach Rechnungsnummer von hoch nach niedrig (26-005, 26-004 …), ohne Nummer danach nach Datum */
     var reKey = function(a){ var m = /(\d+)\D+(\d+)\s*$/.exec(a.rechnungNr || ''); if(m) return [+m[1], +m[2]]; var n = /^\s*(\d+)\s*$/.exec(a.rechnungNr || ''); return n ? [0, +n[1]] : null; };
     var le = alle.filter(function(a){ return a.status === 'erledigt'; }).sort(function(a,b){
       var x = reKey(a), y = reKey(b);
-      if(x && y) return x[0] - y[0] || x[1] - y[1] || (a.datum || '').localeCompare(b.datum || '');
+      if(x && y) return y[0] - x[0] || y[1] - x[1] || (b.datum || '').localeCompare(a.datum || '');
       if(x) return -1; if(y) return 1;
-      return (a.datum || '').localeCompare(b.datum || '');
+      return (b.datum || '').localeCompare(a.datum || '');
     });
     var jahr = String(new Date().getFullYear());
     var uJ = 0, uG = 0, nJ = 0;
@@ -1608,14 +1608,28 @@ $('menue').addEventListener('click', function(){
     '<button class="menue-p" data-m="angebote"><svg class="i" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg><span>Alle Angebote<small>Verschickte PDFs ansehen und nachträglich ändern</small></span></button>' +
     '<button class="menue-p" data-m="preise">' + IC_MENUE.preis + '<span>Angebote &amp; Preise<small>Alle Burgen, Fotoboxen und Extras bearbeiten</small></span></button>' +
     '<button class="menue-p" data-m="geld">' + IC_MENUE.geld + '<span>Einnahmen<small>Umsatz pro Monat und Gerät, Excel</small></span></button>' +
+    '<button class="menue-p" data-m="backup"><svg class="i" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>Backup herunterladen<small>Alle Anfragen, Angebote und Fahrten als Datei sichern' + (letztesBackup() ? ' · zuletzt ' + letztesBackup() : '') + '</small></span></button>' +
     '<button class="menue-p" data-m="raus" style="border-bottom:none;color:var(--nein)">' + IC_MENUE.raus + '<span>Abmelden</span></button>');
   $('sheetIn').querySelectorAll('[data-m]').forEach(function(b){ b.onclick = function(){
     var m = b.dataset.m;
     if(m === 'raus'){ schliesseSheet(); abmelden(''); return; }
+    if(m === 'backup'){ schliesseSheet(); backupLaden(); return; }
     schliesseSheetDann(function(){ if(m === 'neu') neuSheet(); else if(m === 'angebote') angeboteSheet(); else if(m === 'preise') preiseSheet(); else einnahmenSheet(); });
   }; });
 });
 $('neuAnlegen').addEventListener('click', function(){ neuSheet(); });
+/* ── Backup ── */
+function letztesBackup(){ try{ var d = localStorage.getItem('hb_backup'); return d ? new Date(d).toLocaleDateString('de-AT') : ''; }catch(e){ return ''; } }
+function backupLaden(){
+  toast('Backup wird erstellt …');
+  api('backup').then(function(d){
+    var j = JSON.stringify(d.backup, null, 1), t = new Date(), name = 'Huepfabenteuer-Backup_' + t.getFullYear() + '-' + ('0'+(t.getMonth()+1)).slice(-2) + '-' + ('0'+t.getDate()).slice(-2) + '.json';
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([j], {type:'application/json'})); a.download = name;
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    try{ localStorage.setItem('hb_backup', t.toISOString()); }catch(e){}
+    toast('Backup gespeichert (' + d.backup.anzahl + ' Einträge)');
+  }).catch(function(e){ if(e.message !== '401') toast('Backup hat nicht geklappt.'); });
+}
 /* Sheet schließen und danach ein neues öffnen (History sauber halten) */
 function schliesseSheetDann(fn){ schliesseSheet(); setTimeout(fn, 320); }
 
