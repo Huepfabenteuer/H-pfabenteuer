@@ -224,7 +224,7 @@ export default async (req, context) => {
   let body;
   try {
     const roh = await req.text();
-    if (roh.length > 30000) return json({ ok: false, grund: 'zu-gross' }, 413);
+    if (roh.length > (istAdmin(req) ? 800000 : 30000)) return json({ ok: false, grund: 'zu-gross' }, 413);
     body = JSON.parse(roh || '{}');
   } catch (e) { return json({ ok: false, grund: 'json' }, 400); }
 
@@ -278,28 +278,33 @@ export default async (req, context) => {
     const fahrten = (await Promise.all(blobs.map(b => st.get(b.key, { type: 'json' }).catch(() => null)))).filter(Boolean);
     return json({ ok: true, fahrten });
   }
-  if (body.action === 'fahrtSpeichern') {
-    const f = body.fahrt || {};
+  if (body.action === 'fahrtSpeichern' || body.action === 'fahrtenBatch') {
     const zeit = v => /^\d{2}:\d{2}$/.test(v || '') ? v : '';
     const zahl = v => (v === '' || v == null || !isFinite(Number(v))) ? null : Math.round(Number(v) * 10) / 10;
     const t = s => String(s == null ? '' : s).replace(/[\u0000-\u001f]/g, ' ').trim();
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(f.datum || '')) return json({ ok: false, grund: 'datum' }, 400);
-    const fid = /^[a-z0-9]{4,40}$/.test(f.id || '') ? f.id : 'm' + Date.now().toString(36) + zufall(4);
-    const alt = await st.get('f/' + fid, { type: 'json' }).catch(() => null);
-    const neu = {
-      id: fid, datum: f.datum, ab: zeit(f.ab), an: zeit(f.an),
-      von: t(f.von).slice(0, 80), nach: t(f.nach).slice(0, 80), zweck: t(f.zweck).slice(0, 120),
-      kmA: zahl(f.kmA), kmE: zahl(f.kmE), km: zahl(f.km) || 0, privat: zahl(f.privat) || 0,
-      fz: t(f.fz).slice(0, 40), quelle: (alt && alt.quelle) || 'Verwaltung',
-      angelegt: (alt && alt.angelegt) || new Date().toISOString()
-    };
-    if (alt) {
-      const { verlauf, ...vorher } = alt;
-      neu.verlauf = [...(verlauf || []), { am: new Date().toISOString(), vorher }].slice(-20);
-      neu.geaendert = new Date().toISOString();
+    const liste = body.action === 'fahrtenBatch' ? (Array.isArray(body.fahrten) ? body.fahrten.slice(0, 400) : []) : [body.fahrt || {}];
+    if (!liste.length) return json({ ok: false, grund: 'leer' }, 400);
+    const gespeichert = [];
+    for (const f of liste) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(f.datum || '')) return json({ ok: false, grund: 'datum' }, 400);
+      const fid = /^[a-z0-9]{4,40}$/.test(f.id || '') ? f.id : 'm' + Date.now().toString(36) + zufall(4);
+      const alt = await st.get('f/' + fid, { type: 'json' }).catch(() => null);
+      const neu = {
+        id: fid, datum: f.datum, ab: zeit(f.ab), an: zeit(f.an),
+        von: t(f.von).slice(0, 80), nach: t(f.nach).slice(0, 80), zweck: t(f.zweck).slice(0, 120),
+        kmA: zahl(f.kmA), kmE: zahl(f.kmE), km: zahl(f.km) || 0, privat: zahl(f.privat) || 0,
+        fz: t(f.fz).slice(0, 40), quelle: (alt && alt.quelle) || 'Verwaltung',
+        angelegt: (alt && alt.angelegt) || new Date().toISOString()
+      };
+      if (alt) {
+        const { verlauf, ...vorher } = alt;
+        neu.verlauf = [...(verlauf || []), { am: new Date().toISOString(), vorher }].slice(-20);
+        neu.geaendert = new Date().toISOString();
+      }
+      await st.setJSON('f/' + fid, neu);
+      gespeichert.push(neu);
     }
-    await st.setJSON('f/' + fid, neu);
-    return json({ ok: true, fahrt: neu });
+    return json({ ok: true, fahrt: gespeichert[0], fahrten: gespeichert });
   }
   if (body.action === 'fahrtLoeschen') {
     const fid = String(body.id || '');

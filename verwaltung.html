@@ -1165,28 +1165,76 @@ function einzelFahrtSheet(id, datumVor){
     feld('zweck', 'Zweck der Fahrt', 'text', ' placeholder="z. B. Lieferung Alienburg (Re. 26-060)"') +
     '<div class="grid2">' + feld('kmA', 'km-Stand Abfahrt', 'number', ' inputmode="numeric"') + feld('kmE', 'km-Stand Ankunft', 'number', ' inputmode="numeric"') + '</div>' +
     '<div class="grid2">' + feld('km', 'Gefahrene km', 'number', ' inputmode="decimal"') + feld('fz', 'Fahrzeug') + '</div>' +
+    '<label class="emp-sw" style="margin:6px 0 4px"><input type="checkbox" id="ezKette" checked/><span>Folgende Fahrten mit diesem Auto automatisch mit anpassen (km-Stände)</span></label>' +
+    '<div class="bew-status" id="ezVorschau" style="min-height:1.2em;margin-bottom:4px"></div>' +
     '<button class="btn btn-p btn-w" id="ezSpeichern">Speichern</button>' +
     (alt ? '<button class="btn btn-n btn-w" id="ezWeg">Fahrt löschen</button>' : '') +
     '<div class="fehler" id="ezFehler"></div>');
   function wert(k){ return ($('ez_' + k).value || '').trim(); }
-  function kmRechnen(){ var a = Number(wert('kmA')), e = Number(wert('kmE')); if(wert('kmA') && wert('kmE') && e >= a) $('ez_km').value = e - a; }
-  $('ez_kmA').addEventListener('input', kmRechnen); $('ez_kmE').addEventListener('input', kmRechnen);
+  /* km-Stand Ankunft folgt aus Abfahrt + km, km aus den Ständen */
+  $('ez_km').addEventListener('input', function(){ if(wert('kmA') && wert('km') !== '') $('ez_kmE').value = Math.round((Number(wert('kmA')) + Number(wert('km').replace(',', '.'))) * 10) / 10; vorschau(); });
+  $('ez_kmA').addEventListener('input', function(){ if(wert('km') !== '') $('ez_kmE').value = Math.round((Number(wert('kmA')) + Number(wert('km').replace(',', '.'))) * 10) / 10; vorschau(); });
+  $('ez_kmE').addEventListener('input', function(){ var a = Number(wert('kmA')), e = Number(wert('kmE')); if(wert('kmA') && wert('kmE') && e >= a) $('ez_km').value = Math.round((e - a) * 10) / 10; vorschau(); });
+  ['datum','ab','fz'].forEach(function(k){ $('ez_' + k).addEventListener('change', vorschau); });
+  $('ezKette').addEventListener('change', vorschau);
+  function sk(x){ return (x.datum || '') + ' ' + (x.ab || '99:99'); }
+  function nz(v){ return (v === '' || v == null || isNaN(Number(v))) ? null : Number(v); }
+  function rund(v){ return Math.round(v * 10) / 10; }
+  /* Berechnet alle Fahrten, die sich durch die Änderung verschieben */
+  function kette(neu){
+    var fz = neu.fz, L = (einzelFahrten || []).filter(function(x){ return x.fz === fz && (!alt || x.id !== alt.id) && x.kmA != null && x.kmE != null; })
+      .map(function(x){ return JSON.parse(JSON.stringify(x)); }).sort(function(x, y){ return sk(x).localeCompare(sk(y)); });
+    var km = nz(neu.km) || 0, geaendert = {};
+    var gleicherPlatz = alt && alt.fz === fz && L.filter(function(x){ return sk(x) < sk(alt); }).length === L.filter(function(x){ return sk(x) < sk(neu); }).length;
+    if(gleicherPlatz){
+      if(nz(neu.kmA) == null) neu.kmA = alt.kmA;
+      neu.kmE = rund(nz(neu.kmA) + km);
+      var delta = rund(neu.kmE - (nz(alt.kmE) || 0));
+      if(delta) L.forEach(function(x){ if(sk(x) > sk(neu)){ x.kmA = rund(x.kmA + delta); x.kmE = rund(x.kmE + delta); geaendert[x.id] = x; } });
+      return {neu: neu, andere: Object.keys(geaendert).map(function(k){ return geaendert[k]; }), delta: delta};
+    }
+    /* verschoben (andere Uhrzeit/Tag/Auto) oder neu: an alter Stelle rausnehmen, an neuer Stelle einfügen */
+    if(alt && alt.fz === fz && alt.kmA != null && alt.kmE != null){
+      var altKm = rund(alt.kmE - alt.kmA);
+      L.forEach(function(x){ if(sk(x) > sk(alt)){ x.kmA = rund(x.kmA - altKm); x.kmE = rund(x.kmE - altKm); geaendert[x.id] = x; } });
+    }
+    var vor = L.filter(function(x){ return sk(x) < sk(neu); }).pop();
+    if(vor) neu.kmA = vor.kmE; else if(nz(neu.kmA) == null) neu.kmA = 0;
+    neu.kmE = rund(nz(neu.kmA) + km);
+    L.forEach(function(x){ if(sk(x) > sk(neu)){ x.kmA = rund(x.kmA + km); x.kmE = rund(x.kmE + km); geaendert[x.id] = x; } });
+    return {neu: neu, andere: Object.keys(geaendert).map(function(k){ return geaendert[k]; }).filter(function(x){ var o = einzelFahrten.filter(function(y){ return y.id === x.id; })[0]; return !o || o.kmA !== x.kmA; }), delta: null};
+  }
+  function eingabe(){ return {id: alt ? alt.id : '', datum: wert('datum'), ab: wert('ab'), an: wert('an'), von: wert('von'), nach: wert('nach'), zweck: wert('zweck'), kmA: wert('kmA'), kmE: wert('kmE'), km: wert('km').replace(',', '.'), fz: wert('fz')}; }
+  function vorschau(){
+    if(!$('ezKette').checked){ $('ezVorschau').textContent = ''; return; }
+    var r = kette(eingabe());
+    $('ezVorschau').textContent = r.andere.length ? r.andere.length + ' weitere Fahrt' + (r.andere.length === 1 ? '' : 'en') + ' werden angepasst' + (r.delta ? ' (' + (r.delta > 0 ? '+' : '') + r.delta + ' km)' : '') + '. km-Stand Abfahrt: ' + r.neu.kmA : '';
+  }
   $('ezSpeichern').onclick = function(){
-    var b = this, neu = {id: alt ? alt.id : '', datum: wert('datum'), ab: wert('ab'), an: wert('an'), von: wert('von'), nach: wert('nach'), zweck: wert('zweck'), kmA: wert('kmA'), kmE: wert('kmE'), km: wert('km'), fz: wert('fz')};
+    var b = this, neu = eingabe(), andere = [];
+    if($('ezKette').checked && neu.datum){ var r = kette(neu); neu = r.neu; andere = r.andere; }
     if(!neu.datum){ $('ezFehler').textContent = 'Bitte ein Datum eintragen.'; return; }
     if(neu.kmA && neu.kmE && Number(neu.kmE) < Number(neu.kmA)){ $('ezFehler').textContent = 'km-Stand Ankunft ist kleiner als bei Abfahrt.'; return; }
     b.disabled = true;
-    api('fahrtSpeichern', {fahrt: neu}).then(function(d){
-      var i = (einzelFahrten || []).findIndex(function(x){ return x.id === d.fahrt.id; });
-      if(i === -1) einzelFahrten.push(d.fahrt); else einzelFahrten[i] = d.fahrt;
+    api('fahrtenBatch', {fahrten: [neu].concat(andere)}).then(function(d){
+      (d.fahrten || []).forEach(function(f){ var i = (einzelFahrten || []).findIndex(function(x){ return x.id === f.id; }); if(i === -1) einzelFahrten.push(f); else einzelFahrten[i] = f; });
       if(neu.fz && !alt){ try{ localStorage.setItem('hb_fahrzeug', neu.fz); }catch(e){} }
       var dd = tagDatum(d.fahrt.datum); if(dd){ fbJahr = dd.getFullYear(); fbMonat = dd.getMonth(); }
-      schliesseSheet(); zeichneFahrten(); toast('Fahrt gespeichert');
+      schliesseSheet(); zeichneFahrten(); toast(andere.length ? 'Gespeichert, ' + andere.length + ' weitere Fahrten angepasst' : 'Fahrt gespeichert');
     }).catch(function(e){ b.disabled = false; if(e.message !== '401') $('ezFehler').textContent = 'Speichern hat nicht geklappt.'; });
   };
   if($('ezWeg')) $('ezWeg').onclick = function(){
     if(!confirmLeise('Diese Fahrt löschen?')) return;
-    api('fahrtLoeschen', {id: alt.id}).then(function(){ einzelFahrten = einzelFahrten.filter(function(x){ return x.id !== alt.id; }); schliesseSheet(); zeichneFahrten(); toast('Fahrt gelöscht'); })
+    var folge = [];
+    if($('ezKette').checked && alt.kmA != null && alt.kmE != null){
+      var altKm = rund(alt.kmE - alt.kmA);
+      folge = (einzelFahrten || []).filter(function(x){ return x.fz === alt.fz && x.id !== alt.id && x.kmA != null && sk(x) > sk(alt); })
+        .map(function(x){ var y = JSON.parse(JSON.stringify(x)); y.kmA = rund(y.kmA - altKm); y.kmE = rund(y.kmE - altKm); return y; });
+    }
+    api('fahrtLoeschen', {id: alt.id}).then(function(){ return folge.length ? api('fahrtenBatch', {fahrten: folge}) : {fahrten: []}; }).then(function(d){
+      einzelFahrten = einzelFahrten.filter(function(x){ return x.id !== alt.id; });
+      (d.fahrten || []).forEach(function(f){ var i = einzelFahrten.findIndex(function(x){ return x.id === f.id; }); if(i !== -1) einzelFahrten[i] = f; });
+      schliesseSheet(); zeichneFahrten(); toast('Fahrt gelöscht' + (folge.length ? ', ' + folge.length + ' weitere angepasst' : '')); })
       .catch(function(e){ if(e.message !== '401') toast('Löschen hat nicht geklappt.'); });
   };
 }
