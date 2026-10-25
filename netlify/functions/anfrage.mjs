@@ -284,16 +284,15 @@ export default async (req, context) => {
     const t = s => String(s == null ? '' : s).replace(/[\u0000-\u001f]/g, ' ').trim();
     const liste = body.action === 'fahrtenBatch' ? (Array.isArray(body.fahrten) ? body.fahrten.slice(0, 400) : []) : [body.fahrt || {}];
     if (!liste.length) return json({ ok: false, grund: 'leer' }, 400);
-    const gespeichert = [];
-    for (const f of liste) {
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(f.datum || '')) return json({ ok: false, grund: 'datum' }, 400);
+    if (liste.some(f => !/^\d{4}-\d{2}-\d{2}$/.test((f && f.datum) || ''))) return json({ ok: false, grund: 'datum' }, 400);
+    const eine = async f => {
       const fid = /^[a-z0-9]{4,40}$/.test(f.id || '') ? f.id : 'm' + Date.now().toString(36) + zufall(4);
       const alt = await st.get('f/' + fid, { type: 'json' }).catch(() => null);
       const neu = {
         id: fid, datum: f.datum, ab: zeit(f.ab), an: zeit(f.an),
         von: t(f.von).slice(0, 80), nach: t(f.nach).slice(0, 80), zweck: t(f.zweck).slice(0, 120),
         kmA: zahl(f.kmA), kmE: zahl(f.kmE), km: zahl(f.km) || 0, privat: zahl(f.privat) || 0,
-        fz: t(f.fz).slice(0, 40), quelle: (alt && alt.quelle) || 'Verwaltung',
+        fz: t(f.fz).slice(0, 40), rechnung: t(f.rechnung).slice(0, 30), anfrage: /^[A-Za-z0-9_-]{1,40}$/.test(f.anfrage || '') ? f.anfrage : '', quelle: (alt && alt.quelle) || 'Verwaltung',
         angelegt: (alt && alt.angelegt) || new Date().toISOString()
       };
       if (alt) {
@@ -302,8 +301,10 @@ export default async (req, context) => {
         neu.geaendert = new Date().toISOString();
       }
       await st.setJSON('f/' + fid, neu);
-      gespeichert.push(neu);
-    }
+      return neu;
+    };
+    const gespeichert = [];
+    for (let i = 0; i < liste.length; i += 20) gespeichert.push(...await Promise.all(liste.slice(i, i + 20).map(eine)));
     return json({ ok: true, fahrt: gespeichert[0], fahrten: gespeichert });
   }
   if (body.action === 'fahrtLoeschen') {

@@ -143,6 +143,7 @@ export function saeubere(roh) {
     paket: str(r.paket, 60),
     rahmen: str(r.rahmen, 80),
     gutschein: str(r.gutschein, 80),
+    rechnungNr: str(r.rechnungNr, 30),
     anreise: r.anreise && num(r.anreise.km) != null ? { km: num(r.anreise.km), betrag: num(r.anreise.betrag), ort: str(r.anreise.ort, 80) } : null,
     empfehlung: { aktiv: !!(r.empfehlung && r.empfehlung.aktiv), code: str(r.empfehlung && r.empfehlung.code, 40) },
     empfohlenVon: str(r.empfohlenVon, 40),

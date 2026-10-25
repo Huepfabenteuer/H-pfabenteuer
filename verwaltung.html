@@ -674,7 +674,8 @@ function zeichneDetail(){
   /* Termin */
   h += '<div class="block"><div class="gross">' + esc(datumLang(a.datum)) + '</div>' +
        (a.datumEnde && a.datumEnde !== a.datum ? '<div style="color:var(--ink-2);margin-top:2px">bis ' + esc(datumLang(a.datumEnde)) + '</div>' : '') +
-       '<div style="color:var(--mute);margin-top:6px;font-size:.9rem">' + esc(inTagen(a.datum)) + (a.anlass ? ', ' + esc(a.anlass) : '') + '</div></div>';
+       '<div style="color:var(--mute);margin-top:6px;font-size:.9rem">' + esc(inTagen(a.datum)) + (a.anlass ? ', ' + esc(a.anlass) : '') + '</div>' +
+       '<div class="zeile" style="margin-top:8px;align-items:center"><span>Rechnungsnr.</span><span class="anz"><input id="dRechnung" value="' + esc(a.rechnungNr || '') + '" placeholder="' + esc(a.nr ? String(a.nr) : 'z. B. 26-060') + '" style="width:120px"/></span></div></div>';
 
   /* Kunde */
   h += '<div class="block"><h3>Kunde</h3>' +
@@ -867,6 +868,7 @@ function verbindeDetail(){
       aktuell = JSON.parse(JSON.stringify(d.anfrage)); zeichneDetail(); zeichneListe(); if(meldung) toast(meldung);
     }).catch(function(e){ if(e.message !== '401') toast('Das hat nicht geklappt.'); });
   };
+  if($('dRechnung')) $('dRechnung').addEventListener('input', function(){ aktuell.rechnungNr = this.value.trim(); planeSpeichern(); });
   if($('anzOk')) $('anzOk').addEventListener('click', function(){ anzSchritt({erhalten:true}, '✓ Anzahlung abgehakt'); });
   if($('anzZurueck')) $('anzZurueck').addEventListener('click', function(){ anzSchritt({erhalten:false}, 'Zurückgesetzt'); });
   if($('anzErinnern')) $('anzErinnern').addEventListener('click', function(){ setTimeout(function(){ anzSchritt({erhalten:false, erinnert:true}, 'Erinnerung vermerkt'); }, 300); });
@@ -883,7 +885,7 @@ function sofortSpeichern(){
   if(!speicherTimer || !aktuell) return speichertGerade || Promise.resolve();
   clearTimeout(speicherTimer); speicherTimer = null;
   var a = aktuell;
-  var patch = {positionen: a.positionen, anrede: a.anrede || '', notiz: a.notiz || '', anzahlung: a.anzahlung, empfehlung: a.empfehlung || {aktiv:false, code:''}};
+  var patch = {positionen: a.positionen, anrede: a.anrede || '', notiz: a.notiz || '', anzahlung: a.anzahlung, rechnungNr: a.rechnungNr || '', empfehlung: a.empfehlung || {aktiv:false, code:''}};
   speichertGerade = api('speichern', {id: a.id, patch: patch}).then(function(d){
     var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
     if(aktuell && aktuell.id === d.anfrage.id){ aktuell.pdf = d.anfrage.pdf; aktuell.waText = d.anfrage.waText; aktuell.waAbsage = d.anfrage.waAbsage; aktuell.empfehlung = d.anfrage.empfehlung; if(!!d.anfrage.geaendertNachVersand !== !!aktuell.geaendertNachVersand){ aktuell.geaendertNachVersand = d.anfrage.geaendertNachVersand; zeichneLeiste(); if(!$('hGeaendert') && aktuell.geaendertNachVersand) toast('Geändert. Das gesendete PDF bleibt gleich.'); } if($('empInfo') && d.anfrage.empfehlung && d.anfrage.empfehlung.aktiv && d.anfrage.empfehlung.code) $('empInfo').textContent = 'Code ' + d.anfrage.empfehlung.code + ' · Link steht in der WhatsApp-Nachricht'; if((aktuell.status === 'fix' || aktuell.status === 'erledigt') && $('lWa')) $('lWa').href = waLink(aktuell.waNummer, aktuell.waText); }
@@ -911,6 +913,7 @@ function annehmen(){
     aktuell = JSON.parse(JSON.stringify(d.anfrage));
     zeichneDetail(); zeichneListe();
     erfolgSheet(d.anfrage);
+    fbFahrtenAnlegen(d.anfrage, true);
   }).catch(function(e){ if(e.message !== '401') toast('Annehmen hat nicht geklappt. Versuch es nochmal.'); if($('lAnnehmen')){ $('lAnnehmen').disabled = false; $('lAnnehmen').textContent = 'Annehmen'; } });
 }
 
@@ -1000,6 +1003,100 @@ function fbVerbinden(){
   if($('fbAnsicht')) $('fbAnsicht').querySelectorAll('button').forEach(function(b){ b.onclick = function(){ fbAnsicht = b.dataset.a; zeichneFahrten(); }; });
   if($('fbNeu')) $('fbNeu').onclick = function(){ var t = new Date(); einzelFahrtSheet(null, (t.getFullYear() === fbJahr && t.getMonth() === fbMonat) ? null : fbJahr + '-' + ('0' + (fbMonat + 1)).slice(-2) + '-01'); };
 }
+/* ── Rechnungsnummern: Fahrten ↔ Buchungen ── */
+function rnTeile(x){ var v = String(x || '').replace(/^\s*re\.?\s*/i, '').trim().toLowerCase().replace(/\s+/g, ''); var m = v.match(/\d+/g); return {voll: v, zahl: m ? +m[m.length - 1] : null, nurZahl: /^\d+$/.test(v)}; }
+function rnGleich(a, b){
+  var x = rnTeile(a), y = rnTeile(b); if(!x.voll || !y.voll) return false;
+  if(x.voll === y.voll) return true;
+  return (x.nurZahl || y.nurZahl) && x.zahl != null && x.zahl === y.zahl;
+}
+function fahrtRe(f){ return f.rechnung || ((/Re\.\s*([\w-]+)/.exec(f.zweck || '') || [])[1]) || ''; }
+function buchungRe(a){ return a.rechnungNr || (a.nr ? String(a.nr) : ''); }
+function buchungZuRe(re, datum){
+  if(!rnTeile(re).voll) return null;
+  var t = tagDatum(datum || ''), c = alle.filter(function(a){ return a.status !== 'papierkorb' && (rnGleich(a.rechnungNr, re) || rnGleich(a.nr ? String(a.nr) : '', re)); });
+  c.sort(function(x, y){ if(!t) return 0; return Math.abs((tagDatum(x.datum) || t) - t) - Math.abs((tagDatum(y.datum) || t) - t); });
+  return c[0] || null;
+}
+function fahrtenZuBuchung(a){ var re = buchungRe(a); return (einzelFahrten || []).filter(function(f){ return f.anfrage === a.id || (re && rnGleich(fahrtRe(f), re)); }); }
+function fbVerknuepft(a){ return einzelFahrten && fahrtenZuBuchung(a).length > 0; }
+function fbOrt(a){ return (a.adresse && a.adresse.ort) || fbZiel(a); }
+function fbSk(x){ return (x.datum || '') + ' ' + (x.ab || '99:99'); }
+function fbRund(v){ return Math.round(v * 10) / 10; }
+function fbNeueId(){ return 'm' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+/* Geänderte/neue Fahrten einsetzen und die km-Stände aller folgenden Fahrten (gleiches Auto) neu durchrechnen.
+   Abstände zwischen den Fahrten (Privatfahrten dazwischen) bleiben gleich. */
+function fbNeuRechnen(neue){
+  var map = {}, out = {};
+  neue.forEach(function(n){ if(!n.id) n.id = fbNeueId(); map[n.id] = n; });
+  var fzs = {}; neue.forEach(function(n){ fzs[n.fz || ''] = 1; });
+  Object.keys(fzs).forEach(function(fz){
+    var L = (einzelFahrten || []).filter(function(x){ return (x.fz || '') === fz && !map[x.id]; })
+      .concat(neue.filter(function(n){ return (n.fz || '') === fz; })).sort(function(x, y){ return fbSk(x).localeCompare(fbSk(y)); });
+    var off = 0, prevE = null;
+    L.forEach(function(x){
+      var o = (einzelFahrten || []).filter(function(y){ return y.id === x.id; })[0], neu = !!map[x.id];
+      var y = neu ? x : JSON.parse(JSON.stringify(x)), km = Number(y.km) || 0;
+      if(o && o.kmA != null && o.kmE != null){
+        var nA = fbRund(o.kmA + off);
+        if(neu){ y.kmA = nA; y.kmE = fbRund(nA + km); off = fbRund(off + km - (o.kmE - o.kmA)); }
+        else { y.kmA = nA; y.kmE = fbRund(o.kmE + off); }
+      } else if(neu){
+        if(prevE != null) y.kmA = prevE;
+        y.kmE = y.kmA != null && y.kmA !== '' ? fbRund(Number(y.kmA) + km) : null;
+        if(y.kmE != null) off = fbRund(off + km);
+      }
+      if(y.kmE != null) prevE = y.kmE;
+      if(neu || o.kmA !== y.kmA || o.kmE !== y.kmE) out[y.id] = y;
+    });
+  });
+  return Object.keys(out).map(function(k){ return out[k]; });
+}
+function fbSpeichern(liste){
+  var teile = []; for(var i = 0; i < liste.length; i += 250) teile.push(liste.slice(i, i + 250));
+  return teile.reduce(function(p, t){ return p.then(function(){ return api('fahrtenBatch', {fahrten: t.map(function(x){ var y = Object.assign({}, x); delete y.verlauf; return y; })}).then(function(d){
+    (d.fahrten || []).forEach(function(f){ var j = einzelFahrten.findIndex(function(x){ return x.id === f.id; }); if(j === -1) einzelFahrten.push(f); else einzelFahrten[j] = f; });
+  }); }); }, Promise.resolve()).then(function(){ return liste.length; });
+}
+/* Werte aus dem Angebot in alle Fahrten zu dieser Rechnung übernehmen */
+function fbAusAngebot(a, extra){
+  var re = buchungRe(a), km = fbKm(a), ort = fbOrt(a);
+  var L = fahrtenZuBuchung(a).filter(function(f){ return !extra || f.id !== extra.id; }).map(function(f){ return JSON.parse(JSON.stringify(f)); });
+  if(extra) L.push(extra);
+  L.forEach(function(f){
+    var rueck = /^r(ü|ue)ck/i.test(f.zweck || '');
+    f.von = rueck ? ort : 'Glödnitz'; f.nach = rueck ? 'Glödnitz' : ort;
+    if(km) f.km = km;
+    f.anfrage = a.id; f.rechnung = re;
+    if(!/Re\./.test(f.zweck || '')) f.zweck = ((f.zweck || 'Fahrt') + ' (Re. ' + re + ')').trim();
+  });
+  return L;
+}
+function fbZeitPlus(hhmm, min){ var t = hhmm.split(':'), m = (+t[0]) * 60 + (+t[1]) + min; m = Math.min(m, 23 * 60 + 59); return ('0' + Math.floor(m / 60)).slice(-2) + ':' + ('0' + (m % 60)).slice(-2); }
+/* Beim Fixieren: 4 Fahrten (Liefern, zurück, Abholen, zurück) ins Fahrtenbuch */
+function fbFahrtenAnlegen(a, still){
+  return (einzelFahrten === null ? ladeEinzelFahrten() : Promise.resolve()).then(function(){
+    var re = buchungRe(a), km = fbKm(a), ort = fbOrt(a), prod = produkte(a), fz = fbFahrzeugMerk();
+    var vorhanden = fahrtenZuBuchung(a);
+    var liste;
+    if(vorhanden.length){
+      liste = fbAusAngebot(a);
+    } else {
+      var heute = new Date().toISOString().slice(0, 10);
+      if(a.datum && a.datum < heute && !confirmLeise('Zu Re. ' + re + ' gibt es noch keine Fahrten. 4 neue Fahrten anlegen?\n\n(Gibt es die Fahrten schon unter einer anderen Nummer: Abbrechen und zuerst die Rechnungsnr. eintragen.)')) return 0;
+      var dauer = Math.max(5, Math.round(km * 1.1 / 5) * 5), abD = plusTag(a.datumEnde || a.datum, 1);
+      function f(datum, ab, zweck, rueck){ return {id: fbNeueId(), datum: datum, ab: ab, an: fbZeitPlus(ab, dauer), von: rueck ? ort : 'Glödnitz', nach: rueck ? 'Glödnitz' : ort, zweck: zweck + ' (Re. ' + re + ')', km: km, kmA: null, kmE: null, fz: fz, rechnung: re, anfrage: a.id}; }
+      var l1 = '08:00', l2 = fbZeitPlus(l1, dauer + 45), h1 = '09:00', h2 = fbZeitPlus(h1, dauer + 45);
+      liste = [f(a.datum, l1, 'Lieferung ' + prod, false), f(a.datum, l2, 'Rückfahrt von Lieferung', true), f(abD, h1, 'Abholung ' + prod, false), f(abD, h2, 'Rückfahrt von Abholung', true)];
+    }
+    var alles = fbNeuRechnen(liste);
+    return fbSpeichern(alles).then(function(n){
+      if(!still || n) toast(vorhanden.length ? 'Fahrten zu Re. ' + re + ' an das Angebot angepasst' : '4 Fahrten ins Fahrtenbuch eingetragen');
+      if(tab === 'fahrten') zeichneFahrten();
+      return n;
+    });
+  }).catch(function(e){ if(e && e.message !== '401') toast('Fahrten konnten nicht eingetragen werden.'); });
+}
 function ladeEinzelFahrten(){ return api('fahrtenListe').then(function(d){ einzelFahrten = d.fahrten || []; }); }
 function fbZiel(a){ return [a.adresse && a.adresse.strasse, ((a.adresse && a.adresse.plz) || '') + ' ' + ((a.adresse && a.adresse.ort) || '')].filter(function(x){ return x && x.trim(); }).join(', ') || 'Kunde'; }
 function fbFelder(f){ return [f.liefer.hin.ab, f.liefer.hin.an, f.liefer.rueck.ab, f.liefer.rueck.an, f.abhol.hin.ab, f.abhol.hin.an, f.abhol.rueck.ab, f.abhol.rueck.an]; }
@@ -1008,7 +1105,7 @@ function fbFertig(f){ return fbFelder(f).filter(Boolean).length; }
 /* Alle Fahrten (Zeilen) eines Jahres */
 function fbZeilen(jahr){
   var out = [];
-  alle.filter(istFixA).forEach(function(a){
+  alle.filter(istFixA).filter(function(a){ return !fbVerknuepft(a); }).forEach(function(a){
     var f = fbDaten(a), ziel = fbZiel(a), wer = ((a.kunde.vorname || '') + ' ' + (a.kunde.nachname || '')).trim();
     [['liefer','Lieferung'],['abhol','Abholung']].forEach(function(e){
       var x = f[e[0]]; if(!x.datum || x.datum.slice(0,4) !== String(jahr)) return;
@@ -1019,7 +1116,8 @@ function fbZeilen(jahr){
   });
   (einzelFahrten || []).forEach(function(f){
     if((f.datum || '').slice(0,4) !== String(jahr)) return;
-    out.push({datum:f.datum, ab:f.ab, an:f.an, von:f.von, nach:f.nach, zweck:f.zweck, kunde:'', nr:(/Re\.\s*([\w-]+)/.exec(f.zweck || '') || [])[1] || '', km:f.km, kmA:f.kmA, kmE:f.kmE, fz:f.fz, einzel:f.id});
+    var bu = f.anfrage ? alle.filter(function(a){ return a.id === f.anfrage; })[0] : null;
+    out.push({datum:f.datum, ab:f.ab, an:f.an, von:f.von, nach:f.nach, zweck:f.zweck, kunde: bu ? ((bu.kunde.vorname || '') + ' ' + (bu.kunde.nachname || '')).trim() : '', nr:fahrtRe(f), km:f.km, kmA:f.kmA, kmE:f.kmE, fz:f.fz, einzel:f.id});
   });
   return out.sort(function(x, y){ return (x.datum + (x.ab || '99')).localeCompare(y.datum + (y.ab || '99')); });
 }
@@ -1039,6 +1137,7 @@ function zeichneFahrten(){
     return '<button class="fb-m' + (m === fbMonat ? ' on' : '') + '" data-m="' + m + '">' + n.slice(0,3) + (km ? '<small>' + Math.round(km) + ' km</small>' : '<small>–</small>') + '</button>';
   }).join('') + '</div>';
   var buchungen = alle.filter(istFixA).filter(function(a){
+    if(fbVerknuepft(a)) return false;
     var f = fbDaten(a);
     return [f.liefer.datum, f.abhol.datum].some(function(d){ return d && +d.slice(0,4) === fbJahr && +d.slice(5,7) === fbMonat + 1; });
   }).sort(function(a, b){ return (a.datum || '').localeCompare(b.datum || ''); });
@@ -1106,6 +1205,7 @@ function fahrtenSheet(id){
   }
   oeffneSheet(
     '<h3>Fahrtenbuch</h3><p style="margin-bottom:10px">' + esc(produkte(a)) + ' · ' + esc(fbZiel(a)) + '</p>' +
+    '<button class="btn btn-g btn-w" id="fbUebern" style="margin-bottom:8px">Als 4 Fahrten ins Fahrtenbuch übernehmen</button>' +
     '<button class="btn btn-p btn-w" id="fbJetzt"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>Jetzt eintragen</button>' +
     '<div class="fb-tipp" id="fbTipp"></div>' +
     einsatz('liefer', 'Lieferung', true) + einsatz('abhol', 'Abholung', false) +
@@ -1141,6 +1241,7 @@ function fahrtenSheet(id){
   }); });
   $('fbFz').addEventListener('change', function(){ f.fahrzeug = this.value.trim(); try{ localStorage.setItem('hb_fahrzeug', f.fahrzeug); }catch(e){} speichern(); });
   $('fbKmIn').addEventListener('change', function(){ var v = Number(String(this.value).replace(',', '.')); f.km = isFinite(v) && v >= 0 ? v : 0; speichern(); });
+  $('fbUebern').addEventListener('click', function(){ schliesseSheet(); fbFahrtenAnlegen(a); });
   $('fbJetzt').addEventListener('click', function(){
     var n = naechstes(); if(!n) return;
     var d = new Date(); n.value = ('0'+d.getHours()).slice(-2) + ':' + ('0'+d.getMinutes()).slice(-2);
@@ -1163,6 +1264,8 @@ function einzelFahrtSheet(id, datumVor){
     '<div class="grid2">' + feld('ab', 'Abfahrt', 'time') + feld('an', 'Ankunft', 'time') + '</div>' +
     '<div class="grid2">' + feld('von', 'Von') + feld('nach', 'Nach') + '</div>' +
     feld('zweck', 'Zweck der Fahrt', 'text', ' placeholder="z. B. Lieferung Alienburg (Re. 26-060)"') +
+    '<div class="feld"><label>Rechnungsnr.</label><input id="ez_rechnung" type="text" inputmode="text" value="' + esc(alt ? fahrtRe(alt) : '') + '" placeholder="z. B. 20 oder 26-020"/></div>' +
+    '<div id="ezRe" style="margin:-4px 0 10px"></div>' +
     '<div class="grid2">' + feld('kmA', 'km-Stand Abfahrt', 'number', ' inputmode="numeric"') + feld('kmE', 'km-Stand Ankunft', 'number', ' inputmode="numeric"') + '</div>' +
     '<div class="grid2">' + feld('km', 'Gefahrene km', 'number', ' inputmode="decimal"') + feld('fz', 'Fahrzeug') + '</div>' +
     '<label class="emp-sw" style="margin:6px 0 4px"><input type="checkbox" id="ezKette" checked/><span>Folgende Fahrten mit diesem Auto automatisch mit anpassen (km-Stände)</span></label>' +
@@ -1176,6 +1279,24 @@ function einzelFahrtSheet(id, datumVor){
   $('ez_kmA').addEventListener('input', function(){ if(wert('km') !== '') $('ez_kmE').value = Math.round((Number(wert('kmA')) + Number(wert('km').replace(',', '.'))) * 10) / 10; vorschau(); });
   $('ez_kmE').addEventListener('input', function(){ var a = Number(wert('kmA')), e = Number(wert('kmE')); if(wert('kmA') && wert('kmE') && e >= a) $('ez_km').value = Math.round((e - a) * 10) / 10; vorschau(); });
   ['datum','ab','fz'].forEach(function(k){ $('ez_' + k).addEventListener('change', vorschau); });
+  var reBuchung = null;
+  function reInfo(){
+    var re = wert('rechnung'); reBuchung = re ? buchungZuRe(re, wert('datum')) : null;
+    if(!re){ $('ezRe').innerHTML = ''; return; }
+    if(!reBuchung){ $('ezRe').innerHTML = '<div class="bew-status">Keine Buchung mit dieser Nummer gefunden. Trag die Rechnungsnr. zuerst bei der Anfrage ein.</div>'; return; }
+    var n = fahrtenZuBuchung(reBuchung).filter(function(x){ return !alt || x.id !== alt.id; }).length + 1;
+    $('ezRe').innerHTML = '<div class="bew-status"><b>' + esc(((reBuchung.kunde.vorname || '') + ' ' + (reBuchung.kunde.nachname || '')).trim() || 'Kunde') + '</b> · ' + esc(fbOrt(reBuchung)) + ' · ' + esc(String(fbKm(reBuchung)).replace('.', ',')) + ' km pro Strecke laut Angebot</div>' +
+      '<button class="btn btn-g btn-w" id="ezReOk" style="margin-top:6px">Werte aus dem Angebot übernehmen (' + n + ' Fahrt' + (n === 1 ? '' : 'en') + ')</button>';
+    $('ezReOk').onclick = function(){
+      var b = this, ich = eingabe(); ich.rechnung = buchungRe(reBuchung);
+      if(!ich.datum){ $('ezFehler').textContent = 'Bitte ein Datum eintragen.'; return; }
+      var alles = fbNeuRechnen(fbAusAngebot(reBuchung, ich));
+      b.disabled = true; b.textContent = 'Speichert …';
+      fbSpeichern(alles).then(function(n){ schliesseSheet(); zeichneFahrten(); toast('Aus dem Angebot übernommen, ' + n + ' Fahrten aktualisiert'); })
+        .catch(function(e){ b.disabled = false; b.textContent = 'Nochmal versuchen'; if(e.message !== '401') $('ezFehler').textContent = 'Speichern hat nicht geklappt.'; });
+    };
+  }
+  $('ez_rechnung').addEventListener('input', reInfo); reInfo();
   $('ezKette').addEventListener('change', vorschau);
   function sk(x){ return (x.datum || '') + ' ' + (x.ab || '99:99'); }
   function nz(v){ return (v === '' || v == null || isNaN(Number(v))) ? null : Number(v); }
@@ -1204,7 +1325,7 @@ function einzelFahrtSheet(id, datumVor){
     L.forEach(function(x){ if(sk(x) > sk(neu)){ x.kmA = rund(x.kmA + km); x.kmE = rund(x.kmE + km); geaendert[x.id] = x; } });
     return {neu: neu, andere: Object.keys(geaendert).map(function(k){ return geaendert[k]; }).filter(function(x){ var o = einzelFahrten.filter(function(y){ return y.id === x.id; })[0]; return !o || o.kmA !== x.kmA; }), delta: null};
   }
-  function eingabe(){ return {id: alt ? alt.id : '', datum: wert('datum'), ab: wert('ab'), an: wert('an'), von: wert('von'), nach: wert('nach'), zweck: wert('zweck'), kmA: wert('kmA'), kmE: wert('kmE'), km: wert('km').replace(',', '.'), fz: wert('fz')}; }
+  function eingabe(){ return {id: alt ? alt.id : '', datum: wert('datum'), ab: wert('ab'), an: wert('an'), von: wert('von'), nach: wert('nach'), zweck: wert('zweck'), rechnung: wert('rechnung'), anfrage: alt && alt.anfrage && rnGleich(fahrtRe(alt), wert('rechnung')) ? alt.anfrage : '', kmA: wert('kmA'), kmE: wert('kmE'), km: wert('km').replace(',', '.'), fz: wert('fz')}; }
   function vorschau(){
     if(!$('ezKette').checked){ $('ezVorschau').textContent = ''; return; }
     var r = kette(eingabe());
