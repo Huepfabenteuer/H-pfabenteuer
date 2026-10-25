@@ -1123,7 +1123,7 @@ function einzelFahrtSheet(id, datumVor){
   var f = alt ? JSON.parse(JSON.stringify(alt)) : {datum: datumVor || heuteIso, ab:'', an:'', von:'Glödnitz', nach:'', zweck:'', kmA: letzte && letzte.kmE != null && letzte.fz === fbFahrzeugMerk() ? letzte.kmE : null, kmE:null, km:0, fz: fbFahrzeugMerk()};
   function feld(k, lbl, typ, extra){ return '<div class="feld"><label>' + lbl + '</label><input id="ez_' + k + '" type="' + (typ || 'text') + '" value="' + esc(f[k] == null ? '' : String(f[k])) + '"' + (extra || '') + '/></div>'; }
   oeffneSheet('<h3>' + (alt ? 'Fahrt ändern' : 'Fahrt eintragen') + '</h3>' +
-    (alt && alt.quelle === 'Word-Fahrtenbuch' ? '<p style="margin-bottom:8px;font-size:.85rem">Übernommen aus dem Word-Fahrtenbuch.' + (alt.geaendert ? ' Zuletzt geändert am ' + new Date(alt.geaendert).toLocaleDateString('de-AT') + '.' : '') + '</p>' : (alt && alt.geaendert ? '<p style="margin-bottom:8px;font-size:.85rem">Zuletzt geändert am ' + new Date(alt.geaendert).toLocaleDateString('de-AT') + '.</p>' : '')) +
+    (alt && alt.geaendert ? '<p style="margin-bottom:8px;font-size:.85rem">Zuletzt geändert am ' + new Date(alt.geaendert).toLocaleDateString('de-AT') + '.</p>' : '') +
     feld('datum', 'Datum', 'date') +
     '<div class="grid2">' + feld('ab', 'Abfahrt', 'time') + feld('an', 'Ankunft', 'time') + '</div>' +
     '<div class="grid2">' + feld('von', 'Von') + feld('nach', 'Nach') + '</div>' +
