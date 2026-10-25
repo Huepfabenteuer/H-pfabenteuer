@@ -32,7 +32,7 @@
 import { FIRMA } from '../lib/firma.mjs';
 import { saeubere, summen, waZusage, waAbsage, waNummer, datumKurz, waBewertung, waBewertungErinnerung, geraeteSchluessel, tageDerBuchung, istFix, empfehlungscode, waAnzahlung, KATALOG_STANDARD, saeubereKatalog, fristDatum } from '../lib/anfrage-daten.mjs';
 import { erstelleAngebotPdf } from '../lib/angebot-pdf.mjs';
-import { FAHRTEN_ALT } from '../lib/fahrten-alt.mjs';
+import { FAHRTEN_ALT, FAHRTEN_ALT_VERSION } from '../lib/fahrten-alt.mjs';
 
 const STORE = 'anfragen';
 const PREFIX = 'a/';
@@ -259,9 +259,20 @@ export default async (req, context) => {
   /* ── Fahrtenbuch: einzelne Fahrten (unabhängig von Anfragen) ── */
   if (body.action === 'fahrtenListe') {
     let imp = null; try { imp = await st.get('meta/fahrtenImport', { type: 'json' }); } catch (e) {}
-    if (!imp) {
-      for (const f of FAHRTEN_ALT) await st.setJSON('f/' + f.id, { ...f, angelegt: new Date().toISOString() });
-      await st.setJSON('meta/fahrtenImport', { am: new Date().toISOString(), anzahl: FAHRTEN_ALT.length });
+    if (!imp || imp.version !== FAHRTEN_ALT_VERSION) {
+      /* Ältere Import-Stände ersetzen (nur unveränderte Import-Einträge) */
+      if (imp) {
+        const { blobs: alt } = await st.list({ prefix: 'f/imp' });
+        for (const b of alt) {
+          const x = await st.get(b.key, { type: 'json' }).catch(() => null);
+          if (x && !x.geaendert) await st.delete(b.key);
+        }
+      }
+      for (const f of FAHRTEN_ALT) {
+        const da = await st.get('f/' + f.id, { type: 'json' }).catch(() => null);
+        if (!da) await st.setJSON('f/' + f.id, { ...f, angelegt: new Date().toISOString() });
+      }
+      await st.setJSON('meta/fahrtenImport', { am: new Date().toISOString(), anzahl: FAHRTEN_ALT.length, version: FAHRTEN_ALT_VERSION });
     }
     const { blobs } = await st.list({ prefix: 'f/' });
     const fahrten = (await Promise.all(blobs.map(b => st.get(b.key, { type: 'json' }).catch(() => null)))).filter(Boolean);
