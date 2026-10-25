@@ -211,6 +211,16 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .fb-m small{font-weight:600;font-size:.7rem;color:var(--mute);}
 .fb-m.on{background:var(--petrol);border-color:var(--petrol);color:#fff;}
 .fb-m.on small{color:rgba(255,255,255,.8);}
+.fb-tabelle{background:#fff;border:1px solid var(--line);border-radius:12px;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.fb-tabelle table{border-collapse:collapse;font-size:.78rem;min-width:720px;width:100%;}
+.fb-tabelle th{position:sticky;top:0;background:#F5F0E5;font-weight:800;text-align:left;padding:7px 8px;border-bottom:1px solid var(--line-2);white-space:nowrap;}
+.fb-tabelle td{padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap;}
+.fb-tabelle td:nth-child(5){white-space:normal;min-width:200px;}
+.fb-tabelle td:nth-child(n+6),.fb-tabelle th:nth-child(n+6){text-align:right;}
+.fb-tabelle tbody tr:nth-child(even){background:#FBF8F2;}
+.fb-tabelle tr[data-ez]{cursor:pointer;}
+.fb-tabelle tfoot td{font-weight:800;background:#F5F0E5;text-align:right;}
+.fb-tabelle tfoot td:first-child{text-align:left;}
 .fb-tab{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;}
 .fb-zeile{display:grid;grid-template-columns:84px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;padding:10px 12px;border-top:1px solid var(--line);}
 .fb-zeile:first-child{border-top:none;}
@@ -981,7 +991,15 @@ function fbDaten(a){
 }
 var FZ_STANDARD = 'BMW 340d · SV 698EX';
 function fbFahrzeugMerk(){ try{ return localStorage.getItem('hb_fahrzeug') || FZ_STANDARD; }catch(e){ return FZ_STANDARD; } }
-var einzelFahrten = null;
+var einzelFahrten = null, fbAnsicht = 'tabelle';
+function fbVerbinden(){
+  $('fbVor').onclick = function(){ fbJahr--; zeichneFahrten(); };
+  $('fbNach').onclick = function(){ fbJahr++; zeichneFahrten(); };
+  $('fbXls').onclick = function(){ excelExport(fbJahr); };
+  $('liste').querySelectorAll('.fb-m').forEach(function(b){ b.onclick = function(){ fbMonat = +b.dataset.m; zeichneFahrten(); }; });
+  if($('fbAnsicht')) $('fbAnsicht').querySelectorAll('button').forEach(function(b){ b.onclick = function(){ fbAnsicht = b.dataset.a; zeichneFahrten(); }; });
+  if($('fbNeu')) $('fbNeu').onclick = function(){ var t = new Date(); einzelFahrtSheet(null, (t.getFullYear() === fbJahr && t.getMonth() === fbMonat) ? null : fbJahr + '-' + ('0' + (fbMonat + 1)).slice(-2) + '-01'); };
+}
 function ladeEinzelFahrten(){ return api('fahrtenListe').then(function(d){ einzelFahrten = d.fahrten || []; }); }
 function fbZiel(a){ return [a.adresse && a.adresse.strasse, ((a.adresse && a.adresse.plz) || '') + ' ' + ((a.adresse && a.adresse.ort) || '')].filter(function(x){ return x && x.trim(); }).join(', ') || 'Kunde'; }
 function fbFelder(f){ return [f.liefer.hin.ab, f.liefer.hin.an, f.liefer.rueck.ab, f.liefer.rueck.an, f.abhol.hin.ab, f.abhol.hin.an, f.abhol.rueck.ab, f.abhol.rueck.an]; }
@@ -1025,7 +1043,23 @@ function zeichneFahrten(){
     return [f.liefer.datum, f.abhol.datum].some(function(d){ return d && +d.slice(0,4) === fbJahr && +d.slice(5,7) === fbMonat + 1; });
   }).sort(function(a, b){ return (a.datum || '').localeCompare(b.datum || ''); });
   var kmM = proMonat[fbMonat].reduce(function(s, z){ return s + (Number(z.km) || 0); }, 0);
-  html += '<div class="gruppe">' + MONATE[fbMonat] + ' ' + fbJahr + (kmM ? ' · ' + Math.round(kmM) + ' km' : '') + '</div>';
+  html += '<div class="gruppe">' + MONATE[fbMonat] + ' ' + fbJahr + (kmM ? ' · ' + Math.round(kmM) + ' km · ' + eur(Math.round(kmM * 50) / 100) + ' Kilometergeld' : '') + '</div>';
+  var zM = zeilen.filter(function(z){ return +z.datum.slice(5,7) === fbMonat + 1; });
+  if(zM.length){
+    html += '<div class="seg" id="fbAnsicht" style="grid-template-columns:1fr 1fr;margin:4px 0 10px"><button data-a="liste" class="' + (fbAnsicht === 'liste' ? 'on' : '') + '">Liste</button><button data-a="tabelle" class="' + (fbAnsicht === 'tabelle' ? 'on' : '') + '">Tabelle</button></div>';
+  }
+  if(zM.length && fbAnsicht === 'tabelle'){
+    html += '<div class="fb-tabelle"><table><thead><tr><th>Datum</th><th>Abf.</th><th>Ank.</th><th>Reiseweg</th><th>Zweck der Fahrt</th><th>km Abf.</th><th>km Ank.</th><th>km</th></tr></thead><tbody>' +
+      zM.map(function(z){ return '<tr' + (z.einzel ? ' data-ez="' + esc(z.einzel) + '"' : '') + '><td>' + esc(datumKurz(z.datum).slice(0,6)) + '</td><td>' + esc(z.ab || '') + '</td><td>' + esc(z.an || '') + '</td><td>' + esc((z.von || '').split(',')[0] + '–' + (z.nach || '').split(',')[0]) + '</td><td>' + esc(z.zweck || '') + '</td><td>' + esc(z.kmA == null ? '' : String(z.kmA)) + '</td><td>' + esc(z.kmE == null ? '' : String(z.kmE)) + '</td><td>' + esc(String(z.km || 0)) + '</td></tr>'; }).join('') +
+      '</tbody><tfoot><tr><td colspan="7">Summe ' + esc(MONATE[fbMonat]) + '</td><td>' + Math.round(kmM) + '</td></tr><tr><td colspan="7">Kilometergeld (0,50 €/km)</td><td>' + esc(eur(Math.round(kmM * 50) / 100)) + '</td></tr></tfoot></table></div>' +
+      '<button class="btn btn-g btn-w" id="fbXlsM" style="margin-top:10px"><svg class="i" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Excel ' + esc(MONATE[fbMonat]) + '</button>' +
+      '<button class="btn btn-g btn-w" id="fbNeu" style="margin-top:8px"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Fahrt eintragen</button>';
+    $('liste').innerHTML = html;
+    fbVerbinden();
+    $('fbXlsM').onclick = function(){ excelExport(fbJahr, fbMonat); };
+    $('liste').querySelectorAll('tr[data-ez]').forEach(function(tr){ tr.onclick = function(){ einzelFahrtSheet(tr.dataset.ez); }; });
+    return;
+  }
   var einzelM = (einzelFahrten || []).filter(function(f){ return +(f.datum || '').slice(0,4) === fbJahr && +(f.datum || '').slice(5,7) === fbMonat + 1; })
     .sort(function(x, y){ return (x.datum + (x.ab || '99')).localeCompare(y.datum + (y.ab || '99')); });
   var fzM = {}; zeilen.forEach(function(z){ if(+z.datum.slice(5,7) === fbMonat + 1 && z.fz) fzM[z.fz] = 1; });
@@ -1047,6 +1081,7 @@ function zeichneFahrten(){
   }).join('') + '</div>';
   html += '<button class="btn btn-g btn-w" id="fbNeu" style="margin-top:10px">' + '<svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Fahrt eintragen</button>';
   $('liste').innerHTML = html;
+  fbVerbinden();
   $('fbNeu').onclick = function(){ var t = new Date(); einzelFahrtSheet(null, (t.getFullYear() === fbJahr && t.getMonth() === fbMonat) ? null : fbJahr + '-' + ('0' + (fbMonat + 1)).slice(-2) + '-01'); };
   $('liste').querySelectorAll('[data-ez]').forEach(function(b){ b.onclick = function(){ einzelFahrtSheet(b.dataset.ez); }; });
   $('fbVor').onclick = function(){ fbJahr--; zeichneFahrten(); };
@@ -1164,11 +1199,12 @@ function ladeXlsx(){
     s.onload = function(){ ok(window.XLSX); }; s.onerror = nein; document.head.appendChild(s);
   });
 }
-function excelExport(jahr){
+function excelExport(jahr, nurMonat){
   var b = $('fbXls'); if(b){ b.disabled = true; b.lastChild.textContent = 'Wird erstellt …'; }
   ladeXlsx().then(function(X){
     var zeilen = fbZeilen(jahr), wb = X.utils.book_new(), uebersicht = [['Monat', 'Fahrten', 'Kilometer', 'Kilometergeld (€)']], summe = 0, anz = 0;
     MONATE.forEach(function(name, m){
+      if(nurMonat != null && m !== nurMonat) return;
       var z = zeilen.filter(function(r){ return +r.datum.slice(5,7) === m + 1; });
       var km = z.reduce(function(s, r){ return s + (Number(r.km) || 0); }, 0);
       var daten = [['Fahrtenbuch ' + name + ' ' + jahr + ' – Hüpfabenteuer'], [], ['Datum', 'Abfahrt', 'Ankunft', 'Fahrzeug', 'km-Stand Beginn', 'km-Stand Ende', 'Von', 'Nach', 'Zweck', 'Kunde', 'Angebot-Nr.', 'km']];
@@ -1180,10 +1216,10 @@ function excelExport(jahr){
       X.utils.book_append_sheet(wb, ws, name);
       uebersicht.push([name, z.length, Math.round(km * 10) / 10, Math.round(km * 0.5 * 100) / 100]); summe += km; anz += z.length;
     });
-    uebersicht.push([]); uebersicht.push(['Gesamt ' + jahr, anz, Math.round(summe * 10) / 10, Math.round(summe * 0.5 * 100) / 100]);
-    var wu = X.utils.aoa_to_sheet(uebersicht); wu['!cols'] = [{wch:14},{wch:9},{wch:11}];
-    X.utils.book_append_sheet(wb, wu, 'Übersicht');
-    X.writeFile(wb, 'Fahrtenbuch_' + jahr + '_Huepfabenteuer.xlsx');
+    if(nurMonat == null){ uebersicht.push([]); uebersicht.push(['Gesamt ' + jahr, anz, Math.round(summe * 10) / 10, Math.round(summe * 0.5 * 100) / 100]);
+    var wu = X.utils.aoa_to_sheet(uebersicht); wu['!cols'] = [{wch:14},{wch:9},{wch:11},{wch:16}];
+    X.utils.book_append_sheet(wb, wu, 'Übersicht'); }
+    X.writeFile(wb, 'Fahrtenbuch_' + (nurMonat != null ? MONATE[nurMonat] + '_' : '') + jahr + '_Huepfabenteuer.xlsx');
   }).catch(function(){ toast('Excel konnte nicht geladen werden. Prüf die Verbindung.'); })
     .finally(function(){ if($('fbXls')){ $('fbXls').disabled = false; $('fbXls').lastChild.textContent = 'Excel ' + jahr; } });
 }
