@@ -66,9 +66,10 @@ function pdfStand(a) { return JSON.stringify(PDF_FELDER.map(f => a[f] ?? null));
 async function fassungSpeichern(st, a, token) {
   const t = token || zufall(20);
   const { versionen, ...rest } = a;
-  await st.setJSON(VERS + a.id + '/' + t, { ...rest, gesendetAm: new Date().toISOString() });
+  const am = (a.rueckdatiert && !(a.versionen || []).length && a.angenommenAm) ? a.angenommenAm : new Date().toISOString();
+  await st.setJSON(VERS + a.id + '/' + t, { ...rest, gesendetAm: am });
   a.pdfToken = t;
-  a.versionen = [...(a.versionen || []), { token: t, am: new Date().toISOString() }];
+  a.versionen = [...(a.versionen || []), { token: t, am }];
   a.geaendertNachVersand = false;
 }
 
@@ -374,8 +375,10 @@ export default async (req, context) => {
     const daten = saeubere({ ...body.daten, quelle: (body.daten && body.daten.quelle) || 'Telefon/WhatsApp' });
     if (!daten.kunde.vorname && !daten.kunde.nachname) return json({ ok: false, grund: 'name' }, 400);
     const id = Date.now().toString(36) + zufall(4);
+    const jetzt = new Date().toISOString();
+    const am = body.daten && /^\d{4}-\d{2}-\d{2}$/.test(body.daten.erstelltAm || '') && body.daten.erstelltAm < jetzt.slice(0, 10) ? body.daten.erstelltAm + 'T10:00:00.000Z' : null;
     const eintrag = {
-      id, token: zufall(20), erstellt: new Date().toISOString(),
+      id, token: zufall(20), erstellt: am || jetzt, ...(am ? { rueckdatiert: true, angelegtAm: jetzt } : {}),
       status: 'ausstehend', nr: null, anrede: '', notiz: String((body.daten && body.daten.notiz) || '').slice(0, 2000), anzahlung: null,
       ...daten, manuell: true
     };
@@ -398,6 +401,20 @@ export default async (req, context) => {
       const aktiv = !!(p.empfehlung && p.empfehlung.aktiv);
       neu.empfehlung = { aktiv, code: (a.empfehlung && a.empfehlung.code) || (aktiv ? empfehlungscode(neu.kunde.nachname, neu.kunde.vorname) : '') };
     }
+    if ('erstelltAm' in p && a.manuell && /^\d{4}-\d{2}-\d{2}$/.test(p.erstelltAm || '') && p.erstelltAm <= new Date().toISOString().slice(0, 10) && p.erstelltAm !== String(a.erstellt || '').slice(0, 10)) {
+      neu.erstellt = p.erstelltAm + 'T10:00:00.000Z';
+      neu.rueckdatiert = true; neu.angelegtAm = a.angelegtAm || a.erstellt;
+      if (neu.angenommenAm) {
+        neu.angenommenAm = neu.erstellt;
+        /* nachgetragene Buchung: auch das PDF-Datum mitziehen */
+        if (neu.pdfToken && (neu.versionen || []).length <= 1) {
+          const k = VERS + id + '/' + neu.pdfToken;
+          const v = await st.get(k, { type: 'json' }).catch(() => null);
+          if (v) await st.setJSON(k, { ...v, erstellt: neu.erstellt, angenommenAm: neu.erstellt, gesendetAm: neu.erstellt });
+          neu.versionen = (neu.versionen || []).map(x => ({ ...x, am: neu.erstellt }));
+        }
+      }
+    }
     if ('anzahlung' in p) neu.anzahlung = (p.anzahlung === '' || p.anzahlung == null || isNaN(Number(p.anzahlung))) ? null : Math.round(Number(p.anzahlung) * 100) / 100;
     neu.geaendert = new Date().toISOString();
     if ((neu.status === 'fix' || neu.status === 'erledigt') && neu.pdfToken && pdfStand(neu) !== pdfStand(a)) neu.geaendertNachVersand = true;
@@ -409,7 +426,7 @@ export default async (req, context) => {
   if (body.action === 'annehmen') {
     if (!a.nr) a.nr = await naechsteNr(st);
     a.status = 'fix';
-    a.angenommenAm = a.angenommenAm || new Date().toISOString();
+    a.angenommenAm = a.angenommenAm || (a.rueckdatiert ? a.erstellt : new Date().toISOString());
     if (!a.pdfToken) await fassungSpeichern(st, a);
     await st.setJSON(PREFIX + id, a);
     await belegtNeuBerechnen(st);

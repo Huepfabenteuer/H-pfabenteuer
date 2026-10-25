@@ -724,8 +724,9 @@ function zeichneDetail(){
   if(a.gutschein) extra.push(['Gutschein', a.gutschein]);
   if(a.empfohlenVon) extra.push(['Empfohlen von', a.empfohlenVon + ' – dieser Kunde bekommt 30 € gutgeschrieben']);
   if(a.partner) extra.push(['Partner', a.partner]);
-  extra.push(['Eingegangen', new Date(a.erstellt).toLocaleString('de-AT', {dateStyle:'medium', timeStyle:'short'}) + (a.quelle ? ' über ' + a.quelle : '')]);
-  h += '<div class="block"><h3>Weitere Infos</h3>' + extra.map(function(x){ return '<div class="zeile"><span>' + esc(x[0]) + '</span><span style="text-align:right">' + esc(x[1]) + '</span></div>'; }).join('') + '</div>';
+  if(!a.manuell) extra.push(['Eingegangen', new Date(a.erstellt).toLocaleString('de-AT', {dateStyle:'medium', timeStyle:'short'}) + (a.quelle ? ' über ' + a.quelle : '')]);
+  h += '<div class="block"><h3>Weitere Infos</h3>' + extra.map(function(x){ return '<div class="zeile"><span>' + esc(x[0]) + '</span><span style="text-align:right">' + esc(x[1]) + '</span></div>'; }).join('') +
+    (a.manuell ? '<div class="zeile" style="align-items:center"><span>Angefragt am' + (a.quelle ? ' (' + esc(a.quelle) + ')' : '') + '</span><span class="anz"><input type="date" id="dAm" value="' + esc(String(a.erstellt || '').slice(0, 10)) + '" style="width:150px;text-align:left"/></span></div>' : '') + '</div>';
 
   h += '<div class="block"><h3>Notiz für dich</h3><div class="feld" style="margin:0"><textarea id="notiz" rows="3" placeholder="z. B. Aufbau im Garten, Strom vorhanden">' + esc(a.notiz || '') + '</textarea></div></div>';
 
@@ -868,6 +869,13 @@ function verbindeDetail(){
       aktuell = JSON.parse(JSON.stringify(d.anfrage)); zeichneDetail(); zeichneListe(); if(meldung) toast(meldung);
     }).catch(function(e){ if(e.message !== '401') toast('Das hat nicht geklappt.'); });
   };
+  if($('dAm')) $('dAm').addEventListener('change', function(){
+    var w = this.value; if(!w) return;
+    Promise.resolve(sofortSpeichern()).then(function(){ return api('speichern', {id: aktuell.id, patch: {erstelltAm: w}}); }).then(function(d){
+      var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
+      aktuell = JSON.parse(JSON.stringify(d.anfrage)); zeichneDetail(); zeichneListe(); toast('Datum überall geändert');
+    }).catch(function(e){ if(e.message !== '401') toast('Hat nicht geklappt.'); });
+  });
   if($('dRechnung')){
     $('dRechnung').addEventListener('input', function(){ aktuell.rechnungNr = this.value.trim(); planeSpeichern(); });
     (einzelFahrten === null ? ladeEinzelFahrten().catch(function(){}) : Promise.resolve()).then(function(){ if($('dReInfo') && aktuell) $('dReInfo').textContent = fbReText(aktuell); });
@@ -1571,6 +1579,7 @@ function neuSheet(){
       '<div class="grid2"><div class="feld"><label>Vorname</label><input id="nVn" autocomplete="off"/></div><div class="feld"><label>Nachname</label><input id="nNn" autocomplete="off"/></div></div>' +
       '<div class="feld"><label>Handynummer (WhatsApp)</label><input id="nTel" type="tel" inputmode="tel" placeholder="0664 …"/></div>' +
       '<div class="grid2"><div class="feld"><label>Datum</label><input id="nDat" type="date"/></div><div class="feld"><label>Bis (optional)</label><input id="nEnd" type="date"/></div></div>' +
+      '<div class="feld"><label>Angefragt am</label><input id="nAm" type="date"/><div class="bew-status" style="font-size:.82rem;margin-top:4px">Wird überall übernommen: Eingang, Angebotsdatum, PDF.</div></div>' +
       '<div class="feld"><label>Straße &amp; Nr.</label><input id="nStr" autocomplete="off"/></div>' +
       '<div class="grid2"><div class="feld"><label>PLZ</label><input id="nPlz" inputmode="numeric"/></div><div class="feld"><label>Ort</label><input id="nOrt" autocomplete="off"/></div></div>' +
       '<div id="nAnr" class="bew-status" style="margin:-4px 0 6px;min-height:2.9em">Adresse eingeben, dann wird die Anreise berechnet.</div>' +
@@ -1612,6 +1621,10 @@ function neuSheet(){
       }).catch(function(){ if(nr === anrNr){ anreise = null; $('nAnr').textContent = 'Anreise konnte nicht berechnet werden.'; summe(); } });
     }
     ['nStr','nPlz','nOrt'].forEach(function(id){ $(id).addEventListener('change', anreiseHolen); });
+    var heuteN = (function(){ var d = new Date(); return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); })(), amAnge = false;
+    $('nAm').value = heuteN; $('nAm').max = heuteN;
+    $('nAm').addEventListener('input', function(){ amAnge = true; });
+    $('nDat').addEventListener('change', function(){ if(amAnge) return; $('nAm').value = (v('nDat') && v('nDat') < heuteN) ? v('nDat') : heuteN; });
     ['nAk','nSelbst'].forEach(function(id){ $(id).addEventListener('change', summe); });
     $('sheetIn').querySelectorAll('.neu-chip').forEach(function(c){ c.onclick = function(){ gewaehlt[c.dataset.id] = !gewaehlt[c.dataset.id]; c.classList.toggle('on', !!gewaehlt[c.dataset.id]); summe(); }; });
     summe();
@@ -1626,7 +1639,7 @@ function neuSheet(){
         typ: fotoNur ? 'foto' : 'burg',
         kunde: {vorname: v('nVn'), nachname: v('nNn'), telefon: v('nTel'), email: ''},
         adresse: {strasse: v('nStr'), plz: v('nPlz'), ort: v('nOrt')},
-        datum: v('nDat'), datumEnde: v('nEnd'),
+        datum: v('nDat'), datumEnde: v('nEnd'), erstelltAm: v('nAm') && v('nAm') !== heuteN ? v('nAm') : '',
         anreise: anreise ? {km: anreise.km, betrag: anreise.anreise, ort: anreise.ort} : null,
         empfehlung: {aktiv: $('nEmp').checked, code: ''},
         notiz: v('nNotiz'), positionen: pos
