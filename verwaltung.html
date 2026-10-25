@@ -426,6 +426,7 @@ function api(action, extra){
   return fetch(API, {method:'POST', headers:{'Content-Type':'application/json','x-admin-key': schluessel}, body: JSON.stringify(body)})
     .then(function(r){ return r.json().catch(function(){ return {ok:false, grund:'antwort'}; }).then(function(d){ d._status = r.status; return d; }); })
     .then(function(d){
+      if(d._status === 429){ abmelden('Zu viele falsche Versuche. Bitte in 30 Minuten nochmal probieren.'); throw new Error('401'); }
       if(d._status === 401){ abmelden(d.grund === 'kein-admin-key' ? 'In Netlify fehlt noch die Variable ADMIN_KEY.' : 'Das Passwort stimmt nicht.'); throw new Error('401'); }
       if(!d.ok) throw new Error(d.grund || 'fehler');
       return d;

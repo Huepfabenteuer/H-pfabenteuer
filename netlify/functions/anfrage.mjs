@@ -113,13 +113,29 @@ async function pushNeu(req, a) {
   finally { clearTimeout(t); }
 }
 
-function istAdmin(req) {
+function keyPasst(req) {
   const k = process.env.ADMIN_KEY;
   if (!k) return false;
   const h = req.headers.get('x-admin-key') || '';
-  if (h.length !== k.length) return false;
-  let diff = 0; for (let i = 0; i < k.length; i++) diff |= h.charCodeAt(i) ^ k.charCodeAt(i);
+  let diff = h.length ^ k.length;
+  for (let i = 0; i < k.length; i++) diff |= (h.charCodeAt(i) || 0) ^ k.charCodeAt(i);
   return diff === 0;
+}
+/* Schutz gegen Passwort-Raten: nach 8 Fehlversuchen von einer IP 30 Minuten Sperre */
+const SPERRE_VERSUCHE = 8, SPERRE_MIN = 30;
+const ADMIN_OK = new WeakSet();
+function istAdmin(req) { return ADMIN_OK.has(req); }
+async function adminPruefen(req, context) {
+  if (!req.headers.get('x-admin-key')) return { ok: false };
+  const ip = String((context && context.ip) || req.headers.get('x-nf-client-connection-ip') || 'unbekannt').replace(/[^0-9a-fA-F.:]/g, '').slice(0, 45) || 'unbekannt';
+  const st = await store(), key = 'meta/login/' + ip.replace(/[:.]/g, '_');
+  let z = null; try { z = await st.get(key, { type: 'json' }); } catch (e) {}
+  const jetzt = Date.now();
+  if (z && z.bis && z.bis > jetzt) return { ok: false, gesperrt: true };
+  if (keyPasst(req)) { if (z) await st.delete(key).catch(() => {}); ADMIN_OK.add(req); return { ok: true }; }
+  const n = (z && z.seit && jetzt - z.seit < SPERRE_MIN * 60000 ? z.n : 0) + 1;
+  await st.setJSON(key, { n, seit: (z && z.seit && n > 1) ? z.seit : jetzt, bis: n >= SPERRE_VERSUCHE ? jetzt + SPERRE_MIN * 60000 : 0 }).catch(() => {});
+  return { ok: false, gesperrt: n >= SPERRE_VERSUCHE };
 }
 
 /* ── Belegte Tage (öffentlich, nur Datum + Gerät, keine Kundendaten) ── */
@@ -158,6 +174,8 @@ async function naechsteNr(st) {
 
 export default async (req, context) => {
   const url = new URL(req.url);
+  const login = await adminPruefen(req, context);
+  if (login.gesperrt) return json({ ok: false, grund: 'gesperrt' }, 429);
 
   /* ── PDF für den Kunden ── */
   const params = (context && context.params) || {};
