@@ -1238,7 +1238,9 @@ function fbOkVerbinden(){
     e.stopPropagation(); e.preventDefault();
     var f = (einzelFahrten || []).filter(function(x){ return x.id === el.dataset.ok; })[0]; if(!f) return;
     var y = Object.assign({}, f, {ok: !f.ok}); delete y.verlauf;
+    if(y.ok){ y.abG = false; y.anG = false; }   /* abgehakt = geprüft, orange Markierung weg */
     el.classList.toggle('on', y.ok); el.setAttribute('aria-checked', y.ok ? 'true' : 'false');
+    if(y.ok){ el.classList.remove('g'); var zeile = el.closest('tr, .fb-zeile'); if(zeile) zeile.querySelectorAll('.fb-g').forEach(function(p){ p.remove(); }); }
     api('fahrtenBatch', {fahrten: [y]}).then(function(d){ var n = d.fahrten[0], i = einzelFahrten.findIndex(function(x){ return x.id === n.id; }); if(i !== -1) einzelFahrten[i] = n; })
       .catch(function(e){ el.classList.toggle('on', !!f.ok); if(e.message !== '401') toast('Nicht gespeichert.'); });
   }); });
