@@ -293,7 +293,7 @@ export default async (req, context) => {
         id: fid, datum: f.datum, ab: zeit(f.ab), an: zeit(f.an),
         von: t(f.von).slice(0, 80), nach: t(f.nach).slice(0, 80), zweck: t(f.zweck).slice(0, 120),
         kmA: zahl(f.kmA), kmE: zahl(f.kmE), km: zahl(f.km) || 0, privat: zahl(f.privat) || 0,
-        fz: t(f.fz).slice(0, 40), rechnung: t(f.rechnung).slice(0, 30), anfrage: /^[A-Za-z0-9_-]{1,40}$/.test(f.anfrage || '') ? f.anfrage : '', quelle: (alt && alt.quelle) || 'Verwaltung',
+        fz: t(f.fz).slice(0, 40), rechnung: t(f.rechnung).slice(0, 30), kmAngebot: zahl(f.kmAngebot), anfrage: /^[A-Za-z0-9_-]{1,40}$/.test(f.anfrage || '') ? f.anfrage : '', quelle: (alt && alt.quelle) || 'Verwaltung',
         angelegt: (alt && alt.angelegt) || new Date().toISOString()
       };
       if (alt) {
