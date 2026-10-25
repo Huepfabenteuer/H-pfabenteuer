@@ -442,6 +442,9 @@ function laden(still){
   return api('liste').then(function(d){
     alle = d.anfragen || [];
     $('login').hidden = true; $('app').hidden = false;
+    if(alle.some(function(a){ return a.rueckdatiert && a.nr; })){
+      api('nachgetrageneOhneNr').then(function(r){ if(r.entfernt){ toast('Angebotsnummer bei ' + r.entfernt + ' nachgetragenen Buchungen entfernt'); laden(true).catch(function(){}); } }).catch(function(){});
+    }
     zeichneListe();
     if(aktuell){ var n = alle.filter(function(a){ return a.id === aktuell.id; })[0]; if(n && !speicherTimer){ aktuell = n; zeichneDetail(); } }
   }).catch(function(e){ if(e.message !== '401' && !still) toast('Laden hat nicht geklappt. Prüf die Verbindung.'); throw e; })
@@ -473,7 +476,7 @@ function karte(a){
   var d = tagDatum(a.datum), s = summen(a), k = a.status === 'ausstehend' ? konflikte(a) : [];
   var ort = (a.adresse && a.adresse.ort) || '';
   var km = a.anreise && a.anreise.km ? a.anreise.km + ' km' : '';
-  var info = a.status === 'ausstehend' ? 'Eingegangen ' + wannEingegangen(a.erstellt) : (a.nr ? 'Angebot ' + a.nr + (d ? ', ' + inTagen(a.datum) : '') : '');
+  var info = a.status === 'ausstehend' ? 'Eingegangen ' + wannEingegangen(a.erstellt) : (a.nr ? 'Angebot ' + a.nr + (d ? ', ' + inTagen(a.datum) : '') : (a.rechnungNr ? 'Re. ' + a.rechnungNr : (a.rueckdatiert ? 'Nachgetragen' : '')));
   if(a.status === 'papierkorb' && a.geloeschtAm) info = 'Gelöscht ' + wannEingegangen(a.geloeschtAm);
   if(a.status === 'archiv') info = 'Archiviert' + (a.vorherStatus === 'fix' && a.nr ? ', Angebot ' + a.nr : '');
   return '<div class="wisch" data-id="' + esc(a.id) + '"><div class="wisch-akt">' + wischAktionen(a) + '</div><button class="karte" data-id="' + esc(a.id) + '" data-s="' + esc(a.status) + '">' +
@@ -636,7 +639,8 @@ function zeichneDetail(){
       k.map(function(b){ return esc((b.kunde.vorname || '') + ' ' + (b.kunde.nachname || '')).trim() + (b.nr ? ', Angebot ' + b.nr : ''); }).join('; ') + ').</div>';
   }
   if(a.status === 'fix' && a.geaendertNachVersand) h += '<div class="hinweis gelb" id="hGeaendert"><b>Geändert nach dem Senden.</b> Das PDF, das der Kunde schon hat, bleibt so wie es war. Soll er die neue Version bekommen, tipp unten auf „Neues Angebot senden“.</div>';
-  if(a.status === 'fix') h += '<div class="hinweis gruen">Termin ist fix. Angebot ' + esc(a.nr) + ' wurde ' + (a.angenommenAm ? 'am ' + new Date(a.angenommenAm).toLocaleDateString('de-AT') + ' ' : '') + 'erstellt.</div>';
+  if(a.status === 'fix' && !a.nr) h += '<div class="hinweis gruen">Termin ist fix. Nachgetragen, ohne Angebotsnummer' + (a.rechnungNr ? ' · Re. ' + esc(a.rechnungNr) : '') + '.</div>';
+  else if(a.status === 'fix') h += '<div class="hinweis gruen">Termin ist fix. Angebot ' + esc(a.nr) + ' wurde ' + (a.angenommenAm ? 'am ' + new Date(a.angenommenAm).toLocaleDateString('de-AT') + ' ' : '') + 'erstellt.</div>';
 
   /* Bewertung */
   var bs = bewertungStatus(a), bw = a.bewertung || {};
@@ -785,10 +789,10 @@ function zeichneLeiste(){
   if(a.status === 'ausstehend'){
     h = '<button class="btn btn-n" id="lAblehnen">Absagen</button><button class="btn btn-p" id="lAnnehmen"><svg class="i" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Annehmen</button>';
     L.className = 'leiste-in';
-  } else if((a.status === 'fix' || a.status === 'erledigt') && a.geaendertNachVersand){
+  } else if((a.status === 'fix' || a.status === 'erledigt') && a.geaendertNachVersand && a.nr){
     h = '<a class="btn btn-g" id="lPdf" href="' + esc(a.pdf) + '" target="_blank" rel="noopener">Altes PDF</a><button class="btn btn-wa" id="lNeu"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>Neues Angebot senden</button>';
     L.className = 'leiste-in';
-} else if(a.status === 'fix' || a.status === 'erledigt'){
+} else if((a.status === 'fix' || a.status === 'erledigt') && a.nr){
     h = '<a class="btn btn-g" id="lPdf" href="' + esc(a.pdf) + '" target="_blank" rel="noopener">PDF</a><a class="btn btn-wa" id="lWa" href="' + esc(waLink(a.waNummer, a.waText)) + '" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>Per WhatsApp senden</a>';
     L.className = 'leiste-in';
   } else {
@@ -941,7 +945,7 @@ function annehmen(){
     var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
     aktuell = JSON.parse(JSON.stringify(d.anfrage));
     zeichneDetail(); zeichneListe();
-    erfolgSheet(d.anfrage);
+    if(d.anfrage.nr) erfolgSheet(d.anfrage); else toast('Nachgetragen, ohne Angebotsnummer');
     fbFahrtenAnlegen(d.anfrage, true);
   }).catch(function(e){ if(e.message !== '401') toast('Annehmen hat nicht geklappt. Versuch es nochmal.'); if($('lAnnehmen')){ $('lAnnehmen').disabled = false; $('lAnnehmen').textContent = 'Annehmen'; } });
 }
@@ -1721,7 +1725,7 @@ function einnahmenExcel(jahr){
     var b = [['Datum', 'Angebot-Nr.', 'Kunde', 'Ort', 'Leistung', 'Miete', 'Anreise', 'Gesamt', 'Anzahlung erhalten', 'Status']];
     d.liste.slice().sort(function(x, y){ return (x.datum || '').localeCompare(y.datum || ''); }).forEach(function(a){
       var s = summen(a);
-      b.push([datumKurz(a.datum), a.nr || '', ((a.kunde.vorname || '') + ' ' + (a.kunde.nachname || '')).trim(), (a.adresse && a.adresse.ort) || '', produkte(a), s.miete, s.liefer, s.gesamt, a.anzahlungErhaltenAm ? 'ja' : 'nein', a.status === 'fix' ? 'geplant' : 'erledigt']);
+      b.push([datumKurz(a.datum), a.nr || a.rechnungNr || '', ((a.kunde.vorname || '') + ' ' + (a.kunde.nachname || '')).trim(), (a.adresse && a.adresse.ort) || '', produkte(a), s.miete, s.liefer, s.gesamt, a.anzahlungErhaltenAm ? 'ja' : 'nein', a.status === 'fix' ? 'geplant' : 'erledigt']);
     });
     var w1 = X.utils.aoa_to_sheet(b); w1['!cols'] = [{wch:11},{wch:11},{wch:22},{wch:16},{wch:30},{wch:9},{wch:9},{wch:9},{wch:18},{wch:10}];
     X.utils.book_append_sheet(wb, w1, 'Buchungen');

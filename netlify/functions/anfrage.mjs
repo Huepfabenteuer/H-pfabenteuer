@@ -371,6 +371,25 @@ export default async (req, context) => {
   }
 
   /* Anfrage selbst anlegen (Telefon, WhatsApp) */
+  /* Nachgetragene Buchungen: Angebotsnummer + PDF wieder entfernen, Zähler zurücksetzen */
+  if (body.action === 'nachgetrageneOhneNr') {
+    const liste = await alleAnfragen(st);
+    let n = 0;
+    for (const a of liste) {
+      if (!a.rueckdatiert || !a.nr) continue;
+      for (const v of (a.versionen || [])) await st.delete(VERS + a.id + '/' + v.token).catch(() => {});
+      await st.delete(VERS + a.id + '/' + a.token).catch(() => {});
+      delete a.nr; delete a.pdfToken; delete a.versionen; delete a.geaendertNachVersand;
+      await st.setJSON(PREFIX + a.id, a); n++;
+    }
+    /* höchste Nummer, die wirklich verschickt wurde (auch von gelöschten Anfragen) */
+    const { blobs } = await st.list({ prefix: VERS });
+    const vers = await Promise.all(blobs.map(b => st.get(b.key, { type: 'json' }).catch(() => null)));
+    const hoechste = Math.max(FIRMA.startNr - 1, ...liste.filter(a => a.nr && !a.rueckdatiert).map(a => Number(a.nr) || 0), ...vers.filter(v => v && v.nr && !v.rueckdatiert).map(v => Number(v.nr) || 0));
+    if (n) await st.setJSON('meta/nr', { letzte: hoechste });
+    return json({ ok: true, entfernt: n, naechsteNr: hoechste + 1 });
+  }
+
   if (body.action === 'anlegen') {
     const daten = saeubere({ ...body.daten, quelle: (body.daten && body.daten.quelle) || 'Telefon/WhatsApp' });
     if (!daten.kunde.vorname && !daten.kunde.nachname) return json({ ok: false, grund: 'name' }, 400);
@@ -424,6 +443,14 @@ export default async (req, context) => {
   }
 
   if (body.action === 'annehmen') {
+    /* nachgetragene alte Buchung: bekommt keine Angebotsnummer und kein PDF */
+    if (a.rueckdatiert) {
+      a.status = 'fix';
+      a.angenommenAm = a.angenommenAm || a.erstellt;
+      await st.setJSON(PREFIX + id, a);
+      await belegtNeuBerechnen(st);
+      return json({ ok: true, anfrage: anreichern(req, a) });
+    }
     if (!a.nr) a.nr = await naechsteNr(st);
     a.status = 'fix';
     a.angenommenAm = a.angenommenAm || (a.rueckdatiert ? a.erstellt : new Date().toISOString());
