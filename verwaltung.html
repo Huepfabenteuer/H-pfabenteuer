@@ -1258,6 +1258,7 @@ function fbZeitenUebertragen(f, schonDa, ueberschreiben){
   /* Strecke ist hin wie retour gleich lang: dieselbe Fahrzeit für alle anderen Fahrten der Buchung */
   var re = fahrtRe(f), a = fbMin(f.ab), e = fbMin(f.an);
   if(!re || a == null || e == null || e <= a || f.anG || f.abG) return [];
+  if(!/^lieferung/i.test(f.zweck || '')) return [];   /* nur die Lieferung gibt die Fahrzeit vor */
   var dauer = e - a, out = [];
   (einzelFahrten || []).filter(function(x){ return x.id !== f.id && rnGleich(fahrtRe(x), re); }).forEach(function(x0){
     var x = (schonDa && schonDa[x0.id]) || x0;
@@ -1462,7 +1463,7 @@ function einzelFahrtSheet(id, datumVor){
     feld('datum', 'Datum', 'date') +
     '<div class="grid2"><div id="ezAbW">' + feld('ab', 'Abfahrt', 'time') + '</div><div id="ezAnW">' + feld('an', 'Ankunft', 'time') + '</div></div>' +
     '<div class="bew-status" id="ezDauer" style="margin:-6px 0 8px;font-size:.82rem"></div>' +
-    '<label class="emp-sw" style="margin:0 0 8px"><input type="checkbox" id="ezZeitAlle" checked/><span>Fahrzeit auf die anderen Fahrten dieser Buchung übertragen (alle Hin- und Rückfahrten, orange markiert)</span></label>' +
+    (/^lieferung/i.test(f.zweck || '') ? '<label class="emp-sw" style="margin:0 0 8px"><input type="checkbox" id="ezZeitAlle" checked/><span>Fahrzeit auf die anderen Fahrten dieser Buchung übertragen (alle Hin- und Rückfahrten, orange markiert)</span></label>' : '') +
     '<div class="grid2">' + feld('von', 'Von') + feld('nach', 'Nach') + '</div>' +
     feld('zweck', 'Zweck der Fahrt', 'text', ' placeholder="z. B. Lieferung Alienburg (Re. 26-060)"') +
     '<div class="feld"><label>Rechnungsnr.</label><input id="ez_rechnung" type="text" inputmode="text" value="' + esc(alt ? fahrtRe(alt) : '') + '" placeholder="z. B. 20 oder 26-020"/></div>' +
