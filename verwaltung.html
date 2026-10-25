@@ -147,12 +147,13 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stro
 .nachricht{white-space:pre-wrap;color:var(--ink-2);font-size:.95rem;}
 
 /* Positionen */
-.pos{border-top:1px solid var(--line);padding:10px 0;display:grid;grid-template-columns:1fr 78px 30px;gap:4px 6px;align-items:center;}
+.pos{border-top:1px solid var(--line);padding:10px 0;display:grid;grid-template-columns:1fr 46px 78px 30px;gap:4px 6px;align-items:center;}
+.pos .p-m{text-align:center;font-weight:700;color:var(--ink-2);padding:7px 2px !important;}
 .pos:first-of-type{border-top:none;padding-top:0;}
 .pos input{width:100%;border:1px solid transparent;background:transparent;border-radius:8px;padding:7px 8px;font-size:16px;}
 .pos input:focus{outline:none;border-color:var(--petrol);background:#fff;}
 .pos .p-t{font-weight:800;font-size:15px;text-overflow:ellipsis;}
-.pos .p-x{grid-column:1 / 3;color:var(--mute);font-size:.86rem;padding-top:2px;padding-bottom:2px;}
+.pos .p-x{grid-column:1 / 4;color:var(--mute);font-size:.86rem;padding-top:2px;padding-bottom:2px;}
 .pos .p-b{text-align:right;font-weight:800;}
 .pos .p-b.leer{border-color:var(--offen);background:var(--offen-l);}
 .pos .weg{width:30px;height:34px;border-radius:9px;color:var(--mute);display:flex;align-items:center;justify-content:center;}
@@ -694,6 +695,9 @@ function zeichneDetail(){
        '</div>' +
        '<div class="zeile" style="margin-top:10px;align-items:center"><span>km pro Strecke ab Glödnitz</span><span class="anz"><input id="dKm" inputmode="decimal" value="' + esc(a.anreise && a.anreise.km != null ? String(a.anreise.km).replace('.', ',') : '') + '" placeholder="km"/> km</span></div>' +
        '<div style="color:var(--mute);font-size:.82rem" id="dKmInfo">' + (a.anreise && a.anreise.km ? '4 Fahrten × ' + esc(String(a.anreise.km).replace('.', ',')) + ' km × 0,55 € = ' + eur(Math.round(4 * a.anreise.km * 0.55)) + (gesperrtK(a) ? ' · Preis im fixen Angebot bleibt gleich' : '') : 'Selbst eintragen, wenn nichts berechnet wurde.') + '</div>' +
+       '<div style="margin-top:12px;font-weight:700;font-size:.9rem">Übergabe</div>' +
+       '<div class="seg" id="dUeb" style="grid-template-columns:1fr 1fr;margin-top:4px"><button data-v="liefern" class="' + (uebergabe(a) === 'liefern' ? 'on' : '') + '">🚚 Wir liefern</button><button data-v="selbst" class="' + (uebergabe(a) === 'selbst' ? 'on' : '') + '">Holt selbst ab</button></div>' +
+       '<div id="dUebInfo" style="font-size:.82rem;margin-top:6px"></div>' +
        '</div>';
 
   /* Angebot */
@@ -703,6 +707,7 @@ function zeichneDetail(){
     var leer = p.betrag == null || p.betrag === '';
     h += '<div class="pos" data-i="' + i + '">' +
       '<input class="p-t" value="' + esc(p.titel) + '" data-f="titel" aria-label="Bezeichnung"/>' +
+      '<input class="p-m" value="' + esc(String(p.menge || 1)) + '×" data-f="menge" inputmode="numeric" aria-label="Menge" title="Menge"/>' +
       '<input class="p-b' + (leer ? ' leer' : '') + '" value="' + (leer ? '' : esc(String(p.betrag).replace('.', ','))) + '" data-f="betrag" inputmode="decimal" placeholder="€" aria-label="Betrag in Euro"/>' +
       '<button class="weg" data-weg="' + i + '" aria-label="Position entfernen"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>' +
       '<input class="p-x" value="' + esc(p.text) + '" data-f="text" placeholder="Beschreibung (optional)" aria-label="Beschreibung"/>' +
@@ -816,7 +821,15 @@ function verbindeDetail(){
   box.querySelectorAll('input').forEach(function(inp){
     inp.addEventListener('input', function(){
       var i = +inp.closest('.pos').dataset.i, f = inp.dataset.f, p = aktuell.positionen[i];
-      if(f === 'betrag'){
+      if(f === 'menge'){
+        var m = parseInt(inp.value.replace(/\D/g, ''), 10); if(!m || m < 1) return; m = Math.min(99, m);
+        var alt = p.menge || 1;
+        if(p.betrag != null && p.betrag !== '' && m !== alt){
+          p.betrag = Math.round(Number(p.betrag) / alt * m * 100) / 100;
+          var bi = inp.closest('.pos').querySelector('.p-b'); if(bi) bi.value = String(p.betrag).replace('.', ',');
+        }
+        p.menge = m; zeichneSumme();
+      } else if(f === 'betrag'){
         var v = inp.value.replace(/\s/g,'').replace(',', '.');
         p.betrag = v === '' ? null : (isNaN(Number(v)) ? p.betrag : Number(v));
         inp.classList.toggle('leer', v === '');
@@ -824,6 +837,10 @@ function verbindeDetail(){
       } else { p[f] = inp.value; }
       planeSpeichern();
     });
+  });
+  box.querySelectorAll('.p-m').forEach(function(inp){
+    inp.addEventListener('focus', function(){ inp.value = String(parseInt(inp.value, 10) || 1); inp.select(); });
+    inp.addEventListener('blur', function(){ inp.value = (parseInt(inp.value, 10) || 1) + '×'; });
   });
   box.querySelectorAll('[data-weg]').forEach(function(b){
     b.addEventListener('click', function(){
@@ -875,6 +892,33 @@ function verbindeDetail(){
       aktuell = JSON.parse(JSON.stringify(d.anfrage)); zeichneDetail(); zeichneListe(); if(meldung) toast(meldung);
     }).catch(function(e){ if(e.message !== '401') toast('Das hat nicht geklappt.'); });
   };
+  function uebInfo(){
+    var a = aktuell, el = $('dUebInfo'); if(!el) return;
+    if(uebergabe(a) !== 'selbst' || einzelFahrten === null){ el.innerHTML = ''; return; }
+    var L = fahrtenZuBuchung(a);
+    el.innerHTML = L.length ? '<div class="bew-status">Im Fahrtenbuch stehen noch ' + L.length + ' Fahrten zu dieser Buchung.</div><button class="pos-neu" id="dUebWeg" style="color:var(--nein);padding:4px 0">Diese ' + L.length + ' Fahrten löschen (km-Stände danach rücken nach)</button>' : '<div class="bew-status">Keine Fahrten im Fahrtenbuch, Kunde holt selbst ab.</div>';
+    if($('dUebWeg')) $('dUebWeg').onclick = function(){
+      if(!confirmLeise(L.length + ' Fahrten aus dem Fahrtenbuch löschen?')) return;
+      var weg = {}; L.forEach(function(f){ weg[f.id] = 1; });
+      var folge = fbNeuRechnen(L.map(function(f){ var y = JSON.parse(JSON.stringify(f)); y.km = 0; return y; })).filter(function(f){ return !weg[f.id]; });
+      L.reduce(function(pr, f){ return pr.then(function(){ return api('fahrtLoeschen', {id: f.id}); }); }, Promise.resolve())
+        .then(function(){ einzelFahrten = einzelFahrten.filter(function(x){ return !weg[x.id]; }); return fbSpeichern(folge); })
+        .then(function(){ toast(L.length + ' Fahrten gelöscht, km-Stände angepasst'); uebInfo(); })
+        .catch(function(e){ if(e.message !== '401') toast('Löschen hat nicht geklappt.'); });
+    };
+  }
+  if($('dUeb')){
+    (einzelFahrten === null ? ladeEinzelFahrten().catch(function(){}) : Promise.resolve()).then(uebInfo);
+    $('dUeb').querySelectorAll('button').forEach(function(b){ b.addEventListener('click', function(){
+      var a = aktuell, v = b.dataset.v; if(uebergabe(a) === v) return;
+      a.uebergabe = v;
+      if(!gesperrtK(a)){
+        if(v === 'selbst') a.positionen = (a.positionen || []).filter(function(p){ return p.art !== 'lieferung'; });
+        else if(!(a.positionen || []).some(function(p){ return p.art === 'lieferung'; })) (a.positionen = a.positionen || []).push({art:'lieferung', titel:'Lieferung & Abholung', text:'Glödnitz – ' + ((a.adresse && a.adresse.ort) || 'Kunde') + (a.anreise && a.anreise.km ? ' · 4 Fahrten à ' + String(a.anreise.km).replace('.', ',') + ' km × 0,55 €' : ''), betrag: a.anreise && a.anreise.betrag != null ? a.anreise.betrag : null});
+      }
+      planeSpeichern(); zeichneDetail();
+    }); });
+  }
   if($('dDatKopie')) $('dDatKopie').addEventListener('click', function(){ var a = aktuell; kopieren(datumKurz(a.datum) + (a.datumEnde && a.datumEnde !== a.datum ? ' – ' + datumKurz(a.datumEnde) : ''), 'Datum kopiert'); });
   if($('dKm')) $('dKm').addEventListener('input', function(){
     var km = Number(this.value.replace(',', '.').trim());
@@ -917,7 +961,7 @@ function sofortSpeichern(){
   if(!speicherTimer || !aktuell) return speichertGerade || Promise.resolve();
   clearTimeout(speicherTimer); speicherTimer = null;
   var a = aktuell;
-  var patch = {positionen: a.positionen, anrede: a.anrede || '', notiz: a.notiz || '', anzahlung: a.anzahlung, rechnungNr: a.rechnungNr || '', anreise: a.anreise || null, empfehlung: a.empfehlung || {aktiv:false, code:''}};
+  var patch = {positionen: a.positionen, anrede: a.anrede || '', notiz: a.notiz || '', anzahlung: a.anzahlung, rechnungNr: a.rechnungNr || '', anreise: a.anreise || null, uebergabe: a.uebergabe || '', empfehlung: a.empfehlung || {aktiv:false, code:''}};
   speichertGerade = api('speichern', {id: a.id, patch: patch}).then(function(d){
     var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
     if(aktuell && aktuell.id === d.anfrage.id){ aktuell.pdf = d.anfrage.pdf; aktuell.waText = d.anfrage.waText; aktuell.waAbsage = d.anfrage.waAbsage; aktuell.empfehlung = d.anfrage.empfehlung; if(!!d.anfrage.geaendertNachVersand !== !!aktuell.geaendertNachVersand){ aktuell.geaendertNachVersand = d.anfrage.geaendertNachVersand; zeichneLeiste(); if(!$('hGeaendert') && aktuell.geaendertNachVersand) toast('Geändert. Das gesendete PDF bleibt gleich.'); } if($('empInfo') && d.anfrage.empfehlung && d.anfrage.empfehlung.aktiv && d.anfrage.empfehlung.code) $('empInfo').textContent = 'Code ' + d.anfrage.empfehlung.code + ' · Link steht in der WhatsApp-Nachricht'; if((aktuell.status === 'fix' || aktuell.status === 'erledigt') && $('lWa')) $('lWa').href = waLink(aktuell.waNummer, aktuell.waText); }
@@ -985,7 +1029,8 @@ function statusAendern(action, meldung){
   }).catch(function(e){ if(e.message !== '401') toast('Das hat nicht geklappt. Versuch es nochmal.'); });
 }
 
-function gesperrtK(a){ return a.status === 'fix' || a.status === 'erledigt'; }
+function uebergabe(a){ return a.uebergabe || ((a.positionen || []).some(function(p){ return p.art === 'lieferung'; }) ? 'liefern' : 'selbst'); }
+function gesperrtK(a){ return (a.status === 'fix' || a.status === 'erledigt') && !!a.nr; }
 function kopieren(t, meldung){
   function ok(){ toast(meldung || 'Text kopiert'); }
   if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok, alt); } else alt();
@@ -1063,7 +1108,7 @@ function fahrtenZuBuchung(a){
 }
 /* Buchung gespeichert: verknüpfte Fahrten an das Angebot anpassen (nur wenn sich was ändert) */
 function fbSyncBuchung(a){
-  if(!a || a.status === 'papierkorb') return Promise.resolve(0);
+  if(!a || a.status === 'papierkorb' || uebergabe(a) === 'selbst') return Promise.resolve(0);
   return (einzelFahrten === null ? ladeEinzelFahrten() : Promise.resolve()).then(function(){
     var L = fbAusAngebot(a); if(!L.length) return 0;
     var diff = L.some(function(f){ var o = einzelFahrten.filter(function(y){ return y.id === f.id; })[0]; return !o || o.km !== f.km || o.von !== f.von || o.nach !== f.nach || o.anfrage !== f.anfrage || o.rechnung !== f.rechnung; });
@@ -1139,6 +1184,7 @@ function fbAusAngebot(a, extra, erzwingen){
 function fbZeitPlus(hhmm, min){ var t = hhmm.split(':'), m = (+t[0]) * 60 + (+t[1]) + min; m = Math.min(m, 23 * 60 + 59); return ('0' + Math.floor(m / 60)).slice(-2) + ':' + ('0' + (m % 60)).slice(-2); }
 /* Beim Fixieren: 4 Fahrten (Liefern, zurück, Abholen, zurück) ins Fahrtenbuch */
 function fbFahrtenAnlegen(a, still){
+  if(uebergabe(a) === 'selbst') return Promise.resolve(0);
   return (einzelFahrten === null ? ladeEinzelFahrten() : Promise.resolve()).then(function(){
     var re = buchungRe(a), km = fbKm(a), ort = fbOrt(a), prod = produkte(a), fz = fbFahrzeugMerk();
     var vorhanden = fahrtenZuBuchung(a);
@@ -1169,7 +1215,7 @@ function fbFertig(f){ return fbFelder(f).filter(Boolean).length; }
 /* Alle Fahrten (Zeilen) eines Jahres */
 function fbZeilen(jahr){
   var out = [];
-  alle.filter(istFixA).filter(function(a){ return !fbVerknuepft(a); }).forEach(function(a){
+  alle.filter(istFixA).filter(function(a){ return !fbVerknuepft(a) && uebergabe(a) !== 'selbst'; }).forEach(function(a){
     var f = fbDaten(a), ziel = fbZiel(a), wer = ((a.kunde.vorname || '') + ' ' + (a.kunde.nachname || '')).trim();
     [['liefer','Lieferung'],['abhol','Abholung']].forEach(function(e){
       var x = f[e[0]]; if(!x.datum || x.datum.slice(0,4) !== String(jahr)) return;
@@ -1201,7 +1247,7 @@ function zeichneFahrten(){
     return '<button class="fb-m' + (m === fbMonat ? ' on' : '') + '" data-m="' + m + '">' + n.slice(0,3) + (km ? '<small>' + Math.round(km) + ' km</small>' : '<small>–</small>') + '</button>';
   }).join('') + '</div>';
   var buchungen = alle.filter(istFixA).filter(function(a){
-    if(fbVerknuepft(a)) return false;
+    if(fbVerknuepft(a) || uebergabe(a) === 'selbst') return false;
     var f = fbDaten(a);
     return [f.liefer.datum, f.abhol.datum].some(function(d){ return d && +d.slice(0,4) === fbJahr && +d.slice(5,7) === fbMonat + 1; });
   }).sort(function(a, b){ return (a.datum || '').localeCompare(b.datum || ''); });
@@ -1522,7 +1568,7 @@ function angebotBearbeiten(v0){
       '<h3>Angebot ' + esc(v.nr || '') + '</h3><p style="margin-bottom:6px">' + esc(name) + ' · ' + esc(datumLang(v.datum)) + '</p>' +
       '<div class="hinweis gelb" style="margin-bottom:10px">Änderungen hier gelten auch für den Link, den der Kunde schon hat.</div><div id="agPos">';
     (v.positionen || []).forEach(function(p, i){
-      h += '<div class="pos" data-i="' + i + '"><input class="p-t" value="' + esc(p.titel) + '" data-f="titel"/><input class="p-b" value="' + (p.betrag == null ? '' : esc(String(p.betrag).replace('.', ','))) + '" data-f="betrag" inputmode="decimal" placeholder="€"/>' +
+      h += '<div class="pos" data-i="' + i + '"><input class="p-t" value="' + esc(p.titel) + '" data-f="titel"/><span class="p-m" style="text-align:center">' + esc(String(p.menge || 1)) + '×</span><input class="p-b" value="' + (p.betrag == null ? '' : esc(String(p.betrag).replace('.', ','))) + '" data-f="betrag" inputmode="decimal" placeholder="€"/>' +
         '<button class="weg" data-weg="' + i + '" aria-label="Entfernen"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button><input class="p-x" value="' + esc(p.text || '') + '" data-f="text" placeholder="Beschreibung (optional)"/></div>';
     });
     h += '</div><button class="pos-neu" id="agNeuPos">' + IC_MENUE.neu + 'Position hinzufügen</button>' +
@@ -1679,7 +1725,7 @@ function neuSheet(){
         datum: v('nDat'), datumEnde: v('nEnd'), erstelltAm: v('nAm') && v('nAm') !== heuteN ? v('nAm') : '',
         anreise: anreise ? {km: anreise.km, betrag: anreise.anreise, ort: anreise.ort} : null,
         empfehlung: {aktiv: $('nEmp').checked, code: ''},
-        notiz: v('nNotiz'), positionen: pos
+        notiz: v('nNotiz'), positionen: pos, uebergabe: $('nSelbst').checked ? 'selbst' : 'liefern'
       }}).then(function(d){
         alle.push(d.anfrage); schliesseSheet();
         tab = 'ausstehend'; document.querySelectorAll('.tab').forEach(function(x){ x.classList.toggle('on', x.dataset.t === 'ausstehend'); });
@@ -1697,7 +1743,7 @@ function einnahmenDaten(jahr){
   l.forEach(function(a){
     var s = summen(a), m = +a.datum.slice(5,7) - 1, erl = a.status !== 'fix';
     monate[m][erl ? 'erledigt' : 'fix'] += s.gesamt; monate[m].anzahl++;
-    (a.positionen || []).forEach(function(p){ if(p.art !== 'miete' && p.art !== 'extra') return; var t = p.titel || 'Sonstiges'; geraete[t] = geraete[t] || {anzahl:0, summe:0}; geraete[t].anzahl++; geraete[t].summe += Number(p.betrag) || 0; });
+    (a.positionen || []).forEach(function(p){ if(p.art !== 'miete' && p.art !== 'extra') return; var t = p.titel || 'Sonstiges'; geraete[t] = geraete[t] || {anzahl:0, summe:0}; geraete[t].anzahl += (p.menge || 1); geraete[t].summe += Number(p.betrag) || 0; });
   });
   return {liste: l, monate: monate, geraete: geraete};
 }

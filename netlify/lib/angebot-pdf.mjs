@@ -117,7 +117,7 @@ export async function erstelleAngebotPdf(a) {
     platz(h + 4);
     if (i % 2 === 1) page.drawRectangle({ x: M, y: y - h + 12, width: R - M, height: h, color: rgb(0.975, 0.975, 0.975) });
     txt(String(i + 1), M + 8, y, { size: 9.5 });
-    txt(p.titel, M + 46, y, { font: FB, size: 10 });
+    txt((p.menge > 1 ? p.menge + ' × ' : '') + p.titel, M + 46, y, { font: FB, size: 10 });
     rechts(p.betrag == null || p.betrag === '' ? 'nach Vereinbarung' : eur(p.betrag), R - 8, y, { font: FB, size: 10 });
     let yy = y - 12;
     for (const z of textZeilen) { txt(z, M + 46, yy, { size: 8.5, color: GRAU }); yy -= 11; }

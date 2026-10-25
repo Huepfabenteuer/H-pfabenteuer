@@ -128,6 +128,7 @@ export function saeubere(roh) {
   const pos = Array.isArray(r.positionen) ? r.positionen.slice(0, 15).map(p => ({
     art: ['miete', 'lieferung', 'rabatt', 'extra'].includes(p && p.art) ? p.art : 'miete',
     titel: str(p && p.titel, 80),
+    menge: Math.min(99, Math.max(1, Math.round(Number(p && p.menge) || 1))),
     text: str(p && p.text, 200),
     betrag: (p && (p.betrag === null || p.betrag === '')) ? null : num(p && p.betrag)
   })).filter(p => p.titel) : [];
@@ -144,6 +145,7 @@ export function saeubere(roh) {
     rahmen: str(r.rahmen, 80),
     gutschein: str(r.gutschein, 80),
     rechnungNr: str(r.rechnungNr, 30),
+    uebergabe: ['liefern', 'selbst'].includes(r.uebergabe) ? r.uebergabe : '',
     anreise: r.anreise && num(r.anreise.km) != null ? { km: num(r.anreise.km), betrag: num(r.anreise.betrag), ort: str(r.anreise.ort, 80) } : null,
     empfehlung: { aktiv: !!(r.empfehlung && r.empfehlung.aktiv), code: str(r.empfehlung && r.empfehlung.code, 40) },
     empfohlenVon: str(r.empfohlenVon, 40),
@@ -183,8 +185,9 @@ export function waZusage(a, link) {
       }
       return z;
     }
-    if (p.art === 'rabatt') return p.titel + ': −' + eur(Math.abs(Number(p.betrag) || 0)) + ' €';
-    return p.titel + ': ' + betrag(p.betrag);
+    const mt = (p.menge > 1 ? p.menge + ' × ' : '') + p.titel;
+    if (p.art === 'rabatt') return mt + ': −' + eur(Math.abs(Number(p.betrag) || 0)) + ' €';
+    return mt + ': ' + betrag(p.betrag);
   });
   return [
     'Hallo ' + (a.kunde.vorname || '') + ', danke für deine Anfrage bei ' + FIRMA.name + '!',
