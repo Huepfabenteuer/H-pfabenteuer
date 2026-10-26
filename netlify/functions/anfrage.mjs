@@ -519,6 +519,18 @@ export default async (req, context) => {
     return json({ ok: true, anfrage: anreichern(req, a) });
   }
 
+  /* Stammkunden: angeschrieben / will keine Nachrichten */
+  if (body.action === 'stammkunde') {
+    const sk = a.stammkunde || {};
+    if (body.schritt === 'angeschrieben') sk.angeschriebenAm = new Date().toISOString();
+    else if (body.schritt === 'stopp') sk.stopp = true;
+    else if (body.schritt === 'zuruecksetzen') { delete sk.angeschriebenAm; delete sk.stopp; }
+    else return json({ ok: false, grund: 'schritt' }, 400);
+    a.stammkunde = sk;
+    await st.setJSON(PREFIX + id, a);
+    return json({ ok: true, anfrage: anreichern(req, a) });
+  }
+
   if (body.action === 'anzahlung') {
     if (body.erhalten) a.anzahlungErhaltenAm = a.anzahlungErhaltenAm || new Date().toISOString();
     else delete a.anzahlungErhaltenAm;

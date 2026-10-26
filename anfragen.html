@@ -1346,6 +1346,14 @@ document.addEventListener('DOMContentLoaded', function(){
       <div id="anzahlungHinweis" style="display:none;margin-top:10px;padding:10px 14px;border-radius:3px;background:linear-gradient(135deg,rgba(11,107,111,.12),rgba(11,107,111,.08));border:1.5px solid rgba(11,107,111,.4);font-size:12px;font-weight:700;color:#7a5c00;line-height:1.6;"></div>
     </div>
  
+    <!-- Stammkunden-Angebot (freiwillig) -->
+    <div class="dsgvo-consent reveal">
+      <input type="checkbox" id="werbeOk">
+      <label for="werbeOk">
+        🎉 <b>Stammkunden-Angebot fürs nächste Jahr:</b> Ihr dürft mich einmal im Jahr mit einem Angebot (−10 %) per WhatsApp oder E-Mail anschreiben. Freiwillig, jederzeit mit „Stopp“ abbestellbar.
+      </label>
+    </div>
+
     <!-- DSGVO-Einwilligung -->
     <div class="dsgvo-consent reveal">
       <input type="checkbox" id="dsgvoCheck">
@@ -2387,6 +2395,7 @@ function submitAnfrage(){
   var _pkF = document.querySelector('#anfrage-form input[name="Paket"]');
   if(_pkF && _pkF.value && currentModus !== 'foto') fd.append('Paket', _pkF.value);
   fd.append('Auf- und Abbau', aufbau);
+  if(document.getElementById('werbeOk') && document.getElementById('werbeOk').checked) fd.append('Stammkunden-Angebot', 'Ja, darf nächstes Jahr angeschrieben werden');
   fd.append('Lieferung',      document.getElementById('lieferung-val').value);
   if(window.hbAnreise && window.hbAnreise.text()) fd.append('Anreise (berechnet)', window.hbAnreise.text());
   if(empfAktiv){
@@ -2425,6 +2434,7 @@ function submitAnfrage(){
       empfehlung: {aktiv: !!empfAktiv, code: empfCode || ''},
       empfohlenVon: (window.hbEmpfehlung && window.hbEmpfehlung()) || '',
       partner: (window.hbPartner && window.hbPartner()) || '',
+      werbeOk: !!(document.getElementById('werbeOk') && document.getElementById('werbeOk').checked),
       positionen: _posV
     };
     fetch('/.netlify/functions/anfrage', {method:'POST', keepalive:true, headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'neu', daten:_verw})}).catch(function(){});

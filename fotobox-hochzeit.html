@@ -1420,6 +1420,10 @@ document.addEventListener('DOMContentLoaded',function(){
           <input type="checkbox" id="fotoFreigabe" name="Fotofreigabe" value="Ja"/>
           <span><b>📸 Ihr dürft Fotos der Fotobox von unserem Fest zeigen</b> (Website, Instagram). Freiwillig, gilt nur für Bilder, auf denen alle Abgebildeten einverstanden sind, und kann jederzeit widerrufen werden.</span>
         </label>
+        <label class="foto-ok">
+          <input type="checkbox" id="werbeOk" name="Stammkunden-Angebot" value="Ja"/>
+          <span><b>🎉 Stammkunden-Angebot fürs nächste Jahr</b>: Ihr dürft mich einmal im Jahr mit einem Angebot (−10 %) per WhatsApp oder E-Mail anschreiben. Freiwillig, jederzeit mit „Stopp“ abbestellbar.</span>
+        </label>
         <div class="summary" id="summary">
           <div class="sum-t">Deine Auswahl</div>
           <div id="sumRows"></div>
@@ -2156,6 +2160,7 @@ document.addEventListener('DOMContentLoaded',function(){
     fd.append('Quelle', 'Hochzeit-Landingpage');
     if(window.hbAktion && hbAktion.aktiv() && selectedPrice) fd.append('Aktion', hbAktion.info.name + ': ' + hbAktion.preisText(selectedPrice));
     if(document.getElementById('fotoFreigabe') && document.getElementById('fotoFreigabe').checked) fd.append('Fotos verwenden', 'Ja, Kunde ist einverstanden');
+    if(document.getElementById('werbeOk') && document.getElementById('werbeOk').checked) fd.append('Stammkunden-Angebot', 'Ja, darf nächstes Jahr angeschrieben werden');
     try {
       var _an = window.hbAnreiseWert, _rw = rahmenWert();
       var _posV = [{art:'miete', titel: selectedPrice ? 'Fotobox ' + selectedName : 'Fotobox (Paket noch offen)', text: 'Fotobox mit allem Zubehör, ganzer Abend, Auf- und Abbau inklusive' + (_rw ? ' · Rahmen: ' + _rw : ''), betrag: selectedPrice || null}];
@@ -2171,6 +2176,7 @@ document.addEventListener('DOMContentLoaded',function(){
         empfohlenVon: (window.hbEmpfehlung && window.hbEmpfehlung()) || '',
         partner: (window.hbPartner && window.hbPartner()) || '',
         fotoFreigabe: !!(document.getElementById('fotoFreigabe') && document.getElementById('fotoFreigabe').checked),
+        werbeOk: !!(document.getElementById('werbeOk') && document.getElementById('werbeOk').checked),
         positionen: _posV
       };
       fetch('/.netlify/functions/anfrage', {method:'POST', keepalive:true, headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'neu', daten:_verw})}).catch(function(){});

@@ -151,6 +151,7 @@ export function saeubere(roh) {
     empfohlenVon: str(r.empfohlenVon, 40),
     partner: str(r.partner, 40),
     fotoFreigabe: !!r.fotoFreigabe,
+    werbeOk: !!r.werbeOk,
     positionen: pos
   };
 }

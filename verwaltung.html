@@ -743,6 +743,8 @@ function zeichneDetail(){
        '<div style="color:var(--mute);font-size:.85rem;margin-top:8px" id="empInfo">' + (_em && a.empfehlung.code ? 'Code ' + esc(a.empfehlung.code) + ' · Link steht in der WhatsApp-Nachricht' : (a.quelle ? '' : 'Für Anfragen per Telefon oder WhatsApp einfach anhaken.')) + '</div></div>';
 
   if(a.nachricht) h += '<div class="block"><h3>Nachricht vom Kunden</h3><div class="nachricht">' + esc(a.nachricht) + '</div></div>';
+  h += '<div class="block"><h3>🎉 Stammkunde</h3><label class="emp-sw"><input type="checkbox" id="dWerbe"' + (a.werbeOk ? ' checked' : '') + '/><span>Darf nächstes Jahr mit einem Stammkunden-Angebot angeschrieben werden (Kunde hat zugestimmt)</span></label>' +
+    (a.stammkunde && a.stammkunde.stopp ? '<div class="bew-status" style="margin-top:6px;color:var(--nein)">Will keine Nachrichten mehr („Stopp“).</div>' : '') + '</div>';
   if(a.fotoFreigabe) h += '<div class="block"><h3>📸 Fotos</h3><div class="nachricht">Kunde ist einverstanden, dass du Fotos der Fotobox von diesem Fest zeigst (nur Bilder, auf denen alle einverstanden sind).</div></div>';
 
   var extra = [];
@@ -936,6 +938,7 @@ function verbindeDetail(){
     }); });
   }
   if($('dBearb')) $('dBearb').addEventListener('click', bearbeitenSheet);
+  if($('dWerbe')) $('dWerbe').addEventListener('change', function(){ aktuell.werbeOk = this.checked; planeSpeichern(); });
   if($('dDatKopie')) $('dDatKopie').addEventListener('click', function(){ var a = aktuell; kopieren(datumKurz(a.datum) + (a.datumEnde && a.datumEnde !== a.datum ? ' – ' + datumKurz(a.datumEnde) : ''), 'Datum kopiert'); });
   if($('dKm')) $('dKm').addEventListener('input', function(){
     var km = Number(this.value.replace(',', '.').trim());
@@ -978,7 +981,7 @@ function sofortSpeichern(){
   if(!speicherTimer || !aktuell) return speichertGerade || Promise.resolve();
   clearTimeout(speicherTimer); speicherTimer = null;
   var a = aktuell;
-  var patch = {positionen: a.positionen, anrede: a.anrede || '', notiz: a.notiz || '', anzahlung: a.anzahlung, rechnungNr: a.rechnungNr || '', anreise: a.anreise || null, uebergabe: a.uebergabe || '', empfehlung: a.empfehlung || {aktiv:false, code:''}};
+  var patch = {positionen: a.positionen, anrede: a.anrede || '', notiz: a.notiz || '', anzahlung: a.anzahlung, rechnungNr: a.rechnungNr || '', werbeOk: !!a.werbeOk, anreise: a.anreise || null, uebergabe: a.uebergabe || '', empfehlung: a.empfehlung || {aktiv:false, code:''}};
   speichertGerade = api('speichern', {id: a.id, patch: patch}).then(function(d){
     var i = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(i !== -1) alle[i] = d.anfrage;
     if(aktuell && aktuell.id === d.anfrage.id){ aktuell.pdf = d.anfrage.pdf; aktuell.waText = d.anfrage.waText; aktuell.waAbsage = d.anfrage.waAbsage; aktuell.empfehlung = d.anfrage.empfehlung; if(!!d.anfrage.geaendertNachVersand !== !!aktuell.geaendertNachVersand){ aktuell.geaendertNachVersand = d.anfrage.geaendertNachVersand; zeichneLeiste(); if(!$('hGeaendert') && aktuell.geaendertNachVersand) toast('Geändert. Das gesendete PDF bleibt gleich.'); } if($('empInfo') && d.anfrage.empfehlung && d.anfrage.empfehlung.aktiv && d.anfrage.empfehlung.code) $('empInfo').textContent = 'Code ' + d.anfrage.empfehlung.code + ' · Link steht in der WhatsApp-Nachricht'; if((aktuell.status === 'fix' || aktuell.status === 'erledigt') && $('lWa')) $('lWa').href = waLink(aktuell.waNummer, aktuell.waText); }
@@ -1631,6 +1634,7 @@ $('menue').addEventListener('click', function(){
     '<button class="menue-p" data-m="neu">' + IC_MENUE.neu + '<span>Neue Anfrage<small>Für Kunden per Telefon oder WhatsApp</small></span></button>' +
     '<button class="menue-p" data-m="angebote"><svg class="i" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg><span>Alle Angebote<small>Verschickte PDFs ansehen und nachträglich ändern</small></span></button>' +
     '<button class="menue-p" data-m="preise">' + IC_MENUE.preis + '<span>Angebote &amp; Preise<small>Alle Burgen, Fotoboxen und Extras bearbeiten</small></span></button>' +
+    '<button class="menue-p" data-m="stamm"><svg class="i" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span>Stammkunden<small>Wen du wann wieder anschreiben kannst (−10 %)</small></span></button>' +
     '<button class="menue-p" data-m="geld">' + IC_MENUE.geld + '<span>Einnahmen<small>Umsatz pro Monat und Gerät, Excel</small></span></button>' +
     '<button class="menue-p" data-m="backup"><svg class="i" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span>Backup herunterladen<small>Alle Anfragen, Angebote und Fahrten als Datei sichern' + (letztesBackup() ? ' · zuletzt ' + letztesBackup() : '') + '</small></span></button>' +
     '<button class="menue-p" data-m="raus" style="border-bottom:none;color:var(--nein)">' + IC_MENUE.raus + '<span>Abmelden</span></button>');
@@ -1638,10 +1642,66 @@ $('menue').addEventListener('click', function(){
     var m = b.dataset.m;
     if(m === 'raus'){ schliesseSheet(); abmelden(''); return; }
     if(m === 'backup'){ schliesseSheet(); backupLaden(); return; }
+    if(m === 'stamm'){ schliesseSheetDann(stammkundenSheet); return; }
     schliesseSheetDann(function(){ if(m === 'neu') neuSheet(); else if(m === 'angebote') angeboteSheet(); else if(m === 'preise') preiseSheet(); else einnahmenSheet(); });
   }; });
 });
 $('neuAnlegen').addEventListener('click', function(){ neuSheet(); });
+/* ── Stammkunden ── */
+var STAMM_RABATT = 10;
+function telKey(t){ var x = String(t || '').replace(/[^\d+]/g, ''); if(x.indexOf('+') === 0) x = x.slice(1); else if(x.indexOf('00') === 0) x = x.slice(2); else if(x.indexOf('0') === 0) x = '43' + x.slice(1); return x.replace(/\D/g, ''); }
+function kundenKey(a){ var t = telKey(a.kunde && a.kunde.telefon); if(t.length >= 8) return 't' + t; var n = ((a.kunde.vorname || '') + ' ' + (a.kunde.nachname || '')).trim().toLowerCase(); return n ? 'n' + n + '|' + ((a.adresse && a.adresse.ort) || '').toLowerCase() : ''; }
+function stammkunden(){
+  var g = {};
+  alle.filter(function(a){ return istFixA(a) && a.datum; }).forEach(function(a){ var k = kundenKey(a); if(!k) return; (g[k] = g[k] || []).push(a); });
+  var h = heute(), out = [];
+  Object.keys(g).forEach(function(k){
+    var L = g[k].sort(function(x, y){ return (x.datum || '').localeCompare(y.datum || ''); });
+    var vorbei = L.filter(function(a){ var d = tagDatum(a.datumEnde || a.datum); return d && d < h; });
+    if(!vorbei.length) return;
+    var letzte = vorbei[vorbei.length - 1];
+    var kommt = L.some(function(a){ var d = tagDatum(a.datum); return d && d >= h; });
+    var stopp = L.some(function(a){ return a.stammkunde && a.stammkunde.stopp; });
+    var ok = L.some(function(a){ return a.werbeOk; });
+    var ang = L.map(function(a){ return a.stammkunde && a.stammkunde.angeschriebenAm; }).filter(Boolean).sort().pop() || '';
+    var d = tagDatum(letzte.datum); var ab = new Date(d.getFullYear() + 1, d.getMonth(), d.getDate()); ab.setDate(ab.getDate() - 42);
+    var abIso = ab.getFullYear() + '-' + ('0'+(ab.getMonth()+1)).slice(-2) + '-' + ('0'+ab.getDate()).slice(-2);
+    var status = stopp ? 'stopp' : kommt ? 'gebucht' : (ang && ang > letzte.datum) ? 'angeschrieben' : (ab <= h ? 'faellig' : 'spaeter');
+    out.push({key: k, letzte: letzte, anzahl: vorbei.length, ok: ok, stopp: stopp, angeschrieben: ang, ab: abIso, status: status});
+  });
+  var rang = {faellig: 0, spaeter: 1, angeschrieben: 2, gebucht: 3, stopp: 4};
+  return out.sort(function(x, y){ return rang[x.status] - rang[y.status] || x.ab.localeCompare(y.ab); });
+}
+function stammText(a){
+  var pr = produkte(a) || 'unsere Hüpfburg';
+  return 'Hallo ' + (a.kunde.vorname || '') + ', hier ist Alex von Hüpfabenteuer 😊\n\n' +
+    'Letztes Jahr war bei euch ' + (/fotobox/i.test(pr) ? 'die ' : 'die ') + pr + ' im Einsatz' + (a.anlass ? ' (' + a.anlass + ')' : '') + '. Falls ihr heuer wieder feiert: Als Stammkunde bekommst du ' + STAMM_RABATT + ' % Rabatt auf die Miete.\n\n' +
+    'Soll ich dir ein Angebot schicken?\n\n(Wenn du keine Nachrichten mehr von mir willst, schreib einfach „Stopp“.)';
+}
+function stammkundenSheet(){
+  var L = stammkunden();
+  var titel = {faellig: 'Jetzt anschreiben', spaeter: 'Später', angeschrieben: 'Schon angeschrieben', gebucht: 'Hat wieder gebucht 🎉', stopp: 'Will keine Nachrichten'};
+  var h = '<h3>Stammkunden</h3><p style="margin-bottom:8px;font-size:.88rem">Vorschlag: ca. 6 Wochen vor dem Datum vom letzten Mal anschreiben. Nur einmal pro Jahr. ✓ = hat zugestimmt.</p>';
+  if(!L.length) h += '<div class="leer"><b>Noch keine Stammkunden</b>Sobald ein Fest vorbei ist, erscheint der Kunde hier.</div>';
+  var gr = null;
+  L.forEach(function(s, i){
+    var a = s.letzte, name = ((a.kunde.vorname || '') + ' ' + (a.kunde.nachname || '')).trim() || 'Kunde';
+    if(s.status !== gr){ gr = s.status; h += '<div class="gruppe">' + titel[gr] + '</div>'; }
+    h += '<div class="block" style="padding:12px 14px;margin-bottom:8px"><div style="display:flex;justify-content:space-between;gap:8px"><b>' + esc(name) + '</b><span style="font-size:.8rem;font-weight:800;color:' + (s.ok ? 'var(--fix)' : 'var(--mute)') + '">' + (s.ok ? '✓ Zustimmung' : 'ohne Zustimmung') + '</span></div>' +
+      '<div style="font-size:.85rem;color:var(--ink-2)">' + esc(produkte(a)) + ' · ' + esc(datumKurz(a.datum)) + ((a.adresse && a.adresse.ort) ? ' · ' + esc(a.adresse.ort) : '') + (s.anzahl > 1 ? ' · ' + s.anzahl + '× gebucht' : '') + '</div>' +
+      '<div style="font-size:.82rem;color:var(--mute);margin-top:2px">' + (s.status === 'angeschrieben' ? 'Angeschrieben am ' + new Date(s.angeschrieben).toLocaleDateString('de-AT') : s.status === 'faellig' || s.status === 'spaeter' ? 'Anschreiben ab ' + esc(datumKurz(s.ab)) : '') + '</div>' +
+      ((s.status === 'faellig' || s.status === 'spaeter') && a.waNummer ? '<div style="display:flex;gap:8px;margin-top:8px"><a class="btn btn-wa" style="flex:1" data-sw="' + i + '" href="' + esc(waLink(a.waNummer, stammText(a))) + '" target="_blank" rel="noopener">WhatsApp</a><button class="btn btn-n" data-ss="' + i + '">Stopp</button></div>' : '') +
+      ((s.status === 'faellig' || s.status === 'spaeter') && !a.waNummer ? '<div class="bew-status" style="margin-top:6px">Keine Handynummer gespeichert.</div>' : '') +
+      (s.status === 'angeschrieben' || s.status === 'stopp' ? '<button class="pos-neu" data-sz="' + i + '" style="color:var(--mute);padding:4px 0">Zurücksetzen</button>' : '') +
+      '</div>';
+  });
+  oeffneSheet(h);
+  function schritt(i, s){ return api('stammkunde', {id: L[i].letzte.id, schritt: s}).then(function(d){ var j = alle.findIndex(function(x){ return x.id === d.anfrage.id; }); if(j !== -1) alle[j] = d.anfrage; }); }
+  $('sheetIn').querySelectorAll('[data-sw]').forEach(function(b){ b.addEventListener('click', function(){ var i = +b.dataset.sw; setTimeout(function(){ schritt(i, 'angeschrieben').then(function(){ toast('Als angeschrieben vermerkt'); stammkundenSheet(); }).catch(function(){}); }, 400); }); });
+  $('sheetIn').querySelectorAll('[data-ss]').forEach(function(b){ b.addEventListener('click', function(){ if(!confirmLeise('Diesen Kunden nicht mehr anschreiben?')) return; schritt(+b.dataset.ss, 'stopp').then(function(){ toast('Vermerkt: keine Nachrichten mehr'); stammkundenSheet(); }).catch(function(){}); }); });
+  $('sheetIn').querySelectorAll('[data-sz]').forEach(function(b){ b.addEventListener('click', function(){ schritt(+b.dataset.sz, 'zuruecksetzen').then(stammkundenSheet).catch(function(){}); }); });
+}
+
 /* ── Backup ── */
 function letztesBackup(){ try{ var d = localStorage.getItem('hb_backup'); return d ? new Date(d).toLocaleDateString('de-AT') : ''; }catch(e){ return ''; } }
 function backupLaden(){
@@ -1768,7 +1828,7 @@ function aktionAktiv(){ return new Date().toLocaleDateString('sv-SE', {timeZone:
 function neuSheet(){
   oeffneSheet('<h3>Neue Anfrage</h3><p>Wird geladen …</p>');
   ladeKatalog().then(function(k){
-    var gewaehlt = {}, preisNeu = {}, mengeNeu = {}, anreise = null, anrNr = 0;
+    var gewaehlt = {}, preisNeu = {}, mengeNeu = {}, anreise = null, anrNr = 0, stammVon = null;
     var chips = GRUPPEN.map(function(g){
       var l = k.filter(function(x){ return x.gruppe === g[0] && x.aktiv !== false; });
       return l.length ? '<div class="kat-g">' + g[1] + '</div><div class="neu-chips">' + l.map(function(x){ return '<button type="button" class="neu-chip" data-id="' + esc(x.id) + '">' + esc(x.titel) + '<small>' + eur(x.preis) + '</small></button>'; }).join('') + '</div>' : '';
@@ -1786,6 +1846,8 @@ function neuSheet(){
       '<div id="nGew" style="margin-top:8px"></div>' +
       '<label class="emp-sw" style="margin-top:14px" id="nAkW" hidden><input type="checkbox" id="nAk" checked/><span>Winter-Rabatt −' + AKTION_PROZENT + ' % auf die Fotobox</span></label>' +
       '<label class="emp-sw" style="margin-top:10px"><input type="checkbox" id="nEmp"/><span>Empfehlungs-Deal (−30 €) anbieten</span></label>' +
+      '<label class="emp-sw" style="margin-top:10px" id="nStammW" hidden><input type="checkbox" id="nStamm" checked/><span id="nStammT">Stammkunde: −' + STAMM_RABATT + ' %</span></label>' +
+      '<label class="emp-sw" style="margin-top:10px"><input type="checkbox" id="nWerbe"/><span>Darf nächstes Jahr mit Stammkunden-Angebot angeschrieben werden (Kunde hat zugestimmt)</span></label>' +
       '<label class="emp-sw" style="margin-top:10px"><input type="checkbox" id="nSelbst"/><span>Holt selbst ab (keine Lieferung)</span></label>' +
       '<div class="feld" style="margin-top:12px"><label>Notiz (optional)</label><textarea id="nNotiz" rows="2" placeholder="z. B. 40er, Aufbau im Garten"></textarea></div>' +
       '<div class="zeile" style="font-weight:800;font-size:1.05rem"><span style="color:var(--ink)">Gesamt</span><span id="nSum">–</span></div>' +
@@ -1796,6 +1858,11 @@ function neuSheet(){
       k.forEach(function(x){ if(gewaehlt[x.id]) pos.push({art: x.gruppe === 'extra' ? 'extra' : 'miete', titel: x.titel, text: x.text || '', menge: mengeNeu[x.id] || 1, betrag: preisVon(x)}); });
       if($('nAk').checked && aktionAktiv()){
         k.forEach(function(x){ if(gewaehlt[x.id] && x.gruppe === 'foto'){ var pr = preisVon(x), r = pr - Math.floor(pr * (100 - AKTION_PROZENT) / 100); if(r > 0) pos.push({art:'rabatt', titel:'Start-in-den-Winter-Rabatt (−' + AKTION_PROZENT + ' %)', text:'Aktion bis 15. November auf alle Fotobox-Pakete', betrag:-r}); } });
+      }
+      if(stammVon && $('nStamm').checked){
+        var mi = pos.reduce(function(t, p){ return t + (p.art === 'miete' || p.art === 'extra' ? (Number(p.betrag) || 0) : 0) + (p.art === 'rabatt' ? (Number(p.betrag) || 0) : 0); }, 0);
+        var rb = Math.round(mi * STAMM_RABATT) / 100;
+        if(rb > 0) pos.push({art:'rabatt', titel:'Stammkunden-Rabatt (−' + STAMM_RABATT + ' %)', text:'Danke, dass du wieder bei uns buchst!', betrag: -rb});
       }
       if(!$('nSelbst').checked){
         pos.push({art:'lieferung', titel:'Lieferung & Abholung', text:'Glödnitz – ' + (v('nOrt') || 'Kunde') + (anreise ? ' · 4 Fahrten à ' + anreise.km + ' km × 0,55 €' : ''), betrag: anreise ? anreise.anreise : null});
@@ -1843,7 +1910,16 @@ function neuSheet(){
     $('nAm').value = heuteN; $('nAm').max = heuteN;
     $('nAm').addEventListener('input', function(){ amAnge = true; });
     $('nDat').addEventListener('change', function(){ if(amAnge) return; $('nAm').value = (v('nDat') && v('nDat') < heuteN) ? v('nDat') : heuteN; });
-    ['nAk','nSelbst'].forEach(function(id){ $(id).addEventListener('change', summe); });
+    ['nAk','nSelbst','nStamm'].forEach(function(id){ $(id).addEventListener('change', summe); });
+    function stammPruefen(){
+      var t = telKey(v('nTel')), h = heute();
+      stammVon = t.length >= 8 ? alle.filter(function(a){ var d = tagDatum(a.datumEnde || a.datum); return istFixA(a) && d && d < h && telKey(a.kunde && a.kunde.telefon) === t; }).sort(function(x, y){ return (y.datum || '').localeCompare(x.datum || ''); })[0] || null : null;
+      $('nStammW').hidden = !stammVon;
+      if(stammVon) $('nStammT').textContent = 'Stammkunde erkannt (' + produkte(stammVon) + ', ' + datumKurz(stammVon.datum) + '): −' + STAMM_RABATT + ' % auf die Miete';
+      if(stammVon && stammVon.werbeOk) $('nWerbe').checked = true;
+      summe();
+    }
+    $('nTel').addEventListener('input', stammPruefen);
     $('nKm').addEventListener('input', function(){
       var km = Number(this.value.replace(',', '.').trim());
       if(this.value.trim() === '' || !isFinite(km) || km <= 0){ return; }
@@ -1868,7 +1944,7 @@ function neuSheet(){
         datum: v('nDat'), datumEnde: v('nEnd'), erstelltAm: v('nAm') && v('nAm') !== heuteN ? v('nAm') : '',
         anreise: anreise ? {km: anreise.km, betrag: anreise.anreise, ort: anreise.ort} : null,
         empfehlung: {aktiv: $('nEmp').checked, code: ''},
-        notiz: v('nNotiz'), positionen: pos, uebergabe: $('nSelbst').checked ? 'selbst' : 'liefern'
+        notiz: v('nNotiz'), positionen: pos, werbeOk: $('nWerbe').checked, uebergabe: $('nSelbst').checked ? 'selbst' : 'liefern'
       }}).then(function(d){
         alle.push(d.anfrage); schliesseSheet();
         tab = 'ausstehend'; document.querySelectorAll('.tab').forEach(function(x){ x.classList.toggle('on', x.dataset.t === 'ausstehend'); });
