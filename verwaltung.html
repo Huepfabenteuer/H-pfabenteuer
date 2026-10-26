@@ -710,7 +710,6 @@ function zeichneDetail(){
          (adr ? '<a class="btn btn-g" style="grid-column:1/-1" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(adr) + '"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Route in Google Maps</a>' : '') +
        '</div>' +
        '<div class="zeile" style="margin-top:10px;align-items:center"><span>km pro Strecke ab Glödnitz</span><span class="anz"><input id="dKm" inputmode="decimal" value="' + esc(a.anreise && a.anreise.km != null ? String(a.anreise.km).replace('.', ',') : '') + '" placeholder="km"/> km</span></div>' +
-       '<div style="color:var(--mute);font-size:.82rem" id="dKmInfo">' + (a.anreise && a.anreise.km ? '4 Fahrten × ' + esc(String(a.anreise.km).replace('.', ',')) + ' km × 0,55 € = ' + eur(Math.round(4 * a.anreise.km * 0.55)) + (gesperrtK(a) ? ' · Preis im fixen Angebot bleibt gleich' : '') : 'Selbst eintragen, wenn nichts berechnet wurde.') + '</div>' +
        '<div style="margin-top:12px;font-weight:700;font-size:.9rem">Übergabe</div>' +
        '<div class="seg" id="dUeb" style="grid-template-columns:1fr 1fr;margin-top:4px"><button data-v="liefern" class="' + (uebergabe(a) === 'liefern' ? 'on' : '') + '">🚚 Wir liefern</button><button data-v="selbst" class="' + (uebergabe(a) === 'selbst' ? 'on' : '') + '">Holt selbst ab</button></div>' +
        '<div id="dUebInfo" style="font-size:.82rem;margin-top:6px"></div>' +
@@ -932,7 +931,7 @@ function verbindeDetail(){
       a.uebergabe = v;
       if(!gesperrtK(a)){
         if(v === 'selbst') a.positionen = (a.positionen || []).filter(function(p){ return p.art !== 'lieferung'; });
-        else if(!(a.positionen || []).some(function(p){ return p.art === 'lieferung'; })) (a.positionen = a.positionen || []).push({art:'lieferung', titel:'Lieferung & Abholung', text:'Glödnitz – ' + ((a.adresse && a.adresse.ort) || 'Kunde') + (a.anreise && a.anreise.km ? ' · 4 Fahrten à ' + String(a.anreise.km).replace('.', ',') + ' km × 0,55 €' : ''), betrag: a.anreise && a.anreise.betrag != null ? a.anreise.betrag : null});
+        else if(!(a.positionen || []).some(function(p){ return p.art === 'lieferung'; })) (a.positionen = a.positionen || []).push({art:'lieferung', titel:'Lieferung & Abholung', text:'', betrag: a.anreise && a.anreise.betrag != null ? a.anreise.betrag : null});
       }
       planeSpeichern(); zeichneDetail();
     }); });
@@ -947,8 +946,7 @@ function verbindeDetail(){
     var betrag = Math.round(4 * km * 0.55), a = aktuell;
     a.anreise = {km: km, betrag: betrag, ort: (a.anreise && a.anreise.ort) || (a.adresse && a.adresse.ort) || ''};
     var fest = gesperrtK(a);
-    if(!fest) (a.positionen || []).forEach(function(p){ if(p.art === 'lieferung'){ p.betrag = betrag; p.text = 'Glödnitz – ' + ((a.adresse && a.adresse.ort) || 'Kunde') + ' · 4 Fahrten à ' + String(km).replace('.', ',') + ' km × 0,55 €'; } });
-    $('dKmInfo').textContent = '4 Fahrten × ' + String(km).replace('.', ',') + ' km × 0,55 € = ' + eur(betrag) + (fest ? ' · Preis im fixen Angebot bleibt gleich' : '');
+    if(!fest) (a.positionen || []).forEach(function(p){ if(p.art === 'lieferung'){ p.betrag = betrag; } });
     if(!fest){ var pi = (a.positionen || []).findIndex(function(p){ return p.art === 'lieferung'; }); var inp = pi !== -1 && document.querySelector('.pos[data-i="' + pi + '"] .p-b'); if(inp){ inp.value = String(betrag).replace('.', ','); inp.classList.remove('leer'); } zeichneSumme(); }
     planeSpeichern();
   });
@@ -1865,7 +1863,7 @@ function neuSheet(){
         if(rb > 0) pos.push({art:'rabatt', titel:'Stammkunden-Rabatt (−' + STAMM_RABATT + ' %)', text:'Danke, dass du wieder bei uns buchst!', betrag: -rb});
       }
       if(!$('nSelbst').checked){
-        pos.push({art:'lieferung', titel:'Lieferung & Abholung', text:'Glödnitz – ' + (v('nOrt') || 'Kunde') + (anreise ? ' · 4 Fahrten à ' + anreise.km + ' km × 0,55 €' : ''), betrag: anreise ? anreise.anreise : null});
+        pos.push({art:'lieferung', titel:'Lieferung & Abholung', text:'', betrag: anreise ? anreise.anreise : null});
       }
       return pos;
     }

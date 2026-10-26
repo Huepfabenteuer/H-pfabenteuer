@@ -2421,7 +2421,7 @@ function submitAnfrage(){
     var _an = window.hbAnreiseWert;
     var _posV = (window._posBasis || []).slice();
     if(window._liefertWir !== false){
-      _posV.push({art:'lieferung', titel:'Lieferung & Abholung', text: 'Glödnitz – ' + ort + (_an ? ' · 4 Fahrten à ' + _an.km + ' km × 0,55 €' : ''), betrag: _an ? _an.anreise : null});
+      _posV.push({art:'lieferung', titel:'Lieferung & Abholung', text:'', betrag: _an ? _an.anreise : null});
     }
     var _verw = {
       typ: currentModus, quelle: 'Anfrageformular',

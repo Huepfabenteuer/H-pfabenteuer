@@ -2165,7 +2165,7 @@ document.addEventListener('DOMContentLoaded',function(){
       var _an = window.hbAnreiseWert, _rw = rahmenWert();
       var _posV = [{art:'miete', titel: selectedPrice ? 'Fotobox ' + selectedName : 'Fotobox (Paket noch offen)', text: 'Fotobox mit allem Zubehör, ganzer Abend, Auf- und Abbau inklusive' + (_rw ? ' · Rahmen: ' + _rw : ''), betrag: selectedPrice || null}];
       if(window.hbAktion && selectedPrice){ var _akP = hbAktion.position(selectedPrice); if(_akP) _posV.push(_akP); }
-      _posV.push({art:'lieferung', titel:'Lieferung & Abholung', text:'Glödnitz – ' + ort + (_an ? ' · 4 Fahrten à ' + _an.km + ' km × 0,55 €' : ''), betrag: _an ? _an.anreise : null});
+      _posV.push({art:'lieferung', titel:'Lieferung & Abholung', text:'', betrag: _an ? _an.anreise : null});
       var _verw = {
         typ: 'hochzeit', quelle: 'Hochzeit-Landingpage',
         kunde: {vorname: vorname, nachname: nachname, telefon: telefon, email: email},
