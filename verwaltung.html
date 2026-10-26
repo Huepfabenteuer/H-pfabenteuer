@@ -1551,6 +1551,12 @@ function einzelFahrtSheet(id, datumVor){
   }
   $('ezSpeichern').onclick = function(){
     var b = this, neu = eingabe(), andere = [];
+    /* Warnung: Rückfahrt liegt vor ihrer Hinfahrt (z. B. Abholung nach der Rückfahrt) */
+    var reW = fahrtRe(neu), art = /abholung/i.test(neu.zweck || '') ? 'abholung' : (/lieferung/i.test(neu.zweck || '') ? 'lieferung' : ''), rkW = /^r(ü|ue)ck/i.test(neu.zweck || '');
+    if(reW && art && neu.datum && neu.ab){
+      var gg = (einzelFahrten || []).filter(function(x){ return x.id !== neu.id && rnGleich(fahrtRe(x), reW) && new RegExp(art, 'i').test(x.zweck || '') && /^r(ü|ue)ck/i.test(x.zweck || '') !== rkW; })[0];
+      if(gg && (rkW ? sk(gg) > sk(neu) : sk(gg) < sk(neu)) && !confirmLeise('Achtung: Die ' + (rkW ? 'Rückfahrt liegt vor der ' + (art === 'abholung' ? 'Abholung' : 'Lieferung') : (art === 'abholung' ? 'Abholung' : 'Lieferung') + ' liegt nach ihrer Rückfahrt') + ' (' + datumKurz(gg.datum).slice(0,6) + ' ' + gg.ab + '). Trotzdem speichern?')) return;
+    }
     if($('ezKette').checked && neu.datum){ var r = kette(neu); neu = r.neu; andere = r.andere; }
     var schonDa = {}; andere.forEach(function(x){ schonDa[x.id] = x; });
     var zeiten = fbZeitenUebertragen(neu, schonDa, $('ezZeitAlle') && $('ezZeitAlle').checked);
