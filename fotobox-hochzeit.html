@@ -2179,8 +2179,11 @@ document.addEventListener('DOMContentLoaded',function(){
         werbeOk: !!(document.getElementById('werbeOk') && document.getElementById('werbeOk').checked),
         positionen: _posV
       };
-      fetch('/.netlify/functions/anfrage', {method:'POST', keepalive:true, headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'neu', daten:_verw})}).catch(function(){});
+      fetch('/.netlify/functions/anfrage', {method:'POST', keepalive:true, headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'neu', daten:_verw, hp:(window.hbHp ? hbHp() : ''), t0:window.hbT0})}).catch(function(){});
     } catch(e){}
+
+
+    if(window.hbHp && hbHp()) fd.append('_gotcha', hbHp());
 
 
     fetch(ENDPOINT, { method:'POST', headers:{'Accept':'application/json'}, body: fd })
@@ -2261,6 +2264,18 @@ document.addEventListener('DOMContentLoaded',function(){
 <script src="verfuegbar.js?v=202610211800"></script>
 <script>
 if(window.hbFrei) hbFrei.watch({datum:'datumFoto', geraet:function(){return 'fotobox';}, name:function(){return 'die Fotobox';}});
+</script>
+<script>
+/* Spam-Schutz: unsichtbares Feld (nur Bots füllen es aus) + Ladezeit */
+(function(){ window.hbT0 = Date.now();
+  document.querySelectorAll('form').forEach(function(f){
+    var w = document.createElement('div'); w.setAttribute('aria-hidden','true');
+    w.style.cssText = 'position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden';
+    w.innerHTML = '<label>Firma Website<input type="text" name="_gotcha" class="hb-hp" tabindex="-1" autocomplete="off"></label>';
+    f.appendChild(w);
+  });
+  window.hbHp = function(){ var v=''; document.querySelectorAll('.hb-hp').forEach(function(i){ if(i.value) v=i.value; }); return v; };
+})();
 </script>
 </body>
 </html>

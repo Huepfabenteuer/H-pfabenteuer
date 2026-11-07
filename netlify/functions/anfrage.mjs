@@ -144,6 +144,48 @@ async function alleAnfragen(st) {
   const { blobs } = await st.list({ prefix: PREFIX });
   return (await Promise.all(blobs.map(b => st.get(b.key, { type: 'json' }).catch(() => null)))).filter(Boolean);
 }
+/* ── Spam-Schutz für öffentliche Anfragen ── */
+function zufallsWort(t) {
+  /* z. B. „cBUndJFRjlSxceXWLCfU“: lang, ohne Leerzeichen, ständig Groß/Klein-Wechsel */
+  return String(t || '').split(/\s+/).some(w => {
+    if (w.length < 8 || !/^[A-Za-zÄÖÜäöüß]+$/.test(w)) return false;
+    let wechsel = 0;
+    for (let i = 1; i < w.length; i++) if (/[a-zäöüß]/.test(w[i - 1]) && /[A-ZÄÖÜ]/.test(w[i])) wechsel++;
+    return wechsel >= 3;
+  });
+}
+function spamGrund(body, d, alt) {
+  if (body.hp) return 'honeypot';
+  const t0 = Number(body.t0);
+  if (t0 && Date.now() - t0 < 3000) return 'zu-schnell';
+  const max = new Date(); max.setFullYear(max.getFullYear() + 4);
+  if (alt) { if (d.datum && (!/^\d{4}-\d{2}-\d{2}$/.test(d.datum) || d.datum < '2020-01-01')) return 'datum'; }
+  else if (d.datum && (!/^\d{4}-\d{2}-\d{2}$/.test(d.datum) || d.datum < new Date(Date.now() - 3 * 864e5).toISOString().slice(0, 10) || d.datum > max.toISOString().slice(0, 10))) return 'datum';
+  if ((String(d.kunde.telefon).match(/\d/g) || []).length < 6) return 'telefon';
+  const texte = [d.kunde.vorname, d.kunde.nachname, d.adresse && d.adresse.ort, d.adresse && d.adresse.strasse, d.anlass];
+  if (texte.some(zufallsWort)) return 'zufallstext';
+  return '';
+}
+async function spamMerken(st, grund, d, ip) {
+  try {
+    const k = 'meta/spam';
+    const m = (await st.get(k, { type: 'json' }).catch(() => null)) || { n: 0, letzte: [] };
+    m.n++; m.letzte = [{ am: new Date().toISOString(), grund, name: ((d.kunde.vorname || '') + ' ' + (d.kunde.nachname || '')).slice(0, 40), datum: d.datum, ip: String(ip).slice(0, 45) }].concat(m.letzte || []).slice(0, 30);
+    await st.setJSON(k, m);
+  } catch (e) {}
+}
+/* max. 4 Anfragen pro Stunde von derselben IP */
+async function zuVieleAnfragen(st, ip) {
+  try {
+    const k = 'meta/rl/' + String(ip).replace(/[^0-9a-fA-F]/g, '_').slice(0, 45);
+    const z = (await st.get(k, { type: 'json' }).catch(() => null)) || {};
+    const jetzt = Date.now();
+    const n = z.seit && jetzt - z.seit < 3600e3 ? (z.n || 0) + 1 : 1;
+    await st.setJSON(k, { n, seit: n === 1 ? jetzt : z.seit });
+    return n > 4;
+  } catch (e) { return false; }
+}
+
 function heuteWien() {
   return new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Vienna' });
 }
@@ -255,6 +297,13 @@ export default async (req, context) => {
     const daten = saeubere(body.daten);
     if (!daten.kunde.vorname && !daten.kunde.nachname) return json({ ok: false, grund: 'name' }, 400);
     if (!daten.kunde.telefon) return json({ ok: false, grund: 'telefon' }, 400);
+    const ip = (context && context.ip) || req.headers.get('x-nf-client-connection-ip') || 'unbekannt';
+    const grund = spamGrund(body, daten) || ((await zuVieleAnfragen(st, ip)) ? 'zu-viele' : '');
+    if (grund) {
+      /* Bots bekommen ein normales „ok“, damit sie nicht merken, dass sie blockiert sind */
+      await spamMerken(st, grund, daten, ip);
+      return json({ ok: true, id: Date.now().toString(36) + zufall(4) });
+    }
     const id = Date.now().toString(36) + zufall(4);
     const eintrag = {
       id, token: zufall(20), erstellt: new Date().toISOString(),
@@ -283,6 +332,14 @@ export default async (req, context) => {
 
   if (body.action === 'liste') {
     const alle = await alleAnfragen(st);
+    /* Spam, der vor dem Schutz reingekommen ist, automatisch in den Papierkorb (wiederherstellbar) */
+    for (const a of alle) {
+      if (a.status !== 'ausstehend' || a.manuell || a.spamGeprueft) continue;
+      const g = spamGrund({}, a, true);
+      a.spamGeprueft = true;
+      if (g) { a.vorherStatus = 'ausstehend'; a.status = 'papierkorb'; a.notiz = ('Automatisch als Spam erkannt (' + g + ')\n' + (a.notiz || '')).trim(); }
+      await st.setJSON(PREFIX + a.id, a);
+    }
     await belegtNeuBerechnen(st, alle);
     return json({ ok: true, anfragen: alle.map(a => anreichern(req, a)) });
   }

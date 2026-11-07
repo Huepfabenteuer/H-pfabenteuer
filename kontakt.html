@@ -335,6 +335,8 @@ document.querySelectorAll('[data-track]').forEach(function(el){
     fd.append('Nachricht', msg);
     fd.append('Quelle', 'Kontaktseite');
 
+    if(window.hbHp && hbHp()) fd.append('_gotcha', hbHp());
+
     fetch(ENDPOINT, {method:'POST', headers:{'Accept':'application/json'}, body:fd})
       .then(function(r){ return r.json().then(function(d){ return {ok:r.ok, data:d}; }); })
       .then(function(r){
@@ -370,6 +372,18 @@ document.querySelectorAll('[data-track]').forEach(function(el){
   bg.addEventListener('click',function(){ setOpen(false); });
   dr.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ setOpen(false); }); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape' && html.classList.contains('menu-open')) setOpen(false); });
+})();
+</script>
+<script>
+/* Spam-Schutz: unsichtbares Feld (nur Bots füllen es aus) + Ladezeit */
+(function(){ window.hbT0 = Date.now();
+  document.querySelectorAll('form').forEach(function(f){
+    var w = document.createElement('div'); w.setAttribute('aria-hidden','true');
+    w.style.cssText = 'position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden';
+    w.innerHTML = '<label>Firma Website<input type="text" name="_gotcha" class="hb-hp" tabindex="-1" autocomplete="off"></label>';
+    f.appendChild(w);
+  });
+  window.hbHp = function(){ var v=''; document.querySelectorAll('.hb-hp').forEach(function(i){ if(i.value) v=i.value; }); return v; };
 })();
 </script>
 </body>
