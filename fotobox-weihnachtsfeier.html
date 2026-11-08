@@ -2157,15 +2157,12 @@ document.addEventListener('DOMContentLoaded',function(){
         werbeOk: !!(document.getElementById('werbeOk') && document.getElementById('werbeOk').checked),
         positionen: _posV
       };
-      fetch('/.netlify/functions/anfrage', {method:'POST', keepalive:true, headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'neu', daten:_verw, hp:(window.hbHp ? hbHp() : ''), t0:window.hbT0, ft:window.hbFt || ''})}).catch(function(){});
+      window._hbVerwP = fetch('/.netlify/functions/anfrage', {method:'POST', keepalive:true, headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'neu', daten:_verw, hp:(window.hbHp ? hbHp() : ''), t0:window.hbT0, ft:window.hbFt || ''})}).then(function(r){ return r.json(); }).catch(function(){ return null; });
     } catch(e){}
 
 
-    if(window.hbHp && hbHp()) fd.append('_gotcha', hbHp());
-
-
     fetch(ENDPOINT, { method:'POST', headers:{'Accept':'application/json'}, body: fd })
-      .then(function(res){ return res.json().then(function(d){ return {ok:res.ok, data:d}; }); })
+      .then(function(res){ return res.json().catch(function(){ return {}; }).then(function(d){ return {ok:res.ok, data:d}; }); }).catch(function(){ return {ok:false, data:{}}; }).then(function(x){ if(x.ok) return x; return (window._hbVerwP || Promise.resolve(null)).then(function(v){ return (v && v.ok) ? {ok:true, data:{}} : x; }); })
       .then(function(r){
         if(r.ok){
           say('Anfrage ist da. Du hörst gleich von uns.', true);
@@ -2248,13 +2245,7 @@ if(window.hbFrei) hbFrei.watch({datum:'datumFoto', geraet:function(){return 'fot
 (function(){ window.hbT0 = Date.now();
   function ticket(){ fetch('/.netlify/functions/anfrage?ticket=1', {cache:'no-store'}).then(function(r){ return r.json(); }).then(function(j){ window.hbFt = j.t; }).catch(function(){}); }
   ticket(); setInterval(ticket, 3 * 3600e3);
-  document.querySelectorAll('form').forEach(function(f){
-    var w = document.createElement('div'); w.setAttribute('aria-hidden','true');
-    w.style.cssText = 'position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden';
-    w.innerHTML = '<label>Firma Website<input type="text" name="_gotcha" class="hb-hp" tabindex="-1" autocomplete="off"></label>';
-    f.appendChild(w);
-  });
-  window.hbHp = function(){ var v=''; document.querySelectorAll('.hb-hp').forEach(function(i){ if(i.value) v=i.value; }); return v; };
+  window.hbHp = function(){ return ''; };
 })();
 </script>
 </body>

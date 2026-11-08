@@ -319,12 +319,21 @@ export default async (req, context) => {
     if (!daten.kunde.telefon) return json({ ok: false, grund: 'telefon' }, 400);
     const ip = (context && context.ip) || req.headers.get('x-nf-client-connection-ip') || 'unbekannt';
     const grund = spamGrund(body, daten) || ((await zuVieleAnfragen(st, ip)) ? 'zu-viele' : '');
-    if (grund) {
-      /* Bots bekommen ein normales „ok“, damit sie nicht merken, dass sie blockiert sind */
-      await spamMerken(st, grund, daten, ip);
-      return json({ ok: true, id: Date.now().toString(36) + zufall(4) });
-    }
     const id = Date.now().toString(36) + zufall(4);
+    if (grund) {
+      /* Bots bekommen ein normales „ok“, damit sie nicht merken, dass sie blockiert sind.
+         Eindeutiger Müll wird verworfen; bei allem anderen (kein Ticket, zu schnell, zu viele)
+         landet die Anfrage ohne Push im Papierkorb, damit nie eine echte verloren geht. */
+      await spamMerken(st, grund, daten, ip);
+      if (!['datum', 'zufallstext', 'telefon', 'honeypot'].includes(grund)) {
+        await st.setJSON(PREFIX + id, {
+          id, token: zufall(20), erstellt: new Date().toISOString(),
+          status: 'papierkorb', vorherStatus: 'ausstehend', spamGeprueft: true, nr: null, anrede: '', anzahlung: null,
+          ...daten, notiz: 'Spam-Verdacht (' + grund + '), automatisch aussortiert. Falls echt: wiederherstellen.'
+        });
+      }
+      return json({ ok: true, id });
+    }
     const eintrag = {
       id, token: zufall(20), erstellt: new Date().toISOString(),
       status: 'ausstehend', nr: null, anrede: '', notiz: '', anzahlung: null,
