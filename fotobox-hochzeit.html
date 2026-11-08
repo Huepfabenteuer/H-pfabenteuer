@@ -2179,7 +2179,7 @@ document.addEventListener('DOMContentLoaded',function(){
         werbeOk: !!(document.getElementById('werbeOk') && document.getElementById('werbeOk').checked),
         positionen: _posV
       };
-      fetch('/.netlify/functions/anfrage', {method:'POST', keepalive:true, headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'neu', daten:_verw, hp:(window.hbHp ? hbHp() : ''), t0:window.hbT0})}).catch(function(){});
+      fetch('/.netlify/functions/anfrage', {method:'POST', keepalive:true, headers:{'Content-Type':'application/json'}, body: JSON.stringify({action:'neu', daten:_verw, hp:(window.hbHp ? hbHp() : ''), t0:window.hbT0, ft:window.hbFt || ''})}).catch(function(){});
     } catch(e){}
 
 
@@ -2268,6 +2268,8 @@ if(window.hbFrei) hbFrei.watch({datum:'datumFoto', geraet:function(){return 'fot
 <script>
 /* Spam-Schutz: unsichtbares Feld (nur Bots füllen es aus) + Ladezeit */
 (function(){ window.hbT0 = Date.now();
+  function ticket(){ fetch('/.netlify/functions/anfrage?ticket=1', {cache:'no-store'}).then(function(r){ return r.json(); }).then(function(j){ window.hbFt = j.t; }).catch(function(){}); }
+  ticket(); setInterval(ticket, 3 * 3600e3);
   document.querySelectorAll('form').forEach(function(f){
     var w = document.createElement('div'); w.setAttribute('aria-hidden','true');
     w.style.cssText = 'position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden';

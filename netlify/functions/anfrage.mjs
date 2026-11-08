@@ -29,6 +29,7 @@
    die Verwaltung). Gespeichert wird in Netlify Blobs („anfragen“).
    ═══════════════════════════════════════════════════════════════════════ */
 
+import { createHmac, timingSafeEqual } from 'node:crypto';
 import { FIRMA } from '../lib/firma.mjs';
 import { saeubere, summen, waZusage, waAbsage, waNummer, datumKurz, waBewertung, waBewertungErinnerung, geraeteSchluessel, tageDerBuchung, istFix, empfehlungscode, waAnzahlung, KATALOG_STANDARD, saeubereKatalog, fristDatum } from '../lib/anfrage-daten.mjs';
 import { erstelleAngebotPdf } from '../lib/angebot-pdf.mjs';
@@ -154,8 +155,24 @@ function zufallsWort(t) {
     return wechsel >= 3;
   });
 }
+/* Formular-Ticket: die Seite holt sich beim Laden ein signiertes Ticket. Bots, die direkt an die
+   Funktion schicken, haben keins. Gültig ab 3 Sekunden bis 6 Stunden nach dem Laden. */
+function ticketSig(ts) { return createHmac('sha256', 'formticket:' + (process.env.ADMIN_KEY || '')).update(String(ts)).digest('base64url').slice(0, 32); }
+function neuesTicket() { const ts = Date.now(); return ts + '.' + ticketSig(ts); }
+function ticketFehler(t) {
+  if (!process.env.ADMIN_KEY) return '';
+  const m = /^(\d{13})\.([A-Za-z0-9_-]{32})$/.exec(String(t || ''));
+  if (!m) return 'ticket';
+  const a = Buffer.from(m[2]), b = Buffer.from(ticketSig(m[1]));
+  if (a.length !== b.length || !timingSafeEqual(a, b)) return 'ticket';
+  const alter = Date.now() - Number(m[1]);
+  if (alter < 3000) return 'zu-schnell';
+  if (alter > 6 * 3600e3) return 'ticket-alt';
+  return '';
+}
 function spamGrund(body, d, alt) {
   if (body.hp) return 'honeypot';
+  if (!alt) { const tf = ticketFehler(body.ft); if (tf) return tf; }
   const t0 = Number(body.t0);
   if (t0 && Date.now() - t0 < 3000) return 'zu-schnell';
   const max = new Date(); max.setFullYear(max.getFullYear() + 4);
@@ -266,6 +283,9 @@ export default async (req, context) => {
   }
 
   /* ── Belegte Tage für die Formulare (öffentlich) ── */
+  if (req.method === 'GET' && url.searchParams.has('ticket')) {
+    return new Response(JSON.stringify({ ok: true, t: neuesTicket() }), { status: 200, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' } });
+  }
   if (req.method === 'GET' && url.searchParams.has('verfuegbar')) {
     try {
       const st = await store();
